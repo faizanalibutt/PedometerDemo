@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">PedoMeterDemo</string>
-    <string name="add_word">add a word</string>
+    <string name="add_step">add a word</string>
+    <string name="hint_step">Step...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Step not saved because it is empty.</string>
 </resources>

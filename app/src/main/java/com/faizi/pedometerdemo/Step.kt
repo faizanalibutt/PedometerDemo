@@ -4,5 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "step_table")
-data class Step(@PrimaryKey @ColumnInfo(name = "step") val step: String)
+@Entity(tableName = "pedo_table")
+data class Step(@PrimaryKey(autoGenerate = true) val id: Int?,
+                @ColumnInfo(name = "step") val step: Int)

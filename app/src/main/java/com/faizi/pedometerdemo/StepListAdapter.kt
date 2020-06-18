@@ -25,7 +25,7 @@ class StepListAdapter internal constructor(
 
     override fun onBindViewHolder(holder: StepViewHolder, position: Int) {
         val current = steps[position]
-        holder.stepItemView.text = current.step
+        holder.stepItemView.text = current.step.toString()
     }
 
     internal fun setSteps(steps: List<Step>) {
