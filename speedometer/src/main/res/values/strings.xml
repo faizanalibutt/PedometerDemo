@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name_speed">Speedometer</string>
+    <string name="analog">ANALOG</string>
+    <string name="digital">DIGITAL</string>
+    <string name="map">MAP</string>
+    <string name="duration">DURATION</string>
+    <string name="_00_00_00">00:00:00</string>
+    <string name="cycle">CYCLE</string>
+    <string name="car">CAR</string>
+    <string name="train">TRAIN</string>
+    <string name="start_tracking">START TRACKING</string>
+    <string name="title_activity_fast_video_downloader">FastVideoDownloader</string>
+    <string name="km_h">km/h</string>
+    <string name="km">km</string>
+    <string name="max_speed">MAX SPEED</string>
+    <string name="avg_speed">AVG SPEED</string>
+    <string name="distance">DISTANCE</string>
+    <string name="how_fast">How fast?</string>
+    <string name="km_h_c">KM/H</string>
+    <string name="mph_c">MPH</string>
+    <string name="knot_c">KNOT</string>
+    <string name="stop_tracing">STOP TRACING</string>
+</resources>
