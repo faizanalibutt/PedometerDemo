@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.faizi.pedometerdemo.model.Distance;
 import com.faizi.pedometerdemo.util.Logger;
 import com.faizi.pedometerdemo.util.Util;
 
@@ -35,7 +36,7 @@ public class Database extends SQLiteOpenHelper {
 
     public final static String DB_NAME = "steps";
     public final static String TABLE_SPEED = "distance";
-    private final static int DB_VERSION = 2;
+    private final static int DB_VERSION = 1;
 
     private static Database instance;
     private static final AtomicInteger openCounter = new AtomicInteger();
@@ -63,7 +64,7 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(final SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + DB_NAME + " (date INTEGER, steps INTEGER)");
         db.execSQL("CREATE TABLE " + TABLE_SPEED + " (id INTEGER PRIMARY KEY, start_time TEXT, end_time TEXT," +
-                " avg_speed INTEGER, distance INTEGER)");
+                " speed INTEGER, distance INTEGER)");
     }
 
     @Override
@@ -131,7 +132,7 @@ public class Database extends SQLiteOpenHelper {
             c.close();
             if (BuildConfig.DEBUG) {
                 Logger.log("insertDay " + date + " / " + steps);
-                logState();
+                //logState();
             }
             getWritableDatabase().setTransactionSuccessful();
         } finally {
@@ -383,4 +384,19 @@ public class Database extends SQLiteOpenHelper {
         int re = getSteps(-1);
         return re == Integer.MIN_VALUE ? 0 : re;
     }
+
+    /**
+     * save data every time user starts tracking.
+     * */
+    public void saveInterval(Distance distance) {
+        ContentValues values = new ContentValues();
+        values.put("start_time", distance.getStartTime());
+        values.put("end_time", distance.getEndTime());
+        values.put("speed", distance.getSpeed());
+        values.put("distance", distance.getDistance());
+        getWritableDatabase().insert(TABLE_SPEED, null, values);
+    }
+
+
+
 }

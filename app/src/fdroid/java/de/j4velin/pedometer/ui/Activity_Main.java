@@ -59,7 +59,7 @@ public class Activity_Main extends FragmentActivity {
             // Commit the transaction
             transaction.commit();
         }
-        startActivity(new Intent(this, MainSpeedometerActivity.class));
+        //startActivity(new Intent(this, MainSpeedometerActivity.class));
 
         if (BuildConfig.DEBUG && Build.VERSION.SDK_INT >= 23 && PermissionChecker
                 .checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=

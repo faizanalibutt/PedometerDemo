@@ -1,5 +1,6 @@
 package com.faizi.pedometerdemo.util.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.IntentSender;
@@ -106,6 +107,7 @@ public class CurrentLocation {
     }
 
 
+    @SuppressLint("MissingPermission")
     private void requestLocation() {
 
         locationRequest = LocationRequest.create();

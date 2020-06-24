@@ -16,6 +16,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import com.faizi.pedometerdemo.Database
 import com.faizi.pedometerdemo.R
+import com.faizi.pedometerdemo.model.Distance
 /*import com.code4rox.adsmanager.**/
 import com.faizi.pedometerdemo.util.utils.CommonUtils
 import com.faizi.pedometerdemo.util.utils.CurrentLocation
@@ -46,6 +47,7 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
     private var handler: Handler? = null
     private var updateTimerThread: Runnable? = null
     var updatedTime: Long = 0
+    var startTime: Long = 0
     var pausedTime: Long = 0
     var paused = false
     private var mCurrentLocation: Location? = null
@@ -59,6 +61,7 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
     private var isMap: Boolean = false
     private var mMap: GoogleMap? = null
     private var currentLocation: CurrentLocation? = null
+    var distanceObj: Distance? = null
 //    private lateinit var admobUtils: AdmobUtils
 //    private lateinit var facebookAdsUtils: FacebookAdsUtils
 
@@ -70,6 +73,9 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
         setContentView(R.layout.activity_speedometer_main)
         defaultSettings()
 
+        title_toolbar.setOnClickListener {
+            startActivity(Intent(this, SpeedoGraphActivity::class.java))
+        }
 
 //        admobUtils = AdmobUtils(this, this, InterAdsIdType.INTER_AM)
 //        facebookAdsUtils = FacebookAdsUtils(this, this, InterAdsIdType.INTER_FB)
@@ -326,6 +332,7 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
                                 this@MainSpeedometerActivity,
                                 R.drawable.stop_selected_bg
                             )
+                            startTime = System.currentTimeMillis()
                             timerThread()
 
                             currentLocation?.getLocation(this@MainSpeedometerActivity)
@@ -342,6 +349,8 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
                 handler?.removeCallbacks(updateTimerThread)
                 currentLocation?.removeFusedLocationClient()
                 val db = Database.getInstance(this)
+                distanceObj = Distance(startTime, updatedTime, avgSpeed, distance);
+                db.saveInterval(distanceObj)
                 isStop = true
                 updatedTime = 0
                 pausedTime = 0
@@ -461,15 +470,12 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
         handler = Handler()
 
         updateTimerThread = object : Runnable {
-            var startTime = System.currentTimeMillis()
 
             override fun run() {
-
                 updatedTime = System.currentTimeMillis() - startTime
                 val timeInHours = TimeUnit.MILLISECONDS.toHours(updatedTime)
                 duration_txt.text = CommonUtils.getFormatedTimeMHS(updatedTime)
                 handler!!.postDelayed(this, 1000)
-
             }
         }
 
@@ -741,6 +747,7 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
         /*if (!mopubUtils?.showInterstitialAd()!!) {
             finish()
         }*/
+        super.onBackPressed();
 
     }
 

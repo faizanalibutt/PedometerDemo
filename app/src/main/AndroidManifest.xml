@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission
         android:name="android.permission.WAKE_LOCK"
         android:maxSdkVersion="26" />
@@ -23,20 +22,22 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:replace="label">
-
-        <activity
-            android:name="com.faizi.pedometerdemo.ui.MainSpeedometerActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="de.j4velin.pedometer.ui.Activity_Main"
-            android:label="@string/app_name"
-            android:launchMode="singleTask">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.SpeedoGraphActivity" />
+        <activity
+            android:name=".ui.MainSpeedometerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="de.j4velin.pedometer.ui.Activity_Main"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+
         </activity>
 
         <receiver android:name=".BootReceiver">

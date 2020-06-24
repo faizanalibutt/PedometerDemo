@@ -121,7 +121,7 @@ public class Fragment_Overview extends Fragment implements SensorEventListener {
 
         Database db = Database.getInstance(getActivity());
 
-        if (BuildConfig.DEBUG) db.logState();
+        //if (BuildConfig.DEBUG) db.logState();
         // read todays offset
         todayOffset = db.getSteps(Util.getToday());
 
