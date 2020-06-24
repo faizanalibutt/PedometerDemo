@@ -1,3 +1,2 @@
-include ':speedometer'
 include ':app'
 rootProject.name = "PedoMeterDemo"

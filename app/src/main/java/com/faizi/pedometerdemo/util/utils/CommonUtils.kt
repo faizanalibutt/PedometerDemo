@@ -1,17 +1,13 @@
-package com.code4rox.advancespeedometer.utils
+package com.faizi.pedometerdemo.util.utils
 
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.location.Location
-import android.net.Uri
 import android.speech.RecognizerIntent
 
 import android.util.TypedValue
-import androidx.core.content.ContextCompat
-import com.code4rox.advancespeedometer.R
-import com.code4rox.advancespeedometer.model.LocationObject
+import com.faizi.pedometerdemo.model.LocationObject
 
 import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit

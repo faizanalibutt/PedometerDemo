@@ -5,4 +5,20 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="buttonLabel">#FFFFFF</color>
+
+
+    <color name="gray_light">#F5F5F5</color>
+    <color name="gray">#E9E9E9</color>
+    <color name="gray_dark">#C4C4C4</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray_trans">#6D000000</color>
+    <color name="icon_gray">#A1A1A1</color>
+    <color name="indicator_color">#A21717</color>
+    <color name="main_bottom_nav_txt">#91B7F8</color>
+
+    <color name="stop_btn_color">#DD3729</color>
+
+    <color name="main_screen_bg">#E6EBEE</color>
+    <color name="green">#0FB060</color>
 </resources>

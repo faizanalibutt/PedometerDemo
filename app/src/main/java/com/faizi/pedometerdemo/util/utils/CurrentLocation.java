@@ -1,4 +1,4 @@
-package com.code4rox.advancespeedometer.utils;
+package com.faizi.pedometerdemo.util.utils;
 
 import android.app.Activity;
 import android.content.Context;

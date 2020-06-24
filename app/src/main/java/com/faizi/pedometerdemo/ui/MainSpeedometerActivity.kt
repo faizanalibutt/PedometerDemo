@@ -1,4 +1,4 @@
-package com.code4rox.advancespeedometer
+package com.faizi.pedometerdemo.ui
 
 import android.Manifest
 import android.app.Activity
@@ -14,25 +14,27 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
+import com.faizi.pedometerdemo.Database
+import com.faizi.pedometerdemo.R
 /*import com.code4rox.adsmanager.**/
-import com.code4rox.advancespeedometer.utils.CommonUtils
-import com.code4rox.advancespeedometer.utils.CurrentLocation
+import com.faizi.pedometerdemo.util.utils.CommonUtils
+import com.faizi.pedometerdemo.util.utils.CurrentLocation
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.nabinbhandari.android.permissions.PermissionHandler
-import com.nabinbhandari.android.permissions.Permissions
+import com.nabinbhandari.android.permissions.Permissions.check
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
+
 import kotlinx.android.synthetic.main.activity_speedometer_main.*
 import kotlinx.android.synthetic.main.toolbar_layout_meter.*
+import java.security.Permissions
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 
 
-class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
+open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*/
     CurrentLocation.LocationResultListener
 /*, FacebookAdsUtils.FacebookInterstitialListner, AdmobUtils.AdmobInterstitialListener*/ {
 
@@ -125,17 +127,33 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
 //        mopubUtils?.loadBannerAd(banner_ad_view)
         cycle_btn.setOnClickListener {
 
-            cycle_btn.background = ContextCompat.getDrawable(this, R.drawable.selected_bg)
-            car_btn.background = ContextCompat.getDrawable(this, R.drawable.non_selected_bg)
-            train_btn.background = ContextCompat.getDrawable(this, R.drawable.non_selected_bg)
+            cycle_btn.background = ContextCompat.getDrawable(this,
+                R.drawable.selected_bg
+            )
+            car_btn.background = ContextCompat.getDrawable(this,
+                R.drawable.non_selected_bg
+            )
+            train_btn.background = ContextCompat.getDrawable(this,
+                R.drawable.non_selected_bg
+            )
 
-            cycle_img.setColorFilter(ContextCompat.getColor(this, R.color.white));
-            car_img.setColorFilter(ContextCompat.getColor(this, R.color.icon_gray));
-            train_img.setColorFilter(ContextCompat.getColor(this, R.color.icon_gray));
+            cycle_img.setColorFilter(ContextCompat.getColor(this,
+                R.color.white
+            ));
+            car_img.setColorFilter(ContextCompat.getColor(this,
+                R.color.icon_gray
+            ));
+            train_img.setColorFilter(ContextCompat.getColor(this,
+                R.color.icon_gray
+            ));
 
             cycle_txt.setTextColor(Color.WHITE)
-            car_txt.setTextColor(ContextCompat.getColor(this, R.color.icon_gray))
-            train_txt.setTextColor(ContextCompat.getColor(this, R.color.icon_gray))
+            car_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.icon_gray
+            ))
+            train_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.icon_gray
+            ))
 
 
             vehicle = "cycle"
@@ -143,17 +161,33 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
         }
         car_btn.setOnClickListener {
 
-            cycle_btn.background = ContextCompat.getDrawable(this, R.drawable.non_selected_bg)
-            car_btn.background = ContextCompat.getDrawable(this, R.drawable.selected_bg)
-            train_btn.background = ContextCompat.getDrawable(this, R.drawable.non_selected_bg)
+            cycle_btn.background = ContextCompat.getDrawable(this,
+                R.drawable.non_selected_bg
+            )
+            car_btn.background = ContextCompat.getDrawable(this,
+                R.drawable.selected_bg
+            )
+            train_btn.background = ContextCompat.getDrawable(this,
+                R.drawable.non_selected_bg
+            )
 
-            cycle_txt.setTextColor(ContextCompat.getColor(this, R.color.icon_gray))
+            cycle_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.icon_gray
+            ))
             car_txt.setTextColor(Color.WHITE)
-            train_txt.setTextColor(ContextCompat.getColor(this, R.color.icon_gray))
+            train_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.icon_gray
+            ))
 
-            cycle_img.setColorFilter(ContextCompat.getColor(this, R.color.icon_gray));
-            car_img.setColorFilter(ContextCompat.getColor(this, R.color.white));
-            train_img.setColorFilter(ContextCompat.getColor(this, R.color.icon_gray));
+            cycle_img.setColorFilter(ContextCompat.getColor(this,
+                R.color.icon_gray
+            ));
+            car_img.setColorFilter(ContextCompat.getColor(this,
+                R.color.white
+            ));
+            train_img.setColorFilter(ContextCompat.getColor(this,
+                R.color.icon_gray
+            ));
 
 
             vehicle = "car"
@@ -162,16 +196,32 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
         }
         train_btn.setOnClickListener {
 
-            cycle_btn.background = ContextCompat.getDrawable(this, R.drawable.non_selected_bg)
-            car_btn.background = ContextCompat.getDrawable(this, R.drawable.non_selected_bg)
-            train_btn.background = ContextCompat.getDrawable(this, R.drawable.selected_bg)
+            cycle_btn.background = ContextCompat.getDrawable(this,
+                R.drawable.non_selected_bg
+            )
+            car_btn.background = ContextCompat.getDrawable(this,
+                R.drawable.non_selected_bg
+            )
+            train_btn.background = ContextCompat.getDrawable(this,
+                R.drawable.selected_bg
+            )
 
-            cycle_img.setColorFilter(ContextCompat.getColor(this, R.color.icon_gray));
-            car_img.setColorFilter(ContextCompat.getColor(this, R.color.icon_gray));
-            train_img.setColorFilter(ContextCompat.getColor(this, R.color.white));
+            cycle_img.setColorFilter(ContextCompat.getColor(this,
+                R.color.icon_gray
+            ));
+            car_img.setColorFilter(ContextCompat.getColor(this,
+                R.color.icon_gray
+            ));
+            train_img.setColorFilter(ContextCompat.getColor(this,
+                R.color.white
+            ));
 
-            cycle_txt.setTextColor(ContextCompat.getColor(this, R.color.icon_gray))
-            car_txt.setTextColor(ContextCompat.getColor(this, R.color.icon_gray))
+            cycle_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.icon_gray
+            ))
+            car_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.icon_gray
+            ))
             train_txt.setTextColor(Color.WHITE)
 
             vehicle = "train"
@@ -180,9 +230,15 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
         }
         analog_txt.setOnClickListener {
 
-            analog_txt.setTextColor(ContextCompat.getColor(this, R.color.white))
-            digi_txt.setTextColor(ContextCompat.getColor(this, R.color.main_bottom_nav_txt))
-            map_txt.setTextColor(ContextCompat.getColor(this, R.color.main_bottom_nav_txt))
+            analog_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.white
+            ))
+            digi_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.main_bottom_nav_txt
+            ))
+            map_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.main_bottom_nav_txt
+            ))
             title_toolbar.text = "Speedometer (Analog)"
 
             digi_speed_meter.visibility = View.GONE
@@ -195,9 +251,15 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
         }
         digi_txt.setOnClickListener {
 
-            analog_txt.setTextColor(ContextCompat.getColor(this, R.color.main_bottom_nav_txt))
-            digi_txt.setTextColor(ContextCompat.getColor(this, R.color.white))
-            map_txt.setTextColor(ContextCompat.getColor(this, R.color.main_bottom_nav_txt))
+            analog_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.main_bottom_nav_txt
+            ))
+            digi_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.white
+            ))
+            map_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.main_bottom_nav_txt
+            ))
             digi_speed_meter.visibility = View.VISIBLE
             title_toolbar.text = "Speedometer (Digital)"
 
@@ -209,12 +271,18 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
 
         }
         map_txt.setOnClickListener {
-            analog_txt.setTextColor(ContextCompat.getColor(this, R.color.main_bottom_nav_txt))
-            digi_txt.setTextColor(ContextCompat.getColor(this, R.color.main_bottom_nav_txt))
-            map_txt.setTextColor(ContextCompat.getColor(this, R.color.white))
-            val mapFragment =
+            analog_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.main_bottom_nav_txt
+            ))
+            digi_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.main_bottom_nav_txt
+            ))
+            map_txt.setTextColor(ContextCompat.getColor(this,
+                R.color.white
+            ))
+            /*val mapFragment =
                 supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-            mapFragment!!.getMapAsync(this)
+            mapFragment!!.getMapAsync(this)*/
             title_toolbar.text = "Speedometer (Map)"
 
             map_layout.visibility = View.VISIBLE
@@ -240,10 +308,10 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
 
                 val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
                 val rationale = "Please provide location permission..."
-                val options = Permissions.Options().setRationaleDialogTitle("Info")
+                val options = com.nabinbhandari.android.permissions.Permissions.Options().setRationaleDialogTitle("Info")
                     .setSettingsDialogTitle("Warning")
 
-                Permissions.check(
+                check(
                     this@MainSpeedometerActivity,
                     permissions,
                     rationale,
@@ -255,7 +323,8 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
                             loading_layout.visibility = View.VISIBLE
                             start_btn.text = getString(R.string.stop_tracing)
                             start_btn.background = ContextCompat.getDrawable(
-                                this@MainSpeedometerActivity, R.drawable.stop_selected_bg
+                                this@MainSpeedometerActivity,
+                                R.drawable.stop_selected_bg
                             )
                             timerThread()
 
@@ -266,10 +335,13 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
 
             } else {
                 start_btn.text = getString(R.string.start_tracking)
-                start_btn.background = ContextCompat.getDrawable(this, R.drawable.selected_bg)
+                start_btn.background = ContextCompat.getDrawable(this,
+                    R.drawable.selected_bg
+                )
 
                 handler?.removeCallbacks(updateTimerThread)
-                currentLocation?.removeFusedLocationClient();
+                currentLocation?.removeFusedLocationClient()
+                val db = Database.getInstance(this)
                 isStop = true
                 updatedTime = 0
                 pausedTime = 0
@@ -321,12 +393,12 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
         }
     }
 
-    override fun onMapReady(p0: GoogleMap?) {
+    /*override fun onMapReady(p0: GoogleMap?) {
 
         mMap = p0
         mMap?.isMyLocationEnabled = true
 
-    }
+    }*/
 
     private fun defaultSettings() {
 
@@ -478,7 +550,8 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
                         speedometer.setTicks(0F, 20F, 40F, 60F, 80F, 100F, 120F, 140F, 160F, 180F)
                         speedometer.setImageSpeedometer(
                             ContextCompat.getDrawable(
-                                this, R.drawable.kmph
+                                this,
+                                R.drawable.kmph
                             )
                         )
                     }
@@ -489,7 +562,8 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
 //                        speedometer.setTicks(0F, 10F, 20F, 30F, 40F, 50F, 60F, 70F, 80F, 90F)
                         speedometer.setImageSpeedometer(
                             ContextCompat.getDrawable(
-                                this, R.drawable.mph
+                                this,
+                                R.drawable.mph
                             )
                         )
 
@@ -501,7 +575,8 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
 //                        speedometer.setTicks(0F, 7F, 14F, 21F, 28F, 35F, 42F, 49F, 56F, 63F)
                         speedometer.setImageSpeedometer(
                             ContextCompat.getDrawable(
-                                this, R.drawable.knot
+                                this,
+                                R.drawable.knot
                             )
                         )
 
@@ -520,7 +595,8 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
 //                        speedometer.setTicks(0F, 8F, 16F, 24F, 32F, 40F, 48F, 56F, 64F, 72F)
                         speedometer.setImageSpeedometer(
                             ContextCompat.getDrawable(
-                                this, R.drawable.c_kmph
+                                this,
+                                R.drawable.c_kmph
                             )
                         )
 
@@ -533,7 +609,8 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
 //                        speedometer.setTicks(0F, 4F, 8F, 12F, 16F, 20F, 24F, 28F, 32F, 36F)
                         speedometer.setImageSpeedometer(
                             ContextCompat.getDrawable(
-                                this, R.drawable.c_mph
+                                this,
+                                R.drawable.c_mph
                             )
                         )
 
@@ -546,7 +623,8 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
 //                        speedometer.setTicks(0F, 3F, 6F, 9F, 12F, 15F, 18F, 21F, 24F, 27F)
                         speedometer.setImageSpeedometer(
                             ContextCompat.getDrawable(
-                                this, R.drawable.c_knot
+                                this,
+                                R.drawable.c_knot
                             )
                         )
 
@@ -563,7 +641,8 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
 //                        speedometer.setTicks(0F, 40F, 80F, 120F, 160F, 200F, 240F, 280F, 320F, 360F)
                         speedometer.setImageSpeedometer(
                             ContextCompat.getDrawable(
-                                this, R.drawable.t_kmph
+                                this,
+                                R.drawable.t_kmph
                             )
                         )
 
@@ -576,7 +655,8 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
 //                        speedometer.setTicks(0F, 20F, 40F, 60F, 80F, 100F, 120F, 140F, 160F, 180F)
                         speedometer.setImageSpeedometer(
                             ContextCompat.getDrawable(
-                                this, R.drawable.t_mph
+                                this,
+                                R.drawable.t_mph
                             )
                         )
 
@@ -589,7 +669,8 @@ class MainSpeedometerActivity : AppCompatActivity(), OnMapReadyCallback,
 //                        speedometer.setTicks(0F, 10F, 20F, 30F, 40F, 50F, 60F, 70F, 80F, 90F)
                         speedometer.setImageSpeedometer(
                             ContextCompat.getDrawable(
-                                this, R.drawable.t_knot
+                                this,
+                                R.drawable.t_knot
                             )
                         )
 
