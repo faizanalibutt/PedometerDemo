@@ -1,4 +1,4 @@
-package com.faizi.pedometerdemo.util.utils
+package com.faizi.pedometerdemo.util
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -32,14 +32,18 @@ class CommonUtils {
             var totalSpeed = 0f
             for (location in locationList)
                 totalSpeed += location.speed
-            return getDecimalString((totalSpeed / locationList.size).toDouble())
+            return getDecimalString(
+                (totalSpeed / locationList.size).toDouble()
+            )
         }
 
         fun getTopSpeed(locationList: List<LocationObject>): String? {
             var speed = 0f
             for (location in locationList)
                 if (speed < location.speed) speed = location.speed
-            return getDecimalString(speed.toDouble())
+            return getDecimalString(
+                speed.toDouble()
+            )
         }
 
         fun getFormatedTimeMH(millis: Long): String = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
@@ -77,7 +81,10 @@ class CommonUtils {
 
 
         fun complain(context: Context, message: String) {
-            alert(context, "Error: " + message)
+            alert(
+                context,
+                "Error: " + message
+            )
         }
 
         fun alert(context: Context, message: String) {

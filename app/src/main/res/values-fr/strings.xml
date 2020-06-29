@@ -60,4 +60,5 @@
     <string name="ispaused">Podomètre en pause</string>
     <string name="pause_on_power_title">Pause prendant la charge</string>
     <string name="pause_on_power_summary">Stopper Podomètre pendant la charge du périphérique</string>
+    <string name="butn_start">Start</string>
 </resources>

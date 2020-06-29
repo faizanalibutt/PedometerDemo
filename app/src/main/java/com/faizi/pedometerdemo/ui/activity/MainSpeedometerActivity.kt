@@ -1,4 +1,4 @@
-package com.faizi.pedometerdemo.ui
+package com.faizi.pedometerdemo.ui.activity
 
 import android.Manifest
 import android.app.Activity
@@ -18,8 +18,8 @@ import com.faizi.pedometerdemo.Database
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.model.Distance
 /*import com.code4rox.adsmanager.**/
-import com.faizi.pedometerdemo.util.utils.CommonUtils
-import com.faizi.pedometerdemo.util.utils.CurrentLocation
+import com.faizi.pedometerdemo.util.CommonUtils
+import com.faizi.pedometerdemo.util.CurrentLocation
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CameraPosition
@@ -30,7 +30,6 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 import kotlinx.android.synthetic.main.activity_speedometer_main.*
 import kotlinx.android.synthetic.main.toolbar_layout_meter.*
-import java.security.Permissions
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 

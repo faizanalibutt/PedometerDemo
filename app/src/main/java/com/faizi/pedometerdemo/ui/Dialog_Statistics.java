@@ -30,7 +30,7 @@ import com.faizi.pedometerdemo.Database;
 import com.faizi.pedometerdemo.R;
 import com.faizi.pedometerdemo.util.Util;
 
-abstract class Dialog_Statistics {
+public abstract class Dialog_Statistics {
 
 	public static Dialog getDialog(final Context c, int since_boot) {
 		final Dialog d = new Dialog(c);

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.SplashActivity">
+
+    <FrameLayout
+        android:id="@+id/adGroup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/skipText"
+        style="@style/TextAppearance.Secondary.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#909090"
+        android:padding="@dimen/dp_5"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/adGroup"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <ImageView
+        android:id="@+id/appIconsplash"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/margin_medium_size"
+        android:contentDescription="@string/app_name"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="@+id/adGroup"
+        app:layout_constraintStart_toStartOf="@+id/adGroup"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_start"
+        app:srcCompat="@drawable/img_icon_title" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small_size"
+        android:layout_marginTop="@dimen/margin_medium_size"
+        android:layout_marginEnd="@dimen/margin_small_size"
+        app:layout_constraintEnd_toEndOf="@+id/adGroup"
+        app:layout_constraintStart_toStartOf="@+id/adGroup"
+        app:layout_constraintTop_toBottomOf="@+id/appIconsplash" />
+
+    <include layout="@layout/layout_gdp_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

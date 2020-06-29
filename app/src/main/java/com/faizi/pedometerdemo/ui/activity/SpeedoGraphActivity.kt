@@ -1,4 +1,4 @@
-package com.faizi.pedometerdemo.ui
+package com.faizi.pedometerdemo.ui.activity
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.faizi.pedometerdemo.Database
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.model.Distance
+import com.faizi.pedometerdemo.ui.Dialog_Statistics
 import org.eazegraph.lib.charts.BarChart
 import org.eazegraph.lib.models.BarModel
 

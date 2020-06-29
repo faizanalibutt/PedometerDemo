@@ -33,7 +33,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.faizi.pedometerdemo.ui.MainSpeedometerActivity;
 import com.faizi.pedometerdemo.BuildConfig;
 import com.faizi.pedometerdemo.R;
 import com.faizi.pedometerdemo.SensorListener;

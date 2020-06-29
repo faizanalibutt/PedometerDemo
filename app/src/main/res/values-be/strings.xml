@@ -58,4 +58,5 @@
     <string name="no_sensor_explain">Гэтае прыкладанне патрабуе адмысловы апаратны датчык крокаў, якога няма на вашай прыладзе. Гэтае прыкладанне не будзе працаваць на вашай прыладзе.</string>
     <string name="permission_external_storage">Няма дазволу для доступу да знешняга сховішча</string>
     <string name="notification_settings">Налады абвестак</string>
+    <string name="butn_start">Start</string>
 </resources>

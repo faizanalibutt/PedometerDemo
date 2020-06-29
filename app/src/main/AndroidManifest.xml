@@ -22,22 +22,34 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:replace="label">
-        <activity android:name=".ui.MainActivity">
+
+        <activity android:name=".ui.activity.SettingsActivity" />
+
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.SpeedoGraphActivity" />
+
+        <activity android:name=".ui.activity.SpeedoGraphActivity" />
+
         <activity
-            android:name=".ui.MainSpeedometerActivity"
+            android:name=".ui.activity.MainSpeedometerActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name="de.j4velin.pedometer.ui.Activity_Main"
             android:label="@string/app_name"
             android:launchMode="singleTask">
-
         </activity>
 
         <receiver android:name=".BootReceiver">
@@ -45,6 +57,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <receiver android:name=".AppUpdatedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
@@ -52,6 +65,7 @@
         </receiver>
 
         <service android:name=".SensorListener" />
+
         <service
             android:name=".widget.DashClock"
             android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">

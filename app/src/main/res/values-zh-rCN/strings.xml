@@ -39,4 +39,5 @@
     <string name="notification_title">Pedometer 正在记步</string>
     <string name="your_progress_will_be_shown_here_soon">您的进度很快会在这显示</string>
     <string name="average">每日</string>
+    <string name="butn_start">Start</string>
 </resources>

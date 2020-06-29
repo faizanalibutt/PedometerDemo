@@ -1,4 +1,4 @@
-package com.faizi.pedometerdemo.util.utils;
+package com.faizi.pedometerdemo.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

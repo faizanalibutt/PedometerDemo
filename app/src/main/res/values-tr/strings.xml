@@ -82,4 +82,5 @@
         donanıma ihtiyaç duyar. Bu uygulama cihazınız çalışmayacak.
     </string>
     <string name="permission_external_storage">Harici depolama alanına erişim izni yok</string>
+    <string name="butn_start">Start</string>
 </resources>

@@ -58,5 +58,6 @@
     <string name="ispaused">Pedometer 目前暫停中</string>
     <string name="pause_on_power_title">充電時暫停計步</string>
     <string name="pause_on_power_summary">Pedometer 會在充電時暫停計步</string>
+    <string name="butn_start">Start</string>
 
 </resources>
