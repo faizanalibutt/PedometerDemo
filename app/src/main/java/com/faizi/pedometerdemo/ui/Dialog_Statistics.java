@@ -28,6 +28,7 @@ import java.util.Date;
 
 import com.faizi.pedometerdemo.Database;
 import com.faizi.pedometerdemo.R;
+import com.faizi.pedometerdemo.ui.fragment.PedoMeterFragment;
 import com.faizi.pedometerdemo.util.Util;
 
 public abstract class Dialog_Statistics {
@@ -59,14 +60,14 @@ public abstract class Dialog_Statistics {
 		int thisMonth = db.getSteps(date.getTimeInMillis(), System.currentTimeMillis()) + since_boot;
 
 		((TextView) d.findViewById(R.id.record)).setText(
-                Fragment_Overview.formatter.format(record.second) + " @ "
+                PedoMeterFragment.formatter.format(record.second) + " @ "
 				+ java.text.DateFormat.getDateInstance().format(record.first));
 
-		((TextView) d.findViewById(R.id.totalthisweek)).setText(Fragment_Overview.formatter.format(thisWeek));
-		((TextView) d.findViewById(R.id.totalthismonth)).setText(Fragment_Overview.formatter.format(thisMonth));
+		((TextView) d.findViewById(R.id.totalthisweek)).setText(PedoMeterFragment.formatter.format(thisWeek));
+		((TextView) d.findViewById(R.id.totalthismonth)).setText(PedoMeterFragment.formatter.format(thisMonth));
 
-		((TextView) d.findViewById(R.id.averagethisweek)).setText(Fragment_Overview.formatter.format(thisWeek / 7));
-		((TextView) d.findViewById(R.id.averagethismonth)).setText(Fragment_Overview.formatter.format(thisMonth / daysThisMonth));
+		((TextView) d.findViewById(R.id.averagethisweek)).setText(PedoMeterFragment.formatter.format(thisWeek / 7));
+		((TextView) d.findViewById(R.id.averagethismonth)).setText(PedoMeterFragment.formatter.format(thisMonth / daysThisMonth));
 		
 		db.close();
 		

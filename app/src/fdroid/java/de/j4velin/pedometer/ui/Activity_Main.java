@@ -36,8 +36,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.faizi.pedometerdemo.BuildConfig;
 import com.faizi.pedometerdemo.R;
 import com.faizi.pedometerdemo.SensorListener;
-import com.faizi.pedometerdemo.ui.Fragment_Overview;
-import com.faizi.pedometerdemo.ui.Fragment_Settings;
+import com.faizi.pedometerdemo.ui.fragment.PedoMeterFragment;
+import com.faizi.pedometerdemo.ui.fragment.Fragment_Settings;
 
 public class Activity_Main extends FragmentActivity {
 
@@ -47,7 +47,7 @@ public class Activity_Main extends FragmentActivity {
         startService(new Intent(this, SensorListener.class));
         if (b == null) {
             // Create new fragment and transaction
-            Fragment newFragment = new Fragment_Overview();
+            Fragment newFragment = new PedoMeterFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
             // Replace whatever is in the fragment_container view with this

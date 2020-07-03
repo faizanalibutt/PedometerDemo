@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.DigitalFragment">
+
+    <View
+        android:id="@+id/popup_units"
+        android:layout_width="75dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="@dimen/dp_48"
+        android:background="@drawable/background_popup_units"
+        app:layout_constraintBottom_toTopOf="@+id/speedometer_digi_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vehicle_view" />
+
+    <ImageView
+        android:id="@+id/img_1"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:contentDescription="@string/kmh"
+        app:layout_constraintBottom_toBottomOf="@+id/popup_units"
+        app:layout_constraintEnd_toEndOf="@+id/popup_units"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="@id/popup_units"
+        app:srcCompat="@drawable/ic_shape_10_copy" />
+
+    <TextView
+        android:id="@+id/textView6"
+        style="@style/TextAppearance.Primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/kmh"
+        app:layout_constraintBottom_toBottomOf="@+id/popup_units"
+        app:layout_constraintEnd_toStartOf="@+id/img_1"
+        app:layout_constraintStart_toStartOf="@+id/popup_units"
+        app:layout_constraintTop_toTopOf="@id/popup_units" />
+
+    <View
+        android:id="@+id/vehicle_view"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/margin_xmedium_size"
+        android:layout_marginTop="@dimen/margin_small_size"
+        android:layout_marginEnd="@dimen/margin_xmedium_size"
+        android:layout_marginBottom="@dimen/margin_standard_size"
+        android:background="@drawable/background_vehicle_view"
+        app:layout_constraintBottom_toTopOf="@+id/speedometer_digi_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ImageView
+        android:id="@+id/cycle_view"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contentDescription="@string/text_speedo"
+        app:layout_constraintBottom_toBottomOf="@+id/vehicle_view"
+        app:layout_constraintEnd_toStartOf="@+id/v11"
+        app:layout_constraintStart_toStartOf="@+id/vehicle_view"
+        app:layout_constraintTop_toTopOf="@+id/vehicle_view"
+        app:srcCompat="@drawable/ic_shape_1940_copy" />
+
+    <ImageView
+        android:id="@+id/car_view"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contentDescription="@string/text_speedo"
+        app:layout_constraintBottom_toBottomOf="@+id/vehicle_view"
+        app:layout_constraintEnd_toStartOf="@+id/v12"
+        app:layout_constraintStart_toEndOf="@+id/v11"
+        app:layout_constraintTop_toTopOf="@+id/vehicle_view"
+        app:srcCompat="@drawable/ic_shape_1941_copy_2" />
+
+    <ImageView
+        android:id="@+id/bus_view"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contentDescription="@string/text_speedo"
+        app:layout_constraintBottom_toBottomOf="@+id/vehicle_view"
+        app:layout_constraintEnd_toEndOf="@+id/vehicle_view"
+        app:layout_constraintStart_toEndOf="@+id/v12"
+        app:layout_constraintTop_toTopOf="@+id/vehicle_view"
+        app:srcCompat="@drawable/ic_shape_1942_copy_2" />
+
+    <View
+        android:id="@+id/v11"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="#36000000"
+        app:layout_constraintBottom_toBottomOf="@+id/car_view"
+        app:layout_constraintEnd_toStartOf="@+id/car_view"
+        app:layout_constraintStart_toEndOf="@+id/cycle_view"
+        app:layout_constraintTop_toTopOf="@+id/car_view" />
+
+    <View
+        android:id="@+id/v12"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/color_pedo_view_units_bar"
+        app:layout_constraintBottom_toBottomOf="@+id/car_view"
+        app:layout_constraintEnd_toStartOf="@+id/bus_view"
+        app:layout_constraintStart_toEndOf="@+id/car_view"
+        app:layout_constraintTop_toTopOf="@+id/car_view" />
+    
+    <View
+        android:id="@+id/speedometer_digi_view"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="@dimen/margin_smallest_size"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/start_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vehicle_view" />
+
+    <TextView
+        android:id="@+id/digi_speed_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:text="0"
+        android:textColor="@android:color/black"
+        android:textSize="85dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/speedometer_digi_view"
+        app:layout_constraintEnd_toEndOf="@+id/speedometer_digi_view"
+        app:layout_constraintStart_toStartOf="@+id/speedometer_digi_view"
+        app:layout_constraintTop_toTopOf="@+id/speedometer_digi_view" />
+
+
+    <TextView
+        android:id="@+id/digi_type_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/km_h_c"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/digi_speed_txt"
+        app:layout_constraintStart_toEndOf="@+id/digi_speed_txt"
+        app:layout_constraintTop_toTopOf="@+id/digi_speed_txt"
+        app:layout_constraintVertical_bias="0.80" />
+
+    <View
+        android:id="@+id/start_btn"
+        android:layout_width="130dp"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/margin_absolute_size"
+        android:layout_marginBottom="@dimen/margin_standard_size"
+        android:background="@drawable/background_start_btn"
+        app:layout_constraintBottom_toTopOf="@+id/kal_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/speedometer_digi_view" />
+
+    <TextView
+        android:id="@+id/txt"
+        style="@style/TextAppearance.Secondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_resume"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/start_btn"
+        app:layout_constraintEnd_toEndOf="@+id/start_btn"
+        app:layout_constraintHorizontal_bias="0.70"
+        app:layout_constraintStart_toStartOf="@+id/start_btn"
+        app:layout_constraintTop_toTopOf="@+id/start_btn"
+        app:layout_constraintVertical_bias="0.50" />
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/text_resume"
+        app:layout_constraintBottom_toBottomOf="@+id/start_btn"
+        app:layout_constraintEnd_toStartOf="@+id/txt"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="@+id/start_btn"
+        app:layout_constraintTop_toTopOf="@+id/start_btn"
+        app:srcCompat="@drawable/ic_shape_569" />
+
+    <View
+        android:id="@+id/kal_view"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/margin_standard_size"
+        app:layout_constraintBottom_toTopOf="@+id/ad_container"
+        app:layout_constraintEnd_toStartOf="@+id/v2"
+        app:layout_constraintStart_toEndOf="@+id/v1"
+        app:layout_constraintTop_toBottomOf="@+id/start_btn" />
+
+    <ImageView
+        android:id="@+id/icon1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/text_kcal"
+        app:layout_constraintEnd_toEndOf="@+id/kal_view"
+        app:layout_constraintStart_toStartOf="@+id/kal_view"
+        app:layout_constraintTop_toTopOf="@+id/kal_view"
+        app:srcCompat="@drawable/ic_shape_567_copy" />
+
+    <TextView
+        android:id="@+id/kal_value"
+        style="@style/TextAppearance.Primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_smaller_size"
+        android:text="200"
+        app:layout_constraintEnd_toEndOf="@+id/icon1"
+        app:layout_constraintStart_toStartOf="@+id/icon1"
+        app:layout_constraintTop_toBottomOf="@+id/icon1" />
+
+    <TextView
+        android:id="@+id/text2"
+        style="@style/TextAppearance.Secondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:text="@string/text_kcal"
+        app:layout_constraintEnd_toEndOf="@+id/icon1"
+        app:layout_constraintStart_toStartOf="@+id/icon1"
+        app:layout_constraintTop_toBottomOf="@+id/kal_value" />
+
+    <View
+        android:id="@+id/time_view"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/margin_smaller_size"
+        app:layout_constraintBottom_toBottomOf="@+id/kal_view"
+        app:layout_constraintEnd_toStartOf="@+id/v1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/kal_view" />
+
+    <ImageView
+        android:id="@+id/icon2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/text_kcal"
+        app:layout_constraintEnd_toEndOf="@+id/time_view"
+        app:layout_constraintStart_toStartOf="@+id/time_view"
+        app:layout_constraintTop_toTopOf="@+id/time_view"
+        app:srcCompat="@drawable/ic_shape_566_copy" />
+
+    <TextView
+        android:id="@+id/time_value"
+        style="@style/TextAppearance.Primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_smaller_size"
+        android:text="2:45"
+        app:layout_constraintEnd_toEndOf="@+id/icon2"
+        app:layout_constraintStart_toStartOf="@+id/icon2"
+        app:layout_constraintTop_toBottomOf="@+id/icon2" />
+
+    <TextView
+        android:id="@+id/text3"
+        style="@style/TextAppearance.Secondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:text="@string/text_time"
+        app:layout_constraintEnd_toEndOf="@+id/icon2"
+        app:layout_constraintStart_toStartOf="@+id/icon2"
+        app:layout_constraintTop_toBottomOf="@+id/time_value" />
+
+    <View
+        android:id="@+id/distance_view"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/dp_5"
+        android:layout_marginEnd="@dimen/margin_smaller_size"
+        app:layout_constraintBottom_toBottomOf="@+id/kal_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toEndOf="@+id/v2"
+        app:layout_constraintTop_toTopOf="@+id/kal_view" />
+
+    <ImageView
+        android:id="@+id/icon3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/text_kcal"
+        app:layout_constraintEnd_toEndOf="@+id/distance_view"
+        app:layout_constraintStart_toStartOf="@+id/distance_view"
+        app:layout_constraintTop_toTopOf="@+id/distance_view"
+        app:srcCompat="@drawable/ic_shape_568_copy" />
+
+    <TextView
+        android:id="@+id/distance_value"
+        style="@style/TextAppearance.Primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_smaller_size"
+        android:text="3.18"
+        app:layout_constraintEnd_toEndOf="@+id/icon3"
+        app:layout_constraintStart_toStartOf="@+id/icon3"
+        app:layout_constraintTop_toBottomOf="@+id/icon3" />
+
+    <TextView
+        android:id="@+id/text4"
+        style="@style/TextAppearance.Secondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:text="@string/text_miles"
+        app:layout_constraintEnd_toEndOf="@+id/icon3"
+        app:layout_constraintStart_toStartOf="@+id/icon3"
+        app:layout_constraintTop_toBottomOf="@+id/distance_value" />
+
+    <View
+        android:id="@+id/v1"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_smaller_size"
+        android:background="#36000000"
+        app:layout_constraintBottom_toTopOf="@+id/text2"
+        app:layout_constraintEnd_toStartOf="@+id/kal_view"
+        app:layout_constraintStart_toEndOf="@+id/time_value"
+        app:layout_constraintTop_toBottomOf="@+id/icon1" />
+
+    <View
+        android:id="@+id/v2"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/color_pedo_view_units_bar"
+        app:layout_constraintBottom_toTopOf="@+id/text2"
+        app:layout_constraintEnd_toStartOf="@+id/kal_view"
+        app:layout_constraintStart_toEndOf="@+id/distance_view"
+        app:layout_constraintTop_toBottomOf="@+id/icon1" />
+
+    <FrameLayout
+        android:id="@+id/ad_container"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/kal_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

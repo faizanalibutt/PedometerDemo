@@ -8,6 +8,11 @@ import com.faizi.pedometerdemo.Database
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.model.Distance
 import com.faizi.pedometerdemo.ui.Dialog_Statistics
+import com.faizi.pedometerdemo.ui.ViewPagerAdapter
+import com.faizi.pedometerdemo.ui.fragment.DetailReportFragment
+import com.faizi.pedometerdemo.ui.fragment.PedoMeterFragment
+import com.faizi.pedometerdemo.ui.fragment.ReportFragment
+import kotlinx.android.synthetic.main.activity_pedometer.*
 import org.eazegraph.lib.charts.BarChart
 import org.eazegraph.lib.models.BarModel
 
@@ -24,7 +29,17 @@ class SpeedoGraphActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_speedo_graph)
 
-        val barChart = findViewById<BarChart>(R.id.bargraph)
+        val adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter.addFragment(DetailReportFragment("today"), "TODAY")
+        adapter.addFragment(DetailReportFragment("week"), "LAST WEEk")
+        viewPager.adapter = adapter
+        tabView.setupWithViewPager(viewPager)
+
+        nav_back.setOnClickListener {
+            finish()
+        }
+
+        /*val barChart = findViewById<BarChart>(R.id.bargraph)
         if (barChart.data.size > 0) barChart.clearChart()
 
         var bm: BarModel
@@ -56,6 +71,7 @@ class SpeedoGraphActivity : AppCompatActivity() {
             barChart.startAnimation()
         } else {
             barChart.visibility = View.GONE
-        }
+        }*/
+
     }
 }

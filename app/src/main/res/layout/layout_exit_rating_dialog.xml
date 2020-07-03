@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_start_btn"
+    android:paddingStart="@dimen/dp_18"
+    android:paddingTop="@dimen/dp_18"
+    android:paddingEnd="@dimen/dp_18">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/dp_5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/dp_5" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/rating_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="fl_adplaceholder, rate_exit_ads_view" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/rate_exit_ads_view"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+        app:layout_constraintStart_toEndOf="@+id/guideline_start"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/colorPrimary" />
+
+    <FrameLayout
+        android:id="@+id/fl_adplaceholder"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+        app:layout_constraintStart_toEndOf="@+id/guideline_start"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--
+    use it when you can
+    android:layout_marginStart="@dimen/margin_small_size"
+        android:layout_marginEnd="@dimen/margin_small_size"
+    -->
+
+    <TextView
+        android:id="@+id/dialog_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_absolute_size"
+        android:text="@string/rate_us_desc"
+        android:textColor="@color/black_gray"
+        android:textSize="@dimen/font_size_primary_normal"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+        app:layout_constraintStart_toEndOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/fl_adplaceholder" />
+
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        android:id="@+id/rating_bar_value"
+        style="@style/Widget.MaterialRatingBar.RatingBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small_size"
+        android:maxHeight="40dp"
+        android:minHeight="40dp"
+        android:numStars="5"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:progressBackgroundTint="@color/rating_bar_color"
+        android:progressTint="@color/colorPrimaryStar"
+        android:stepSize="1"
+        android:theme="@style/RatingBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+        app:layout_constraintStart_toEndOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_desc"
+        app:mrb_fillBackgroundStars="false" />
+
+    <TextView
+        android:id="@+id/exit_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="20dp"
+        android:textAlignment="center"
+        android:text="Do you want to exit?"
+        android:layout_marginTop="@dimen/margin_small_size"
+        android:textColor="@color/black_gray"
+        android:textSize="@dimen/font_size_primary_normal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+        app:layout_constraintStart_toEndOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_desc"
+        tools:ignore="HardcodedText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

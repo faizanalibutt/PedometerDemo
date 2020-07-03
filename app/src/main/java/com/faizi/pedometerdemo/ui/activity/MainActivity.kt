@@ -41,11 +41,11 @@ class MainActivity :
     }
 
     fun openSpeedo(view: View) {
-        startActivity(Intent(this@MainActivity, MainSpeedometerActivity::class.java))
+        startActivity(Intent(this@MainActivity, SpeedometerActivity::class.java))
     }
 
     fun openPedoMeter(view: View) {
-        startActivity(Intent(this@MainActivity, Activity_Main::class.java))
+        startActivity(Intent(this@MainActivity, PedometerActivity::class.java))
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

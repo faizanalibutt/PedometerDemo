@@ -11,7 +11,7 @@
     <dimen name="font_size_small">12sp</dimen>
     <dimen name="font_size_big">18sp</dimen>
     <dimen name="font_size_giant">24sp</dimen>
-    <dimen name="font_size_monster">48sp</dimen>
+    <dimen name="font_size_monster">45sp</dimen>
     <dimen name="font_size_title">24sp</dimen>
     <dimen name="icon_size_list_small">25dp</dimen>
     <dimen name="icon_size_list_normal">35dp</dimen>
@@ -21,11 +21,14 @@
     <dimen name="font_size_giant_medium">28sp</dimen>
 
     <!-- margins -->
+    <dimen name="margin_standard_size">8dp</dimen>
     <dimen name="default_margin_size">8dp</dimen>
     <dimen name="margin_medium_size">32dp</dimen>
-    <dimen name="margin_Large_size">64dp</dimen>
-    <dimen name="margin_xLarge_size">128dp</dimen>
-    <dimen name="margin_xxLarge_size">256dp</dimen>
+    <dimen name="margin_xmedium_size">40dp</dimen>
+    <dimen name="margin_xxmedium_size">48dp</dimen>
+    <dimen name="margin_large_size">64dp</dimen>
+    <dimen name="margin_xlarge_size">128dp</dimen>
+    <dimen name="margin_xxlarge_size">256dp</dimen>
     <dimen name="margin_small_size">24dp</dimen>
     <dimen name="margin_smaller_size">16dp</dimen>
     <dimen name="margin_smallest_size">8dp</dimen>
@@ -83,5 +86,6 @@
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="app_bar_size">160dp</dimen>
+    <dimen name="unknown_dp">0dp</dimen>
 
 </resources>

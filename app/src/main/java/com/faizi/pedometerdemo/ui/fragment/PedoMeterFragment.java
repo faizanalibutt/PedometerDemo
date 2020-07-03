@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.faizi.pedometerdemo.ui;
+package com.faizi.pedometerdemo.ui.fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -54,13 +54,15 @@ import com.faizi.pedometerdemo.BuildConfig;
 import com.faizi.pedometerdemo.Database;
 import com.faizi.pedometerdemo.R;
 import com.faizi.pedometerdemo.SensorListener;
+import com.faizi.pedometerdemo.ui.Dialog_Split;
+import com.faizi.pedometerdemo.ui.Dialog_Statistics;
 import com.faizi.pedometerdemo.util.API26Wrapper;
 import com.faizi.pedometerdemo.util.Logger;
 import com.faizi.pedometerdemo.util.Util;
 
 import de.j4velin.pedometer.ui.Activity_Main;
 
-public class Fragment_Overview extends Fragment implements SensorEventListener {
+public class PedoMeterFragment extends Fragment implements SensorEventListener {
 
     private TextView stepsView, totalView, miles;
     private PieModel sliceGoal, sliceCurrent;
@@ -84,12 +86,12 @@ public class Fragment_Overview extends Fragment implements SensorEventListener {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.fragment_overview, null);
+        final View v = inflater.inflate(R.layout.fragment_pedometer, null);
         stepsView = (TextView) v.findViewById(R.id.steps);
         totalView = (TextView) v.findViewById(R.id.total);
-        miles = (TextView) v.findViewById(R.id.totalMiles);
+        miles = (TextView) v.findViewById(R.id.distance_value);
 
-        pg = (PieChart) v.findViewById(R.id.graph);
+        pg = (PieChart) v.findViewById(R.id.pedo_process_graph);
 
         // slice for the steps taken today
         sliceCurrent = new PieModel("", 0, Color.parseColor("#99CC00"));
@@ -168,7 +170,7 @@ public class Fragment_Overview extends Fragment implements SensorEventListener {
      * the pie graph as well as the pie and the bars graphs.
      */
     private void stepsDistanceChanged() {
-        ((TextView) getView().findViewById(R.id.unit)).setText(getString(R.string.steps));
+        ((TextView) getView().findViewById(R.id.unit)).setText(getString(R.string.text_steps));
         /*if (showSteps) {
             ((TextView) getView().findViewById(R.id.unit)).setText(getString(R.string.steps));
         } else {

@@ -23,7 +23,7 @@ import com.google.android.apps.dashclock.api.ExtensionData;
 
 import com.faizi.pedometerdemo.Database;
 import com.faizi.pedometerdemo.R;
-import com.faizi.pedometerdemo.ui.Fragment_Overview;
+import com.faizi.pedometerdemo.ui.fragment.PedoMeterFragment;
 import com.faizi.pedometerdemo.util.Util;
 
 import de.j4velin.pedometer.ui.Activity_Main;
@@ -39,7 +39,7 @@ public class DashClock extends DashClockExtension {
         ExtensionData data = new ExtensionData();
         Database db = Database.getInstance(this);
         int steps = Math.max(db.getCurrentSteps() + db.getSteps(Util.getToday()), 0);
-        data.visible(true).status(Fragment_Overview.formatter.format(steps))
+        data.visible(true).status(PedoMeterFragment.formatter.format(steps))
                 .icon(R.drawable.ic_dashclock)
                 .clickIntent(new Intent(DashClock.this, Activity_Main.class));
         db.close();

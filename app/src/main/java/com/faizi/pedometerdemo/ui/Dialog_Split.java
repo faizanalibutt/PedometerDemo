@@ -25,8 +25,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.faizi.pedometerdemo.R;
+import com.faizi.pedometerdemo.ui.fragment.Fragment_Settings;
+import com.faizi.pedometerdemo.ui.fragment.PedoMeterFragment;
 
-abstract class Dialog_Split {
+abstract public class Dialog_Split {
 
     private static boolean split_active;
 
@@ -40,7 +42,7 @@ abstract class Dialog_Split {
         long split_date = prefs.getLong("split_date", -1);
         int split_steps = prefs.getInt("split_steps", totalSteps);
         ((TextView) d.findViewById(R.id.steps))
-                .setText(Fragment_Overview.formatter.format(totalSteps - split_steps));
+                .setText(PedoMeterFragment.formatter.format(totalSteps - split_steps));
         float stepsize = prefs.getFloat("stepsize_value", Fragment_Settings.DEFAULT_STEP_SIZE);
         float distance = (totalSteps - split_steps) * stepsize;
         if (prefs.getString("stepsize_unit", Fragment_Settings.DEFAULT_STEP_UNIT).equals("cm")) {
@@ -51,7 +53,7 @@ abstract class Dialog_Split {
             ((TextView) d.findViewById(R.id.distanceunit)).setText("mi");
         }
         ((TextView) d.findViewById(R.id.distance))
-                .setText(Fragment_Overview.formatter.format(distance));
+                .setText(PedoMeterFragment.formatter.format(distance));
         ((TextView) d.findViewById(R.id.date)).setText(c.getString(R.string.since,
                 java.text.DateFormat.getDateTimeInstance().format(split_date)));
 

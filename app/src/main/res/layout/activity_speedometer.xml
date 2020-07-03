@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activity.SpeedoGraphActivity">
+    android:layout_height="match_parent">
 
     <View
         android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_60"
+        android:layout_height="?actionBarSize"
         android:background="@drawable/background_pedo_app_bar"
         app:layout_constraintBottom_toTopOf="@+id/viewPager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,9 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small_size"
-        android:layout_marginTop="@dimen/margin_smaller_size"
         android:text="@string/text_speedo"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/appBar"
         app:layout_constraintStart_toEndOf="@+id/nav_back"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,9 +39,20 @@
         app:srcCompat="@drawable/ic_back_white_icon" />
 
     <ImageView
+        android:id="@+id/speedo_graph"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="@dimen/margin_small_size"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/premium_services"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:srcCompat="@drawable/ic_shape_704_copy" />
+
+    <ImageView
         android:id="@+id/premium_services"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginEnd="@dimen/margin_small_size"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/textView"

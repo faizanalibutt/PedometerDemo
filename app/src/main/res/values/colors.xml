@@ -11,6 +11,7 @@
     <color name="gray">#E9E9E9</color>
     <color name="gray_dark">#C4C4C4</color>
     <color name="white">#FFFFFF</color>
+    <color name="white_tab">#B3FFFFFF</color>
     <color name="black">#000000</color>
     <color name="gray_trans">#6D000000</color>
     <color name="icon_gray">#A1A1A1</color>
@@ -25,4 +26,12 @@
 
     <color name="main_icon_color">#AB000000</color>
     <color name="text_main_button_color">#FFFFFF</color>
+    <color name="color_pedo_view_units_bar">#36000000</color>
+    <color name="colorShadowCustom">#20000000</color>
+    <color name="vehicle_view_color">#F3F3F3</color>
+    <color name="colorSelection">#D7D7D7</color>
+    <color name="settings_heading_color">#DE000000</color>
+    <color name="settings_title_color">#2E2E2E</color>
+    <color name="colorPrimaryStar">#ffd800</color>
+    <color name="rating_bar_color">@color/white</color>
 </resources>

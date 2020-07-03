@@ -207,7 +207,7 @@ public class SensorListener extends Service implements SensorEventListener {
                                     format.format((today_offset + steps))) :
                             context.getString(R.string.notification_text,
                                     format.format((goal - today_offset - steps)))).setContentTitle(
-                    format.format(today_offset + steps) + " " + context.getString(R.string.steps));
+                    format.format(today_offset + steps) + " " + context.getString(R.string.text_steps));
         } else { // still no step value?
             notificationBuilder.setContentText(
                     context.getString(R.string.your_progress_will_be_shown_here_soon))
