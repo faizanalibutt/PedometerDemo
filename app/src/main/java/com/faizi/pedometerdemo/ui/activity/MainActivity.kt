@@ -3,25 +3,23 @@ package com.faizi.pedometerdemo.ui.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.faizi.pedometerdemo.R
+import com.faizi.pedometerdemo.dialog.ExitDialogue
 import com.google.android.material.navigation.NavigationView
-import de.j4velin.pedometer.ui.Activity_Main
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity :
-    AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+    Activity(), NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
+    private var menuClicked: Boolean = false
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
 
@@ -38,6 +36,7 @@ class MainActivity :
         action_rate_us.setOnClickListener(this)
         action_share.setOnClickListener(this)
         action_pro.setOnClickListener(this)
+        dialog = showRateExitDialogue(this@MainActivity, false)
     }
 
     fun openSpeedo(view: View) {
@@ -55,7 +54,12 @@ class MainActivity :
             }
             R.id.nav_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.nav_share -> {}
-            R.id.nav_rate_us -> {}
+            R.id.nav_rate_us -> {
+                dialog = null
+                menuClicked = true
+                dialog = showRateExitDialogue(this@MainActivity, true)
+                dialog!!.show()
+            }
             R.id.nav_privacy -> {
                 val url = "https://www.freeprivacypolicy.com/privacy/view/50c5621471755f1548917ebbe5e90160"
                 val builder = CustomTabsIntent.Builder()
@@ -72,13 +76,18 @@ class MainActivity :
         when (v?.id) {
             R.id.nav_menu -> drawerLayout.openDrawer(GravityCompat.START, true)
             R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
-            R.id.action_rate_us -> {
-            }
-            R.id.action_share -> {
-            }
-            R.id.action_pro -> {
-            }
+            R.id.action_rate_us -> {}
+            R.id.action_share -> {}
+            R.id.action_pro -> {}
         }
+    }
+
+    override fun onBackPressed() {
+        if (dialog == null || menuClicked) {
+            menuClicked = false
+            dialog = showRateExitDialogue(this@MainActivity, false)
+        }
+        dialog?.show()
     }
 
 }

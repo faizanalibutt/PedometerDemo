@@ -188,13 +188,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/face1" />
 
             <View
+                android:id="@+id/view"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_28"
+                android:background="@drawable/background_step_button"
                 android:onClick="openPedoMeter"
                 android:paddingStart="@dimen/dp_8"
                 android:paddingEnd="@dimen/dp_8"
                 android:text="@string/text_start"
-                android:background="@drawable/background_step_button"
                 app:layout_constraintBottom_toBottomOf="@+id/speedo_view"
                 app:layout_constraintEnd_toEndOf="@+id/text_speedo"
                 app:layout_constraintStart_toStartOf="@+id/text_speedo"
@@ -219,8 +220,9 @@
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginTop="@dimen/margin_smaller_size"
-                android:layout_marginStart="@dimen/margin_smaller_size"
+                android:layout_marginStart="@dimen/margin_standard_size"
                 android:background="@drawable/background_settings"
+                app:layout_constraintEnd_toStartOf="@+id/action_rate_us"
                 app:layout_constraintStart_toStartOf="@+id/pedo_view"
                 app:layout_constraintTop_toBottomOf="@+id/hori_line" />
 
@@ -251,6 +253,8 @@
                 android:layout_marginStart="@dimen/margin_small_size"
                 android:layout_marginTop="@dimen/margin_smaller_size"
                 android:background="@drawable/background_rate_us"
+                app:layout_constraintBottom_toBottomOf="@+id/action_settings"
+                app:layout_constraintEnd_toStartOf="@+id/action_share"
                 app:layout_constraintStart_toEndOf="@+id/action_settings"
                 app:layout_constraintTop_toBottomOf="@+id/hori_line" />
 
@@ -282,6 +286,8 @@
                 android:layout_marginStart="@dimen/margin_small_size"
                 android:layout_marginTop="@dimen/margin_smaller_size"
                 android:background="@drawable/background_share"
+                app:layout_constraintBottom_toBottomOf="@+id/action_settings"
+                app:layout_constraintEnd_toStartOf="@+id/action_pro"
                 app:layout_constraintStart_toEndOf="@+id/action_rate_us"
                 app:layout_constraintTop_toBottomOf="@+id/hori_line" />
 
@@ -312,7 +318,10 @@
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginStart="@dimen/margin_small_size"
                 android:layout_marginTop="@dimen/margin_smaller_size"
+                android:layout_marginEnd="@dimen/margin_standard_size"
                 android:background="@drawable/background_pro"
+                app:layout_constraintBottom_toBottomOf="@+id/action_settings"
+                app:layout_constraintEnd_toEndOf="@+id/speedo_view"
                 app:layout_constraintStart_toEndOf="@+id/action_share"
                 app:layout_constraintTop_toBottomOf="@+id/hori_line" />
 
