@@ -40,7 +40,7 @@ class MainActivity :
     }
 
     fun openSpeedo(view: View) {
-        startActivity(Intent(this@MainActivity, SpeedometerActivity::class.java))
+        startActivity(Intent(this@MainActivity, MainSpeedometerActivity::class.java))
     }
 
     fun openPedoMeter(view: View) {

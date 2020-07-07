@@ -32,6 +32,8 @@ import com.faizi.pedometerdemo.model.Distance;
 import com.faizi.pedometerdemo.util.Logger;
 import com.faizi.pedometerdemo.util.Util;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Database extends SQLiteOpenHelper {
 
     public final static String DB_NAME = "steps";
@@ -64,7 +66,7 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(final SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + DB_NAME + " (date INTEGER, steps INTEGER)");
         db.execSQL("CREATE TABLE " + TABLE_SPEED + " (id INTEGER PRIMARY KEY, start_time TEXT, end_time TEXT," +
-                " speed INTEGER, distance INTEGER)");
+                " speed REAL, distance REAL, speed_date TEXT, total_time INTEGER)");
     }
 
     @Override
@@ -132,7 +134,7 @@ public class Database extends SQLiteOpenHelper {
             c.close();
             if (BuildConfig.DEBUG) {
                 Logger.log("insertDay " + date + " / " + steps);
-                //logState();
+                logState();
             }
             getWritableDatabase().setTransactionSuccessful();
         } finally {
@@ -392,11 +394,38 @@ public class Database extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("start_time", distance.getStartTime());
         values.put("end_time", distance.getEndTime());
-        values.put("speed", distance.getSpeed());
         values.put("distance", distance.getDistance());
+        values.put("speed", distance.getSpeed());
+        values.put("date", distance.getDate());
+        values.put("total_time", distance.getTotalTime());
         getWritableDatabase().insert(TABLE_SPEED, null, values);
     }
 
-
+    /**
+     * get time from db of different intervals from a day.
+     * */
+    @NotNull
+    public List<Distance> getCurrentDayIntervals() {
+        List<Distance> intervalsList = new ArrayList<>();
+        Cursor c = query(
+                Database.TABLE_SPEED, null,
+                null, null, null, null, null, null
+        );
+        if (c.moveToFirst()) {
+            while (!c.isAfterLast()) {
+                long start_time = c.getLong(c.getColumnIndex("start_time"));
+                long end_time = c.getLong(c.getColumnIndex("end_time"));
+                double distance = c.getDouble(c.getColumnIndex("distance"));
+                double speed = c.getDouble(c.getColumnIndex("speed"));
+                String date = c.getString(c.getColumnIndex("date"));
+                long totalTime = c.getLong(c.getColumnIndex("total_time"));
+                Distance distanceObj = new Distance(start_time, end_time, speed, distance, date, totalTime);
+                intervalsList.add(distanceObj);
+                c.moveToNext();
+            }
+        }
+        c.close();
+        return intervalsList;
+    }
 
 }
