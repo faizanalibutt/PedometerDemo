@@ -9,6 +9,7 @@ import android.graphics.Typeface
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
+import android.text.format.DateFormat
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ import com.faizi.pedometerdemo.model.Distance
 /*import com.code4rox.adsmanager.**/
 import com.faizi.pedometerdemo.util.CommonUtils
 import com.faizi.pedometerdemo.util.CurrentLocation
+import com.faizi.pedometerdemo.util.Logger
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CameraPosition
@@ -30,6 +32,8 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 import kotlinx.android.synthetic.main.activity_speedometer_main.*
 import kotlinx.android.synthetic.main.toolbar_layout_meter.*
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 
@@ -45,9 +49,9 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
     private lateinit var typeMain: String
     private var handler: Handler? = null
     private var updateTimerThread: Runnable? = null
-    var updatedTime: Long = 0
+    var totalTime: Long = 0
     var startTime: Long = 0
-    var pausedTime: Long = 0
+    var endTime: Long = 0
     var paused = false
     private var mCurrentLocation: Location? = null
     var lStart: Location? = null
@@ -331,7 +335,8 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
                                 this@MainSpeedometerActivity,
                                 R.drawable.stop_selected_bg
                             )
-                            startTime = System.currentTimeMillis()
+                            startTime = Calendar.getInstance().timeInMillis
+                            Logger.log(startTime.toString())
                             timerThread()
 
                             currentLocation?.getLocation(this@MainSpeedometerActivity)
@@ -348,11 +353,13 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
                 handler?.removeCallbacks(updateTimerThread)
                 currentLocation?.removeFusedLocationClient()
                 val db = Database.getInstance(this)
-                distanceObj = Distance(startTime, updatedTime, avgSpeed, distance);
+                endTime = System.currentTimeMillis()
+                val date = getDate(endTime, "dd/mm/yyyy")
+                distanceObj = Distance(startTime, endTime, avgSpeed, distance, date!!, totalTime)
                 db.saveInterval(distanceObj)
                 isStop = true
-                updatedTime = 0
-                pausedTime = 0
+                totalTime = 0
+                endTime = 0
                 paused = false
                 mCurrentLocation = null
                 lStart = null
@@ -365,6 +372,23 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
 
         }
 
+    }
+
+    open fun getDate(milliSeconds: Long, dateFormat: String?): String? {
+        // Create a DateFormatter object for displaying date in specified format.
+        val formatter = SimpleDateFormat(dateFormat)
+
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        val calendar: Calendar = Calendar.getInstance()
+        calendar.timeInMillis = milliSeconds
+        return formatter.format(calendar.time)
+    }
+
+    open fun convertDate(
+        dateInMilliseconds: String,
+        dateFormat: String?
+    ): String? {
+        return DateFormat.format(dateFormat, dateInMilliseconds.toLong()).toString()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -471,9 +495,9 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
         updateTimerThread = object : Runnable {
 
             override fun run() {
-                updatedTime = System.currentTimeMillis() - startTime
-                val timeInHours = TimeUnit.MILLISECONDS.toHours(updatedTime)
-                duration_txt.text = CommonUtils.getFormatedTimeMHS(updatedTime)
+                totalTime = System.currentTimeMillis() - startTime
+                val timeInHours = TimeUnit.MILLISECONDS.toHours(totalTime)
+                duration_txt.text = CommonUtils.getFormatedTimeMHS(totalTime)
                 handler!!.postDelayed(this, 1000)
             }
         }
@@ -499,7 +523,7 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
 //            distance += lStart!!.distanceTo(lEnd) / 1000.00
             val mileDis = lStart!!.distanceTo(lEnd).toDouble()
             distance = lStart!!.distanceTo(lEnd).toDouble() / 1000
-//            avgSpeed = mileDis/TimeUnit.MILLISECONDS.toSeconds(updatedTime)
+//            avgSpeed = mileDis/TimeUnit.MILLISECONDS.toSeconds(totalTime)
             avgSpeed = maxSpeed / 2
             avg_txt.text = roundTwoDecimal(avgSpeed).toString()
 //            lStart = lEnd
