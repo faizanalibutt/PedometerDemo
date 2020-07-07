@@ -385,6 +385,8 @@ public class Database extends SQLiteOpenHelper {
         return re == Integer.MIN_VALUE ? 0 : re;
     }
 
+    //////////// SPEEDOMETER DB VALUES ////////////
+
     /**
      * save data every time user starts tracking.
      * */
@@ -396,7 +398,5 @@ public class Database extends SQLiteOpenHelper {
         values.put("distance", distance.getDistance());
         getWritableDatabase().insert(TABLE_SPEED, null, values);
     }
-
-
 
 }

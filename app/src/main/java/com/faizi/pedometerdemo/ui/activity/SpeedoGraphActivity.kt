@@ -18,7 +18,7 @@ import org.eazegraph.lib.models.BarModel
 
 class SpeedoGraphActivity : AppCompatActivity() {
 
-    var columns = arrayOf<String>(
+    var columns = arrayOf(
         "start_time",
         "end_time"
     )
@@ -39,15 +39,17 @@ class SpeedoGraphActivity : AppCompatActivity() {
             finish()
         }
 
-        /*val barChart = findViewById<BarChart>(R.id.bargraph)
+        val barChart = findViewById<BarChart>(R.id.bargraph)
         if (barChart.data.size > 0) barChart.clearChart()
 
         var bm: BarModel
 
 
         val database = Database.getInstance(this@SpeedoGraphActivity)
-        val cursor = database.query(Database.TABLE_SPEED, columns,
-            null, null, null, null, null, null)
+        val cursor = database.query(
+            Database.TABLE_SPEED, columns,
+            null, null, null, null, null, null
+        )
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast) {
@@ -56,15 +58,15 @@ class SpeedoGraphActivity : AppCompatActivity() {
                 //val avg_spedd = cursor.getDouble(cursor.getColumnIndex("speed"))
                 //val distance = cursor.getDouble(cursor.getColumnIndex("distance"))
                 val distanceObj = Distance(start_time, end_time, 0.0, 0.0)
-                bm = BarModel(start_time.toString(), 0.0f, Color.parseColor("#99CC00"))
+                /*bm = BarModel(start_time.toString(), 0.0f, Color.parseColor("#99CC00"))
                 bm.value = end_time.toFloat()
-                barChart.addBar(bm)
+                barChart.addBar(bm)*/
                 list.add(distanceObj)
                 cursor.moveToNext()
             }
         }
 
-        if (barChart.data.size > 0) {
+        /*if (barChart.data.size > 0) {
             barChart.setOnClickListener {
                 Dialog_Statistics.getDialog(this, 0).show()
             }
