@@ -46,13 +46,6 @@ class CommonUtils {
             )
         }
 
-        fun getFormatedTimeMH(millis: Long): String = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
-                TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))
-
-        fun getFormatedTimeMHS(millis: Long): String = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
-                TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
-                TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
-
 
         fun ShareText(context: Context, text: String) {
             val smsIntent = Intent(Intent.ACTION_SEND)

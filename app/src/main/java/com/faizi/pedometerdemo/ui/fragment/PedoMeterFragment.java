@@ -35,6 +35,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -54,6 +55,7 @@ import com.faizi.pedometerdemo.BuildConfig;
 import com.faizi.pedometerdemo.Database;
 import com.faizi.pedometerdemo.R;
 import com.faizi.pedometerdemo.SensorListener;
+import com.faizi.pedometerdemo.model.Step;
 import com.faizi.pedometerdemo.ui.Dialog_Split;
 import com.faizi.pedometerdemo.ui.Dialog_Statistics;
 import com.faizi.pedometerdemo.util.API26Wrapper;
@@ -67,6 +69,9 @@ public class PedoMeterFragment extends Fragment implements SensorEventListener {
     private TextView stepsView, totalView, miles;
     private PieModel sliceGoal, sliceCurrent;
     private PieChart pg;
+    private View start_btn;
+    ImageView step_btn_img;
+    TextView step_btn_txt;
 
     private int todayOffset, total_start, goal, since_boot, total_days;
     public final static NumberFormat formatter = NumberFormat.getInstance(Locale.getDefault());
@@ -90,6 +95,10 @@ public class PedoMeterFragment extends Fragment implements SensorEventListener {
         stepsView = (TextView) v.findViewById(R.id.steps);
         totalView = (TextView) v.findViewById(R.id.total);
         miles = (TextView) v.findViewById(R.id.distance_value);
+
+        start_btn = v.findViewById(R.id.start_btn);
+        step_btn_img = v.findViewById(R.id.step_btn_img);
+        step_btn_txt = v.findViewById(R.id.step_btn_txt);
 
         pg = (PieChart) v.findViewById(R.id.pedo_process_graph);
 
@@ -125,13 +134,13 @@ public class PedoMeterFragment extends Fragment implements SensorEventListener {
 
         //if (BuildConfig.DEBUG) db.logState();
         // read todays offset
-        todayOffset = db.getSteps(Util.getToday());
+        //todayOffset = db.getSteps(Util.getToday());
 
         SharedPreferences prefs =
                 getActivity().getSharedPreferences("pedometer", Context.MODE_PRIVATE);
 
         goal = prefs.getInt("goal", Fragment_Settings.DEFAULT_GOAL);
-        since_boot = db.getCurrentSteps();
+        //since_boot = db.getCurrentSteps();
         int pauseDifference = since_boot - prefs.getInt("pauseCount", since_boot);
 
         // register a sensorlistener to live update the UI if a step is taken
@@ -199,7 +208,7 @@ public class PedoMeterFragment extends Fragment implements SensorEventListener {
             if (BuildConfig.DEBUG) Logger.log(e);
         }
         Database db = Database.getInstance(getActivity());
-        db.saveCurrentSteps(since_boot);
+        //db.saveCurrentSteps(since_boot);
         db.close();
     }
 
@@ -239,7 +248,7 @@ public class PedoMeterFragment extends Fragment implements SensorEventListener {
             // initializing them with -STEPS_SINCE_BOOT
             todayOffset = -(int) event.values[0];
             Database db = Database.getInstance(getActivity());
-            db.insertNewDay(Util.getToday(), (int) event.values[0]);
+            db.insertNewDay(new Step((int) event.values[0], 0, Util.getToday(), 0));
             db.close();
         }
         since_boot = (int) event.values[0];

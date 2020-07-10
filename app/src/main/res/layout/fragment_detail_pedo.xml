@@ -10,11 +10,13 @@
     <TextView
         android:id="@+id/average_value"
         style="@style/TextAppearance.Primary.Bigger"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_medium_size"
         android:layout_marginTop="@dimen/margin_medium_size"
-        android:text="768"
+        android:gravity="center"
+        android:textColor="@color/settings_heading_color"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +25,7 @@
         style="@style/TextAppearance.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/margin_standard_size"
         android:text="@string/text_average"
         app:layout_constraintEnd_toEndOf="@+id/average_value"
         app:layout_constraintStart_toStartOf="@+id/average_value"
@@ -32,12 +34,14 @@
     <TextView
         android:id="@+id/total_value"
         style="@style/TextAppearance.Primary.Bigger"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_medium_size"
-        android:text="1348"
+        android:gravity="center"
+        android:textColor="@color/settings_heading_color"
         app:layout_constraintBottom_toBottomOf="@+id/average_value"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toTopOf="@+id/average_value" />
 
     <TextView
@@ -51,6 +55,18 @@
         app:layout_constraintStart_toStartOf="@+id/total_value"
         app:layout_constraintTop_toTopOf="@+id/text_average" />
 
+    <TextView
+        style="@style/TextAppearance.Primary.Big"
+        android:id="@+id/emptyData"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/no_data_found"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/bargraph"
+        app:layout_constraintEnd_toEndOf="@+id/bargraph"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bargraph" />
 
     <org.eazegraph.lib.charts.BarChart
         android:id="@+id/bargraph"
@@ -75,6 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bargraph">
 
         <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/margin_smaller_size"
@@ -109,5 +126,11 @@
 
     </HorizontalScrollView>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

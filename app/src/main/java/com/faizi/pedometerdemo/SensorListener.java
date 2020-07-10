@@ -37,6 +37,7 @@ import java.text.NumberFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.faizi.pedometerdemo.model.Step;
 import com.faizi.pedometerdemo.util.API23Wrapper;
 import com.faizi.pedometerdemo.util.API26Wrapper;
 import com.faizi.pedometerdemo.util.Logger;
@@ -93,23 +94,24 @@ public class SensorListener extends Service implements SensorEventListener {
                     "saving steps: steps=" + steps + " lastSave=" + lastSaveSteps +
                             " lastSaveTime=" + new Date(lastSaveTime));
             Database db = Database.getInstance(this);
-            if (db.getSteps(Util.getToday()) == Integer.MIN_VALUE) {
+            Step step = db.getSteps(Util.getToday());
+            if (step.getStep() == Integer.MIN_VALUE) {
                 int pauseDifference = steps -
                         getSharedPreferences("pedometer", Context.MODE_PRIVATE)
                                 .getInt("pauseCount", steps);
-                db.insertNewDay(Util.getToday(), steps - pauseDifference);
+                db.insertNewDay(new Step(steps - pauseDifference, step.getDistance(), Util.getToday(), step.getTotalTime()));
                 if (pauseDifference > 0) {
                     // update pauseCount for the new day
                     getSharedPreferences("pedometer", Context.MODE_PRIVATE).edit()
                             .putInt("pauseCount", steps).apply();
                 }
             }
-            db.saveCurrentSteps(steps);
+            //db.saveCurrentSteps(steps);
             db.close();
             lastSaveSteps = steps;
             lastSaveTime = System.currentTimeMillis();
             showNotification(); // update notification
-            WidgetUpdateService.enqueueUpdate(this);
+            //WidgetUpdateService.enqueueUpdate(this);
             return true;
         } else {
             return false;
@@ -191,9 +193,10 @@ public class SensorListener extends Service implements SensorEventListener {
         SharedPreferences prefs = context.getSharedPreferences("pedometer", Context.MODE_PRIVATE);
         int goal = prefs.getInt("goal", 10000);
         Database db = Database.getInstance(context);
-        int today_offset = db.getSteps(Util.getToday());
+        Step step = db.getSteps(Util.getToday());
+        int today_offset = step.getStep();
         if (steps == 0)
-            steps = db.getCurrentSteps(); // use saved value if we haven't anything better
+            steps = db.getCurrentStepsToday(Util.getToday()).getStep(); // use saved value if we haven't anything better
         db.close();
         Notification.Builder notificationBuilder =
                 Build.VERSION.SDK_INT >= 26 ? API26Wrapper.getNotificationBuilder(context) :

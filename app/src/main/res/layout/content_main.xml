@@ -192,7 +192,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_28"
                 android:background="@drawable/background_step_button"
-                android:onClick="openPedoMeter"
+                android:onClick="openSpeedo"
                 android:paddingStart="@dimen/dp_8"
                 android:paddingEnd="@dimen/dp_8"
                 android:text="@string/text_start"

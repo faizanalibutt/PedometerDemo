@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="2678"
+        android:text="0"
         eaze:layout_constraintBottom_toBottomOf="@id/pedo_process_graph"
         eaze:layout_constraintEnd_toEndOf="@+id/pedo_process_graph"
         eaze:layout_constraintStart_toStartOf="@+id/pedo_process_graph"
@@ -57,12 +57,11 @@
         style="@style/TextAppearance.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_resume"
+        android:text="@string/text_start_now"
         android:textColor="@color/white"
         eaze:layout_constraintBottom_toBottomOf="@+id/start_btn"
         eaze:layout_constraintEnd_toEndOf="@+id/start_btn"
-        eaze:layout_constraintHorizontal_bias="0.70"
-        eaze:layout_constraintStart_toStartOf="@+id/start_btn"
+        eaze:layout_constraintStart_toEndOf="@+id/step_btn_img"
         eaze:layout_constraintTop_toTopOf="@+id/start_btn"
         eaze:layout_constraintVertical_bias="0.50" />
 
@@ -71,9 +70,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/text_resume"
+        android:visibility="gone"
         eaze:layout_constraintBottom_toBottomOf="@+id/start_btn"
         eaze:layout_constraintEnd_toStartOf="@+id/step_btn_txt"
-        eaze:layout_constraintHorizontal_bias="0.6"
         eaze:layout_constraintStart_toStartOf="@+id/start_btn"
         eaze:layout_constraintTop_toTopOf="@+id/start_btn"
         eaze:srcCompat="@drawable/ic_shape_569" />
@@ -146,7 +145,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_smaller_size"
-        android:text="2:45"
+        android:text="0:00"
         eaze:layout_constraintEnd_toEndOf="@+id/icon2"
         eaze:layout_constraintStart_toStartOf="@+id/icon2"
         eaze:layout_constraintTop_toBottomOf="@+id/icon2" />
@@ -190,7 +189,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_smaller_size"
-        android:text="3.18"
+        android:text="0"
         eaze:layout_constraintEnd_toEndOf="@+id/icon3"
         eaze:layout_constraintStart_toStartOf="@+id/icon3"
         eaze:layout_constraintTop_toBottomOf="@+id/icon3" />
@@ -287,16 +286,5 @@
             android:gravity="center_horizontal"
             android:text="@string/total" />
     </LinearLayout>
-
-    <org.eazegraph.lib.charts.BarChart
-        android:id="@+id/bargraph"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_below="@+id/averageandtotaltext"
-        android:layout_marginTop="50dp"
-        android:visibility="gone"
-        eaze:egLegendHeight="35dp"
-        eaze:egShowValues="true"
-        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
