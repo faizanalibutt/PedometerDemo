@@ -20,6 +20,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.faizi.pedometerdemo.model.Step;
 import com.faizi.pedometerdemo.util.Logger;
 import com.faizi.pedometerdemo.util.Util;
 
@@ -36,13 +37,15 @@ public class ShutdownRecevier extends BroadcastReceiver {
         // setting on the next boot and displays an error message if it's not
         // set to true
         context.getSharedPreferences("pedometer", Context.MODE_PRIVATE).edit()
-                .putBoolean("correctShutdown", true).commit();
+                .putBoolean("correctShutdown", true).apply();
 
         Database db = Database.getInstance(context);
         // if it's already a new day, add the temp. steps to the last one
-        if (db.getSteps(Util.getToday()) == Integer.MIN_VALUE) {
-            int steps = db.getCurrentSteps();
-            db.insertNewDay(Util.getToday(), steps);
+        Step step = db.getSteps(Util.getToday());
+        if (step.getStep() == Integer.MIN_VALUE) {
+            Step step1 = db.getCurrentSteps();
+            //int steps = step1.getStep();
+            db.insertNewDay(new Step(step1.getStep(), step1.getDistance(), Util.getToday(), step1.getTotalTime()));
         } else {
             db.addToLastEntry(db.getCurrentSteps());
         }

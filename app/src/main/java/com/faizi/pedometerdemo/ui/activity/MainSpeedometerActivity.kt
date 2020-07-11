@@ -22,6 +22,7 @@ import com.faizi.pedometerdemo.model.Distance
 import com.faizi.pedometerdemo.util.CommonUtils
 import com.faizi.pedometerdemo.util.CurrentLocation
 import com.faizi.pedometerdemo.util.Logger
+import com.faizi.pedometerdemo.util.TimeUtils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CameraPosition
@@ -64,7 +65,6 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
     private var isMap: Boolean = false
     private var mMap: GoogleMap? = null
     private var currentLocation: CurrentLocation? = null
-    var distanceObj: Distance? = null
 //    private lateinit var admobUtils: AdmobUtils
 //    private lateinit var facebookAdsUtils: FacebookAdsUtils
 
@@ -354,8 +354,8 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
                 currentLocation?.removeFusedLocationClient()
                 val db = Database.getInstance(this)
                 endTime = System.currentTimeMillis()
-                val date = getDate(endTime, "dd/mm/yyyy")
-                distanceObj = Distance(startTime, endTime, avgSpeed, distance, date!!, totalTime)
+                val date = TimeUtils.getFormatDateTime(endTime, "date")
+                val distanceObj = Distance(startTime, endTime, maxSpeed, distance, date, totalTime)
                 db.saveInterval(distanceObj)
                 isStop = true
                 totalTime = 0
@@ -497,7 +497,7 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
             override fun run() {
                 totalTime = System.currentTimeMillis() - startTime
                 val timeInHours = TimeUnit.MILLISECONDS.toHours(totalTime)
-                duration_txt.text = CommonUtils.getFormatedTimeMHS(totalTime)
+                duration_txt.text = TimeUtils.getFormatedTimeMHS(totalTime)
                 handler!!.postDelayed(this, 1000)
             }
         }
@@ -506,15 +506,14 @@ open class MainSpeedometerActivity : AppCompatActivity(), /*OnMapReadyCallback,*
 
     }
 
-    internal fun roundTwoDecimal(d: Double): Double {
-        try {
-            return (d * 100.0).roundToInt() / 100.0
+    private fun roundTwoDecimal(d: Double): Double {
+        return try {
+            (d * 100.0).roundToInt() / 100.0
         } catch (e: Exception) {
-            return 0.0
+            0.0
         } catch (e: IllegalArgumentException) {
-            return 0.0
+            0.0
         }
-
     }
 
     private fun updateUi() {

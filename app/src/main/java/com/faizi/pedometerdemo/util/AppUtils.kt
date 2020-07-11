@@ -5,6 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.text.format.DateUtils
 import androidx.appcompat.app.AppCompatActivity
+import kotlin.math.roundToInt
 
 object AppUtils {
 
@@ -12,11 +13,14 @@ object AppUtils {
         return activity.getSharedPreferences("pedo", MODE_PRIVATE)
     }
 
-    fun formatDateTime(context: Context, millis: Long): CharSequence {
-        return DateUtils.formatDateTime(
-            context,
-            millis,
-            DateUtils.FORMAT_SHOW_TIME
-        )
+    fun roundTwoDecimal(d: Double): Double {
+        return try {
+            (d * 100.0).roundToInt() / 100.0
+        } catch (e: Exception) {
+            0.0
+        } catch (e: IllegalArgumentException) {
+            0.0
+        }
     }
+
 }

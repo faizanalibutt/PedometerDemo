@@ -29,6 +29,9 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.faizi.pedometerdemo.model.Distance;
+import com.faizi.pedometerdemo.model.DistanceTotal;
+import com.faizi.pedometerdemo.model.Step;
+import com.faizi.pedometerdemo.model.TotalStep;
 import com.faizi.pedometerdemo.util.Logger;
 import com.faizi.pedometerdemo.util.Util;
 
@@ -64,7 +67,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(final SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + DB_NAME + " (date INTEGER, steps INTEGER)");
+        db.execSQL("CREATE TABLE " + DB_NAME + " (steps INTEGER, distance REAL, date INTEGER, total_time INTEGER)");
         db.execSQL("CREATE TABLE " + TABLE_SPEED + " (id INTEGER PRIMARY KEY, start_time TEXT, end_time TEXT," +
                 " speed REAL, distance REAL, speed_date TEXT, total_time INTEGER)");
     }
@@ -106,34 +109,34 @@ public class Database extends SQLiteOpenHelper {
      * the previous day, if there is an entry for that date.
      * <p/>
      * This method does nothing if there is already an entry for 'date' - use
-     * {@link #updateSteps} in this case.
+     * in this case.
      * <p/>
      * To restore data from a backup, use {@link #insertDayFromBackup}
      *
-     * @param date  the date in ms since 1970
-     * @param steps the current step value to be used as negative offset for the
-     *              new day; must be >= 0
+     * @param step pedometer model
+     *
      */
-    public void insertNewDay(long date, int steps) {
+    public void insertNewDay(Step step) {
         getWritableDatabase().beginTransaction();
         try {
             Cursor c = getReadableDatabase().query(DB_NAME, new String[]{"date"}, "date = ?",
-                    new String[]{String.valueOf(date)}, null, null, null);
-            if (c.getCount() == 0 && steps >= 0) {
+                    new String[]{String.valueOf(step.getDate())}, null, null, null);
+            if (c.getCount() == 0 && step.getStep() >= 0) {
 
                 // add 'steps' to yesterdays count
-                addToLastEntry(steps);
-
+                addToLastEntry(step);
                 // add today
                 ContentValues values = new ContentValues();
-                values.put("date", date);
+                values.put("steps", -step.getStep());
+                values.put("distance", step.getDistance());
+                values.put("date", step.getDate());
+                values.put("total_time", step.getTotalTime());
                 // use the negative steps as offset
-                values.put("steps", -steps);
                 getWritableDatabase().insert(DB_NAME, null, values);
             }
             c.close();
             if (BuildConfig.DEBUG) {
-                Logger.log("insertDay " + date + " / " + steps);
+                Logger.log("insertDay " + step.getDate() + " / " + step.getStep());
                 logState();
             }
             getWritableDatabase().setTransactionSuccessful();
@@ -147,8 +150,9 @@ public class Database extends SQLiteOpenHelper {
      *
      * @param steps the number of steps to add
      */
-    public void addToLastEntry(int steps) {
-        getWritableDatabase().execSQL("UPDATE " + DB_NAME + " SET steps = steps + " + steps +
+    public void addToLastEntry(Step steps) {
+        getWritableDatabase().execSQL("UPDATE " + DB_NAME + " SET steps = " + steps.getStep() +
+                ", distance = " + steps.getDistance() + ", date = " + steps.getDate() + ", total_time = " + steps.getTotalTime() +
                 " WHERE date = (SELECT MAX(date) FROM " + DB_NAME + ")");
     }
 
@@ -248,15 +252,21 @@ public class Database extends SQLiteOpenHelper {
      * @return the steps taken on this date or Integer.MIN_VALUE if date doesn't
      * exist in the database
      */
-    public int getSteps(final long date) {
-        Cursor c = getReadableDatabase().query(DB_NAME, new String[]{"steps"}, "date = ?",
+    public Step getSteps(final long date) {
+        Cursor c = getReadableDatabase().query(DB_NAME, null, "date = ?",
                 new String[]{String.valueOf(date)}, null, null, null);
         c.moveToFirst();
-        int re;
-        if (c.getCount() == 0) re = Integer.MIN_VALUE;
-        else re = c.getInt(0);
+
+        Step step = null;
+        if (c.getCount() != 0) {
+            int re = c.getInt(c.getColumnIndex("steps"));
+            long distance = c.getLong(c.getColumnIndex("distance"));
+            long step_date = c.getLong(c.getColumnIndex("date"));
+            long totalTime = c.getLong(c.getColumnIndex("total_time"));
+            step = new Step(re, distance, step_date, totalTime);
+        }
         c.close();
-        return re;
+        return step == null ? new Step(Integer.MIN_VALUE, 0, 0, 0) : step;
     }
 
     /**
@@ -267,7 +277,7 @@ public class Database extends SQLiteOpenHelper {
      */
     public List<Pair<Long, Integer>> getLastEntries(int num) {
         Cursor c = getReadableDatabase()
-                .query(DB_NAME, new String[]{"date", "steps"}, "date > 0", null, null, null,
+                .query(DB_NAME, null, "date > 0", null, null, null,
                         "date DESC", String.valueOf(num));
         int max = c.getCount();
         List<Pair<Long, Integer>> result = new ArrayList<>(max);
@@ -276,6 +286,26 @@ public class Database extends SQLiteOpenHelper {
                 result.add(new Pair<>(c.getLong(0), c.getInt(1)));
             } while (c.moveToNext());
         }
+        c.close();
+        return result;
+    }
+
+    public List<TotalStep> getLastPedoEntries(int num) {
+        Cursor c = getReadableDatabase()
+                .query(DB_NAME, new String[]{"*"}, "date > 0", null, null, null,
+                        "date DESC", String.valueOf(num));
+        int max = c.getCount();
+        List<TotalStep> result = new ArrayList<>(max);
+        if (c.moveToFirst()) {
+            do {
+                double distance = c.getDouble(c.getColumnIndex("distance"));
+                int step = c.getInt(c.getColumnIndex("steps"));
+                long date = c.getLong(c.getColumnIndex("date"));
+                long totalTime = c.getLong(c.getColumnIndex("total_time"));
+                result.add(new TotalStep(step, distance, date, totalTime));
+            } while (c.moveToNext());
+        }
+        c.close();
         return result;
     }
 
@@ -362,17 +392,20 @@ public class Database extends SQLiteOpenHelper {
     /**
      * Saves the current 'steps since boot' sensor value in the database.
      *
-     * @param steps since boot
+     * @param step since boot
      */
-    public void saveCurrentSteps(int steps) {
+    public void saveCurrentSteps(Step step) {
         ContentValues values = new ContentValues();
-        values.put("steps", steps);
-        if (getWritableDatabase().update(DB_NAME, values, "date = -1", null) == 0) {
-            values.put("date", -1);
+        values.put("steps", -step.getStep());
+        values.put("distance", step.getDistance());
+        values.put("date", step.getDate());
+        values.put("total_time", step.getTotalTime());
+        if (getWritableDatabase().update(DB_NAME, values, "date = ?", new String[]{String.valueOf(step.getDate())}) == 0) {
+            values.put("date", step.getDate());
             getWritableDatabase().insert(DB_NAME, null, values);
         }
         if (BuildConfig.DEBUG) {
-            Logger.log("saving steps in db: " + steps);
+            Logger.log("saving steps model in db: " + step.getDate());
         }
     }
 
@@ -382,44 +415,55 @@ public class Database extends SQLiteOpenHelper {
      * @return the current number of steps saved in the database or 0 if there
      * is no entry
      */
-    public int getCurrentSteps() {
-        int re = getSteps(-1);
-        return re == Integer.MIN_VALUE ? 0 : re;
+    public Step getCurrentSteps() {
+        Step re = getSteps(-1);
+        int step = re.getStep() == Integer.MIN_VALUE ? 0 : re.getStep();
+        return re;
+    }
+
+    public Step getCurrentStepsToday(long date) {
+        Step re = getSteps(date);
+        int step = re.getStep() == Integer.MIN_VALUE ? 0 : re.getStep();
+        return re;
     }
 
     //////////// SPEEDOMETER DB VALUES ////////////
 
     /**
      * save data every time user starts tracking.
-     * */
+     */
     public void saveInterval(Distance distance) {
         ContentValues values = new ContentValues();
         values.put("start_time", distance.getStartTime());
         values.put("end_time", distance.getEndTime());
         values.put("distance", distance.getDistance());
         values.put("speed", distance.getSpeed());
-        values.put("date", distance.getDate());
+        values.put("speed_date", distance.getDate());
         values.put("total_time", distance.getTotalTime());
         getWritableDatabase().insert(TABLE_SPEED, null, values);
     }
 
     /**
      * get time from db of different intervals from a day.
-     * */
+     *
+     * @param currentDay give current date to manipulate data
+     */
     @NotNull
-    public List<Distance> getCurrentDayIntervals() {
+    public List<Distance> getCurrentDayIntervals(String currentDay) {
         List<Distance> intervalsList = new ArrayList<>();
         Cursor c = query(
                 Database.TABLE_SPEED, null,
-                null, null, null, null, null, null
+                "speed_date = ?", new String[]{currentDay}, null, null, null, null
         );
+        /*String query = "SELECT * FROM distance WHERE speed_date = '" + currentDay + "'";
+        Cursor c = getReadableDatabase().rawQuery(query, null);*/
         if (c.moveToFirst()) {
             while (!c.isAfterLast()) {
                 long start_time = c.getLong(c.getColumnIndex("start_time"));
                 long end_time = c.getLong(c.getColumnIndex("end_time"));
                 double distance = c.getDouble(c.getColumnIndex("distance"));
                 double speed = c.getDouble(c.getColumnIndex("speed"));
-                String date = c.getString(c.getColumnIndex("date"));
+                String date = c.getString(c.getColumnIndex("speed_date"));
                 long totalTime = c.getLong(c.getColumnIndex("total_time"));
                 Distance distanceObj = new Distance(start_time, end_time, speed, distance, date, totalTime);
                 intervalsList.add(distanceObj);
@@ -428,6 +472,117 @@ public class Database extends SQLiteOpenHelper {
         }
         c.close();
         return intervalsList;
+    }
+
+    /**
+     * get time from db of different intervals from a day.
+     */
+    @NotNull
+    public List<DistanceTotal> getWeekIntervals(String currentDay, String day) {
+        List<DistanceTotal> intervalsList = new ArrayList<>();
+        /*Cursor c = query(
+                Database.TABLE_SPEED, null,
+                null, null, null, null, null, null
+        );*/
+        String query = "select *, sum(total_time) as sumTime , avg(total_time) as avgTime, " +
+                "sum(distance) as sumDistance, avg(distance) as avgDistance, sum(speed) as sumSpeed, avg(speed) as avgSpeed from " + Database.TABLE_SPEED
+                + " where speed_date between" + " Date('" + day + "') and " + " Date('" + currentDay + "') group by speed_date";
+        Cursor c = getReadableDatabase().rawQuery(query, null);
+        if (c.moveToFirst()) {
+            while (!c.isAfterLast()) {
+                long start_time = c.getLong(c.getColumnIndex("start_time"));
+                long end_time = c.getLong(c.getColumnIndex("end_time"));
+                double distance = c.getDouble(c.getColumnIndex("distance"));
+                double speed = c.getDouble(c.getColumnIndex("speed"));
+                String date = c.getString(c.getColumnIndex("speed_date"));
+                long totalTime = c.getLong(c.getColumnIndex("total_time"));
+                long timeSum = c.getLong(c.getColumnIndex("sumTime"));
+                long timeAvg = c.getLong(c.getColumnIndex("avgTime"));
+                double distanceSum = c.getDouble(c.getColumnIndex("sumDistance"));
+                double distanceAvg = c.getDouble(c.getColumnIndex("avgDistance"));
+                double speedSum = c.getDouble(c.getColumnIndex("sumSpeed"));
+                double speedAvg = c.getDouble(c.getColumnIndex("avgSpeed"));
+                DistanceTotal distanceObj = new DistanceTotal(start_time, end_time, speed, distance,
+                        date, totalTime, timeSum, timeAvg, distanceSum, distanceAvg, speedSum, speedAvg);
+                intervalsList.add(distanceObj);
+                c.moveToNext();
+            }
+        }
+        c.close();
+        Logger.logs(intervalsList.toString());
+        return intervalsList;
+    }
+
+    public long getTodayTotalTime(String date) {
+        Cursor c = getReadableDatabase().query(
+                Database.TABLE_SPEED, new String[]{"SUM(total_time)"},
+                "speed_date = ?", new String[]{date}, null, null, null, null
+        );
+        c.moveToFirst();
+        long total = c.getInt(0);
+        Logger.logs(String.format("Total Time is: %s", c.getInt(0)));
+        c.close();
+        return total;
+    }
+
+    public double getTodayTotalDistance(String date) {
+        Cursor c = getReadableDatabase().query(
+                Database.TABLE_SPEED, new String[]{"SUM(distance)"},
+                "speed_date = ?", new String[]{date}, null, null, null, null
+        );
+        c.moveToFirst();
+        double total = c.getDouble(0);
+        Logger.logs(String.format("Total Distance is: %s", c.getDouble(0)));
+        c.close();
+        return total;
+    }
+
+    public double getTodayTotalSpeed(String date) {
+        Cursor c = getReadableDatabase().query(
+                Database.TABLE_SPEED, new String[]{"SUM(speed)"},
+                "speed_date = ?", new String[]{date}, null, null, null, null
+        );
+        c.moveToFirst();
+        double total = c.getDouble(0);
+        Logger.logs(String.format("Total Speed is: %s", c.getDouble(0)));
+        c.close();
+        return total;
+    }
+
+    public long getTodayAverageTime(String date) {
+        Cursor c = getReadableDatabase().query(
+                Database.TABLE_SPEED, new String[]{"AVG(total_time)"},
+                "speed_date = ?", new String[]{date}, null, null, null, null
+        );
+        c.moveToFirst();
+        long total = c.getInt(0);
+        Logger.logs(String.valueOf(c.getInt(0)));
+        c.close();
+        return total;
+    }
+
+    public double getTodayAverageDistance(String date) {
+        Cursor c = getReadableDatabase().query(
+                Database.TABLE_SPEED, new String[]{"MAX(distance)"},
+                "speed_date = ?", new String[]{date}, null, null, null, null
+        );
+        c.moveToFirst();
+        double total = c.getDouble(0);
+        Logger.logs(String.valueOf(c.getDouble(0)));
+        c.close();
+        return total;
+    }
+
+    public double getTodayAverageSpeed(String date) {
+        Cursor c = getReadableDatabase().query(
+                Database.TABLE_SPEED, new String[]{"MAX(speed)"},
+                "speed_date = ?", new String[]{date}, null, null, null, null
+        );
+        c.moveToFirst();
+        double total = c.getDouble(0);
+        Logger.logs(String.valueOf(c.getDouble(0)));
+        c.close();
+        return total;
     }
 
 }

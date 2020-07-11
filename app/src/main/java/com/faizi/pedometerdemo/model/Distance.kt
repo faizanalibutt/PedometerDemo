@@ -8,11 +8,16 @@ data class Distance(
     val distance: Double, val date: String, val totalTime: Long
 ) {
 
+    /**
+     * "dd/MM/yyyy"
+     *
+     */
     val startTimeFormatted: String
-        get() = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date(startTime))
+        get() = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date(startTime))
 
     val endTimeFormatted: String
-        get() = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date(endTime))
+        get() = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date(endTime))
+
 //    val totalTimeFormatted: String
 //        get() = SimpleDateFormat("dd-mm-yyyy", Locale.getDefault()).format(Date(endTime))
 

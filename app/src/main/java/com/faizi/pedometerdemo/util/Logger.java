@@ -31,6 +31,7 @@ public abstract class Logger {
     private static FileWriter fw;
     private static final Date date = new Date();
     private final static String APP = "Pedometer";
+    public final static String _APP = "Speedometer";
 
     public static void log(Throwable ex) {
         log(ex.getMessage());
@@ -59,6 +60,25 @@ public abstract class Logger {
     public static void log(String msg) {
         if (!BuildConfig.DEBUG) return;
         android.util.Log.d(APP, msg);
+        try {
+            if (fw == null) {
+                fw = new FileWriter(new File(
+                        Environment.getExternalStorageDirectory().toString() + "/" + APP + ".txt"),
+                        true);
+            }
+            date.setTime(System.currentTimeMillis());
+            fw.write(date.toLocaleString() + " - " + msg + "\n");
+            fw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // }
+    }
+
+    @SuppressWarnings("deprecation")
+    public static void logs(String msg) {
+        if (!BuildConfig.DEBUG) return;
+        android.util.Log.d(_APP, msg);
         try {
             if (fw == null) {
                 fw = new FileWriter(new File(
