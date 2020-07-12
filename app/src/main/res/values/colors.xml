@@ -13,6 +13,7 @@
     <color name="white">#FFFFFF</color>
     <color name="white_tab">#B3FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="black_dark">#FF000000</color>
     <color name="gray_trans">#6D000000</color>
     <color name="icon_gray">#A1A1A1</color>
     <color name="indicator_color">#A21717</color>

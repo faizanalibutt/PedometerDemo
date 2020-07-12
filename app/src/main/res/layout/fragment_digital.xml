@@ -77,7 +77,7 @@
         app:srcCompat="@drawable/ic_shape_1941_copy_2" />
 
     <ImageView
-        android:id="@+id/bus_view"
+        android:id="@+id/train_view"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:contentDescription="@string/text_speedo"
@@ -103,7 +103,7 @@
         android:layout_height="0dp"
         android:background="@color/color_pedo_view_units_bar"
         app:layout_constraintBottom_toBottomOf="@+id/car_view"
-        app:layout_constraintEnd_toStartOf="@+id/bus_view"
+        app:layout_constraintEnd_toStartOf="@+id/train_view"
         app:layout_constraintStart_toEndOf="@+id/car_view"
         app:layout_constraintTop_toTopOf="@+id/car_view" />
     

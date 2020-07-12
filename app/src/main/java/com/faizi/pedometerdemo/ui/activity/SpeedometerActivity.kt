@@ -19,7 +19,7 @@ class SpeedometerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_speedometer)
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(AnalogFragment(), "ANALOG")
+        adapter.addFragment(AnalogFragment(this@SpeedometerActivity), "ANALOG")
         adapter.addFragment(DigitalFragment(), "DIGITAL")
         //adapter.addFragment(MapFragment(), "MAP")
         viewPager.adapter = adapter
