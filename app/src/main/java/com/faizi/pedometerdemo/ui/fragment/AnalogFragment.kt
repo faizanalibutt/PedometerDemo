@@ -62,7 +62,7 @@ class AnalogFragment() : Fragment(), CurrentLocation.LocationResultListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_analog, container, false)
 
-        mView.let {
+        view.let {
             mView = view
         }
 
@@ -136,11 +136,8 @@ class AnalogFragment() : Fragment(), CurrentLocation.LocationResultListener {
 
                 isStop = false
 
-                avg_txt.text = "0"
-
+                speed_value.text = "0"
                 distance_value.text = "0"
-
-                speed_txt.text = "0"
 
                 val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
                 val rationale = "Please provide location permission..."
@@ -172,9 +169,9 @@ class AnalogFragment() : Fragment(), CurrentLocation.LocationResultListener {
                     })
 
             } else {
-                view.start_btn_txt.text = getString(R.string.start_tracking)
-                view.start_btn_txt.background = ContextCompat.getDrawable(this,
-                    R.drawable.selected_bg
+                view.start_btn_txt.text = getString(R.string.text_start_now)
+                view.start_btn.background = ContextCompat.getDrawable(mContext,
+                    R.drawable.background_start_btn
                 )
 
                 handler?.removeCallbacks(updateTimerThread)
@@ -257,7 +254,7 @@ class AnalogFragment() : Fragment(), CurrentLocation.LocationResultListener {
             override fun run() {
                 totalTime = System.currentTimeMillis() - startTime
                 val timeInHours = TimeUnit.MILLISECONDS.toHours(totalTime)
-                duration_txt.text = TimeUtils.getFormatedTimeMHS(totalTime)
+                time_value.text = TimeUtils.getFormatedTimeMHS(totalTime)
                 handler!!.postDelayed(this, 1000)
             }
         }
@@ -418,11 +415,11 @@ class AnalogFragment() : Fragment(), CurrentLocation.LocationResultListener {
             distance = lStart!!.distanceTo(lEnd).toDouble() / 1000
 //            avgSpeed = mileDis/TimeUnit.MILLISECONDS.toSeconds(totalTime)
             avgSpeed = maxSpeed / 2
-            avg_txt.text = roundTwoDecimal(avgSpeed).toString()
+            speed_value.text = roundTwoDecimal(avgSpeed).toString()
 //            lStart = lEnd
             distance_value.text = roundTwoDecimal(distance).toString()
         }
-        speed_txt.text = roundTwoDecimal(maxSpeed).toString()
+        //speed_txt.text = roundTwoDecimal(maxSpeed).toString()
 
     }
 
@@ -430,9 +427,7 @@ class AnalogFragment() : Fragment(), CurrentLocation.LocationResultListener {
         //loading_layout.visibility = View.GONE
         if (!isStop) {
 
-            mView.let {
-                getSpeed(locale, mView)
-            }
+            getSpeed(locale, mView)
 
             /*val sydney = LatLng(it.latitude, it.longitude)
             val cameraPosition = CameraPosition.Builder().target(sydney).zoom(15f).build()
@@ -450,18 +445,18 @@ class AnalogFragment() : Fragment(), CurrentLocation.LocationResultListener {
 
             "km" -> {
                 mView.speedometer_view.setSpeedAt((it.speed * 18) / 5.toFloat())
-                digi_speed_txt.text = roundTwoDecimal(((it.speed * 18) / 5.toDouble())).toString()
+                //digi_speed_txt.text = roundTwoDecimal(((it.speed * 18) / 5.toDouble())).toString()
 
             }
             "mph" -> {
                 mView.speedometer_view.setSpeedAt((it.speed * 2.2369).toFloat())
-                digi_speed_txt.text = roundTwoDecimal(((it.speed * 2.2369))).toString()
+                //digi_speed_txt.text = roundTwoDecimal(((it.speed * 2.2369))).toString()
 
             }
             "knot" -> {
                 mView.speedometer_view.setSpeedAt((it.speed * 1.94384).toFloat())
 //                val f =
-                digi_speed_txt.text = roundTwoDecimal(((it.speed * 1.94384))).toString()
+                //digi_speed_txt.text = roundTwoDecimal(((it.speed * 1.94384))).toString()
 
             }
         }

@@ -250,7 +250,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_smaller_size"
-        android:text="2:45"
+        android:text="0:00"
         app:layout_constraintEnd_toEndOf="@+id/icon2"
         app:layout_constraintStart_toStartOf="@+id/icon2"
         app:layout_constraintTop_toBottomOf="@+id/icon2" />

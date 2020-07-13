@@ -143,7 +143,7 @@
         android:layout_marginTop="@dimen/margin_absolute_size"
         android:layout_marginBottom="@dimen/margin_standard_size"
         android:background="@drawable/background_start_btn"
-        app:layout_constraintBottom_toTopOf="@+id/kal_view"
+        app:layout_constraintBottom_toTopOf="@+id/distance_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/speedometer_view" />
@@ -162,7 +162,7 @@
         app:layout_constraintVertical_bias="0.50" />
 
     <View
-        android:id="@+id/kal_view"
+        android:id="@+id/distance_view"
         android:layout_width="80dp"
         android:layout_height="100dp"
         android:layout_marginTop="@dimen/margin_standard_size"
@@ -176,13 +176,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/text_kcal"
-        app:layout_constraintEnd_toEndOf="@+id/kal_view"
-        app:layout_constraintStart_toStartOf="@+id/kal_view"
-        app:layout_constraintTop_toTopOf="@+id/kal_view"
-        app:srcCompat="@drawable/ic_shape_567_copy" />
+        app:layout_constraintEnd_toEndOf="@+id/distance_view"
+        app:layout_constraintStart_toStartOf="@+id/distance_view"
+        app:layout_constraintTop_toTopOf="@+id/distance_view"
+        app:srcCompat="@drawable/ic_shape_2094_copy_2" />
 
     <TextView
-        android:id="@+id/kal_value"
+        android:id="@+id/distance_value"
         style="@style/TextAppearance.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -198,20 +198,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_12"
-        android:text="@string/text_kcal"
+        android:text="@string/text_distance"
         app:layout_constraintEnd_toEndOf="@+id/icon1"
         app:layout_constraintStart_toStartOf="@+id/icon1"
-        app:layout_constraintTop_toBottomOf="@+id/kal_value" />
+        app:layout_constraintTop_toBottomOf="@+id/distance_value" />
 
     <View
         android:id="@+id/time_view"
         android:layout_width="80dp"
         android:layout_height="100dp"
         android:layout_marginStart="@dimen/margin_smaller_size"
-        app:layout_constraintBottom_toBottomOf="@+id/kal_view"
+        app:layout_constraintBottom_toBottomOf="@+id/distance_view"
         app:layout_constraintEnd_toStartOf="@+id/v1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/kal_view" />
+        app:layout_constraintTop_toTopOf="@+id/distance_view" />
 
     <ImageView
         android:id="@+id/icon2"
@@ -221,7 +221,7 @@
         app:layout_constraintEnd_toEndOf="@+id/time_view"
         app:layout_constraintStart_toStartOf="@+id/time_view"
         app:layout_constraintTop_toTopOf="@+id/time_view"
-        app:srcCompat="@drawable/ic_shape_566_copy" />
+        app:srcCompat="@drawable/ic_shape_2323_copy" />
 
     <TextView
         android:id="@+id/time_value"
@@ -240,35 +240,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_12"
-        android:text="@string/text_time"
+        android:text="@string/text_times"
         app:layout_constraintEnd_toEndOf="@+id/icon2"
         app:layout_constraintStart_toStartOf="@+id/icon2"
         app:layout_constraintTop_toBottomOf="@+id/time_value" />
 
     <View
-        android:id="@+id/distance_view"
+        android:id="@+id/speed_view"
         android:layout_width="80dp"
         android:layout_height="100dp"
         android:layout_marginStart="@dimen/dp_5"
         android:layout_marginEnd="@dimen/margin_smaller_size"
-        app:layout_constraintBottom_toBottomOf="@+id/kal_view"
+        app:layout_constraintBottom_toBottomOf="@+id/distance_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toEndOf="@+id/v2"
-        app:layout_constraintTop_toTopOf="@+id/kal_view" />
+        app:layout_constraintTop_toTopOf="@+id/distance_view" />
 
     <ImageView
         android:id="@+id/icon3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/text_kcal"
-        app:layout_constraintEnd_toEndOf="@+id/distance_view"
-        app:layout_constraintStart_toStartOf="@+id/distance_view"
-        app:layout_constraintTop_toTopOf="@+id/distance_view"
-        app:srcCompat="@drawable/ic_shape_568_copy" />
+        app:layout_constraintEnd_toEndOf="@+id/speed_view"
+        app:layout_constraintStart_toStartOf="@+id/speed_view"
+        app:layout_constraintTop_toTopOf="@+id/speed_view"
+        app:srcCompat="@drawable/ic_shape_2097_copy" />
 
     <TextView
-        android:id="@+id/distance_value"
+        android:id="@+id/speed_value"
         style="@style/TextAppearance.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -284,10 +284,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_12"
-        android:text="@string/text_miles"
+        android:text="@string/avg_speed_graph"
         app:layout_constraintEnd_toEndOf="@+id/icon3"
         app:layout_constraintStart_toStartOf="@+id/icon3"
-        app:layout_constraintTop_toBottomOf="@+id/distance_value" />
+        app:layout_constraintTop_toBottomOf="@+id/speed_value" />
 
     <View
         android:id="@+id/v1"
@@ -296,7 +296,7 @@
         android:layout_marginStart="@dimen/margin_smaller_size"
         android:background="#36000000"
         app:layout_constraintBottom_toTopOf="@+id/text2"
-        app:layout_constraintEnd_toStartOf="@+id/kal_view"
+        app:layout_constraintEnd_toStartOf="@+id/distance_view"
         app:layout_constraintStart_toEndOf="@+id/time_value"
         app:layout_constraintTop_toBottomOf="@+id/icon1" />
 
@@ -306,8 +306,8 @@
         android:layout_height="0dp"
         android:background="@color/color_pedo_view_units_bar"
         app:layout_constraintBottom_toTopOf="@+id/text2"
-        app:layout_constraintEnd_toStartOf="@+id/kal_view"
-        app:layout_constraintStart_toEndOf="@+id/distance_view"
+        app:layout_constraintEnd_toStartOf="@+id/distance_view"
+        app:layout_constraintStart_toEndOf="@+id/speed_view"
         app:layout_constraintTop_toBottomOf="@+id/icon1" />
 
     <FrameLayout
@@ -317,6 +317,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/kal_view" />
+        app:layout_constraintTop_toBottomOf="@+id/distance_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
