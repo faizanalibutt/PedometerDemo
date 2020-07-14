@@ -15,6 +15,7 @@ import com.faizi.pedometerdemo.model.Distance
 import com.faizi.pedometerdemo.ui.ViewPagerAdapter
 import com.faizi.pedometerdemo.ui.fragment.AnalogFragment
 import com.faizi.pedometerdemo.ui.fragment.DigitalFragment
+import com.faizi.pedometerdemo.ui.fragment.MapFragment
 import com.faizi.pedometerdemo.util.AppUtils
 import com.faizi.pedometerdemo.util.CurrentLocation
 import com.faizi.pedometerdemo.util.Logger
@@ -52,8 +53,9 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(AnalogFragment(this@SpeedometerActivity), "ANALOG")
-        adapter.addFragment(DigitalFragment(), "DIGITAL")
-        //adapter.addFragment(MapFragment(), "MAP")
+        adapter.addFragment(DigitalFragment(this@SpeedometerActivity), "DIGITAL")
+        adapter.addFragment(MapFragment(this@SpeedometerActivity), "MAP")
+        viewPager.offscreenPageLimit = 2
         viewPager.adapter = adapter
         tabView.setupWithViewPager(viewPager)
 
@@ -63,6 +65,10 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
 
         speedo_graph.setOnClickListener {
             startActivity(Intent(this, SpeedoGraphActivity::class.java))
+        }
+
+        premium_services.setOnClickListener {
+            startActivity(Intent(this, MapsActivity::class.java))
         }
 
         currentLocation = CurrentLocation(this)
@@ -78,7 +84,7 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
 
                 val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
                 val rationale = "Please provide location permission..."
-                val options = com.nabinbhandari.android.permissions.Permissions.Options().setRationaleDialogTitle("Info")
+                val options = Permissions.Options().setRationaleDialogTitle("Info")
                     .setSettingsDialogTitle("Warning")
 
                 Permissions.check(
@@ -97,7 +103,6 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
                                 R.drawable.background_stop_btn
                             )
                             startTime = Calendar.getInstance().timeInMillis
-                            Logger.log(startTime.toString())
                             timerThread()
 
                             currentLocation?.getLocation(this@SpeedometerActivity)
@@ -119,6 +124,8 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
                 val date = TimeUtils.getFormatDateTime(endTime, "date")
                 val distanceObj = Distance(startTime, endTime, maxSpeed, distance, date, totalTime)
                 db.saveInterval(distanceObj)
+                Callback.getMeterValue1().removeObservers(this)
+                Callback.getLocationData().removeObservers(this)
                 isStop = true
                 totalTime = 0
                 endTime = 0
@@ -129,7 +136,6 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
                 distance = 0.0
                 maxSpeed = 0.0
                 avgSpeed = 0.0
-
             }
 
         }
@@ -156,14 +162,13 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
             }
         }
 
-        handler!!.postDelayed(updateTimerThread, 1000)
+        handler!!.postDelayed(updateTimerThread!!, 1000)
 
     }
 
     private fun getSpeed(it: Location) {
 
-        var meterValue = Callback.meterValue
-
+        Callback.setLocationValue(it)
 
         speed = (it.speed * 18) / 5.toDouble()
         if (speed > maxSpeed) {
@@ -185,23 +190,19 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
     private fun updateUi() {
 
         if (lStart != null && lEnd != null) {
-//            distance += lStart!!.distanceTo(lEnd) / 1000.00
-            val mileDis = lStart!!.distanceTo(lEnd).toDouble()
             distance = lStart!!.distanceTo(lEnd).toDouble() / 1000
-//            avgSpeed = mileDis/TimeUnit.MILLISECONDS.toSeconds(totalTime)
             avgSpeed = maxSpeed / 2
             speed_value.text = AppUtils.roundTwoDecimal(avgSpeed).toString()
-//            lStart = lEnd
             distance_value.text = AppUtils.roundTwoDecimal(distance).toString()
         }
-        //speed_txt.text = roundTwoDecimal(maxSpeed).toString()
 
     }
 
     override fun onDestroy() {
         super.onDestroy()
         currentLocation?.removeFusedLocationClient()
-        handler?.removeCallbacks(updateTimerThread)
+        handler?.removeCallbacks(updateTimerThread!!)
+        AppUtils.unit = "km"
     }
 
 }

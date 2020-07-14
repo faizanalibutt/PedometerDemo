@@ -123,5 +123,6 @@
     <string name="no_data_found">No Data Found</string>
     <string name="text_stop">STOP</string>
     <string name="text_start_now">START</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

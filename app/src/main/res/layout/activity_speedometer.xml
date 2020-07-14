@@ -190,7 +190,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_smaller_size"
-        android:text="2:45"
+        android:text="0:00"
         app:layout_constraintEnd_toEndOf="@+id/icon2"
         app:layout_constraintStart_toStartOf="@+id/icon2"
         app:layout_constraintTop_toBottomOf="@+id/icon2" />
@@ -210,7 +210,7 @@
         android:id="@+id/speed_view"
         android:layout_width="80dp"
         android:layout_height="100dp"
-        android:layout_marginStart="@dimen/dp_5"
+
         android:layout_marginEnd="@dimen/margin_smaller_size"
         app:layout_constraintBottom_toBottomOf="@+id/distance_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -254,11 +254,10 @@
         android:id="@+id/v1"
         android:layout_width="1dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_smaller_size"
         android:background="#36000000"
         app:layout_constraintBottom_toTopOf="@+id/text2"
         app:layout_constraintEnd_toStartOf="@+id/distance_view"
-        app:layout_constraintStart_toEndOf="@+id/time_values"
+        app:layout_constraintStart_toEndOf="@+id/time_view"
         app:layout_constraintTop_toBottomOf="@+id/icon1" />
 
     <View

@@ -131,4 +131,7 @@ dependencies {
     // rating bar lib
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
 
+    // circle progress bar
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
+
 }
