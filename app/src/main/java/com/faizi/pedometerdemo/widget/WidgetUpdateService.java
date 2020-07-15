@@ -37,7 +37,7 @@ public class WidgetUpdateService extends JobIntentService {
 
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
-        Database db = Database.getInstance(this);
+        /*Database db = Database.getInstance(this);
         int steps = Math.max(db.getCurrentSteps().getStep() + db.getSteps(Util.getToday()).getStep(), 0);
         db.close();
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
@@ -46,6 +46,6 @@ public class WidgetUpdateService extends JobIntentService {
         for (int appWidgetId : appWidgetIds) {
             appWidgetManager
                     .updateAppWidget(appWidgetId, Widget.updateWidget(appWidgetId, this, steps));
-        }
+        }*/
     }
 }

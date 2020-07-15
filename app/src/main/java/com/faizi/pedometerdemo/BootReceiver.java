@@ -22,7 +22,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 
-import com.faizi.pedometerdemo.model.Step;
 import com.faizi.pedometerdemo.util.API26Wrapper;
 import com.faizi.pedometerdemo.util.Logger;
 
@@ -36,22 +35,20 @@ public class BootReceiver extends BroadcastReceiver {
 
         Database db = Database.getInstance(context);
 
-        Step step = null;
         if (!prefs.getBoolean("correctShutdown", false)) {
             if (BuildConfig.DEBUG) Logger.log("Incorrect shutdown");
             // can we at least recover some steps?
-            step = db.getCurrentSteps();
-            int steps = Math.max(0, step.getStep());
+            int steps = Math.max(0, db.getCurrentSteps());
             if (BuildConfig.DEBUG) Logger.log("Trying to recover " + steps + " steps");
-            db.addToLastEntry(step);
+            db.addToLastEntry(steps);
         }
         // last entry might still have a negative step value, so remove that
         // row if that's the case
         db.removeNegativeEntries();
-        if (step != null) db.saveCurrentSteps(step);
+        db.saveCurrentSteps(0);
         db.close();
         prefs.edit().remove("correctShutdown").apply();
-        
+
         if (Build.VERSION.SDK_INT >= 26) {
             API26Wrapper.startForegroundService(context, new Intent(context, SensorListener.class));
         } else {

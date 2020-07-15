@@ -36,14 +36,14 @@ public class DashClock extends DashClockExtension {
 
     @Override
     protected void onUpdateData(int reason) {
-        ExtensionData data = new ExtensionData();
+        /*ExtensionData data = new ExtensionData();
         Database db = Database.getInstance(this);
         int steps = Math.max(db.getCurrentSteps().getStep() + db.getSteps(Util.getToday()).getStep(), 0);
         data.visible(true).status(PedoMeterFragment.formatter.format(steps))
                 .icon(R.drawable.ic_dashclock)
                 .clickIntent(new Intent(DashClock.this, Activity_Main.class));
         db.close();
-        publishUpdate(data);
+        publishUpdate(data);*/
     }
 
 }

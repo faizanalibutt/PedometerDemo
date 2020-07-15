@@ -3,8 +3,8 @@ package com.faizi.pedometerdemo.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.faizi.pedometerdemo.R
-import com.faizi.pedometerdemo.ui.fragment.ReportFragment
 import com.faizi.pedometerdemo.ui.ViewPagerAdapter
+import com.faizi.pedometerdemo.ui.fragment.PedoMeterFragmentNew
 import kotlinx.android.synthetic.main.activity_pedometer.*
 
 class PedometerActivity : AppCompatActivity() {

@@ -2,6 +2,7 @@
     <string name="app_name">Pedometer</string>
     <string name="goal">Goal</string>
     <string name="step_size">Step size</string>
+    <string name="steps">steps</string>
     <string name="about">About</string>
     <string name="account">Account</string>
     <string name="goal_summary">Current goal: %,d steps</string>
