@@ -38,6 +38,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.faizi.pedometerdemo.BuildConfig;
@@ -47,6 +48,7 @@ import com.faizi.pedometerdemo.SensorListener;
 import com.faizi.pedometerdemo.ui.Dialog_Split;
 import com.faizi.pedometerdemo.ui.Dialog_Statistics;
 import com.faizi.pedometerdemo.util.API26Wrapper;
+import com.faizi.pedometerdemo.util.AppUtils;
 import com.faizi.pedometerdemo.util.Logger;
 import com.faizi.pedometerdemo.util.TimeUtils;
 import com.faizi.pedometerdemo.util.Util;
@@ -61,6 +63,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import de.j4velin.pedometer.ui.Activity_Main;
 
@@ -72,20 +75,17 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
     private View start_btn;
     ImageView step_btn_img;
     TextView step_btn_txt, timeValue;
+    private View mView;
 
     private int todayOffset, total_start, goal, since_boot, total_days;
     public final static NumberFormat formatter = NumberFormat.getInstance(Locale.getDefault());
-    //private boolean showSteps = true;
-
-    @Override
-    public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getActivity().startService(new Intent(getActivity(), SensorListener.class));
-    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.fragment_pedometer, null);
+        final View v = inflater.inflate(R.layout.fragment_pedometer_new, null);
+
+        mView = v;
+
         stepsView = (TextView) v.findViewById(R.id.steps);
         totalView = (TextView) v.findViewById(R.id.total);
         miles = (TextView) v.findViewById(R.id.distance_value);
@@ -117,13 +117,131 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         pg.setUsePieRotation(true);
         pg.startAnimation();
 
+        start_btn.setOnClickListener(v1 -> {
+
+            if (step_btn_txt.getText() == v.getContext().getString(R.string.text_resume)) {
+
+                AppUtils.INSTANCE.getDefaultPreferences
+                        (
+                                (AppCompatActivity) Objects.requireNonNull(getActivity())
+                        ).edit().putString("pedo_state", "stop").apply();
+
+                startService(v, true);
+                setUpListener(true);
+                startPedometer();
+
+                step_btn_txt.setText(v.getContext().getString(R.string.text_stop));
+                step_btn_img.setVisibility(View.GONE);
+                start_btn.setBackground(v.getContext().getDrawable(R.drawable.background_stop_btn));
+
+            } else if (step_btn_txt.getText() == v.getContext().getString(R.string.text_stop)) {
+
+                AppUtils.INSTANCE.getDefaultPreferences
+                        (
+                                (AppCompatActivity) Objects.requireNonNull(getActivity())
+                        ).edit().putString("pedo_state", "resume").apply();
+
+                startService(v, false);
+                setUpListener(false);
+
+                step_btn_txt.setText(v.getContext().getString(R.string.text_resume));
+                step_btn_img.setVisibility(View.VISIBLE);
+                start_btn.setBackground(v.getContext().getDrawable(R.drawable.background_start_btn));
+
+            } else {
+
+                AppUtils.INSTANCE.getDefaultPreferences
+                        (
+                                (AppCompatActivity) Objects.requireNonNull(getActivity())
+                        ).edit().putString("pedo_state", "stop").apply();
+
+                startService(v, true);
+                setUpListener(true);
+                startPedometer();
+
+                step_btn_txt.setText(v.getContext().getString(R.string.text_stop));
+                step_btn_img.setVisibility(View.GONE);
+                start_btn.setBackground(v.getContext().getDrawable(R.drawable.background_stop_btn));
+
+            }
+
+        });
+
+        String pedoState = AppUtils.INSTANCE.getDefaultPreferences(
+                (AppCompatActivity) Objects.requireNonNull(getActivity())
+        ).getString("pedo_state", "start");
+
+        if (pedoState != null && pedoState.equals("stop")) {
+
+            setUpListener(true);
+            startService(v, true);
+            startPedometer();
+
+            step_btn_txt.setText(v.getContext().getString(R.string.text_stop));
+            step_btn_img.setVisibility(View.GONE);
+            start_btn.setBackground(v.getContext().getDrawable(R.drawable.background_stop_btn));
+
+        } else if (pedoState != null && pedoState.equals("resume")) {
+
+            setUpListener(false);
+            startService(v, false);
+
+            step_btn_txt.setText(v.getContext().getString(R.string.text_resume));
+            step_btn_img.setVisibility(View.VISIBLE);
+            start_btn.setBackground(v.getContext().getDrawable(R.drawable.background_start_btn));
+
+        }
+
         return v;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        //getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
+    private void startService(View v, boolean start) {
+        if (start)
+            /*if (Build.VERSION.SDK_INT >= 26) {
+                API26Wrapper.startForegroundService(v.getContext(),
+                        new Intent(getActivity(), SensorListener.class));
+            } else {
+
+            }*/
+            v.getContext().startService(new Intent(getActivity(), SensorListener.class));
+        else {
+            v.getContext().stopService(new Intent(getActivity(), SensorListener.class));
+        }
+    }
+
+    public void setUpListener(boolean option) {
+        if (option) {
+            SensorManager sm = (SensorManager) Objects.requireNonNull(getContext()).getSystemService(Context.SENSOR_SERVICE);
+            Sensor sensor = sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            if (sensor == null) {
+                new AlertDialog.Builder(getActivity()).setTitle(R.string.no_sensor)
+                        .setMessage(R.string.no_sensor_explain)
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(final DialogInterface dialogInterface) {
+                                Objects.requireNonNull(getActivity()).finish();
+                            }
+                        }).setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).create().show();
+            } else {
+                sm.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI, 0);
+            }
+        } else {
+            try {
+                SensorManager sm =
+                        (SensorManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SENSOR_SERVICE);
+                sm.unregisterListener(this);
+            } catch (Exception e) {
+                if (BuildConfig.DEBUG) Logger.log(e);
+            }
+        }
+    }
+
+    private void startPedometer() {
 
         Database db = Database.getInstance(getActivity());
 
@@ -135,32 +253,10 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
                 getActivity().getSharedPreferences("pedometer", Context.MODE_PRIVATE);
 
         goal = prefs.getInt("goal", Fragment_Settings.DEFAULT_GOAL);
-        //since_boot = db.getCurrentSteps();
+        since_boot = db.getCurrentSteps();
         int pauseDifference = since_boot - prefs.getInt("pauseCount", since_boot);
 
-        // register a sensorlistener to live update the UI if a step is taken
-        SensorManager sm = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        Sensor sensor = sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        if (sensor == null) {
-            new AlertDialog.Builder(getActivity()).setTitle(R.string.no_sensor)
-                    .setMessage(R.string.no_sensor_explain)
-                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(final DialogInterface dialogInterface) {
-                            getActivity().finish();
-                        }
-                    }).setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            }).create().show();
-        } else {
-            sm.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI, 0);
-        }
-
         since_boot -= pauseDifference;
-
         total_start = db.getTotalWithoutToday();
         total_days = db.getDays();
 
@@ -174,40 +270,8 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
      * the pie graph as well as the pie and the bars graphs.
      */
     private void stepsDistanceChanged() {
-        ((TextView) getView().findViewById(R.id.unit)).setText(getString(R.string.text_steps));
+        ((TextView) mView.findViewById(R.id.unit)).setText(getString(R.string.text_steps));
         updatePie();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        try {
-            SensorManager sm =
-                    (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-            sm.unregisterListener(this);
-        } catch (Exception e) {
-            if (BuildConfig.DEBUG) Logger.log(e);
-        }
-        Database db = Database.getInstance(getActivity());
-        db.saveCurrentSteps(since_boot);
-        db.close();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_split_count:
-                Dialog_Split.getDialog(getActivity(),
-                        total_start + Math.max(todayOffset + since_boot, 0)).show();
-                return true;
-            default:
-                return ((Activity_Main) getActivity()).optionsItemSelected(item);
-        }
     }
 
     @Override
@@ -233,6 +297,9 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
             db.close();
         }
         since_boot = (int) event.values[0];
+        /*Database db = Database.getInstance(getActivity());
+        db.saveCurrentSteps(since_boot);
+        db.close();*/
         updatePie();
     }
 
@@ -268,19 +335,15 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
                 getActivity().getSharedPreferences("pedometer", Context.MODE_PRIVATE);
         float stepsize = prefs.getFloat("stepsize_value", Fragment_Settings.DEFAULT_STEP_SIZE);
         float distance_today = steps_today * stepsize;
-        float distance_total = (total_start + steps_today) * stepsize;
         if (prefs.getString("stepsize_unit", Fragment_Settings.DEFAULT_STEP_UNIT)
                 .equals("cm")) {
             distance_today /= 100000;
-            distance_total /= 100000;
         } else {
             distance_today /= 5280;
-            distance_total /= 5280;
         }
         miles.setText(formatter.format(distance_today));
         // TODO: 7/15/2020 increase step count to 150
-        timeValue.setText(TimeUtils.INSTANCE.getFormatedTimeMH((steps_today/10) * 60000));
-
+        timeValue.setText(TimeUtils.INSTANCE.getFormatedTimeMH((steps_today / 10) * 60000));
     }
 
 }

@@ -2,6 +2,7 @@ package com.faizi.pedometerdemo.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.faizi.pedometerdemo.ui.fragment.ReportFragment
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.ui.ViewPagerAdapter
 import com.faizi.pedometerdemo.ui.fragment.PedoMeterFragmentNew
@@ -15,7 +16,7 @@ class PedometerActivity : AppCompatActivity() {
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(PedoMeterFragmentNew(), "TODAY")
-        //adapter.addFragment(ReportFragment(), "REPORT")
+        adapter.addFragment(ReportFragment(), "REPORT")
         viewPager.adapter = adapter
         tabView.setupWithViewPager(viewPager)
 

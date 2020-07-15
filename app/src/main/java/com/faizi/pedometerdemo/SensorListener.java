@@ -39,6 +39,7 @@ import java.text.NumberFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.faizi.pedometerdemo.ui.activity.PedometerActivity;
 import com.faizi.pedometerdemo.util.API23Wrapper;
 import com.faizi.pedometerdemo.util.API26Wrapper;
 import com.faizi.pedometerdemo.util.Logger;
@@ -233,7 +234,7 @@ public class SensorListener extends Service implements SensorEventListener {
         }
         notificationBuilder.setPriority(Notification.PRIORITY_MIN).setShowWhen(false)
                 .setContentIntent(PendingIntent
-                        .getActivity(context, 0, new Intent(context, Activity_Main.class),
+                        .getActivity(context, 0, new Intent(context, PedometerActivity.class),
                                 PendingIntent.FLAG_UPDATE_CURRENT))
                 .setSmallIcon(R.drawable.ic_notification).setOngoing(true);
         return notificationBuilder.build();

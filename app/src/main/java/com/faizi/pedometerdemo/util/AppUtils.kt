@@ -15,6 +15,10 @@ object AppUtils {
         return activity.getSharedPreferences("pedo", MODE_PRIVATE)
     }
 
+    fun getDefaultPreferences(context: Context): SharedPreferences {
+        return context.getSharedPreferences("pedo", MODE_PRIVATE)
+    }
+
     fun roundTwoDecimal(d: Double): Double {
         return try {
             (d * 100.0).roundToInt() / 100.0

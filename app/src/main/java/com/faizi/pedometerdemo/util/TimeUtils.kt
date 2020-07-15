@@ -90,7 +90,10 @@ object TimeUtils {
             else
                 string.append(" s")
         } else {
-            string.append("0:00")
+            if (hours != 0L || minutes != 0L)
+                return string.toString()
+            else
+                string.append("0:00")
         }
 
         return string.toString()

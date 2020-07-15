@@ -65,7 +65,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(final SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + DB_NAME + " (steps INTEGER, distance REAL, date INTEGER, total_time INTEGER)");
+        db.execSQL("CREATE TABLE " + DB_NAME + " (date INTEGER, steps INTEGER)");
         db.execSQL("CREATE TABLE " + TABLE_SPEED + " (id INTEGER PRIMARY KEY, start_time TEXT, end_time TEXT," +
                 " speed REAL, distance REAL, speed_date TEXT, total_time INTEGER)");
     }
@@ -277,6 +277,7 @@ public class Database extends SQLiteOpenHelper {
                 result.add(new Pair<>(c.getLong(0), c.getInt(1)));
             } while (c.moveToNext());
         }
+        c.close();
         return result;
     }
 

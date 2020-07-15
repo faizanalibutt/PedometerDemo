@@ -22,7 +22,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.faizi.pedometerdemo.util.API26Wrapper;
+import com.faizi.pedometerdemo.util.AppUtils;
 import com.faizi.pedometerdemo.util.Logger;
 
 public class BootReceiver extends BroadcastReceiver {
@@ -49,10 +52,16 @@ public class BootReceiver extends BroadcastReceiver {
         db.close();
         prefs.edit().remove("correctShutdown").apply();
 
-        if (Build.VERSION.SDK_INT >= 26) {
-            API26Wrapper.startForegroundService(context, new Intent(context, SensorListener.class));
-        } else {
-            context.startService(new Intent(context, SensorListener.class));
-        }
+        String service = AppUtils.INSTANCE.getDefaultPreferences
+                (context).getString("pedo_state", "start");
+        Logger.log(service);
+        if (service != null && service.equals("stop"))
+            if (Build.VERSION.SDK_INT >= 26) {
+                API26Wrapper.startForegroundService(context,
+                        new Intent(context, SensorListener.class));
+            } else {
+                context.startService(new Intent(context, SensorListener.class));
+            }
+
     }
 }
