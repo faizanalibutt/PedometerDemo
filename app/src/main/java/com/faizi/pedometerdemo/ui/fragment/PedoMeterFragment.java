@@ -55,7 +55,6 @@ import com.faizi.pedometerdemo.BuildConfig;
 import com.faizi.pedometerdemo.Database;
 import com.faizi.pedometerdemo.R;
 import com.faizi.pedometerdemo.SensorListener;
-import com.faizi.pedometerdemo.model.Step;
 import com.faizi.pedometerdemo.ui.Dialog_Split;
 import com.faizi.pedometerdemo.ui.Dialog_Statistics;
 import com.faizi.pedometerdemo.util.API26Wrapper;
@@ -248,7 +247,7 @@ public class PedoMeterFragment extends Fragment implements SensorEventListener {
             // initializing them with -STEPS_SINCE_BOOT
             todayOffset = -(int) event.values[0];
             Database db = Database.getInstance(getActivity());
-            db.insertNewDay(new Step((int) event.values[0], 0, Util.getToday(), 0));
+            db.insertNewDay(Util.getToday(), (int) event.values[0]);
             db.close();
         }
         since_boot = (int) event.values[0];
