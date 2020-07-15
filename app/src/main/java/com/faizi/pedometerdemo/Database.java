@@ -23,19 +23,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Pair;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.faizi.pedometerdemo.model.Distance;
 import com.faizi.pedometerdemo.model.DistanceTotal;
-import com.faizi.pedometerdemo.model.Step;
-import com.faizi.pedometerdemo.model.TotalStep;
 import com.faizi.pedometerdemo.util.Logger;
 import com.faizi.pedometerdemo.util.Util;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Database extends SQLiteOpenHelper {
 
@@ -109,34 +107,34 @@ public class Database extends SQLiteOpenHelper {
      * the previous day, if there is an entry for that date.
      * <p/>
      * This method does nothing if there is already an entry for 'date' - use
-     * in this case.
+     * {@link #updateSteps} in this case.
      * <p/>
      * To restore data from a backup, use {@link #insertDayFromBackup}
      *
-     * @param step pedometer model
-     *
+     * @param date  the date in ms since 1970
+     * @param steps the current step value to be used as negative offset for the
+     *              new day; must be >= 0
      */
-    public void insertNewDay(Step step) {
+    public void insertNewDay(long date, int steps) {
         getWritableDatabase().beginTransaction();
         try {
             Cursor c = getReadableDatabase().query(DB_NAME, new String[]{"date"}, "date = ?",
-                    new String[]{String.valueOf(step.getDate())}, null, null, null);
-            if (c.getCount() == 0 && step.getStep() >= 0) {
+                    new String[]{String.valueOf(date)}, null, null, null);
+            if (c.getCount() == 0 && steps >= 0) {
 
                 // add 'steps' to yesterdays count
-                addToLastEntry(step);
+                addToLastEntry(steps);
+
                 // add today
                 ContentValues values = new ContentValues();
-                values.put("steps", -step.getStep());
-                values.put("distance", step.getDistance());
-                values.put("date", step.getDate());
-                values.put("total_time", step.getTotalTime());
+                values.put("date", date);
                 // use the negative steps as offset
+                values.put("steps", -steps);
                 getWritableDatabase().insert(DB_NAME, null, values);
             }
             c.close();
             if (BuildConfig.DEBUG) {
-                Logger.log("insertDay " + step.getDate() + " / " + step.getStep());
+                Logger.log("insertDay " + date + " / " + steps);
                 logState();
             }
             getWritableDatabase().setTransactionSuccessful();
@@ -150,9 +148,8 @@ public class Database extends SQLiteOpenHelper {
      *
      * @param steps the number of steps to add
      */
-    public void addToLastEntry(Step steps) {
-        getWritableDatabase().execSQL("UPDATE " + DB_NAME + " SET steps = " + steps.getStep() +
-                ", distance = " + steps.getDistance() + ", date = " + steps.getDate() + ", total_time = " + steps.getTotalTime() +
+    public void addToLastEntry(int steps) {
+        getWritableDatabase().execSQL("UPDATE " + DB_NAME + " SET steps = steps + " + steps +
                 " WHERE date = (SELECT MAX(date) FROM " + DB_NAME + ")");
     }
 
@@ -252,21 +249,15 @@ public class Database extends SQLiteOpenHelper {
      * @return the steps taken on this date or Integer.MIN_VALUE if date doesn't
      * exist in the database
      */
-    public Step getSteps(final long date) {
-        Cursor c = getReadableDatabase().query(DB_NAME, null, "date = ?",
+    public int getSteps(final long date) {
+        Cursor c = getReadableDatabase().query(DB_NAME, new String[]{"steps"}, "date = ?",
                 new String[]{String.valueOf(date)}, null, null, null);
         c.moveToFirst();
-
-        Step step = null;
-        if (c.getCount() != 0) {
-            int re = c.getInt(c.getColumnIndex("steps"));
-            long distance = c.getLong(c.getColumnIndex("distance"));
-            long step_date = c.getLong(c.getColumnIndex("date"));
-            long totalTime = c.getLong(c.getColumnIndex("total_time"));
-            step = new Step(re, distance, step_date, totalTime);
-        }
+        int re;
+        if (c.getCount() == 0) re = Integer.MIN_VALUE;
+        else re = c.getInt(0);
         c.close();
-        return step == null ? new Step(Integer.MIN_VALUE, 0, 0, 0) : step;
+        return re;
     }
 
     /**
@@ -277,7 +268,7 @@ public class Database extends SQLiteOpenHelper {
      */
     public List<Pair<Long, Integer>> getLastEntries(int num) {
         Cursor c = getReadableDatabase()
-                .query(DB_NAME, null, "date > 0", null, null, null,
+                .query(DB_NAME, new String[]{"date", "steps"}, "date > 0", null, null, null,
                         "date DESC", String.valueOf(num));
         int max = c.getCount();
         List<Pair<Long, Integer>> result = new ArrayList<>(max);
@@ -286,26 +277,6 @@ public class Database extends SQLiteOpenHelper {
                 result.add(new Pair<>(c.getLong(0), c.getInt(1)));
             } while (c.moveToNext());
         }
-        c.close();
-        return result;
-    }
-
-    public List<TotalStep> getLastPedoEntries(int num) {
-        Cursor c = getReadableDatabase()
-                .query(DB_NAME, new String[]{"*"}, "date > 0", null, null, null,
-                        "date DESC", String.valueOf(num));
-        int max = c.getCount();
-        List<TotalStep> result = new ArrayList<>(max);
-        if (c.moveToFirst()) {
-            do {
-                double distance = c.getDouble(c.getColumnIndex("distance"));
-                int step = c.getInt(c.getColumnIndex("steps"));
-                long date = c.getLong(c.getColumnIndex("date"));
-                long totalTime = c.getLong(c.getColumnIndex("total_time"));
-                result.add(new TotalStep(step, distance, date, totalTime));
-            } while (c.moveToNext());
-        }
-        c.close();
         return result;
     }
 
@@ -392,20 +363,17 @@ public class Database extends SQLiteOpenHelper {
     /**
      * Saves the current 'steps since boot' sensor value in the database.
      *
-     * @param step since boot
+     * @param steps since boot
      */
-    public void saveCurrentSteps(Step step) {
+    public void saveCurrentSteps(int steps) {
         ContentValues values = new ContentValues();
-        values.put("steps", -step.getStep());
-        values.put("distance", step.getDistance());
-        values.put("date", step.getDate());
-        values.put("total_time", step.getTotalTime());
-        if (getWritableDatabase().update(DB_NAME, values, "date = ?", new String[]{String.valueOf(step.getDate())}) == 0) {
-            values.put("date", step.getDate());
+        values.put("steps", steps);
+        if (getWritableDatabase().update(DB_NAME, values, "date = -1", null) == 0) {
+            values.put("date", -1);
             getWritableDatabase().insert(DB_NAME, null, values);
         }
         if (BuildConfig.DEBUG) {
-            Logger.log("saving steps model in db: " + step.getDate());
+            Logger.log("saving steps in db: " + steps);
         }
     }
 
@@ -415,16 +383,9 @@ public class Database extends SQLiteOpenHelper {
      * @return the current number of steps saved in the database or 0 if there
      * is no entry
      */
-    public Step getCurrentSteps() {
-        Step re = getSteps(-1);
-        int step = re.getStep() == Integer.MIN_VALUE ? 0 : re.getStep();
-        return re;
-    }
-
-    public Step getCurrentStepsToday(long date) {
-        Step re = getSteps(date);
-        int step = re.getStep() == Integer.MIN_VALUE ? 0 : re.getStep();
-        return re;
+    public int getCurrentSteps() {
+        int re = getSteps(-1);
+        return re == Integer.MIN_VALUE ? 0 : re;
     }
 
     //////////// SPEEDOMETER DB VALUES ////////////

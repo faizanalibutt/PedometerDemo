@@ -57,7 +57,7 @@ class ReportFragment : Fragment() {
 
     private fun getIntervalsDataWeekly(database: Database, view: View, graphType: Graph) {
 
-        listCurrentWeekInterval = database.getLastPedoEntries(7)
+        //listCurrentWeekInterval = database.getLastPedoEntries(7)
 
         if (listCurrentWeekInterval.size == 0) {
             view.emptyData.visibility = View.VISIBLE

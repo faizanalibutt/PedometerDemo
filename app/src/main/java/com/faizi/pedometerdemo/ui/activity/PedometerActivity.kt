@@ -16,7 +16,7 @@ class PedometerActivity : AppCompatActivity() {
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(PedoMeterFragmentNew(), "TODAY")
-        adapter.addFragment(ReportFragment(), "REPORT")
+        //adapter.addFragment(ReportFragment(), "REPORT")
         viewPager.adapter = adapter
         tabView.setupWithViewPager(viewPager)
 
