@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     tools:context=".ui.fragment.MapFragment">
 
 
@@ -44,14 +45,24 @@
         android:visibility="gone"
         app:layout_constraintHorizontal_bias="1" />
 
+    <View
+        android:id="@+id/view2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/margin_standard_size"
+        android:layout_marginBottom="@dimen/margin_standard_size"
+        android:background="@drawable/background_map_speed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/digi_type_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/km_h_c"
+        android:text="@string/KMH"
         android:textSize="12sp"
-        app:layout_constraintVertical_bias="0.80"
+        app:layout_constraintVertical_bias="0.85"
         app:layout_constraintBottom_toBottomOf="@+id/arc_progress"
         app:layout_constraintEnd_toEndOf="@+id/arc_progress"
         app:layout_constraintStart_toStartOf="@+id/arc_progress"
@@ -59,15 +70,20 @@
 
     <com.github.lzyzsd.circleprogress.ArcProgress
         android:id="@+id/arc_progress"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         app:arc_bottom_text="@null"
         app:arc_finished_color="@color/colorPrimary"
         app:arc_max="100"
         app:arc_progress="5"
+        app:arc_text_size="35sp"
+        app:arc_suffix_text_size="1sp"
         app:arc_text_color="@color/black_dark"
         app:arc_unfinished_color="@color/gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/view2"
+        app:layout_constraintEnd_toEndOf="@+id/view2"
+        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintTop_toTopOf="@+id/view2" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

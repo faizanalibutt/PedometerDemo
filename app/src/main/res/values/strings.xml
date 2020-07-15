@@ -110,6 +110,7 @@
     <string name="text_distance">Distance</string>
     <string name="text_times">Time</string>
     <string name="kmh">KMH</string>
+    <string name="KMH">km/h</string>
     <string name="rate_us_desc">Please rate 5 stars to support us.\nThank you.</string>
     <string name="app_link">https://play.google.com/store/apps/details?id=com.sharecloud.sharefiles.sharedata.anyshare.musictransfer.filetransfer</string>
     <string name="butn_exit">Exit</string>
