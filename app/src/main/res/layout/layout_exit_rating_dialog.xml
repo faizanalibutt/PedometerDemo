@@ -6,204 +6,151 @@
     android:layout_height="wrap_content"
     android:background="@drawable/background_rate_exit_dialog_ext">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05839416" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/rating_group"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/rate_views"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="fl_adplaceholder, rate_exit_ads_view" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/rate_exit_ads_view"
-        android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-        app:layout_constraintStart_toEndOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/dialogTitle"
-        app:srcCompat="@color/colorPrimary" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/rate_us_image1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_star_image_dialog" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/rate_us_image1"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/rate_us_image2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="@+id/rate_us_image1"
+            app:layout_constraintEnd_toEndOf="@+id/rate_us_image1"
+            app:layout_constraintStart_toStartOf="@+id/rate_us_image1"
+            app:layout_constraintTop_toTopOf="@+id/rate_us_image1"
+            app:srcCompat="@drawable/ic_like_dialog" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/exit_views"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_smaller_size"
-        android:contentDescription="@string/app_name"
-        android:scaleType="centerInside" android:adjustViewBounds="true"
-        app:layout_constraintBottom_toTopOf="@+id/dialog_desc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_star_image_dialog" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/rate_us_image2"
-        android:layout_width="0dp"
-        android:layout_height="120dp"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toBottomOf="@+id/rate_us_image1"
-        app:layout_constraintEnd_toEndOf="@+id/rate_us_image1"
-        app:layout_constraintStart_toStartOf="@+id/rate_us_image1"
-        app:layout_constraintTop_toTopOf="@+id/rate_us_image1"
-        app:srcCompat="@drawable/ic_like_dialog" />
-
-    <FrameLayout
-        android:id="@+id/fl_adplaceholder"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-        app:layout_constraintStart_toEndOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/title_view" />
-
-    <View
-        android:id="@+id/title_view"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:background="@drawable/background_exit_title"
-        app:layout_constraintBottom_toTopOf="@+id/fl_adplaceholder"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/rate_views">
 
-    <TextView
-        android:id="@+id/dialogTitle"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="@string/dialog_title"
-        android:textColor="#de3b3b"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/title_view"
-        app:layout_constraintEnd_toEndOf="@+id/title_view"
-        app:layout_constraintStart_toStartOf="@+id/title_view"
-        app:layout_constraintTop_toTopOf="@+id/title_view" />
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/dp_10"
+            android:gravity="center"
+            android:text="@string/dialog_title"
+            android:textColor="#de3b3b"
+            android:textSize="18sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/ad_container_exit"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/dialogTitle" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/dialog_desc"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_absolute_size"
         android:gravity="center"
         android:text="@string/rate_us_desc"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_primary"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-        app:layout_constraintStart_toEndOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/fl_adplaceholder" />
+        android:textSize="@dimen/font_size_big"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exit_views" />
 
-    <me.zhanghai.android.materialratingbar.MaterialRatingBar
-        android:id="@+id/rating_bar_value"
-        style="@style/Widget.MaterialRatingBar.RatingBar"
-        android:layout_width="0dp"
+    <RelativeLayout
+        android:id="@+id/rate_exit_views"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_smaller_size"
-        android:maxHeight="40dp"
-        android:minHeight="40dp"
-        android:numStars="5"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
-        android:progressBackgroundTint="@color/rating_bar_color"
-        android:progressTint="@color/colorPrimaryStar"
-        android:stepSize="1"
-        android:theme="@style/RatingBar"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-        app:layout_constraintStart_toEndOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_desc"
-        app:mrb_fillBackgroundStars="false" />
+        android:layout_marginVertical="@dimen/dp_10"
+        app:layout_constraintBottom_toTopOf="@+id/negative_text"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_desc">
 
-    <TextView
-        android:id="@+id/exit_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="20dp"
-        android:text="Do you want to exit?"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_size_primary"
-        android:visibility="gone"
-        android:layout_marginBottom="@dimen/margin_standard_size"
-        app:layout_constraintBottom_toTopOf="@+id/button_group"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-        app:layout_constraintStart_toEndOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_desc"
-        tools:ignore="HardcodedText" />
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:id="@+id/rating_bar_value"
+            style="@style/Widget.MaterialRatingBar.RatingBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:maxHeight="40dp"
+            android:minHeight="40dp"
+            android:numStars="5"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:progressBackgroundTint="@color/rating_bar_color"
+            android:progressTint="@color/colorPrimaryStar"
+            android:stepSize="1"
+            android:theme="@style/RatingBar"
+            android:visibility="visible"
+            app:mrb_fillBackgroundStars="false" />
 
-    <View
-        android:id="@+id/button_group"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="@dimen/margin_small_size"
-        android:layout_marginBottom="@dimen/margin_smaller_size"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end"
-        app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/rating_bar_value" />
-
-    <View
-        android:id="@+id/negative"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="@dimen/margin_smaller_size"
-        android:layout_marginEnd="@dimen/margin_standard_size"
-        android:background="@drawable/background_negative_button"
-        app:layout_constraintBottom_toBottomOf="@+id/button_group"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/button_group"
-        app:layout_constraintTop_toTopOf="@+id/button_group" />
+        <TextView
+            android:id="@+id/exit_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:minHeight="20dp"
+            android:text="Do you want to exit?"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_primary"
+            android:visibility="gone"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/negative_text"
         style="@style/TextAppearance.Primary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_thanks"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/negative"
-        app:layout_constraintEnd_toEndOf="@+id/negative"
-        app:layout_constraintStart_toStartOf="@+id/negative"
-        app:layout_constraintTop_toTopOf="@+id/negative" />
-
-    <View
-        android:id="@+id/positive"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="@dimen/margin_standard_size"
-        android:layout_marginEnd="@dimen/margin_smaller_size"
-        android:background="@drawable/background_positive_button"
-        app:layout_constraintBottom_toBottomOf="@+id/button_group"
-        app:layout_constraintEnd_toEndOf="@+id/button_group"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/button_group" />
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginHorizontal="@dimen/dp_20"
+        android:layout_marginVertical="@dimen/dp_20"
+        android:text="@string/text_thanks"
+        android:background="@drawable/background_negative_button"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/positive_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rate_exit_views" />
+
 
     <TextView
         android:id="@+id/positive_text"
         style="@style/TextAppearance.Primary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginEnd="@dimen/dp_20"
         android:text="@string/butn_exit"
+        android:background="@drawable/background_negative_button"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/negative_text"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/positive"
-        app:layout_constraintEnd_toEndOf="@+id/positive"
-        app:layout_constraintStart_toStartOf="@+id/positive"
-        app:layout_constraintTop_toTopOf="@+id/positive" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/negative_text"
+        app:layout_constraintTop_toTopOf="@+id/negative_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

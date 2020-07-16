@@ -5,9 +5,10 @@ import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.dev.bytes.adsmanager.BannerPlacements
+import com.dev.bytes.adsmanager.loadBannerAd
 import com.faizi.pedometerdemo.Database
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.callback.Callback
@@ -18,12 +19,10 @@ import com.faizi.pedometerdemo.ui.fragment.DigitalFragment
 import com.faizi.pedometerdemo.ui.fragment.MapFragment
 import com.faizi.pedometerdemo.util.AppUtils
 import com.faizi.pedometerdemo.util.CurrentLocation
-import com.faizi.pedometerdemo.util.Logger
 import com.faizi.pedometerdemo.util.TimeUtils
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
 import kotlinx.android.synthetic.main.activity_speedometer.*
-
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -58,6 +57,8 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
         viewPager.offscreenPageLimit = 2
         viewPager.adapter = adapter
         tabView.setupWithViewPager(viewPager)
+
+        ad_container_speedo.loadBannerAd(BannerPlacements.BANNER_AD)
 
         nav_back.setOnClickListener {
             finish()

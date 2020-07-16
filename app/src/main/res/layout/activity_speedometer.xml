@@ -127,9 +127,10 @@
         android:layout_width="80dp"
         android:layout_height="100dp"
         android:layout_marginTop="@dimen/margin_standard_size"
-        app:layout_constraintBottom_toTopOf="@+id/ad_container"
+        app:layout_constraintBottom_toTopOf="@+id/ad_container_speedo"
         app:layout_constraintEnd_toStartOf="@+id/v2"
         app:layout_constraintStart_toEndOf="@+id/v1"
+        android:layout_marginBottom="@dimen/dp_10"
         app:layout_constraintTop_toBottomOf="@+id/start_btn" />
 
     <ImageView
@@ -271,9 +272,10 @@
         app:layout_constraintTop_toBottomOf="@+id/icon1" />
 
     <FrameLayout
-        android:id="@+id/ad_container"
+        android:id="@+id/ad_container_speedo"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

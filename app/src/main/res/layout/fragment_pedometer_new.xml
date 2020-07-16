@@ -82,7 +82,7 @@
         android:layout_width="80dp"
         android:layout_height="100dp"
         android:layout_marginTop="@dimen/margin_standard_size"
-        eaze:layout_constraintBottom_toTopOf="@+id/ad_container"
+        eaze:layout_constraintBottom_toBottomOf="parent"
         eaze:layout_constraintEnd_toStartOf="@+id/v2"
         eaze:layout_constraintStart_toEndOf="@+id/v1"
         eaze:layout_constraintTop_toBottomOf="@+id/start_btn" />
@@ -225,66 +225,5 @@
         eaze:layout_constraintEnd_toStartOf="@+id/kal_view"
         eaze:layout_constraintStart_toEndOf="@+id/distance_view"
         eaze:layout_constraintTop_toBottomOf="@+id/icon1" />
-
-    <FrameLayout
-        android:id="@+id/ad_container"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        eaze:layout_constraintBottom_toBottomOf="parent"
-        eaze:layout_constraintEnd_toEndOf="parent"
-        eaze:layout_constraintStart_toStartOf="parent"
-        eaze:layout_constraintTop_toBottomOf="@+id/kal_view" />
-
-    <LinearLayout
-        android:id="@+id/averageandtotal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/pedo_process_graph"
-        android:layout_marginTop="20dp"
-        android:visibility="gone"
-        tools:ignore="MissingConstraints">
-
-        <TextView
-            android:id="@+id/totalMiles"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/total"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/averageandtotaltext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/averageandtotal"
-        android:visibility="gone"
-        tools:ignore="MissingConstraints">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/text_miles" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/total" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+// firebase services
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -134,4 +137,6 @@ dependencies {
     // circle progress bar
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
 
+    // ads manger
+    implementation project(path: ':adsmanager')
 }

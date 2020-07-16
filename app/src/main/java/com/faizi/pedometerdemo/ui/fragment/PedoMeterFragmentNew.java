@@ -87,7 +87,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         mView = v;
 
         stepsView = (TextView) v.findViewById(R.id.steps);
-        totalView = (TextView) v.findViewById(R.id.total);
+        //totalView = (TextView) v.findViewById(R.id.total);
         miles = (TextView) v.findViewById(R.id.distance_value);
         timeValue = v.findViewById(R.id.time_value);
 
@@ -329,7 +329,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         pg.update();
 
         stepsView.setText(formatter.format(steps_today));
-        totalView.setText(formatter.format(total_start + steps_today));
+        //totalView.setText(formatter.format(total_start + steps_today));
         // update only every 10 steps when displaying distance
         SharedPreferences prefs =
                 getActivity().getSharedPreferences("pedometer", Context.MODE_PRIVATE);

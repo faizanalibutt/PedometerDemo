@@ -12,6 +12,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import com.dev.bytes.adsmanager.ADUnitPlacements
+import com.dev.bytes.adsmanager.loadNativeAd
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.util.AppUtils
 import com.faizi.pedometerdemo.util.NetworkUtils
@@ -80,19 +82,19 @@ class SplashActivity : AppCompatActivity() {
         appIconsplash.visibility = View.VISIBLE
         progressBar.visibility = View.VISIBLE
         layout_gdp.visibility = View.GONE
+        loadNativeAd(ad_container_splash, R.layout.ad_unified_splash, ADUnitPlacements.SPLASH_NATIVE_AD)
 
         val isOnline = NetworkUtils.isOnline(this@SplashActivity)
-        val stuckLimit: Long = if (isOnline) 1000 else 3000
-        var skip = 1
+        val stuckLimit: Long = if (isOnline) 8000 else 3000
+        var skip = 8
         Thread {
-            for ((progress, _) in (1..
-                    if (isOnline) 1 else 3).withIndex()) {
+            for ((progress, _) in (1..if (isOnline) 8 else 3).withIndex()) {
                 try {
                     Thread.sleep(1000)
                 } catch (e: Exception) {
                 }
                 runOnUiThread {
-                    progressBar.max = if (isOnline) 1 else 3
+                    progressBar.max = if (isOnline) 8 else 3
                     progressBar.progress = progress + 1
                     skip -= 1
                     skipText.text = String.format("Skip $skip")

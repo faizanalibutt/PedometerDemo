@@ -12,7 +12,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="buttonStyle">@style/Widget.Hazel.ButtonStyle</item>
+<!--        <item name="buttonStyle">@style/Widget.Hazel.ButtonStyle</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar.Status">

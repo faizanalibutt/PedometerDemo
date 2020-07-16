@@ -10,6 +10,8 @@ import android.widget.RatingBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
+import com.dev.bytes.adsmanager.ADUnitPlacements
+import com.dev.bytes.adsmanager.loadNativeAd
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.util.AppUtils
 import com.faizi.pedometerdemo.util.NetworkUtils
@@ -26,22 +28,13 @@ class ExitDialogue(val activity: Activity, private val isMenu: Boolean) :
             setView(mRootView)
 
             if (!isMenu && NetworkUtils.isOnline(activity)) {
-                mRootView.rating_group.visibility = View.VISIBLE
-                /*val admobUtils = AdmobUtils(activity)
-                admobUtils.loadNativeAd(mRootView.fl_adplaceholder, R.layout.ad_unified_3, NativeAdsIdType.EXIT_NATIVE_AM)
-                admobUtils.setNativeAdListener(object : AdmobUtils.NativeAdListener {
-                    override fun onNativeAdLoaded() {
-                        mRootView.rate_exit_ads_view.visibility = View.GONE
-                    }
-                    override fun onNativeAdError() {
-
-                    }
-                })*/
-                mRootView.rate_us_image1.visibility = View.GONE
-                mRootView.rate_us_image2.visibility = View.GONE
+                mRootView.exit_views.visibility = View.VISIBLE
+                mRootView.rate_views.visibility = View.GONE
+                activity.loadNativeAd(mRootView.ad_container_exit, R.layout.ad_unified_exit, ADUnitPlacements.EXIT_NATIVE_AD)
             } else {
-                mRootView.dialogTitle.visibility = View.GONE
-                mRootView.title_view.visibility = View.GONE
+                mRootView.rate_views.visibility = View.VISIBLE
+                mRootView.exit_views.visibility = View.GONE
+                mRootView.rating_bar_value.visibility = View.VISIBLE
             }
 
             if (isMenu) {
@@ -53,7 +46,7 @@ class ExitDialogue(val activity: Activity, private val isMenu: Boolean) :
                 mRootView.negative_text.text = activity.getString(R.string.butn_cancel)
             }
 
-            mRootView.positive.setOnClickListener {
+            mRootView.positive_text.setOnClickListener {
                 if (!isMenu) {
                     activity.finish()
                 } else {
@@ -65,7 +58,7 @@ class ExitDialogue(val activity: Activity, private val isMenu: Boolean) :
             }
             /*setPositiveButton(title) { _, _ -> }*/
 
-            mRootView.negative.setOnClickListener {
+            mRootView.negative_text.setOnClickListener {
                 // see about it.
                 dismiss()
             }
@@ -166,16 +159,6 @@ class ExitDialogue(val activity: Activity, private val isMenu: Boolean) :
                     }
                 }
             }
-        }
-    }
-
-    private fun changeDialogButtonState(
-        dialog: AlertDialog?, buttonType: Int, title: String?,
-        isDisable: Boolean
-    ) {
-        if (dialog != null && dialog.isShowing) {
-            dialog.getButton(buttonType).text = title
-            dialog.getButton(buttonType).isEnabled = isDisable
         }
     }
 

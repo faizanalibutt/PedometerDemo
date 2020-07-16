@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.dev.bytes.adsmanager.ADUnitPlacements
+import com.dev.bytes.adsmanager.loadNativeAd
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.dialog.ExitDialogue
 import com.google.android.material.navigation.NavigationView
@@ -37,6 +39,7 @@ class MainActivity :
         action_share.setOnClickListener(this)
         action_pro.setOnClickListener(this)
         dialog = showRateExitDialogue(this@MainActivity, false)
+        loadNativeAd(ad_container_main, R.layout.ad_unified_main, ADUnitPlacements.MAIN_MM_NATIVE_AD)
     }
 
     fun openSpeedo(view: View) {

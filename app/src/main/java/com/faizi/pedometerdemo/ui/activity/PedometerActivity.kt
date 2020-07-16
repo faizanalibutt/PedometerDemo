@@ -2,6 +2,8 @@ package com.faizi.pedometerdemo.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.dev.bytes.adsmanager.ADUnitPlacements
+import com.dev.bytes.adsmanager.loadNativeAd
 import com.faizi.pedometerdemo.ui.fragment.ReportFragment
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.ui.ViewPagerAdapter
@@ -23,6 +25,8 @@ class PedometerActivity : AppCompatActivity() {
         nav_back.setOnClickListener {
             finish()
         }
+
+        loadNativeAd(ad_container_pedo, R.layout.ad_unified_common, ADUnitPlacements.COMMON_NATIVE_AD)
     }
 
 }

@@ -2,10 +2,15 @@ package com.faizi.pedometerdemo.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.dev.bytes.adsmanager.ADUnitPlacements
+import com.dev.bytes.adsmanager.loadNativeAd
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.ui.ViewPagerAdapter
 import com.faizi.pedometerdemo.ui.fragment.DetailReportFragment
-import kotlinx.android.synthetic.main.activity_pedometer.*
+import kotlinx.android.synthetic.main.activity_pedometer.nav_back
+import kotlinx.android.synthetic.main.activity_pedometer.tabView
+import kotlinx.android.synthetic.main.activity_pedometer.viewPager
+import kotlinx.android.synthetic.main.activity_speedo_graph.*
 
 class SpeedoGraphActivity : AppCompatActivity() {
 
@@ -22,6 +27,8 @@ class SpeedoGraphActivity : AppCompatActivity() {
         nav_back.setOnClickListener {
             finish()
         }
+
+        loadNativeAd(ad_container_graph, R.layout.ad_unified_common, ADUnitPlacements.COMMON_NATIVE_AD)
 
     }
 }
