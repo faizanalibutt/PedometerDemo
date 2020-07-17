@@ -58,6 +58,8 @@
         android:layout_marginStart="@dimen/margin_small_size"
         android:layout_marginTop="@dimen/margin_medium_size"
         android:layout_marginEnd="@dimen/margin_small_size"
+        android:layout_marginBottom="@dimen/margin_medium_size"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/ad_container_splash"
         app:layout_constraintStart_toStartOf="@+id/ad_container_splash"
         app:layout_constraintTop_toBottomOf="@+id/appIconsplash" />

@@ -66,6 +66,13 @@ enum class ADUnitPlacements(
     COMMON_NATIVE_AD(
         R.string.mm_native_am,
         R.string.mm_native_fb
+    ),
+    SPLASH_INTERSTITIAL(
+        R.string.splash_inter_am
+    ),
+    COMMON_INTERSTITIAL(
+        R.string.mm_inter_am,
+        R.string.mm_inter_fb
     )
 }
 

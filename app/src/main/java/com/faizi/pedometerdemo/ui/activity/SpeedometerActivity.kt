@@ -7,8 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.dev.bytes.adsmanager.BannerPlacements
-import com.dev.bytes.adsmanager.loadBannerAd
+import com.dev.bytes.adsmanager.*
 import com.faizi.pedometerdemo.Database
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.callback.Callback
@@ -45,6 +44,7 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
     private var mCurrentLocation: Location? = null
     var lStart: Location? = null
     var lEnd: Location? = null
+    var commonInterstitialAd: InterAdPair? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +59,7 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
         tabView.setupWithViewPager(viewPager)
 
         ad_container_speedo.loadBannerAd(BannerPlacements.BANNER_AD)
+        loadInterstitialAd(ADUnitPlacements.COMMON_INTERSTITIAL, onLoaded = { commonInterstitialAd = it } )
 
         nav_back.setOnClickListener {
             finish()
@@ -204,6 +205,13 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
         currentLocation?.removeFusedLocationClient()
         handler?.removeCallbacks(updateTimerThread!!)
         AppUtils.unit = "km"
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        commonInterstitialAd?.apply {
+            if (this.isLoaded()) this.showAd(this@SpeedometerActivity)
+        }
     }
 
 }

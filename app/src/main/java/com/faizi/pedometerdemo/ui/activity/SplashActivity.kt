@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.dev.bytes.adsmanager.ADUnitPlacements
 import com.dev.bytes.adsmanager.loadNativeAd
 import com.faizi.pedometerdemo.R
+import com.faizi.pedometerdemo.app.App
 import com.faizi.pedometerdemo.util.AppUtils
 import com.faizi.pedometerdemo.util.NetworkUtils
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -112,6 +113,9 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             finish()
+            (application as App).splashInterstitial?.apply {
+                if (this.isLoaded()) this.showAd(this@SplashActivity)
+            }
         }, stuckLimit)
     }
 
