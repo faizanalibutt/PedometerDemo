@@ -16,7 +16,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/actionBarText"
         style="@style/TextAppearance.Primary.Big.Dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,9 +34,9 @@
         android:padding="@dimen/dp_5"
         android:layout_marginStart="@dimen/margin_small_size"
         android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="@+id/actionBarText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/actionBarText"
         app:srcCompat="@drawable/ic_back_white_icon" />
 
     <ImageView
@@ -45,9 +45,9 @@
         android:layout_height="20dp"
         android:layout_marginEnd="@dimen/margin_small_size"
         android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="@+id/actionBarText"
         app:layout_constraintEnd_toStartOf="@+id/premium_services"
-        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/actionBarText"
         app:srcCompat="@drawable/ic_shape_704_copy" />
 
     <ImageView
@@ -56,9 +56,9 @@
         android:layout_height="20dp"
         android:layout_marginEnd="@dimen/margin_small_size"
         android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="@+id/actionBarText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/actionBarText"
         app:srcCompat="@drawable/ic_crown_pro_white_icon" />
 
     <com.google.android.material.tabs.TabLayout

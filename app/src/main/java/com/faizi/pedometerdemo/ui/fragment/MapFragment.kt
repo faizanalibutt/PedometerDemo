@@ -9,11 +9,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.callback.Callback
+import com.faizi.pedometerdemo.ui.activity.SpeedometerActivity
+import com.faizi.pedometerdemo.ui.vm.SpeedViewModel
 import com.faizi.pedometerdemo.util.AppUtils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -23,6 +26,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
+import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.android.synthetic.main.fragment_map.view.*
 
 
@@ -35,6 +39,8 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
     constructor(context: Context) : this() {
         this.mContext = context
     }
+
+    var mViewModel: SpeedViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,14 +61,25 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
         return view
     }
 
-    private fun defaultSettings(view: View) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        // for digi text in digital meter set font type to look digital
-        val typeface = Typeface.createFromAsset(
-            mContext.assets, "fonts/digital.ttf"
-        )
-        view.digi_speed_txt.typeface = typeface
-        view.digi_type_txt.typeface = typeface
+        activity?.let { act ->
+            mViewModel = ViewModelProviders.of(act).get(SpeedViewModel::class.java)
+
+            mViewModel?.startStopBtnState?.observe(viewLifecycleOwner, Observer {
+                if (it == view.context.resources.getString(R.string.text_start_now)) {
+                    view.btn_state.setTextColor(ContextCompat.getColor(view.context, R.color.colorPrimary))
+                } else {
+                    view.btn_state.setTextColor(ContextCompat.getColor(view.context, R.color.stop_btn_color))
+                }
+                view.btn_state.text = it
+            })
+            (act as? SpeedometerActivity)?.let { view.view2.setOnClickListener(it::startStopBtn) }
+        }
+    }
+
+    private fun defaultSettings(view: View) {
 
         val speedObserver = Observer<Location> {
             getSpeed(it)
@@ -89,17 +106,20 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
         when (AppUtils.unit) {
 
             "km" -> {
-                mView.digi_speed_txt.text = AppUtils.roundTwoDecimal(((location!!.speed * 2.2369))).toString()
+                mView.digi_speed_txt.max = 240
+                mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 2.2369))).toInt()
                 mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
             }
 
             "mph" -> {
-                mView.digi_speed_txt.text = AppUtils.roundTwoDecimal(((location!!.speed * 2.2369))).toString()
+                mView.digi_speed_txt.max = 90
+                mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 2.2369))).toInt()
                 mView.digi_type_txt.text = resources.getString(R.string.mph_c)
             }
 
             "knot" -> {
-                mView.digi_speed_txt.text = AppUtils.roundTwoDecimal(((location!!.speed * 1.94384))).toString()
+                mView.digi_speed_txt.max = 63
+                mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 1.94384))).toInt()
                 mView.digi_type_txt.text = resources.getString(R.string.knot_c)
             }
 
