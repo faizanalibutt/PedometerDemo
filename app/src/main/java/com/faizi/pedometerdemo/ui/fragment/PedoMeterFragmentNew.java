@@ -52,6 +52,8 @@ import com.faizi.pedometerdemo.util.AppUtils;
 import com.faizi.pedometerdemo.util.Logger;
 import com.faizi.pedometerdemo.util.TimeUtils;
 import com.faizi.pedometerdemo.util.Util;
+import com.natasa.progressviews.CircleSegmentBar;
+import com.natasa.progressviews.utils.ProgressStartPoint;
 
 import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.charts.PieChart;
@@ -76,9 +78,17 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
     ImageView step_btn_img;
     TextView step_btn_txt, timeValue;
     private View mView;
+    private CircleSegmentBar segmentBar;
 
     private int todayOffset, total_start, goal, since_boot, total_days;
     public final static NumberFormat formatter = NumberFormat.getInstance(Locale.getDefault());
+
+    private void initSegmentProgressBar() {
+        segmentBar = mView.findViewById(R.id.pedo_process_graph1);
+        segmentBar.setCircleViewPadding(1);
+        segmentBar.setSegmentWidth(1);
+        segmentBar.setStartPositionInDegrees(ProgressStartPoint.BOTTOM);
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -105,6 +115,8 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         sliceGoal = new PieModel("", Fragment_Settings.DEFAULT_GOAL, Color.parseColor("#CC0000"));
         pg.addPieSlice(sliceGoal);
 
+        initSegmentProgressBar();
+
         pg.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -123,7 +135,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
 
                 AppUtils.INSTANCE.getDefaultPreferences
                         (
-                                (AppCompatActivity) Objects.requireNonNull(getActivity())
+                                (AppCompatActivity) requireActivity()
                         ).edit().putString("pedo_state", "stop").apply();
 
                 startService(v, true);
@@ -138,7 +150,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
 
                 AppUtils.INSTANCE.getDefaultPreferences
                         (
-                                (AppCompatActivity) Objects.requireNonNull(getActivity())
+                                (AppCompatActivity) requireActivity()
                         ).edit().putString("pedo_state", "resume").apply();
 
                 startService(v, false);
@@ -152,7 +164,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
 
                 AppUtils.INSTANCE.getDefaultPreferences
                         (
-                                (AppCompatActivity) Objects.requireNonNull(getActivity())
+                                (AppCompatActivity) requireActivity()
                         ).edit().putString("pedo_state", "stop").apply();
 
                 startService(v, true);
@@ -168,7 +180,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         });
 
         String pedoState = AppUtils.INSTANCE.getDefaultPreferences(
-                (AppCompatActivity) Objects.requireNonNull(getActivity())
+                (AppCompatActivity) requireActivity()
         ).getString("pedo_state", "start");
 
         if (pedoState != null && pedoState.equals("stop")) {
@@ -211,7 +223,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
 
     public void setUpListener(boolean option) {
         if (option) {
-            SensorManager sm = (SensorManager) Objects.requireNonNull(getContext()).getSystemService(Context.SENSOR_SERVICE);
+            SensorManager sm = (SensorManager) requireContext().getSystemService(Context.SENSOR_SERVICE);
             Sensor sensor = sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
             if (sensor == null) {
                 new AlertDialog.Builder(getActivity()).setTitle(R.string.no_sensor)
@@ -219,7 +231,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
                         .setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
                             public void onDismiss(final DialogInterface dialogInterface) {
-                                Objects.requireNonNull(getActivity()).finish();
+                                requireActivity().finish();
                             }
                         }).setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
@@ -233,7 +245,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         } else {
             try {
                 SensorManager sm =
-                        (SensorManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SENSOR_SERVICE);
+                        (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
                 sm.unregisterListener(this);
             } catch (Exception e) {
                 if (BuildConfig.DEBUG) Logger.log(e);
@@ -313,6 +325,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         // todayOffset might still be Integer.MIN_VALUE on first start
         int steps_today = Math.max(todayOffset + since_boot, 0);
         sliceCurrent.setValue(steps_today);
+        segmentBar.setProgress((float) steps_today);
         if (goal - steps_today > 0) {
             // goal not reached yet
             if (pg.getData().size() == 1) {

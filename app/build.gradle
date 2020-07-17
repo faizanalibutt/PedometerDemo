@@ -139,4 +139,8 @@ dependencies {
 
     // ads manger
     implementation project(path: ':adsmanager')
+
+    // circle progress bar.
+    implementation project(path: ':progressviewslib')
+
 }
