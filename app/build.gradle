@@ -143,4 +143,7 @@ dependencies {
     // circle progress bar.
     implementation project(path: ':progressviewslib')
 
+    // graphs
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 }

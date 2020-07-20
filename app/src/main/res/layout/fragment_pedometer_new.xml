@@ -18,8 +18,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_marginTop="@dimen/margin_smallest_size"
         android:background="@drawable/circular_shadow"
         app:layout_constraintBottom_toTopOf="@+id/start_btn"
@@ -30,13 +30,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/dp_30"
+            android:layout_margin="2dp"
             android:layout_gravity="center">
 
             <com.natasa.progressviews.CircleSegmentBar
                 android:id="@+id/pedo_process_graph1"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 app:bar_color="#e1e1e1"
                 app:bar_width="@dimen/dp_8"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="0"
+                android:text="13452678"
                 app:layout_constraintBottom_toBottomOf="@id/pedo_process_graph1"
                 app:layout_constraintEnd_toEndOf="@+id/pedo_process_graph1"
                 app:layout_constraintStart_toStartOf="@+id/pedo_process_graph1"
@@ -135,7 +135,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_smaller_size"
-        android:text="200"
+        android:text="00"
         app:layout_constraintEnd_toEndOf="@+id/icon1"
         app:layout_constraintStart_toStartOf="@+id/icon1"
         app:layout_constraintTop_toBottomOf="@+id/icon1" />

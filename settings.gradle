@@ -1,3 +1,4 @@
+include ':MPChartLib'
 include ':progressviewslib'
 include ':adsmanager'
 include ':app'

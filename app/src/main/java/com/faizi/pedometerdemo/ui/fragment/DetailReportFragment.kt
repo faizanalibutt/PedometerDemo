@@ -5,28 +5,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.faizi.pedometerdemo.Database
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.model.Distance
 import com.faizi.pedometerdemo.model.DistanceTotal
-import com.faizi.pedometerdemo.ui.Dialog_Statistics
 import com.faizi.pedometerdemo.util.*
+import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import kotlinx.android.synthetic.main.fragment_detail_pedo.view.*
 import kotlinx.android.synthetic.main.fragment_report.*
 import kotlinx.android.synthetic.main.fragment_report.view.*
-import kotlinx.android.synthetic.main.fragment_report.view.average_value
-import kotlinx.android.synthetic.main.fragment_report.view.chipGroup
-import kotlinx.android.synthetic.main.fragment_report.view.emptyData
-import kotlinx.android.synthetic.main.fragment_report.view.text_average
-import kotlinx.android.synthetic.main.fragment_report.view.text_total
-import kotlinx.android.synthetic.main.fragment_report.view.time_graph
-import kotlinx.android.synthetic.main.fragment_report.view.total_value
 import org.eazegraph.lib.charts.BarChart
 import org.eazegraph.lib.models.BarModel
-import kotlin.collections.ArrayList
 
 
 class DetailReportFragment() : Fragment() {
@@ -34,6 +30,8 @@ class DetailReportFragment() : Fragment() {
     private var reportType = ""
     private var listCurrentDayInterval: MutableList<Distance> = ArrayList()
     private var listCurrentWeekInterval: MutableList<DistanceTotal> = ArrayList()
+
+    private var chart: com.github.mikephil.charting.charts.BarChart? = null
 
     constructor(report: String) : this() {
         this.reportType = report
@@ -45,6 +43,30 @@ class DetailReportFragment() : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_report, container, false)
         val database = Database.getInstance(view.context)
+        chart = view.bargraph1
+
+        // set chart properties
+        chart!!.description.isEnabled = false
+        // if more than 60 entries are displayed in the chart, no values will be
+        // drawn
+        chart!!.setMaxVisibleValueCount(60)
+        chart!!.setDrawBarShadow(true)
+        chart!!.setDrawGridBackground(false)
+        // ContextCompat.getColor(this, R.color.colorPrimaryDark)
+
+        // ContextCompat.getColor(this, R.color.colorPrimaryDark)
+        val xAxis = chart!!.xAxis
+        xAxis.position = XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+
+        chart!!.axisLeft.setDrawGridLines(false)
+        chart!!.axisLeft.isEnabled = false
+        chart!!.axisRight.isEnabled = false
+
+        // add a nice and smooth animation
+
+        // add a nice and smooth animation
+        chart!!.animateY(1500)
 
         when (reportType) {
 
@@ -153,8 +175,13 @@ class DetailReportFragment() : Fragment() {
             view.text_total.visibility = View.INVISIBLE
             view.text_average.visibility = View.INVISIBLE
             view.chipGroup.visibility = View.INVISIBLE
+            chart!!.visibility = View.INVISIBLE
             return
         }
+
+        val values: MutableList<BarEntry> = ArrayList()
+        var set1: BarDataSet? = null
+
 
         val barChart = view.findViewById<BarChart>(R.id.bargraph)
         if (barChart.data.size > 0) barChart.clearChart()
@@ -172,6 +199,34 @@ class DetailReportFragment() : Fragment() {
                             distance.startTimeFormatted, distance.endTimeFormatted
                         )
                     )
+
+                    for ((index, distance) in listCurrentWeekInterval.withIndex()) {
+                        values.add(BarEntry(index.toFloat(), distance.distance.toFloat()))
+                    }
+
+                    if (chart!!.data != null &&
+                        chart!!.data.dataSetCount > 0
+                    ) {
+                        set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
+                        set1.setValues(values)
+                        chart!!.data.notifyDataChanged()
+                        chart!!.notifyDataSetChanged()
+                    } else {
+                        set1 = BarDataSet(values, "Data Set")
+                        set1.color = ContextCompat.getColor(
+                            view.context,
+                            R.color.colorPrimaryDark
+                        )
+                        set1.setDrawValues(true)
+                        val dataSets = java.util.ArrayList<IBarDataSet>()
+                        dataSets.add(set1)
+                        val data = BarData(dataSets)
+                        data.barWidth = 0.2f
+                        chart!!.data = data
+                        chart!!.setFitBars(true)
+                    }
+
+                    chart!!.invalidate()
                 }
                 Graph.DISTANCE -> {
                     bm = BarModel(
@@ -214,8 +269,41 @@ class DetailReportFragment() : Fragment() {
             view.text_total.visibility = View.INVISIBLE
             view.text_average.visibility = View.INVISIBLE
             view.chipGroup.visibility = View.INVISIBLE
+            chart!!.visibility = View.INVISIBLE
             return
         }
+
+        /*val values: MutableList<BarEntry> = ArrayList()
+
+        val set1: BarDataSet
+
+        for ((index, distance) in listCurrentWeekInterval.withIndex()) {
+            values.add(BarEntry(index.toFloat(), distance.distance.toFloat()))
+        }
+
+        if (chart!!.data != null &&
+            chart!!.data.dataSetCount > 0
+        ) {
+            set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
+            set1.setValues(values)
+            chart!!.data.notifyDataChanged()
+            chart!!.notifyDataSetChanged()
+        } else {
+            set1 = BarDataSet(values, "Data Set")
+            set1.color = ContextCompat.getColor(
+                view.context,
+                R.color.colorPrimaryDark
+            )
+            set1.setDrawValues(true)
+            val dataSets = java.util.ArrayList<IBarDataSet>()
+            dataSets.add(set1)
+            val data = BarData(dataSets)
+            data.barWidth = 0.2f
+            chart!!.data = data
+            chart!!.setFitBars(true)
+        }
+
+        chart!!.invalidate()*/
 
         val barChart = view.findViewById<BarChart>(R.id.bargraph)
         if (barChart.data.size > 0) barChart.clearChart()

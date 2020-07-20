@@ -345,16 +345,16 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         //totalView.setText(formatter.format(total_start + steps_today));
         // update only every 10 steps when displaying distance
         SharedPreferences prefs =
-                getActivity().getSharedPreferences("pedometer", Context.MODE_PRIVATE);
+                mView.getContext().getSharedPreferences("pedometer", Context.MODE_PRIVATE);
         float stepsize = prefs.getFloat("stepsize_value", Fragment_Settings.DEFAULT_STEP_SIZE);
         float distance_today = steps_today * stepsize;
-        if (prefs.getString("stepsize_unit", Fragment_Settings.DEFAULT_STEP_UNIT)
-                .equals("cm")) {
+        if (Objects.equals(prefs.getString
+                ("stepsize_unit", Fragment_Settings.DEFAULT_STEP_UNIT), "cm")) {
             distance_today /= 100000;
         } else {
             distance_today /= 5280;
         }
-        miles.setText(formatter.format(distance_today));
+        miles.setText("" + (int) AppUtils.INSTANCE.roundTwoDecimal(distance_today));
         // TODO: 7/15/2020 increase step count to 150
         timeValue.setText(TimeUtils.INSTANCE.getFormatedTimeMH((steps_today / 10) * 60000));
     }
