@@ -20,7 +20,7 @@ class SpeedoGraphActivity : AppCompatActivity() {
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(DetailReportFragment("today"), "TODAY")
-        adapter.addFragment(DetailReportFragment("week"), "LAST WEEk")
+        //adapter.addFragment(DetailReportFragment("week"), "LAST WEEk")
         viewPager.adapter = adapter
         tabView.setupWithViewPager(viewPager)
 
@@ -28,7 +28,7 @@ class SpeedoGraphActivity : AppCompatActivity() {
             finish()
         }
 
-        loadNativeAd(ad_container_graph, R.layout.ad_unified_common, ADUnitPlacements.COMMON_NATIVE_AD)
+        //loadNativeAd(ad_container_graph, R.layout.ad_unified_common, ADUnitPlacements.COMMON_NATIVE_AD)
 
     }
 }

@@ -11,11 +11,16 @@ import com.faizi.pedometerdemo.Database
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.model.Distance
 import com.faizi.pedometerdemo.model.DistanceTotal
-import com.faizi.pedometerdemo.util.*
+import com.faizi.pedometerdemo.util.AppUtils
+import com.faizi.pedometerdemo.util.Graph
+import com.faizi.pedometerdemo.util.TimeUtils
+import com.faizi.pedometerdemo.util.Util
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -36,7 +41,7 @@ class DetailReportFragment() : Fragment() {
     constructor(report: String) : this() {
         this.reportType = report
     }
-
+    lateinit var timeFormatter: ValueFormatter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,23 +52,24 @@ class DetailReportFragment() : Fragment() {
 
         // set chart properties
         chart!!.description.isEnabled = false
-        // if more than 60 entries are displayed in the chart, no values will be
-        // drawn
-        chart!!.setMaxVisibleValueCount(60)
+        timeFormatter = DayAxisValueFormatter(chart)
+
+        chart!!.setMaxVisibleValueCount(20)
         chart!!.setDrawBarShadow(true)
         chart!!.setDrawGridBackground(false)
-        // ContextCompat.getColor(this, R.color.colorPrimaryDark)
 
-        // ContextCompat.getColor(this, R.color.colorPrimaryDark)
         val xAxis = chart!!.xAxis
+
         xAxis.position = XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(false)
+        xAxis.granularity = 1f // only intervals of 1 day
+        xAxis.valueFormatter = timeFormatter
 
         chart!!.axisLeft.setDrawGridLines(false)
+        chart!!.axisRight.setDrawGridLines(false)
         chart!!.axisLeft.isEnabled = false
         chart!!.axisRight.isEnabled = false
-
-        // add a nice and smooth animation
+        chart!!.legend.isEnabled = false
 
         // add a nice and smooth animation
         chart!!.animateY(1500)
@@ -179,46 +185,37 @@ class DetailReportFragment() : Fragment() {
             return
         }
 
+
         val values: MutableList<BarEntry> = ArrayList()
         var set1: BarDataSet? = null
-
 
         val barChart = view.findViewById<BarChart>(R.id.bargraph)
         if (barChart.data.size > 0) barChart.clearChart()
 
         var bm: BarModel? = null
-        for (distance in listCurrentDayInterval) {
+        for ((index, distance) in listCurrentDayInterval.withIndex()) {
             when (graphType) {
-                Graph.TIME -> {
-                    // convert any to String
-                    bm = BarModel(distance.startTimeFormatted, 0.0f, Color.parseColor("#b38ef1"))
-                    bm.value = distance.endTime.toFloat()
-                    Logger.logs(
-                        String.format(
-                            "startTime %s endTime %s",
-                            distance.startTimeFormatted, distance.endTimeFormatted
-                        )
-                    )
 
-                    for ((index, distance) in listCurrentWeekInterval.withIndex()) {
-                        values.add(BarEntry(index.toFloat(), distance.distance.toFloat()))
-                    }
+                Graph.TIME -> {
+
+                    values.add(BarEntry(distance.startTime.toFloat(), distance.endTime.toFloat()))
 
                     if (chart!!.data != null &&
                         chart!!.data.dataSetCount > 0
                     ) {
                         set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
-                        set1.setValues(values)
+                        set1.values = values
                         chart!!.data.notifyDataChanged()
                         chart!!.notifyDataSetChanged()
                     } else {
-                        set1 = BarDataSet(values, "Data Set")
+                        set1 = BarDataSet(values, "")
                         set1.color = ContextCompat.getColor(
                             view.context,
                             R.color.colorPrimaryDark
                         )
                         set1.setDrawValues(true)
-                        val dataSets = java.util.ArrayList<IBarDataSet>()
+                        set1.setValueFormatter(timeFormatter)
+                        val dataSets: MutableList<IBarDataSet> = ArrayList()
                         dataSets.add(set1)
                         val data = BarData(dataSets)
                         data.barWidth = 0.2f
@@ -227,7 +224,9 @@ class DetailReportFragment() : Fragment() {
                     }
 
                     chart!!.invalidate()
+
                 }
+
                 Graph.DISTANCE -> {
                     bm = BarModel(
                         "Distance",
@@ -236,6 +235,7 @@ class DetailReportFragment() : Fragment() {
                     )
                     distance.distance.toFloat()
                 }
+
                 Graph.SPEED -> {
                     bm = BarModel(
                         "Distance",
@@ -244,14 +244,15 @@ class DetailReportFragment() : Fragment() {
                     )
                     distance.speed.toFloat()
                 }
+
                 else -> {
                 }
             }
-            barChart.addBar(bm)
+//            barChart.addBar(bm)
         }
 
         if (barChart.data.size > 0) {
-            barChart.startAnimation()
+//            barChart.startAnimation()
         } else {
             barChart.visibility = View.INVISIBLE
         }
@@ -272,38 +273,6 @@ class DetailReportFragment() : Fragment() {
             chart!!.visibility = View.INVISIBLE
             return
         }
-
-        /*val values: MutableList<BarEntry> = ArrayList()
-
-        val set1: BarDataSet
-
-        for ((index, distance) in listCurrentWeekInterval.withIndex()) {
-            values.add(BarEntry(index.toFloat(), distance.distance.toFloat()))
-        }
-
-        if (chart!!.data != null &&
-            chart!!.data.dataSetCount > 0
-        ) {
-            set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
-            set1.setValues(values)
-            chart!!.data.notifyDataChanged()
-            chart!!.notifyDataSetChanged()
-        } else {
-            set1 = BarDataSet(values, "Data Set")
-            set1.color = ContextCompat.getColor(
-                view.context,
-                R.color.colorPrimaryDark
-            )
-            set1.setDrawValues(true)
-            val dataSets = java.util.ArrayList<IBarDataSet>()
-            dataSets.add(set1)
-            val data = BarData(dataSets)
-            data.barWidth = 0.2f
-            chart!!.data = data
-            chart!!.setFitBars(true)
-        }
-
-        chart!!.invalidate()*/
 
         val barChart = view.findViewById<BarChart>(R.id.bargraph)
         if (barChart.data.size > 0) barChart.clearChart()

@@ -42,6 +42,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".ui.activity.MapsActivity"
@@ -51,6 +54,7 @@
         <activity
             android:name=".ui.activity.SpeedometerActivity"
             android:theme="@style/AppTheme.NoActionBar.Status">
+
 
         </activity>
 
@@ -75,7 +79,8 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".ui.activity.SpeedoGraphActivity" />
+        <activity android:name=".ui.activity.SpeedoGraphActivity">
+        </activity>
         <activity
             android:name=".ui.activity.MainSpeedometerActivity"
             android:screenOrientation="portrait"
