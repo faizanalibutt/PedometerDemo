@@ -1,6 +1,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/activity_bg"
     android:layout_height="match_parent">
 
     <org.eazegraph.lib.charts.PieChart
@@ -52,7 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="13452678"
+                android:fontFamily="@font/roboto_medium"
+                android:text="2678"
                 app:layout_constraintBottom_toBottomOf="@id/pedo_process_graph1"
                 app:layout_constraintEnd_toEndOf="@+id/pedo_process_graph1"
                 app:layout_constraintStart_toStartOf="@+id/pedo_process_graph1"
@@ -90,6 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_start_now"
+        android:fontFamily="@font/roboto_medium"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/start_btn"
         app:layout_constraintEnd_toEndOf="@+id/start_btn"
@@ -136,6 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_smaller_size"
         android:text="00"
+        android:fontFamily="@font/roboto_medium"
         app:layout_constraintEnd_toEndOf="@+id/icon1"
         app:layout_constraintStart_toStartOf="@+id/icon1"
         app:layout_constraintTop_toBottomOf="@+id/icon1" />
@@ -145,7 +149,7 @@
         style="@style/TextAppearance.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_10"
         android:text="@string/text_kcal"
         app:layout_constraintEnd_toEndOf="@+id/icon1"
         app:layout_constraintStart_toStartOf="@+id/icon1"
@@ -178,6 +182,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_smaller_size"
         android:text="0:00"
+        android:fontFamily="@font/roboto_medium"
         app:layout_constraintEnd_toEndOf="@+id/icon2"
         app:layout_constraintStart_toStartOf="@+id/icon2"
         app:layout_constraintTop_toBottomOf="@+id/icon2" />
@@ -197,7 +202,6 @@
         android:id="@+id/distance_view"
         android:layout_width="80dp"
         android:layout_height="100dp"
-        android:layout_marginStart="@dimen/dp_5"
         android:layout_marginEnd="@dimen/margin_smaller_size"
         app:layout_constraintBottom_toBottomOf="@+id/kal_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -222,6 +226,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_smaller_size"
         android:text="0"
+        android:fontFamily="@font/roboto_medium"
         app:layout_constraintEnd_toEndOf="@+id/icon3"
         app:layout_constraintStart_toStartOf="@+id/icon3"
         app:layout_constraintTop_toBottomOf="@+id/icon3" />
@@ -241,11 +246,10 @@
         android:id="@+id/v1"
         android:layout_width="1dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_smaller_size"
         android:background="#36000000"
         app:layout_constraintBottom_toTopOf="@+id/text2"
         app:layout_constraintEnd_toStartOf="@+id/kal_view"
-        app:layout_constraintStart_toEndOf="@+id/time_value"
+        app:layout_constraintStart_toEndOf="@+id/time_view"
         app:layout_constraintTop_toBottomOf="@+id/icon1" />
 
     <View

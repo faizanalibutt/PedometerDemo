@@ -34,6 +34,9 @@
     <dimen name="margin_nano_size">1dp</dimen>
     <dimen name="margin_menu_size">22dp</dimen>
     <dimen name="user_icon_size">24dp</dimen>
+    <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
+    <dimen name="dp_3">3dp</dimen>
     <dimen name="dp_4">4dp</dimen>
     <dimen name="dp_6">6dp</dimen>
     <dimen name="dp_8">8dp</dimen>

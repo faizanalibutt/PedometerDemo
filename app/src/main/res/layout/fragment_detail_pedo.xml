@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F9F4F1"
+    android:background="@color/activity_bg"
     tools:context=".ui.fragment.ReportFragment">
 
     <TextView
@@ -15,6 +15,7 @@
         android:layout_marginStart="@dimen/margin_medium_size"
         android:layout_marginTop="@dimen/margin_medium_size"
         android:gravity="center"
+        android:fontFamily="@font/roboto_medium"
         android:textColor="@color/settings_heading_color"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +38,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_medium_size"
+        android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:textColor="@color/settings_heading_color"
         app:layout_constraintBottom_toBottomOf="@+id/average_value"

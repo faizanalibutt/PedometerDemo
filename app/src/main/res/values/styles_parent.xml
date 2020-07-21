@@ -120,9 +120,42 @@
         <item name="android:letterSpacing" tools:targetApi="21">0.030</item>
     </style>
 
+    <style name="AppTheme.AdAttribution">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:text">@string/ad_attribution</item>
+        <item name="android:background">@drawable/bg_ads_ad</item>
+        <item name="android:width">15dp</item>
+        <item name="android:height">15dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="AppTheme.AdAttribution.Bottom" parent="AppTheme.AdAttribution">
+        <item name="android:layout_gravity">bottom|right</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
     <style name="RatingBar" parent="Theme.MaterialComponents">
         <item name="colorControlNormal">@color/rating_bar_color</item>
         <item name="colorControlActivated">@color/colorPrimaryStar</item>
+    </style>
+
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Widget.MaterialComponents.Chip.Choice.ChipStyle">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/text_color_chip_state</item>
+        <item name="chipBackgroundColor">@color/pedo_graph_view_selector</item>
+        <item name="rippleColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 
 </resources>

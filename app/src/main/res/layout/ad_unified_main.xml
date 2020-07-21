@@ -43,12 +43,10 @@
         app:layout_constraintVertical_chainStyle="spread" />
 
     <TextView
+        style="@style/AppTheme.AdAttribution"
         android:id="@+id/ad_attribution"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_10"
         android:text="@string/sponsored"
-        android:textSize="@dimen/sponsored_splash"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/icon_container" />
 
@@ -82,7 +80,7 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_margin="16dp"
-        android:background="#009688"
+        android:background="@drawable/ad_btn_bg"
         android:ellipsize="end"
         android:lines="1"
         android:text="Install now"

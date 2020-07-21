@@ -4,7 +4,7 @@
     android:id="@+id/layout_gdp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="visible">
+    android:visibility="gone">
 
     <ImageView
         android:id="@+id/appIcon"
@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toTopOf="@+id/appname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/img_icon_title" />
+        app:srcCompat="@drawable/img_icon_splash" />
 
     <TextView
         android:id="@+id/appname"

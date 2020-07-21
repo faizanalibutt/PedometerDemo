@@ -62,7 +62,7 @@ class SplashActivity : AppCompatActivity() {
 
         privacytext.setOnClickListener {
             val url =
-                "https://www.freeprivacypolicy.com/privacy/view/50c5621471755f1548917ebbe5e90160"
+                "https://lottiefiles.com/4248-loading"
             val builder = CustomTabsIntent.Builder()
             val customTabsIntent = builder.build()
             customTabsIntent.launchUrl(this, Uri.parse(url))

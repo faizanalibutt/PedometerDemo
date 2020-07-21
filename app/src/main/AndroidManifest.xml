@@ -67,7 +67,7 @@
         <activity android:name=".ui.activity.SettingsActivity" />
         <activity
             android:name=".ui.activity.SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,7 +76,7 @@
         </activity>
         <activity
             android:name=".ui.activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Custom">
 
         </activity>
         <activity android:name=".ui.activity.SpeedoGraphActivity">

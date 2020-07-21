@@ -32,7 +32,6 @@ import java.util.concurrent.TimeUnit
 class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultListener {
 
     private var speed: Double = 0.0
-    private var unitMain: String = "km"
     private var handler: Handler? = null
     private var updateTimerThread: Runnable? = null
     var totalTime: Long = 0

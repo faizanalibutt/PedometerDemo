@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small_size"
         android:text="@string/text_speedo"
+        android:fontFamily="@font/roboto_medium"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/appBar"
         app:layout_constraintStart_toEndOf="@+id/nav_back"
@@ -74,6 +75,7 @@
         app:tabMode="fixed"
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorHeight="2dp"
+        app:tabTextAppearance="@style/tab_text"
         app:tabIndicatorGravity="bottom"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/white_tab" />
@@ -116,6 +118,7 @@
         android:layout_height="wrap_content"
         android:text="@string/text_start_now"
         android:textColor="@color/white"
+        android:fontFamily="@font/roboto_medium"
         app:layout_constraintBottom_toBottomOf="@+id/start_btn"
         app:layout_constraintEnd_toEndOf="@+id/start_btn"
         app:layout_constraintStart_toStartOf="@+id/start_btn"
@@ -150,6 +153,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_smaller_size"
         android:text="0"
+        android:fontFamily="@font/roboto_medium"
         app:layout_constraintEnd_toEndOf="@+id/icon1"
         app:layout_constraintStart_toStartOf="@+id/icon1"
         app:layout_constraintTop_toBottomOf="@+id/icon1" />
@@ -191,6 +195,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_smaller_size"
+        android:fontFamily="@font/roboto_medium"
         android:text="0:00"
         app:layout_constraintEnd_toEndOf="@+id/icon2"
         app:layout_constraintStart_toStartOf="@+id/icon2"
@@ -236,6 +241,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_smaller_size"
         android:text="0"
+        android:fontFamily="@font/roboto_medium"
         app:layout_constraintEnd_toEndOf="@+id/icon3"
         app:layout_constraintStart_toStartOf="@+id/icon3"
         app:layout_constraintTop_toBottomOf="@+id/icon3" />

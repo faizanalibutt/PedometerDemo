@@ -22,13 +22,15 @@
         <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
-    <style name="Widget.MaterialComponents.Chip.Choice.ChipStyle">
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/text_color_chip_state</item>
-        <item name="chipBackgroundColor">@color/pedo_graph_view_selector</item>
-        <item name="rippleColor">@color/colorPrimary</item>
+    <style name="AppTheme.NoActionBar.Splash">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Custom" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
 </resources>

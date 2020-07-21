@@ -9,8 +9,7 @@
     <View
         android:id="@+id/popup_units"
         android:layout_width="75dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="@dimen/dp_48"
+        android:layout_height="40dp"
         android:background="@drawable/background_popup_units"
         app:layout_constraintBottom_toTopOf="@+id/speedometer_digi_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +41,7 @@
     <View
         android:id="@+id/vehicle_view"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="42dp"
         android:layout_marginStart="@dimen/margin_xmedium_size"
         android:layout_marginTop="@dimen/margin_standard_size"
         android:layout_marginEnd="@dimen/margin_xmedium_size"
@@ -52,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="spread" />
 
     <ImageView
         android:id="@+id/cycle_view"
@@ -115,7 +114,6 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vehicle_view" />
 

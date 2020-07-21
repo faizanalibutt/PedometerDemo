@@ -36,4 +36,5 @@
     <color name="colorPrimaryStar">#ffd800</color>
     <color name="rating_bar_color">@color/white</color>
     <color name="dialog_pos_btn_color">#4f09c5</color>
+    <color name="activity_bg">#F1F4F9</color>
 </resources>

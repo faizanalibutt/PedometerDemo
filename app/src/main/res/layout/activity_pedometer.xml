@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/activity_bg"
     tools:context=".ui.activity.PedometerActivity">
 
     <View
@@ -20,6 +21,7 @@
     <TextView
         android:id="@+id/textView"
         style="@style/TextAppearance.Primary.Big.Dialog"
+        android:fontFamily="@font/roboto_medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small_size"
@@ -62,6 +64,7 @@
         app:layout_constraintBottom_toTopOf="@+id/viewPager"
         app:tabGravity="fill"
         app:tabMode="fixed"
+        app:tabTextAppearance="@style/tab_text"
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorHeight="2dp"
         app:tabIndicatorGravity="bottom"
@@ -87,11 +90,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabView" />
 
-    <FrameLayout
+    <androidx.cardview.widget.CardView
+        android:visibility="gone"
         android:id="@+id/ad_container_pedo"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:visibility="gone"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        android:layout_marginBottom="@dimen/margin_smaller_size"
+        android:layout_marginHorizontal="@dimen/margin_smaller_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
