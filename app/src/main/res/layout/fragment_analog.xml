@@ -7,9 +7,9 @@
 
     <View
         android:id="@+id/popup_units"
-        android:layout_width="75dp"
+        android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_18"
         android:background="@drawable/background_popup_units"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vehicle_view" />
@@ -42,7 +42,7 @@
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginStart="@dimen/margin_xmedium_size"
-        android:layout_marginTop="@dimen/margin_standard_size"
+        android:layout_marginTop="@dimen/dp_12"
         android:layout_marginEnd="@dimen/margin_xmedium_size"
         android:layout_marginBottom="@dimen/margin_standard_size"
         android:background="@drawable/background_vehicle_view"

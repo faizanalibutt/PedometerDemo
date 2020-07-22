@@ -56,7 +56,9 @@ class MainActivity :
                 Toast.makeText(this, "Pro clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_settings -> startActivity(Intent(this, SettingsActivity::class.java))
-            R.id.nav_share -> {}
+            R.id.nav_share -> {
+
+            }
             R.id.nav_rate_us -> {
                 dialog = null
                 menuClicked = true
@@ -79,7 +81,12 @@ class MainActivity :
         when (v?.id) {
             R.id.nav_menu -> drawerLayout.openDrawer(GravityCompat.START, true)
             R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
-            R.id.action_rate_us -> {}
+            R.id.action_rate_us -> {
+                dialog = null
+                menuClicked = true
+                dialog = showRateExitDialogue(this@MainActivity, true)
+                dialog!!.show()
+            }
             R.id.action_share -> {}
             R.id.action_pro -> {}
         }

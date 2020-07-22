@@ -14,9 +14,9 @@ import com.faizi.pedometerdemo.model.DistanceTotal
 import com.faizi.pedometerdemo.util.AppUtils
 import com.faizi.pedometerdemo.util.Graph
 import com.faizi.pedometerdemo.util.TimeUtils
+import com.faizi.pedometerdemo.util.TimeUtils.getFormatDateTime
 import com.faizi.pedometerdemo.util.Util
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
-import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
@@ -48,31 +48,6 @@ class DetailReportFragment() : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_report, container, false)
         val database = Database.getInstance(view.context)
-        chart = view.bargraph1
-
-        // set chart properties
-        chart!!.description.isEnabled = false
-        timeFormatter = DayAxisValueFormatter(chart)
-
-        chart!!.setMaxVisibleValueCount(20)
-        chart!!.setDrawBarShadow(true)
-        chart!!.setDrawGridBackground(false)
-
-        val xAxis = chart!!.xAxis
-
-        xAxis.position = XAxisPosition.BOTTOM
-        xAxis.setDrawGridLines(false)
-        xAxis.granularity = 1f // only intervals of 1 day
-        xAxis.valueFormatter = timeFormatter
-
-        chart!!.axisLeft.setDrawGridLines(false)
-        chart!!.axisRight.setDrawGridLines(false)
-        chart!!.axisLeft.isEnabled = false
-        chart!!.axisRight.isEnabled = false
-        chart!!.legend.isEnabled = false
-
-        // add a nice and smooth animation
-        chart!!.animateY(1500)
 
         when (reportType) {
 
@@ -99,53 +74,85 @@ class DetailReportFragment() : Fragment() {
             }
 
             "today" -> {
+
+                listCurrentDayInterval = database.getCurrentDayIntervals(
+                    getFormatDateTime(Util.getToday(), "date")
+                )
+
+                chart = view.bargraph1
+
+                // set chart properties
+                chart!!.description.isEnabled = false
+
+                chart!!.setMaxVisibleValueCount(10)
+                chart!!.setDrawBarShadow(true)
+                chart!!.setDrawGridBackground(false)
+
+                val xAxis = chart!!.xAxis
+
+                xAxis.position = XAxisPosition.BOTTOM
+                xAxis.setDrawGridLines(false)
+                xAxis.granularity = 1f // only intervals of 1 day
+
+                timeFormatter = DayAxisValueFormatter(chart!!, listCurrentDayInterval)
+                xAxis.valueFormatter = timeFormatter
+
+                chart!!.axisLeft.setDrawGridLines(false)
+                chart!!.axisRight.setDrawGridLines(false)
+                chart!!.axisLeft.isEnabled = false
+                chart!!.axisRight.isEnabled = false
+                chart!!.legend.isEnabled = false
+
+                // add a nice and smooth animation
+                chart!!.animateY(1500)
+
                 val chipGroup: ChipGroup = view.findViewById(R.id.chipGroup)
                 chipGroup.setOnCheckedChangeListener { chip_group, i ->
                     when (chip_group.findViewById<Chip>(i)) {
                         time_graph -> {
-                            getIntervalsData(database, view, Graph.TIME)
+                            getIntervalsData(view, Graph.TIME)
                             view.total_value.text = TimeUtils.getDuration(
                                 database.getTodayTotalTime(
-                                    TimeUtils.getFormatDateTime(Util.getToday(), "date")
+                                    getFormatDateTime(Util.getToday(), "date")
                                 )
                             )
                             view.average_value.text = TimeUtils.getDuration(
                                 database.getTodayAverageTime(
-                                    TimeUtils.getFormatDateTime(Util.getToday(), "date")
+                                    getFormatDateTime(Util.getToday(), "date")
                                 )
                             )
                         }
 
                         distance_graph -> {
 
-                            getIntervalsData(database, view, Graph.DISTANCE)
+                            getIntervalsData(view, Graph.DISTANCE)
 
                             view.total_value.text = AppUtils.roundTwoDecimal(
                                 database.getTodayTotalDistance(
-                                    TimeUtils.getFormatDateTime(Util.getToday(), "date")
+                                    getFormatDateTime(Util.getToday(), "date")
                                 )
                             ).toString()
 
                             view.average_value.text = AppUtils.roundTwoDecimal(
                                 database.getTodayAverageDistance(
-                                    TimeUtils.getFormatDateTime(Util.getToday(), "date")
+                                    getFormatDateTime(Util.getToday(), "date")
                                 )
                             ).toString()
 
                         }
 
                         speed_graph -> {
-                            getIntervalsData(database, view, Graph.SPEED)
+                            getIntervalsData(view, Graph.SPEED)
 
                             view.total_value.text = AppUtils.roundTwoDecimal(
                                 database.getTodayTotalSpeed(
-                                    TimeUtils.getFormatDateTime(Util.getToday(), "date")
+                                    getFormatDateTime(Util.getToday(), "date")
                                 )
                             ).toString()
 
                             view.average_value.text = AppUtils.roundTwoDecimal(
                                 database.getTodayAverageSpeed(
-                                    TimeUtils.getFormatDateTime(Util.getToday(), "date")
+                                    getFormatDateTime(Util.getToday(), "date")
                                 )
                             ).toString()
                         }
@@ -155,15 +162,15 @@ class DetailReportFragment() : Fragment() {
                 view.time_graph.isChecked = true
                 view.total_value.text = TimeUtils.getDuration(
                     database.getTodayTotalTime(
-                        TimeUtils.getFormatDateTime(Util.getToday(), "date")
+                        getFormatDateTime(Util.getToday(), "date")
                     )
                 )
                 view.average_value.text = TimeUtils.getDuration(
                     database.getTodayAverageTime(
-                        TimeUtils.getFormatDateTime(Util.getToday(), "date")
+                        getFormatDateTime(Util.getToday(), "date")
                     )
                 )
-                getIntervalsData(database, view, Graph.TIME)
+                getIntervalsData(view, Graph.TIME)
             }
         }
 
@@ -171,10 +178,7 @@ class DetailReportFragment() : Fragment() {
     }
 
 
-    private fun getIntervalsData(database: Database, view: View, graphType: Graph) {
-        listCurrentDayInterval = database.getCurrentDayIntervals(
-            TimeUtils.getFormatDateTime(Util.getToday(), "date")
-        )
+    private fun getIntervalsData(view: View, graphType: Graph) {
 
         if (listCurrentDayInterval.size == 0) {
             view.emptyData.visibility = View.VISIBLE
@@ -184,7 +188,6 @@ class DetailReportFragment() : Fragment() {
             chart!!.visibility = View.INVISIBLE
             return
         }
-
 
         val values: MutableList<BarEntry> = ArrayList()
         var set1: BarDataSet? = null
@@ -198,7 +201,7 @@ class DetailReportFragment() : Fragment() {
 
                 Graph.TIME -> {
 
-                    values.add(BarEntry(distance.startTime.toFloat(), distance.endTime.toFloat()))
+                    values.add(BarEntry(index.toFloat(), distance.endTime.toFloat()))
 
                     if (chart!!.data != null &&
                         chart!!.data.dataSetCount > 0
@@ -214,7 +217,14 @@ class DetailReportFragment() : Fragment() {
                             R.color.colorPrimaryDark
                         )
                         set1.setDrawValues(true)
-                        set1.setValueFormatter(timeFormatter)
+                        set1.valueFormatter = object : ValueFormatter() {
+                            override fun getFormattedValue(value: Float): String {
+                                return getFormatDateTime(
+                                    value.toLong(),
+                                    "time"
+                                )
+                            }
+                        }
                         val dataSets: MutableList<IBarDataSet> = ArrayList()
                         dataSets.add(set1)
                         val data = BarData(dataSets)
@@ -224,6 +234,13 @@ class DetailReportFragment() : Fragment() {
                     }
 
                     chart!!.invalidate()
+
+                    bm = BarModel(
+                        distance.startTimeFormatted,
+                        distance.endTime.toFloat(),
+                        Color.parseColor("#5b0ce1")
+                    )
+                    distance.distance.toFloat()
 
                 }
 
@@ -261,8 +278,8 @@ class DetailReportFragment() : Fragment() {
     private fun getIntervalsDataWeekly(database: Database, view: View, graphType: Graph) {
 
         listCurrentWeekInterval = database.getWeekIntervals(
-            TimeUtils.getFormatDateTime(Util.getToday(), "date"),
-            TimeUtils.getFormatDateTime(Util.getRandom(-6), "date")
+            getFormatDateTime(Util.getToday(), "date"),
+            getFormatDateTime(Util.getRandom(-6), "date")
         )
 
         if (listCurrentWeekInterval.size == 0) {

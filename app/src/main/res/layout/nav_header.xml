@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_icon_white"
         android:id="@+id/imageView"
+        android:adjustViewBounds="true"
         android:layout_centerInParent="true"
         android:contentDescription="@string/app_name" />
 

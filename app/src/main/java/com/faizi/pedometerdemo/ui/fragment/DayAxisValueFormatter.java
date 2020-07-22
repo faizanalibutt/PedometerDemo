@@ -1,8 +1,16 @@
 package com.faizi.pedometerdemo.ui.fragment;
 
+import com.faizi.pedometerdemo.model.Distance;
 import com.faizi.pedometerdemo.util.TimeUtils;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.BarLineChartBase;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by philipp on 02/06/16.
@@ -15,15 +23,21 @@ public class DayAxisValueFormatter extends ValueFormatter
     };
 
     private final BarLineChartBase<?> chart;
+    private List<Distance> listCurrentDayInterval;
 
     public DayAxisValueFormatter(BarLineChartBase<?> chart) {
         this.chart = chart;
     }
 
+    public DayAxisValueFormatter(@NotNull BarChart chart, @NotNull List<Distance> listCurrentDayInterval) {
+        this.chart = chart;
+        this.listCurrentDayInterval = listCurrentDayInterval;
+    }
+
     @Override
     public String getFormattedValue(float value) {
 
-        return TimeUtils.INSTANCE.getFormatDateTime((long)value, "time");
+        return TimeUtils.INSTANCE.getFormatDateTime(listCurrentDayInterval.get((int) value).getStartTime(), "time");
     }
 
     private int getDaysForMonth(int month, int year) {

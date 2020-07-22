@@ -99,6 +99,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabView" />
 
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_btn_group"
+        android:visibility="visible"
+        app:constraint_referenced_ids="start_btn, start_btn_txt" />
+
     <View
         android:id="@+id/start_btn"
         android:layout_width="130dp"
@@ -129,7 +136,7 @@
         android:id="@+id/distance_view"
         android:layout_width="80dp"
         android:layout_height="100dp"
-        android:layout_marginTop="@dimen/margin_standard_size"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/ad_container_speedo"
         app:layout_constraintEnd_toStartOf="@+id/v2"
         app:layout_constraintStart_toEndOf="@+id/v1"
@@ -151,8 +158,9 @@
         style="@style/TextAppearance.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_smaller_size"
+        android:layout_marginTop="@dimen/dp_17"
         android:text="0"
+        android:textSize="18sp"
         android:fontFamily="@font/roboto_medium"
         app:layout_constraintEnd_toEndOf="@+id/icon1"
         app:layout_constraintStart_toStartOf="@+id/icon1"
@@ -197,6 +205,7 @@
         android:layout_marginTop="@dimen/margin_smaller_size"
         android:fontFamily="@font/roboto_medium"
         android:text="0:00"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/icon2"
         app:layout_constraintStart_toStartOf="@+id/icon2"
         app:layout_constraintTop_toBottomOf="@+id/icon2" />
@@ -229,6 +238,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/text_kcal"
+        android:layout_marginTop="@dimen/dp_4"
         app:layout_constraintEnd_toEndOf="@+id/speed_view"
         app:layout_constraintStart_toStartOf="@+id/speed_view"
         app:layout_constraintTop_toTopOf="@+id/speed_view"
@@ -239,7 +249,8 @@
         style="@style/TextAppearance.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_smaller_size"
+        android:layout_marginTop="@dimen/dp_19"
+        android:textSize="18sp"
         android:text="0"
         android:fontFamily="@font/roboto_medium"
         app:layout_constraintEnd_toEndOf="@+id/icon3"

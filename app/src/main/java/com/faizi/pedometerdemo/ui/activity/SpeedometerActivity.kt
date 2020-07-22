@@ -86,6 +86,7 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
 
         tabView.setupWithViewPager(viewPager)
         tabView.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
             }
@@ -96,9 +97,18 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
-                    0 -> actionBarText.text = getString(R.string.analog_meter)
-                    1 -> actionBarText.text = getString(R.string.digital_meter)
-                    else -> actionBarText.text = getString(R.string.text_map)
+                    0 -> {
+                        start_btn_group.visibility = View.VISIBLE
+                        actionBarText.text = getString(R.string.analog_meter)
+                    }
+                    1 -> {
+                        start_btn_group.visibility = View.VISIBLE
+                        actionBarText.text = getString(R.string.digital_meter)
+                    }
+                    else -> {
+                        start_btn_group.visibility = View.GONE
+                        actionBarText.text = getString(R.string.text_map)
+                    }
                 }
             }
 
