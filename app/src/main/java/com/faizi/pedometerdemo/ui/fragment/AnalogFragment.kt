@@ -22,9 +22,11 @@ import kotlinx.android.synthetic.main.fragment_analog.*
 import kotlinx.android.synthetic.main.fragment_analog.view.*
 import kotlinx.android.synthetic.main.fragment_analog.view.car_view
 import kotlinx.android.synthetic.main.fragment_analog.view.cycle_view
+import kotlinx.android.synthetic.main.fragment_analog.view.digi_type_txt
 import kotlinx.android.synthetic.main.fragment_analog.view.popup_units
 import kotlinx.android.synthetic.main.fragment_analog.view.train_view
 import kotlinx.android.synthetic.main.fragment_analog.view.units_text
+import kotlinx.android.synthetic.main.fragment_map.view.*
 
 class AnalogFragment() : Fragment() {
 
@@ -89,10 +91,9 @@ class AnalogFragment() : Fragment() {
 
     private fun defaultSettings(view: View) {
 
-        view.speedometer_view.setStartDegree(150)
-        view.speedometer_view.setEndDegree(360)
-        view.speedometer_view.setMaxSpeed(350f)
-        view.speedometer_view.setMinSpeed(0f)
+        mView.speedometer_view.max = 240
+        mView.speedometer_view.progress = 0
+        mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
 
         val speedObserver = Observer<Location> {
             getSpeed(it)
@@ -136,15 +137,15 @@ class AnalogFragment() : Fragment() {
 
         when (unitMain) {
             "km" -> {
-                mView.speedometer_view.setSpeedAt((it.speed * 18) / 5.toFloat())
+                mView.speedometer_view.progress = ((it.speed * 18) / 5).toInt()
             }
 
             "mph" -> {
-                mView.speedometer_view.setSpeedAt((it.speed * 2.2369).toFloat())
+                mView.speedometer_view.progress = (it.speed * 2.2369).toInt()
             }
 
             "knot" -> {
-                mView.speedometer_view.setSpeedAt((it.speed * 1.94384).toFloat())
+                mView.speedometer_view.progress = (it.speed * 1.94384).toInt()
             }
         }
     }
@@ -183,38 +184,31 @@ class AnalogFragment() : Fragment() {
 
                 when (unit) {
                     "km" -> {
-                        view.speedometer_view.setUnit("Km/h")
-                        view.speedometer_view.setMinSpeed(0f)
-                        view.speedometer_view.setMaxSpeed(240f)
-                        view.speedometer_view.setTicks(0F, 20F, 40F, 60F, 80F, 100F, 120F, 140F, 160F, 180F)
-                        view.speedometer_view.setImageSpeedometer(
-                            ContextCompat.getDrawable(
-                                mContext,
-                                R.drawable.kmph
-                            )
+
+                        mView.speedometer_view.max = 240
+                        mView.digi_type_txt.text = "Km/h"
+
+                        view.speedometer_view_img.setImageResource(
+                            R.drawable.ic_meter
                         )
                     }
                     "mph" -> {
-                        view.speedometer_view.setUnit("MPH")
-                        view.speedometer_view.setMinSpeed(0f)
-                        view.speedometer_view.setMaxSpeed(90f)
-                        view.speedometer_view.setImageSpeedometer(
-                            ContextCompat.getDrawable(
-                                mContext,
-                                R.drawable.mph
-                            )
+
+                        mView.speedometer_view.max = 90
+                        mView.digi_type_txt.text = "mph"
+
+                        view.speedometer_view_img.setImageResource(
+                            R.drawable.ic_meter
                         )
 
                     }
                     "knot" -> {
-                        view.speedometer_view.setUnit("KNOT")
-                        view.speedometer_view.setMinSpeed(0f)
-                        view.speedometer_view.setMaxSpeed(63f)
-                        view.speedometer_view.setImageSpeedometer(
-                            ContextCompat.getDrawable(
-                                mContext,
-                                R.drawable.knot
-                            )
+
+                        mView.speedometer_view.max = 63
+                        mView.digi_type_txt.text = "knot"
+
+                        view.speedometer_view_img.setImageResource(
+                            R.drawable.ic_meter
                         )
 
                     }
@@ -226,43 +220,33 @@ class AnalogFragment() : Fragment() {
 
                 when (unit) {
                     "km" -> {
-                        view.speedometer_view.setUnit("Km/h")
-                        view.speedometer_view.setMinSpeed(0f)
-                        view.speedometer_view.setMaxSpeed(72f)
-//                        view.speedometer_view.setTicks(0F, 8F, 16F, 24F, 32F, 40F, 48F, 56F, 64F, 72F)
-                        view.speedometer_view.setImageSpeedometer(
-                            ContextCompat.getDrawable(
-                                mContext,
-                                R.drawable.c_kmph
-                            )
+
+                        mView.speedometer_view.max = 72
+                        mView.digi_type_txt.text = "Km/h"
+
+                        view.speedometer_view_img.setImageResource(
+                            R.drawable.ic_meter
                         )
 
 
                     }
                     "mph" -> {
-                        view.speedometer_view.setUnit("MPH")
-                        view.speedometer_view.setMinSpeed(0f)
-                        view.speedometer_view.setMaxSpeed(36f)
-//                        view.speedometer_view.setTicks(0F, 4F, 8F, 12F, 16F, 20F, 24F, 28F, 32F, 36F)
-                        view.speedometer_view.setImageSpeedometer(
-                            ContextCompat.getDrawable(
-                                mContext,
-                                R.drawable.c_mph
-                            )
+
+                        mView.speedometer_view.max = 36
+                        mView.digi_type_txt.text = "mph"
+
+                        view.speedometer_view_img.setImageResource(
+                            R.drawable.ic_meter
                         )
 
                     }
                     "knot" -> {
-                        view.speedometer_view.setUnit("KNOT")
 
-                        view.speedometer_view.setMinSpeed(0f)
-                        view.speedometer_view.setMaxSpeed(27f)
-//                        view.speedometer_view.setTicks(0F, 3F, 6F, 9F, 12F, 15F, 18F, 21F, 24F, 27F)
-                        view.speedometer_view.setImageSpeedometer(
-                            ContextCompat.getDrawable(
-                                mContext,
-                                R.drawable.c_knot
-                            )
+                        mView.speedometer_view.max = 27
+                        mView.digi_type_txt.text = "knot"
+
+                        view.speedometer_view_img.setImageResource(
+                            R.drawable.ic_meter
                         )
 
                     }
@@ -273,43 +257,32 @@ class AnalogFragment() : Fragment() {
                 if (view.speedometer_view == null) return
                 when (unit) {
                     "km" -> {
-                        view.speedometer_view.setUnit("Km/h")
-                        view.speedometer_view.setMinSpeed(0f)
-                        view.speedometer_view.setMaxSpeed(360f)
-//                        view.speedometer_view.setTicks(0F, 40F, 80F, 120F, 160F, 200F, 240F, 280F, 320F, 360F)
-                        view.speedometer_view.setImageSpeedometer(
-                            ContextCompat.getDrawable(
-                                mContext,
-                                R.drawable.t_kmph
-                            )
+
+                        mView.speedometer_view.max = 360
+                        mView.digi_type_txt.text = "Km/h"
+
+                        view.speedometer_view_img.setImageResource(
+                            R.drawable.ic_meter
                         )
 
                     }
                     "mph" -> {
-                        view.speedometer_view.setUnit("MPH")
 
-                        view.speedometer_view.setMinSpeed(0f)
-                        view.speedometer_view.setMaxSpeed(180f)
-//                        view.speedometer_view.setTicks(0F, 20F, 40F, 60F, 80F, 100F, 120F, 140F, 160F, 180F)
-                        view.speedometer_view.setImageSpeedometer(
-                            ContextCompat.getDrawable(
-                                mContext,
-                                R.drawable.t_mph
-                            )
+                        mView.speedometer_view.max = 180
+                        mView.digi_type_txt.text = "mph"
+
+                        view.speedometer_view_img.setImageResource(
+                            R.drawable.ic_meter
                         )
 
                     }
                     "knot" -> {
-                        view.speedometer_view.setUnit("KNOT")
 
-                        view.speedometer_view.setMinSpeed(0f)
-                        view.speedometer_view.setMaxSpeed(90f)
-//                        view.speedometer_view.setTicks(0F, 10F, 20F, 30F, 40F, 50F, 60F, 70F, 80F, 90F)
-                        view.speedometer_view.setImageSpeedometer(
-                            ContextCompat.getDrawable(
-                                mContext,
-                                R.drawable.t_knot
-                            )
+                        mView.speedometer_view.max = 90
+                        mView.digi_type_txt.text = "knot"
+
+                        view.speedometer_view_img.setImageResource(
+                            R.drawable.ic_meter
                         )
 
                     }

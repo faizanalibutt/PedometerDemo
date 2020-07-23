@@ -14,6 +14,7 @@ import com.faizi.pedometerdemo.model.DistanceTotal
 import com.faizi.pedometerdemo.util.AppUtils
 import com.faizi.pedometerdemo.util.Graph
 import com.faizi.pedometerdemo.util.TimeUtils
+import com.faizi.pedometerdemo.util.TimeUtils.getDuration
 import com.faizi.pedometerdemo.util.TimeUtils.getFormatDateTime
 import com.faizi.pedometerdemo.util.Util
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
@@ -54,6 +55,30 @@ class DetailReportFragment() : Fragment() {
         when (reportType) {
 
             "week" -> {
+
+                chart = view.bargraph1
+
+                // set chart properties
+                chart!!.description.isEnabled = false
+                chart!!.setDrawBarShadow(true)
+                chart!!.setDrawGridBackground(false)
+
+                val xAxis = chart!!.xAxis
+
+                xAxis.position = XAxisPosition.BOTTOM
+                xAxis.setDrawGridLines(false)
+                xAxis.isGranularityEnabled = true
+                xAxis.granularity = 1f // only intervals of 1 day
+
+                chart!!.axisLeft.setDrawGridLines(false)
+                chart!!.axisRight.setDrawGridLines(false)
+                chart!!.axisLeft.isEnabled = false
+                chart!!.axisRight.isEnabled = false
+                chart!!.legend.isEnabled = false
+
+                // add a nice and smooth animation
+                chart!!.animateY(1500)
+
                 val chipGroup: ChipGroup = view.findViewById(R.id.chipGroup)
 
                 chipGroup.setOnCheckedChangeListener { chip_group, i ->
@@ -105,12 +130,12 @@ class DetailReportFragment() : Fragment() {
                     when (chip_group.findViewById<Chip>(i)) {
                         time_graph -> {
                             getIntervalsData(database, view, Graph.TIME)
-                            view.total_value.text = TimeUtils.getDuration(
+                            view.total_value.text = getDuration(
                                 database.getTodayTotalTime(
                                     getFormatDateTime(Util.getToday(), "date")
                                 )
                             )
-                            view.average_value.text = TimeUtils.getDuration(
+                            view.average_value.text = getDuration(
                                 database.getTodayAverageTime(
                                     getFormatDateTime(Util.getToday(), "date")
                                 )
@@ -154,12 +179,12 @@ class DetailReportFragment() : Fragment() {
                 }
                 // default show up Time it is.
                 view.time_graph.isChecked = true
-                view.total_value.text = TimeUtils.getDuration(
+                view.total_value.text = getDuration(
                     database.getTodayTotalTime(
                         getFormatDateTime(Util.getToday(), "date")
                     )
                 )
-                view.average_value.text = TimeUtils.getDuration(
+                view.average_value.text = getDuration(
                     database.getTodayAverageTime(
                         getFormatDateTime(Util.getToday(), "date")
                     )
@@ -172,11 +197,7 @@ class DetailReportFragment() : Fragment() {
     }
 
 
-    private fun getIntervalsData(
-        database: Database,
-        view: View,
-        graphType: Graph
-    ) {
+    private fun getIntervalsData(database: Database, view: View, graphType: Graph) {
 
         listCurrentDayInterval = database.getCurrentDayIntervals(
             getFormatDateTime(Util.getToday(), "date")
@@ -265,6 +286,11 @@ class DetailReportFragment() : Fragment() {
                 if (chart!!.data != null && chart!!.data.dataSetCount > 0) {
                     val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
                     set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return getFormatDateTime(value.toLong(), "time")
+                        }
+                    }
                     set1.values = values
                     chart!!.data.notifyDataChanged()
                     chart!!.notifyDataSetChanged()
@@ -278,7 +304,7 @@ class DetailReportFragment() : Fragment() {
                     set1.setDrawValues(true)
                     set1.valueFormatter = object : ValueFormatter() {
                         override fun getFormattedValue(value: Float): String {
-                            return getFormatDateTime(value.toLong(), "time")
+                            return getDuration(value.toLong())
                         }
                     }
                     val dataSets: MutableList<IBarDataSet> = ArrayList()
@@ -295,7 +321,12 @@ class DetailReportFragment() : Fragment() {
                     chart!!.data.dataSetCount > 0
                 ) {
                     val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
-                    set1.setDrawValues(false)
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                        }
+                    }
                     set1.values = values
                     chart!!.data.notifyDataChanged()
                     chart!!.notifyDataSetChanged()
@@ -306,7 +337,12 @@ class DetailReportFragment() : Fragment() {
                         R.color.colorPrimaryDark
                     )
 
-                    set1.setDrawValues(false)
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                        }
+                    }
                     val dataSets: MutableList<IBarDataSet> = ArrayList()
                     dataSets.add(set1)
                     val data = BarData(dataSets)
@@ -323,7 +359,12 @@ class DetailReportFragment() : Fragment() {
                     chart!!.data.dataSetCount > 0
                 ) {
                     val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
-                    set1.setDrawValues(false)
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                        }
+                    }
                     set1.values = values
                     chart!!.data.notifyDataChanged()
                     chart!!.notifyDataSetChanged()
@@ -333,8 +374,12 @@ class DetailReportFragment() : Fragment() {
                         view.context,
                         R.color.colorPrimaryDark
                     )
-
-                    set1.setDrawValues(false)
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                        }
+                    }
                     val dataSets: MutableList<IBarDataSet> = ArrayList()
                     dataSets.add(set1)
                     val data = BarData(dataSets)
@@ -362,61 +407,89 @@ class DetailReportFragment() : Fragment() {
             view.text_total.visibility = View.INVISIBLE
             view.text_average.visibility = View.INVISIBLE
             view.chipGroup.visibility = View.INVISIBLE
-            //chart!!.visibility = View.INVISIBLE
+            chart!!.visibility = View.INVISIBLE
             return
         }
 
-        val barChart = view.findViewById<BarChart>(R.id.bargraph)
-        if (barChart.data.size > 0) barChart.clearChart()
+        when (graphType) {
 
+            Graph.TIME -> {
+                valueFormatter =
+                    TimeAxisValueFormatterWeek(
+                        chart!!,
+                        listCurrentWeekInterval
+                    )
+                chart!!.xAxis.valueFormatter = valueFormatter
+                chart!!.xAxis.setLabelCount(listCurrentWeekInterval.size, false)
+            }
+
+            Graph.DISTANCE -> {
+                valueFormatter =
+                    DistanceAxisValueFormatterWeek(
+                        chart!!,
+                        listCurrentWeekInterval
+                    )
+                chart!!.xAxis.valueFormatter = valueFormatter
+                chart!!.xAxis.setLabelCount(listCurrentWeekInterval.size, false)
+            }
+
+            Graph.SPEED -> {
+                valueFormatter =
+                    SpeedAxisValueFormatterWeek(
+                        chart!!,
+                        listCurrentWeekInterval
+                    )
+                chart!!.xAxis.valueFormatter = valueFormatter
+                chart!!.xAxis.setLabelCount(listCurrentWeekInterval.size, false)
+            }
+
+            else -> {
+            }
+        }
+
+        val values: MutableList<BarEntry> = ArrayList()
         var bm: BarModel? = null
         var total = 0.0
         var average = 0.0
-        for (distance in listCurrentWeekInterval) {
+        for ((index, distance) in listCurrentWeekInterval.withIndex()) {
 
             when (graphType) {
                 Graph.TIME -> {
-                    bm = BarModel(
-                        TimeUtils.getDuration(distance.sumTime),
-                        0.0f,
-                        Color.parseColor("#b38ef1")
-                    )
+
+                    values.add(BarEntry(index.toFloat(), distance.sumTime.toFloat()))
+                    chartDataWeek(values, view, graphType)
+
                     total += distance.sumTime
                     average += distance.avgTime
-                    bm.value = distance.endTime.toFloat()
+
                 }
                 Graph.DISTANCE -> {
-                    bm = BarModel(
-                        "Distance",
-                        distance.distance.toFloat(),
-                        Color.parseColor("#5b0ce1")
-                    )
+
+                    values.add(BarEntry(index.toFloat(), distance.sumDistance.toFloat()))
+                    chartDataWeek(values, view, graphType)
+
                     total += distance.sumDistance
                     average += distance.avgDistance
-                    bm.value = distance.sumDistance.toFloat()
+
                 }
                 Graph.SPEED -> {
-                    bm = BarModel(
-                        "Distance",
-                        distance.speed.toFloat(),
-                        Color.parseColor("#009688")
-                    )
+                    values.add(BarEntry(index.toFloat(), distance.sumSpeed.toFloat()))
+                    chartDataWeek(values, view, graphType)
+
                     total += distance.sumSpeed
                     average += distance.avgSpeed
-                    bm.value = distance.sumSpeed.toFloat()
                 }
                 else -> {
                 }
             }
 
-            barChart.addBar(bm)
         }
 
         when (graphType) {
             Graph.TIME -> {
-                view.total_value.text = TimeUtils.getDuration(total.toLong())
+                view.total_value.text = getDuration(total.toLong())
                 view.average_value.text =
-                    TimeUtils.getDuration(average.toLong() / listCurrentWeekInterval.size)
+                    getDuration(average.toLong() / listCurrentWeekInterval.size)
             }
             Graph.DISTANCE -> {
                 view.total_value.text = AppUtils.roundTwoDecimal(total).toString()
@@ -428,14 +501,128 @@ class DetailReportFragment() : Fragment() {
                 view.average_value.text =
                     AppUtils.roundTwoDecimal(average / listCurrentWeekInterval.size).toString()
             }
-            else -> {
-            }
+            else -> {}
         }
 
-        if (barChart.data.size > 0) {
-            barChart.startAnimation()
-        } else {
-            barChart.visibility = View.INVISIBLE
+    }
+
+    private fun chartDataWeek(
+        values: MutableList<BarEntry>,
+        view: View,
+        graphType: Graph
+    ) {
+
+        when (graphType) {
+            Graph.TIME -> {
+                if (chart!!.data != null && chart!!.data.dataSetCount > 0) {
+                    val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return getDuration(value.toLong())
+                        }
+                    }
+                    set1.values = values
+                    chart!!.data.notifyDataChanged()
+                    chart!!.notifyDataSetChanged()
+                } else {
+                    val set1 = BarDataSet(values, "")
+                    set1.color = ContextCompat.getColor(
+                        view.context,
+                        R.color.colorPrimaryDark
+                    )
+
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return getDuration(value.toLong())
+                        }
+                    }
+                    val dataSets: MutableList<IBarDataSet> = ArrayList()
+                    dataSets.add(set1)
+                    val data = BarData(dataSets)
+                    data.barWidth = 0.2f
+                    chart!!.data = data
+                    chart!!.setFitBars(true)
+                }
+                chart!!.invalidate()
+            }
+            Graph.DISTANCE -> {
+                if (chart!!.data != null &&
+                    chart!!.data.dataSetCount > 0
+                ) {
+                    val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                        }
+                    }
+                    set1.values = values
+                    chart!!.data.notifyDataChanged()
+                    chart!!.notifyDataSetChanged()
+                } else {
+                    val set1 = BarDataSet(values, "")
+                    set1.color = ContextCompat.getColor(
+                        view.context,
+                        R.color.colorPrimaryDark
+                    )
+
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                        }
+                    }
+                    val dataSets: MutableList<IBarDataSet> = ArrayList()
+                    dataSets.add(set1)
+                    val data = BarData(dataSets)
+                    data.barWidth = 0.2f
+                    chart!!.data = data
+                    chart!!.setFitBars(true)
+
+                }
+
+                chart!!.invalidate()
+            }
+            Graph.SPEED -> {
+                if (chart!!.data != null &&
+                    chart!!.data.dataSetCount > 0
+                ) {
+                    val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                        }
+                    }
+                    set1.values = values
+                    chart!!.data.notifyDataChanged()
+                    chart!!.notifyDataSetChanged()
+                } else {
+                    val set1 = BarDataSet(values, "")
+                    set1.color = ContextCompat.getColor(
+                        view.context,
+                        R.color.colorPrimaryDark
+                    )
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                        }
+                    }
+                    val dataSets: MutableList<IBarDataSet> = ArrayList()
+                    dataSets.add(set1)
+                    val data = BarData(dataSets)
+                    data.barWidth = 0.2f
+                    chart!!.data = data
+                    chart!!.setFitBars(true)
+
+                }
+
+                chart!!.invalidate()
+            }
+            else -> {}
         }
     }
 

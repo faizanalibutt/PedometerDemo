@@ -1,5 +1,7 @@
 package com.faizi.pedometerdemo.ui.fragment
 
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Pair
 import android.view.LayoutInflater
@@ -31,6 +33,7 @@ import kotlinx.android.synthetic.main.fragment_report_pedo.view.emptyData
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.text_average
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.text_total
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.time_graph
+import org.eazegraph.lib.models.BarModel
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -88,8 +91,8 @@ class ReportFragment : Fragment() {
             }
         }
 
-        view.time_graph.isChecked = true
-        getIntervalsDataWeekly(database, view, Graph.TIME)
+        view.step_graph.isChecked = true
+        getIntervalsDataWeekly(database, view, Graph.STEP)
 
         return view
     }
@@ -107,121 +110,87 @@ class ReportFragment : Fragment() {
             return
         }
 
-        when (graphType) {
-
-            Graph.TIME -> {
-                valueFormatter = TimeAxisValueFormatter(
-                    listCurrentWeekInterval,
-                    chart!!, "pedo"
-                )
-                chart!!.xAxis.valueFormatter = valueFormatter
-                chart!!.xAxis.setLabelCount(listCurrentWeekInterval.size, false)
-            }
-
-            Graph.DISTANCE -> {
-//                valueFormatter =
-//                    DistanceAxisValueFormatter(
-//                        chart!!,
-//                        listCurrentWeekInterval,
-//                        "pedo"
-//                    )
-//                chart!!.xAxis.valueFormatter = valueFormatter
-//                chart!!.xAxis.setLabelCount(listCurrentWeekInterval.size, false)
-            }
-
-            Graph.SPEED -> {
-//                valueFormatter =
-//                    SpeedAxisValueFormatter(
-//                        chart!!,
-//                        listCurrentDayInterval
-//                    )
-//                chart!!.xAxis.valueFormatter = valueFormatter
-//                chart!!.xAxis.setLabelCount(listCurrentDayInterval.size, false)
-            }
-
-            else -> {
-            }
-        }
+        valueFormatter = TimeAxisValueFormatter(
+            listCurrentWeekInterval,
+            chart!!, "pedo"
+        )
+        chart!!.xAxis.valueFormatter = valueFormatter
+        chart!!.xAxis.setLabelCount(listCurrentWeekInterval.size, false)
 
         var total = 0.0
         val values: MutableList<BarEntry> = ArrayList()
 
-        /*int today_offset = db.getSteps(Util.getToday());
-        if (steps == 0)
-            steps = db.getCurrentSteps(); // use saved value if we haven't anything better
-        db.close();
-        Notification.Builder notificationBuilder =
-                Build.VERSION.SDK_INT >= 26 ? API26Wrapper.getNotificationBuilder(context) :
-                        new Notification.Builder(context);
-        if (steps > 0) {
-            if (today_offset == Integer.MIN_VALUE) today_offset = -steps;
-            NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
-            notificationBuilder.setProgress(goal, today_offset + steps, false).setContentText(
-                    today_offset + steps >= goal ?
-                            context.getString(R.string.goal_reached_notification,
-                                    format.format((today_offset + steps))) :
-                            context.getString(R.string.notification_text,
-                                    format.format((goal - today_offset - steps)))).setContentTitle(
-                    format.format(today_offset + steps) + " " + context.getString(R.string.steps));
-        }*/
-
         for ((index, step) in listCurrentWeekInterval.withIndex()) {
 
             when (graphType) {
+
                 Graph.TIME -> {
 
-                    var stepsToday = 0
-                    var today_offset = database.getSteps(step.first);
-                    stepsToday = database.getCurrentSteps()
+                    var todayOffset = database.getSteps(step.first)
+                    var stepsToday = database.currentSteps
                     database.close()
 
-                    if (today_offset == Integer.MIN_VALUE)
-                        today_offset = -stepsToday
+                    if (todayOffset == Integer.MIN_VALUE)
+                        todayOffset = -stepsToday
 
-                    stepsToday += today_offset
+                    stepsToday += todayOffset
 
                     val stepTime = stepsToday / 10 * 60000.toLong()
                     total += stepTime
-                    values.add(BarEntry(index.toFloat(), stepsToday / 10 * 60000.toFloat()))
+                    values.add(BarEntry(index.toFloat(), stepTime.toFloat()))
                     chartData(values, view, graphType)
+
                 }
+
                 Graph.DISTANCE -> {
-//                    // update only every 10 steps when displaying distance
-//                    val prefs = requireActivity().getSharedPreferences(
-//                        "pedometer",
-//                        Context.MODE_PRIVATE
-//                    )
-//                    val stepsize =
-//                        prefs.getFloat("stepsize_value", Fragment_Settings.DEFAULT_STEP_SIZE)
-//                    var distance_today: Float = step.second * stepsize
-//                    distance_today /= if (prefs.getString(
-//                            "stepsize_unit",
-//                            Fragment_Settings.DEFAULT_STEP_UNIT
-//                        )
-//                        == "cm"
-//                    ) {
-//                        100000f
-//                    } else {
-//                        5280f
-//                    }
-//                    bm = BarModel(
-//                        "Distance",
-//                        distance_today,
-//                        Color.parseColor("#5b0ce1")
-//                    )
-//                    total += distance_today
-//                    average += distance_today
-//                    bm.value = distance_today
+
+                    var todayOffset = database.getSteps(step.first)
+                    var stepsToday = database.currentSteps
+                    database.close()
+
+                    if (todayOffset == Integer.MIN_VALUE)
+                        todayOffset = -stepsToday
+
+                    stepsToday += todayOffset
+
+                    // update only every 10 steps when displaying distance
+                    val prefs = requireActivity().getSharedPreferences(
+                        "pedometer",
+                        Context.MODE_PRIVATE
+                    )
+                    val stepsize =
+                        prefs.getFloat("stepsize_value", Fragment_Settings.DEFAULT_STEP_SIZE)
+
+                    var distance_today: Float = stepsToday * stepsize
+                    distance_today /= if (prefs.getString("stepsize_unit",
+                            Fragment_Settings.DEFAULT_STEP_UNIT) == "cm") {
+                        100000f
+                    } else {
+                        5280f
+                    }
+
+                    total += distance_today
+
+                    values.add(BarEntry(index.toFloat(), distance_today))
+                    chartData(values, view, graphType)
+
                 }
+
                 Graph.STEP -> {
-//                    bm = BarModel(
-//                        "Distance",
-//                        step.second.toFloat(),
-//                        Color.parseColor("#009688")
-//                    )
-//                    total += step.second
-//                    average += step.second
-//                    bm.value = step.second.toFloat()
+
+                    var todayOffset = database.getSteps(step.first)
+                    var stepsToday = database.currentSteps
+                    database.close()
+
+                    if (todayOffset == Integer.MIN_VALUE)
+                        todayOffset = -stepsToday
+
+                    stepsToday += todayOffset
+
+                    total += stepsToday
+
+                    values.add(BarEntry(index.toFloat(), stepsToday.toFloat()))
+                    chartData(values, view, graphType)
                 }
                 else -> {
                 }
@@ -262,6 +231,11 @@ class ReportFragment : Fragment() {
                 if (chart!!.data != null && chart!!.data.dataSetCount > 0) {
                     val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
                     set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return getDuration(value.toLong())
+                        }
+                    }
                     set1.values = values
                     chart!!.data.notifyDataChanged()
                     chart!!.notifyDataSetChanged()
@@ -288,63 +262,78 @@ class ReportFragment : Fragment() {
                 chart!!.invalidate()
             }
             Graph.DISTANCE -> {
-//                if (chart!!.data != null &&
-//                    chart!!.data.dataSetCount > 0
-//                ) {
-//                    val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
-//                    set1.setDrawValues(false)
-//                    set1.values = values
-//                    chart!!.data.notifyDataChanged()
-//                    chart!!.notifyDataSetChanged()
-//                } else {
-//                    val set1 = BarDataSet(values, "")
-//                    set1.color = ContextCompat.getColor(
-//                        view.context,
-//                        R.color.colorPrimaryDark
-//                    )
-//
-//                    set1.setDrawValues(false)
-//                    val dataSets: MutableList<IBarDataSet> = ArrayList()
-//                    dataSets.add(set1)
-//                    val data = BarData(dataSets)
-//                    data.barWidth = 0.2f
-//                    chart!!.data = data
-//                    chart!!.setFitBars(true)
-//
-//                }
-//
-//                chart!!.invalidate()
+                if (chart!!.data != null &&
+                    chart!!.data.dataSetCount > 0
+                ) {
+                    val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                        }
+                    }
+                    set1.values = values
+                    chart!!.data.notifyDataChanged()
+                    chart!!.notifyDataSetChanged()
+                } else {
+                    val set1 = BarDataSet(values, "")
+                    set1.color = ContextCompat.getColor(
+                        view.context,
+                        R.color.colorPrimaryDark
+                    )
+
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                        }
+                    }
+                    val dataSets: MutableList<IBarDataSet> = ArrayList()
+                    dataSets.add(set1)
+                    val data = BarData(dataSets)
+                    data.barWidth = 0.2f
+                    chart!!.data = data
+                    chart!!.setFitBars(true)
+                }
+                chart!!.invalidate()
             }
-            Graph.SPEED -> {
-//                if (chart!!.data != null &&
-//                    chart!!.data.dataSetCount > 0
-//                ) {
-//                    val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
-//                    set1.setDrawValues(false)
-//                    set1.values = values
-//                    chart!!.data.notifyDataChanged()
-//                    chart!!.notifyDataSetChanged()
-//                } else {
-//                    val set1 = BarDataSet(values, "")
-//                    set1.color = ContextCompat.getColor(
-//                        view.context,
-//                        R.color.colorPrimaryDark
-//                    )
-//
-//                    set1.setDrawValues(false)
-//                    val dataSets: MutableList<IBarDataSet> = ArrayList()
-//                    dataSets.add(set1)
-//                    val data = BarData(dataSets)
-//                    data.barWidth = 0.2f
-//                    chart!!.data = data
-//                    chart!!.setFitBars(true)
-//
-//                }
-//
-//                chart!!.invalidate()
+            Graph.STEP -> {
+                if (chart!!.data != null &&
+                    chart!!.data.dataSetCount > 0
+                ) {
+                    val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                        }
+                    }
+                    set1.values = values
+                    chart!!.data.notifyDataChanged()
+                    chart!!.notifyDataSetChanged()
+                } else {
+                    val set1 = BarDataSet(values, "")
+                    set1.color = ContextCompat.getColor(
+                        view.context,
+                        R.color.colorPrimaryDark
+                    )
+
+                    set1.setDrawValues(true)
+                    set1.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                        }
+                    }
+                    val dataSets: MutableList<IBarDataSet> = ArrayList()
+                    dataSets.add(set1)
+                    val data = BarData(dataSets)
+                    data.barWidth = 0.2f
+                    chart!!.data = data
+                    chart!!.setFitBars(true)
+                }
+                chart!!.invalidate()
             }
-            else -> {
-            }
+            else -> {}
         }
     }
 

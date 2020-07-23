@@ -60,11 +60,7 @@
         <activity
             android:name=".ui.activity.PedometerActivity"
             android:theme="@style/AppTheme.NoActionBar.Status">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".ui.activity.SettingsActivity" />
@@ -76,7 +72,11 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:theme="@style/Custom">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.activity.SpeedoGraphActivity">
         </activity>
