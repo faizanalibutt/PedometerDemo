@@ -79,6 +79,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
     TextView step_btn_txt, timeValue;
     private View mView;
     private CircleSegmentBar segmentBar;
+    private String pedoState;
 
     private int todayOffset, total_start, goal, since_boot, total_days;
     public final static NumberFormat formatter = NumberFormat.getInstance(Locale.getDefault());
@@ -179,7 +180,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
 
         });
 
-        String pedoState = AppUtils.INSTANCE.getDefaultPreferences(
+        pedoState = AppUtils.INSTANCE.getDefaultPreferences(
                 (AppCompatActivity) requireActivity()
         ).getString("pedo_state", "start");
 
@@ -207,14 +208,18 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         return v;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (pedoState != null && (pedoState.equals("stop") || pedoState.equals("start"))) {
+            Database db = Database.getInstance(getActivity());
+            db.saveCurrentSteps(since_boot);
+            db.close();
+        }
+    }
+
     private void startService(View v, boolean start) {
         if (start)
-            /*if (Build.VERSION.SDK_INT >= 26) {
-                API26Wrapper.startForegroundService(v.getContext(),
-                        new Intent(getActivity(), SensorListener.class));
-            } else {
-
-            }*/
             v.getContext().startService(new Intent(getActivity(), SensorListener.class));
         else {
             v.getContext().stopService(new Intent(getActivity(), SensorListener.class));
@@ -309,9 +314,6 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
             db.close();
         }
         since_boot = (int) event.values[0];
-        /*Database db = Database.getInstance(getActivity());
-        db.saveCurrentSteps(since_boot);
-        db.close();*/
         updatePie();
     }
 
@@ -342,8 +344,6 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         pg.update();
 
         stepsView.setText(formatter.format(steps_today));
-        //totalView.setText(formatter.format(total_start + steps_today));
-        // update only every 10 steps when displaying distance
         SharedPreferences prefs =
                 mView.getContext().getSharedPreferences("pedometer", Context.MODE_PRIVATE);
         float stepsize = prefs.getFloat("stepsize_value", Fragment_Settings.DEFAULT_STEP_SIZE);
@@ -354,7 +354,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         } else {
             distance_today /= 5280;
         }
-        miles.setText("" + (int) AppUtils.INSTANCE.roundTwoDecimal(distance_today));
+        miles.setText("" + AppUtils.INSTANCE.roundTwoDecimal(distance_today));
         // TODO: 7/15/2020 increase step count to 150
         timeValue.setText(TimeUtils.INSTANCE.getDurationSpeedo((steps_today / 10) * 60000));
     }

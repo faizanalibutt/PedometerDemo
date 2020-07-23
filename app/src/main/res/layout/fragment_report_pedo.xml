@@ -65,10 +65,10 @@
         android:text="@string/no_data_found"
         android:gravity="center"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/bargraph"
-        app:layout_constraintEnd_toEndOf="@+id/bargraph"
+        app:layout_constraintBottom_toBottomOf="@+id/bargraph1"
+        app:layout_constraintEnd_toEndOf="@+id/bargraph1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bargraph" />
+        app:layout_constraintTop_toTopOf="@+id/bargraph1" />
 
     <org.eazegraph.lib.charts.BarChart
         android:id="@+id/bargraph"

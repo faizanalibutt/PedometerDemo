@@ -1,5 +1,7 @@
 package com.faizi.pedometerdemo.ui.fragment;
 
+import android.util.Pair;
+
 import com.faizi.pedometerdemo.model.Distance;
 import com.faizi.pedometerdemo.util.AppUtils;
 import com.faizi.pedometerdemo.util.TimeUtils;
@@ -17,7 +19,9 @@ public class DistanceAxisValueFormatter extends ValueFormatter
 {
 
     private final BarLineChartBase<?> chart;
+    private String type = null;
     private List<Distance> listCurrentDayInterval;
+    private List<Pair<Long, Integer>> listCurrentWeekInterval;
 
     public DistanceAxisValueFormatter(BarLineChartBase<?> chart) {
         this.chart = chart;
@@ -28,10 +32,19 @@ public class DistanceAxisValueFormatter extends ValueFormatter
         this.listCurrentDayInterval = listCurrentDayInterval;
     }
 
+    public DistanceAxisValueFormatter(@NotNull BarChart chart, @NotNull List<Pair<Long, Integer>> listCurrentWeekInterval, @NotNull String type) {
+        this.chart = chart;
+        this.listCurrentWeekInterval = listCurrentWeekInterval;
+        this.type = type;
+    }
+
     @Override
     public String getFormattedValue(float value) {
-
-        return String.valueOf(AppUtils.INSTANCE.roundTwoDecimal(listCurrentDayInterval.get((int) value).getDistance()));
+        if (type == null) {
+            return String.valueOf(AppUtils.INSTANCE.roundTwoDecimal(listCurrentDayInterval.get((int) value).getDistance()));
+        } else {
+            return String.valueOf(AppUtils.INSTANCE.roundTwoDecimal(listCurrentDayInterval.get((int) value).getDistance()));
+        }
     }
 
 }
