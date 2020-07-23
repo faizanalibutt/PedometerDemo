@@ -14,13 +14,24 @@ import com.faizi.pedometerdemo.util.AppUtils
 import com.faizi.pedometerdemo.util.Graph
 import com.faizi.pedometerdemo.util.TimeUtils
 import com.faizi.pedometerdemo.util.TimeUtils.getDuration
-import com.faizi.pedometerdemo.util.TimeUtils.getFormatedTimeMH
+import com.faizi.pedometerdemo.util.Util
+import com.github.mikephil.charting.components.XAxis
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import kotlinx.android.synthetic.main.fragment_detail_pedo.*
-import kotlinx.android.synthetic.main.fragment_detail_pedo.view.*
+import kotlinx.android.synthetic.main.fragment_report.*
+import kotlinx.android.synthetic.main.fragment_report.view.*
 import kotlinx.android.synthetic.main.fragment_report.view.average_value
 import kotlinx.android.synthetic.main.fragment_report.view.total_value
+import kotlinx.android.synthetic.main.fragment_report_pedo.*
+import kotlinx.android.synthetic.main.fragment_report_pedo.distance_graph
+import kotlinx.android.synthetic.main.fragment_report_pedo.time_graph
+import kotlinx.android.synthetic.main.fragment_report_pedo.view.*
+import kotlinx.android.synthetic.main.fragment_report_pedo.view.bargraph1
+import kotlinx.android.synthetic.main.fragment_report_pedo.view.chipGroup
+import kotlinx.android.synthetic.main.fragment_report_pedo.view.emptyData
+import kotlinx.android.synthetic.main.fragment_report_pedo.view.text_average
+import kotlinx.android.synthetic.main.fragment_report_pedo.view.text_total
+import kotlinx.android.synthetic.main.fragment_report_pedo.view.time_graph
 import org.eazegraph.lib.charts.BarChart
 import org.eazegraph.lib.models.BarModel
 
@@ -28,12 +39,38 @@ class ReportFragment : Fragment() {
 
     private var listCurrentWeekInterval: MutableList<Pair<Long, Int>> = ArrayList()
 
+    private var chart: com.github.mikephil.charting.charts.BarChart? = null
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_detail_pedo, container, false)
+        val view = inflater.inflate(R.layout.fragment_report_pedo, container, false)
+
+        chart = view.bargraph1
+
+        // set chart properties
+        chart!!.description.isEnabled = false
+        chart!!.setDrawBarShadow(true)
+        chart!!.setDrawGridBackground(false)
+
+        val xAxis = chart!!.xAxis
+
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+        xAxis.isGranularityEnabled = true
+        xAxis.granularity = 1f // only intervals of 1 day
+
+        chart!!.axisLeft.setDrawGridLines(false)
+        chart!!.axisRight.setDrawGridLines(false)
+        chart!!.axisLeft.isEnabled = false
+        chart!!.axisRight.isEnabled = false
+        chart!!.legend.isEnabled = false
+
+        // add a nice and smooth animation
+        chart!!.animateY(1500)
 
         val chipGroup: ChipGroup = view.findViewById(R.id.chipGroup)
         val database = Database.getInstance(view.context)

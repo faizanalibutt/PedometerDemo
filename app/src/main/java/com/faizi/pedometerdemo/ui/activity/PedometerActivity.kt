@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_pedometer.*
 
 class PedometerActivity : AppCompatActivity() {
 
-    var commonInterstitialAd: InterAdPair? = null
+    private var commonInterstitialAd: InterAdPair? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

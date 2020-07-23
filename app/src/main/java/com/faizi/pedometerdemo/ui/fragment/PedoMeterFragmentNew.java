@@ -356,7 +356,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         }
         miles.setText("" + (int) AppUtils.INSTANCE.roundTwoDecimal(distance_today));
         // TODO: 7/15/2020 increase step count to 150
-        timeValue.setText(TimeUtils.INSTANCE.getFormatedTimeMH((steps_today / 10) * 60000));
+        timeValue.setText(TimeUtils.INSTANCE.getDurationSpeedo((steps_today / 10) * 60000));
     }
 
 }

@@ -75,22 +75,34 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="@dimen/margin_medium_size"
-        android:visibility="visible"
+        android:visibility="gone"
         app:egLegendHeight="35dp"
         app:egShowValues="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_average" />
 
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/bargraph1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_average"/>
+
     <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_xmedium_size"
         android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bargraph">
+        app:layout_constraintTop_toBottomOf="@+id/bargraph1">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
@@ -106,8 +118,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/step_graph"
-                android:text="@string/text_step"
-                style="@style/Widget.MaterialComponents.Chip.Choice.ChipStyle"/>
+                style="@style/Widget.MaterialComponents.Chip.Choice.ChipStyle"
+                android:text="@string/text_step" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/calorie_graph"

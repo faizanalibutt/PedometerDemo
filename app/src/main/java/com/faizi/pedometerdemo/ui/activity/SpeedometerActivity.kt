@@ -1,6 +1,7 @@
 package com.faizi.pedometerdemo.ui.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
@@ -26,6 +27,7 @@ import com.google.android.material.tabs.TabLayout
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
 import kotlinx.android.synthetic.main.activity_speedometer.*
+import kotlinx.android.synthetic.main.fragment_analog.view.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -48,6 +50,7 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
     var lStart: Location? = null
     var lEnd: Location? = null
     var commonInterstitialAd: InterAdPair? = null
+    var unitType = "km"
 
     var mViewModel: SpeedViewModel? = null
 
@@ -115,6 +118,10 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
         })
         actionBarText.text = getString(R.string.analog_meter)
 
+        Callback.getMeterValue1().observe(this, androidx.lifecycle.Observer {
+            unitType = it.unit
+        })
+
     }
 
     fun startStopBtn(v: View) {
@@ -157,7 +164,6 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
                 })
 
         } else {
-
 
             val btnText =getString(R.string.text_start_now)
             start_btn_txt.text = btnText
@@ -206,8 +212,7 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
 
             override fun run() {
                 totalTime = System.currentTimeMillis() - startTime
-                val timeInHours = TimeUnit.MILLISECONDS.toHours(totalTime)
-                time_values.text = TimeUtils.getFormatedTimeMHS(totalTime)
+                time_values.text = TimeUtils.getDurationSpeedo(totalTime)
                 handler!!.postDelayed(this, 1000)
             }
         }
@@ -220,7 +225,18 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
 
         Callback.setLocationValue(it)
 
-        speed = (it.speed * 18) / 5.toDouble()
+        when (unitType) {
+            "km" -> {
+                speed = (it.speed * 18) / 5.toDouble()
+            }
+            "mph" -> {
+                speed = it.speed * 2.2369
+            }
+            "knot" -> {
+                speed = it.speed * 1.94384
+            }
+        }
+
         if (speed > maxSpeed) {
             maxSpeed = speed
         }
@@ -237,13 +253,34 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
         updateUi()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateUi() {
 
         if (lStart != null && lEnd != null) {
-            distance = lStart!!.distanceTo(lEnd).toDouble() / 1000
-            avgSpeed = maxSpeed / 2
-            speed_value.text = AppUtils.roundTwoDecimal(avgSpeed).toString()
-            distance_value.text = AppUtils.roundTwoDecimal(distance).toString()
+
+            when (unitType) {
+
+                "km" -> {
+                    distance = lStart!!.distanceTo(lEnd).toDouble() / 1000
+                    avgSpeed = maxSpeed / 2
+                    speed_value.text = "${AppUtils.roundTwoDecimal(avgSpeed)} km"
+                    distance_value.text = "${AppUtils.roundTwoDecimal(distance)} km"
+                }
+                "mph" -> {
+                    distance = lStart!!.distanceTo(lEnd).toDouble() / 1609.34
+                    avgSpeed = maxSpeed / 2
+                    speed_value.text = "${AppUtils.roundTwoDecimal(avgSpeed)} mph"
+                    distance_value.text = "${AppUtils.roundTwoDecimal(distance)} mph"
+                }
+                "knot" -> {
+                    distance = lStart!!.distanceTo(lEnd).toDouble() / 1852
+                    avgSpeed = maxSpeed / 2
+                    speed_value.text = "${AppUtils.roundTwoDecimal(avgSpeed)} knot"
+                    distance_value.text = "${AppUtils.roundTwoDecimal(distance)} knot"
+                }
+
+            }
+
         }
 
     }

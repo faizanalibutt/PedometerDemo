@@ -47,8 +47,6 @@ object TimeUtils {
         val seconds = calculator.leftTime
 
         if (hours > 0L) {
-            /*if (hours < 10L)
-                string.append("0")*/
 
             string.append(hours)
             if (hours > 0L && minutes > 0L && seconds > 0L)
@@ -62,8 +60,6 @@ object TimeUtils {
         }
 
         if (minutes > 0L) {
-            /*if (minutes < 10L)
-                string.append("0")*/
 
             string.append(minutes)
             if (hours > 0L && minutes > 0L && seconds > 0L)
@@ -77,8 +73,6 @@ object TimeUtils {
         }
 
         if (seconds > 0L) {
-            /*if (seconds < 10L)
-                string.append("0")*/
 
             string.append(seconds)
             if (hours > 0L && minutes > 0L && seconds > 0L)
@@ -97,77 +91,44 @@ object TimeUtils {
         return string.toString()
     }
 
-    /*fun getFriendlyElapsedTime(context: Context, estimatedTime: Long): String {
-        val elapsedTime = ElapsedTime(estimatedTime)
-        val appendList = ArrayList<String>()
+    fun getDurationSpeedo(milliseconds: Long): String {
+        val string = StringBuilder()
 
-        if (elapsedTime.years > 0)
-            appendList.add(context.getString(R.string.text_yearCountShort, elapsedTime.years))
+        val calculator = ElapsedTime.ElapsedTimeCalculator(milliseconds / 1000L)
 
-        if (elapsedTime.months > 0)
-            appendList.add(context.getString(R.string.text_monthCountShort, elapsedTime.months))
+        val hours = calculator.crop(3600L)
+        val minutes = calculator.crop(60L)
+        //val seconds = calculator.leftTime
 
-        if (elapsedTime.years == 0L) {
-            if (elapsedTime.days > 0)
-                appendList.add(context.getString(R.string.text_dayCountShort, elapsedTime.days))
+        // 00:00 min -> 01:00
+        if (hours > 0L) {
 
-            if (elapsedTime.months == 0L) {
-                if (elapsedTime.hours > 0)
-                    appendList.add(
-                        context.getString(
-                            R.string.text_hourCountShort,
-                            elapsedTime.hours
-                        )
-                    )
+            if (hours < 10)
+                string.append("0")
 
-                if (elapsedTime.days == 0L) {
-                    if (elapsedTime.minutes > 0)
-                        appendList.add(
-                            context.getString(
-                                R.string.text_minuteCountShort,
-                                elapsedTime.minutes
-                            )
-                        )
+            string.append(hours)
 
-                    if (elapsedTime.hours == 0L)
-                    // always applied
-                        appendList.add(
-                            context.getString(
-                                R.string.text_secondCountShort,
-                                elapsedTime.seconds
-                            )
-                        )
-                }
-            }
+        } else {
+            string.append("00")
         }
 
-        val stringBuilder = StringBuilder()
+        string.append(":")
 
-        for (appendItem in appendList) {
-            if (stringBuilder.length > 0)
-                stringBuilder.append(" ")
+        if (minutes > 0L) {
+            if (minutes < 10)
+                string.append("0")
 
-            stringBuilder.append(appendItem)
+            string.append(minutes)
+        } else {
+            string.append("00")
         }
 
-        return stringBuilder.toString()
-    }*/
+        if (hours > 0)
+            string.append(" hr")
+        else
+            string.append(" min")
 
-    /*fun getTimeAgo(context: Context, time: Long): String {
-        val differ = ((System.currentTimeMillis() - time) / 1000).toInt()
-
-        if (differ == 0)
-            return context.getString(R.string.text_timeJustNow)
-        else if (differ < 60)
-            return context.resources.getQuantityString(R.plurals.text_secondsAgo, differ, differ)
-        else if (differ < 3600)
-            return context.resources.getQuantityString(
-                R.plurals.text_minutesAgo,
-                differ / 60,
-                differ / 60
-            )
-
-        return context.getString(R.string.text_longAgo)
-    }*/
+        return string.toString()
+    }
 
 }

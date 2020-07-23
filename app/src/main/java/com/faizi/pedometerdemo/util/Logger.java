@@ -60,7 +60,7 @@ public abstract class Logger {
     public static void log(String msg) {
         if (!BuildConfig.DEBUG) return;
         android.util.Log.d(APP, msg);
-        try {
+        /*try {
             if (fw == null) {
                 fw = new FileWriter(new File(
                         Environment.getExternalStorageDirectory().toString() + "/" + APP + ".txt"),
@@ -71,7 +71,7 @@ public abstract class Logger {
             fw.flush();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         // }
     }
 
@@ -79,18 +79,18 @@ public abstract class Logger {
     public static void logs(String msg) {
         if (!BuildConfig.DEBUG) return;
         android.util.Log.d(_APP, msg);
-        try {
-            if (fw == null) {
-                fw = new FileWriter(new File(
-                        Environment.getExternalStorageDirectory().toString() + "/" + APP + ".txt"),
-                        true);
-            }
-            date.setTime(System.currentTimeMillis());
-            fw.write(date.toLocaleString() + " - " + msg + "\n");
-            fw.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            if (fw == null) {
+//                fw = new FileWriter(new File(
+//                        Environment.getExternalStorageDirectory().toString() + "/" + APP + ".txt"),
+//                        true);
+//            }
+//            date.setTime(System.currentTimeMillis());
+//            fw.write(date.toLocaleString() + " - " + msg + "\n");
+//            fw.flush();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         // }
     }
 
