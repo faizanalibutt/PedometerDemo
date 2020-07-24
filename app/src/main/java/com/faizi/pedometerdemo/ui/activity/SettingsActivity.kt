@@ -9,10 +9,16 @@ import android.view.View
 import android.widget.CompoundButton
 import android.widget.RadioGroup
 import androidx.browser.customtabs.CustomTabsIntent
+import com.dev.bytes.adsmanager.TinyDB
+import com.dev.bytes.adsmanager.billing.purchaseRemoveAds
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.SensorListener
+import com.faizi.pedometerdemo.app.App
 import com.faizi.pedometerdemo.util.AppUtils
+import kotlinx.android.synthetic.main.activity_pedometer.*
 import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.activity_settings.nav_back
+import kotlinx.android.synthetic.main.activity_settings.premium_services
 
 class SettingsActivity : Activity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +46,10 @@ class SettingsActivity : Activity(), View.OnClickListener {
         rate_us.setOnClickListener(this)
         share.setOnClickListener(this)
         premium.setOnClickListener(this)
+        premium_services.setOnClickListener(this)
+
+        if (TinyDB.getInstance(this).getBoolean(getString(com.dev.bytes.R.string.is_premium)))
+            premium_services.visibility = View.GONE
 
     }
 
@@ -57,10 +67,11 @@ class SettingsActivity : Activity(), View.OnClickListener {
                 dialog = showRateExitDialogue(this@SettingsActivity, true)
                 dialog!!.show()
             }
-            R.id.premium -> {}
+            R.id.premium -> App.bp?.purchaseRemoveAds(this)
             R.id.share -> {
                 shareIntent()
             }
+            R.id.premium_services -> App.bp?.purchaseRemoveAds(this)
         }
     }
 

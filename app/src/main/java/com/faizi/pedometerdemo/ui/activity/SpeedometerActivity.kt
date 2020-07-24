@@ -11,8 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.dev.bytes.adsmanager.*
+import com.dev.bytes.adsmanager.billing.purchaseRemoveAds
 import com.faizi.pedometerdemo.Database
 import com.faizi.pedometerdemo.R
+import com.faizi.pedometerdemo.app.App
 import com.faizi.pedometerdemo.callback.Callback
 import com.faizi.pedometerdemo.model.Distance
 import com.faizi.pedometerdemo.ui.ViewPagerAdapter
@@ -27,9 +29,7 @@ import com.google.android.material.tabs.TabLayout
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
 import kotlinx.android.synthetic.main.activity_speedometer.*
-import kotlinx.android.synthetic.main.fragment_analog.view.*
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultListener {
 
@@ -78,12 +78,15 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
             }
         }
 
-        speedo_graph.setOnClickListener {
-            startActivity(Intent(this, SpeedoGraphActivity::class.java))
+        premium_services.setOnClickListener {
+            App.bp?.purchaseRemoveAds(this)
         }
 
-        premium_services.setOnClickListener {
-            startActivity(Intent(this, MapsActivity::class.java))
+        if (TinyDB.getInstance(this).getBoolean(getString(com.dev.bytes.R.string.is_premium)))
+            premium_services.visibility = View.GONE
+
+        speedo_graph.setOnClickListener {
+            startActivity(Intent(this, SpeedoGraphActivity::class.java))
         }
 
         currentLocation = CurrentLocation(this)

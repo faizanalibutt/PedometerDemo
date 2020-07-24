@@ -61,6 +61,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_20"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
