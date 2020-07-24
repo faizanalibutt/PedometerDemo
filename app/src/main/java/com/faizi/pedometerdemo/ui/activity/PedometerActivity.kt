@@ -28,6 +28,9 @@ class PedometerActivity : AppCompatActivity() {
 
         nav_back.setOnClickListener {
             finish()
+            commonInterstitialAd?.apply {
+                if (this.isLoaded()) this.showAd(this@PedometerActivity)
+            }
         }
 
         loadNativeAd(ad_container_pedo, R.layout.ad_unified_common, ADUnitPlacements.COMMON_NATIVE_AD)

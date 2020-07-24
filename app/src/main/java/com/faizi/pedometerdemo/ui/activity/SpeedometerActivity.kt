@@ -73,6 +73,9 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
 
         nav_back.setOnClickListener {
             finish()
+            commonInterstitialAd?.apply {
+                if (this.isLoaded()) this.showAd(this@SpeedometerActivity)
+            }
         }
 
         speedo_graph.setOnClickListener {

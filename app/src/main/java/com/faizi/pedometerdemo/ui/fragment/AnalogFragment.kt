@@ -189,7 +189,7 @@ class AnalogFragment() : Fragment() {
                         mView.digi_type_txt.text = "Km/h"
 
                         view.speedometer_view_img.setImageResource(
-                            R.drawable.ic_meter
+                            R.drawable.ic_car_kmph
                         )
                     }
                     "mph" -> {
@@ -198,7 +198,7 @@ class AnalogFragment() : Fragment() {
                         mView.digi_type_txt.text = "mph"
 
                         view.speedometer_view_img.setImageResource(
-                            R.drawable.ic_meter
+                            R.drawable.ic_car_mph
                         )
 
                     }
@@ -208,7 +208,7 @@ class AnalogFragment() : Fragment() {
                         mView.digi_type_txt.text = "knot"
 
                         view.speedometer_view_img.setImageResource(
-                            R.drawable.ic_meter
+                            R.drawable.ic_car_knot
                         )
 
                     }
@@ -225,7 +225,7 @@ class AnalogFragment() : Fragment() {
                         mView.digi_type_txt.text = "Km/h"
 
                         view.speedometer_view_img.setImageResource(
-                            R.drawable.ic_meter
+                            R.drawable.ic_cycle_kmph
                         )
 
 
@@ -236,7 +236,7 @@ class AnalogFragment() : Fragment() {
                         mView.digi_type_txt.text = "mph"
 
                         view.speedometer_view_img.setImageResource(
-                            R.drawable.ic_meter
+                            R.drawable.ic_cycle_mph
                         )
 
                     }
@@ -246,7 +246,7 @@ class AnalogFragment() : Fragment() {
                         mView.digi_type_txt.text = "knot"
 
                         view.speedometer_view_img.setImageResource(
-                            R.drawable.ic_meter
+                            R.drawable.ic_cycle_knot
                         )
 
                     }
@@ -262,7 +262,7 @@ class AnalogFragment() : Fragment() {
                         mView.digi_type_txt.text = "Km/h"
 
                         view.speedometer_view_img.setImageResource(
-                            R.drawable.ic_meter
+                            R.drawable.ic_train_kmph
                         )
 
                     }
@@ -272,7 +272,7 @@ class AnalogFragment() : Fragment() {
                         mView.digi_type_txt.text = "mph"
 
                         view.speedometer_view_img.setImageResource(
-                            R.drawable.ic_meter
+                            R.drawable.ic_train_mph
                         )
 
                     }
@@ -282,7 +282,7 @@ class AnalogFragment() : Fragment() {
                         mView.digi_type_txt.text = "knot"
 
                         view.speedometer_view_img.setImageResource(
-                            R.drawable.ic_meter
+                            R.drawable.ic_train_knot
                         )
 
                     }
