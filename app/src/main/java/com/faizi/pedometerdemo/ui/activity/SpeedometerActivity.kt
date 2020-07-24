@@ -305,4 +305,9 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (!(App.bp!!.handleActivityResult(requestCode, resultCode, intent)))
+            super.onActivityResult(requestCode, resultCode, data)
+    }
+
 }

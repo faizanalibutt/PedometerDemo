@@ -85,4 +85,9 @@ class SettingsActivity : Activity(), View.OnClickListener {
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText)
         startActivity(Intent.createChooser(shareIntent, this.resources.getString(R.string.share_with)))
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (!(App.bp!!.handleActivityResult(requestCode, resultCode, intent)))
+            super.onActivityResult(requestCode, resultCode, data)
+    }
 }

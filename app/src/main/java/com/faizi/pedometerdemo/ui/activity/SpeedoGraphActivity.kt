@@ -1,5 +1,6 @@
 package com.faizi.pedometerdemo.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -43,5 +44,10 @@ class SpeedoGraphActivity : AppCompatActivity() {
 
         loadNativeAd(ad_container_graph, R.layout.ad_unified_common, ADUnitPlacements.COMMON_NATIVE_AD)
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (!(App.bp!!.handleActivityResult(requestCode, resultCode, intent)))
+            super.onActivityResult(requestCode, resultCode, data)
     }
 }
