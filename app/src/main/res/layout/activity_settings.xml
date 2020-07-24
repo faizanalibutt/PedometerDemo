@@ -150,13 +150,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_18"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toTopOf="@+id/showHiddenFiles"
+                    app:layout_constraintBottom_toTopOf="@+id/auto_steps"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clearData" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/showHiddenFiles"
+                    android:id="@+id/auto_steps"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -237,7 +237,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/showHiddenFiles" />
+                    app:layout_constraintTop_toBottomOf="@+id/auto_steps" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -289,13 +289,13 @@
                     android:id="@+id/sv2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_8"
-                    app:layout_constraintBottom_toTopOf="@+id/shareUserName"
+                    app:layout_constraintBottom_toTopOf="@+id/change_language"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/share_text" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/shareUserName"
+                    android:id="@+id/change_language"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -378,13 +378,13 @@
                     android:id="@+id/ov2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_20"
-                    app:layout_constraintBottom_toTopOf="@+id/changeLanguage"
+                    app:layout_constraintBottom_toTopOf="@+id/privacy_policy"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/changeLanguage"
+                    android:id="@+id/privacy_policy"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_50"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -435,7 +435,7 @@
                     android:layout_height="@dimen/dp_20"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/changeLanguage" />
+                    app:layout_constraintTop_toBottomOf="@+id/privacy_policy" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/rate_us"

@@ -57,7 +57,7 @@ class MainActivity :
             }
             R.id.nav_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.nav_share -> {
-
+                shareIntent()
             }
             R.id.nav_rate_us -> {
                 dialog = null
@@ -87,7 +87,9 @@ class MainActivity :
                 dialog = showRateExitDialogue(this@MainActivity, true)
                 dialog!!.show()
             }
-            R.id.action_share -> {}
+            R.id.action_share -> {
+                shareIntent()
+            }
             R.id.action_pro -> {}
         }
     }
@@ -98,6 +100,17 @@ class MainActivity :
             dialog = showRateExitDialogue(this@MainActivity, false)
         }
         dialog?.show()
+    }
+
+    private fun shareIntent() {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "text/plain"
+        val shareSubText = this.resources.getString(R.string.great_app)
+        // TODO: 7/24/2020 get app link
+        val shareBodyText = this.resources.getString(R.string.use_one) + "app_link" + packageName
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubText)
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText)
+        startActivity(Intent.createChooser(shareIntent, this.resources.getString(R.string.share_with)))
     }
 
 }

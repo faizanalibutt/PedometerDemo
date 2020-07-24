@@ -129,5 +129,8 @@
     <string name="analog_meter">Analog Meter</string>
     <string name="digital_meter">Digital Meter</string>
     <string name="text_map">Map</string>
+    <string name="great_app">Pedometer - The Great App</string>
+    <string name="use_one">Use one of the best Pedometer</string>
+    <string name="share_with">Share with Friends</string>
 
 </resources>

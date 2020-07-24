@@ -182,7 +182,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
 
         pedoState = AppUtils.INSTANCE.getDefaultPreferences(
                 (AppCompatActivity) requireActivity()
-        ).getString("pedo_state", "start");
+        ).getString("pedo_state", null);
 
         if (pedoState != null && pedoState.equals("stop")) {
 
@@ -211,7 +211,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
     @Override
     public void onPause() {
         super.onPause();
-        if (pedoState != null && (pedoState.equals("stop") || pedoState.equals("start"))) {
+        if (pedoState != null && pedoState.equals("stop")) {
             Database db = Database.getInstance(getActivity());
             db.saveCurrentSteps(since_boot);
             db.close();

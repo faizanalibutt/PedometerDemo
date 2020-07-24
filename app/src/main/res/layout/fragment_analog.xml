@@ -134,11 +134,11 @@
     <ImageView
         android:id="@+id/speedometer_view_img"
         android:layout_width="230dp"
-        android:layout_height="235dp"
+        android:layout_height="230dp"
         android:layout_marginVertical="@dimen/margin_smaller_size"
         android:layout_marginHorizontal="@dimen/margin_smaller_size"
         app:srcCompat="@drawable/ic_car_kmph"
-        android:scaleType="fitXY"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -150,7 +150,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="42dp"
-        android:layout_marginVertical="46dp"
+        android:layout_marginVertical="42dp"
         app:arc_bottom_text="@null"
         app:arc_finished_color="@color/colorPrimary"
         app:arc_progress="0"
@@ -161,10 +161,8 @@
         app:arc_unfinished_color="@color/gray"
         app:layout_constraintBottom_toBottomOf="@+id/speedometer_view_img"
         app:layout_constraintEnd_toEndOf="@+id/speedometer_view_img"
-        app:layout_constraintHorizontal_bias="0.714"
         app:layout_constraintStart_toStartOf="@+id/speedometer_view_img"
-        app:layout_constraintTop_toTopOf="@+id/speedometer_view_img"
-        app:layout_constraintVertical_bias="0.891" />
+        app:layout_constraintTop_toTopOf="@+id/speedometer_view_img" />
 
     <TextView
         android:id="@+id/digi_type_txt"
