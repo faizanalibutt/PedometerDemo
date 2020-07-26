@@ -1,7 +1,6 @@
 package com.faizi.pedometerdemo.ui.fragment
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Pair
 import android.view.LayoutInflater
@@ -22,7 +21,6 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import kotlinx.android.synthetic.main.fragment_report.view.*
 import kotlinx.android.synthetic.main.fragment_report.view.average_value
 import kotlinx.android.synthetic.main.fragment_report.view.total_value
 import kotlinx.android.synthetic.main.fragment_report_pedo.*
@@ -32,10 +30,6 @@ import kotlinx.android.synthetic.main.fragment_report_pedo.view.chipGroup
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.emptyData
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.text_average
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.text_total
-import kotlinx.android.synthetic.main.fragment_report_pedo.view.time_graph
-import org.eazegraph.lib.models.BarModel
-import java.util.*
-import kotlin.collections.ArrayList
 
 class ReportFragment : Fragment() {
 
@@ -115,7 +109,7 @@ class ReportFragment : Fragment() {
             chart!!, "pedo"
         )
         chart!!.xAxis.valueFormatter = valueFormatter
-        chart!!.xAxis.setLabelCount(listCurrentWeekInterval.size, false)
+        //chart!!.xAxis.setLabelCount(listCurrentWeekInterval.size, false)
 
         var total = 0.0
         val values: MutableList<BarEntry> = ArrayList()

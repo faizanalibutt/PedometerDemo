@@ -33,7 +33,7 @@ public class TimeAxisValueFormatterWeek extends ValueFormatter {
             if (index >= listCurrentWeekInterval.size()) {
                 index = listCurrentWeekInterval.size() - 1;
             }
-            return listCurrentWeekInterval.get((int) index).getDate();
+            return TimeUtils.getFormatStringDate(listCurrentWeekInterval.get((int) index).getDate());
         } catch (Exception exp) {
             Logger.log(exp + " value is: " + value);
             return "";

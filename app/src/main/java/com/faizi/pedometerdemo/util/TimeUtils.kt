@@ -2,7 +2,11 @@ package com.faizi.pedometerdemo.util
 
 import android.content.Context
 import android.text.format.DateUtils
+import android.util.Log
+import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
+import java.time.LocalDate
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -16,26 +20,76 @@ object TimeUtils {
         )
     }
 
-    fun getFormatDateTime(millis: Long, type: String) : String {
+    fun getFormatDateTime(millis: Long, type: String): String {
         return if (type == "time")
             SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date(millis))
         else
             SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(millis))
     }
 
-    fun getFormatedTimeMH(millis: Long): String = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
-        TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))
+    fun getFormatDate(millis: Long): String {
 
-    fun getFormatedTimeMH2(millis: Long): String = String.format("%02dh%02dm", TimeUnit.MILLISECONDS.toHours(millis),
-        TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))
+        return SimpleDateFormat("E", Locale.getDefault()).format(Date(millis))[0].toString()
+    }
 
-    fun getFormatedTimeMHS(millis: Long): String = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
-        TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
-        TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
+    @JvmStatic
+    fun getFormatStringDate(stringDate: String) : String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        var date: Date? = null
+        try {
+            date = sdf.parse(stringDate)
+        } catch (parseExp: ParseException) {
+            Logger.log(parseExp.localizedMessage)
+        }
+        sdf.applyPattern("EEE")
+        return sdf.format(date!!)[0].toString()
+    }
 
-    fun getFormatedTimeMHS2(millis: Long): String = String.format("%02dh%02dm%02ds", TimeUnit.MILLISECONDS.toHours(millis),
-        TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
-        TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
+    fun getFormatedTimeMH(millis: Long): String = String.format(
+        "%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
+        TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(
+            TimeUnit.MILLISECONDS.toHours(
+                millis
+            )
+        )
+    )
+
+    fun getFormatedTimeMH2(millis: Long): String = String.format(
+        "%02dh%02dm", TimeUnit.MILLISECONDS.toHours(millis),
+        TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(
+            TimeUnit.MILLISECONDS.toHours(
+                millis
+            )
+        )
+    )
+
+    fun getFormatedTimeMHS(millis: Long): String = String.format(
+        "%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
+        TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(
+            TimeUnit.MILLISECONDS.toHours(
+                millis
+            )
+        ),
+        TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(
+            TimeUnit.MILLISECONDS.toMinutes(
+                millis
+            )
+        )
+    )
+
+    fun getFormatedTimeMHS2(millis: Long): String = String.format(
+        "%02dh%02dm%02ds", TimeUnit.MILLISECONDS.toHours(millis),
+        TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(
+            TimeUnit.MILLISECONDS.toHours(
+                millis
+            )
+        ),
+        TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(
+            TimeUnit.MILLISECONDS.toMinutes(
+                millis
+            )
+        )
+    )
 
     fun getDuration(milliseconds: Long): String {
         val string = StringBuilder()

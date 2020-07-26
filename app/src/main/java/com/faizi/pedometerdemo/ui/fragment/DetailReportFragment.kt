@@ -304,7 +304,7 @@ class DetailReportFragment() : Fragment() {
                     set1.setDrawValues(true)
                     set1.valueFormatter = object : ValueFormatter() {
                         override fun getFormattedValue(value: Float): String {
-                            return getDuration(value.toLong())
+                            return getFormatDateTime(value.toLong(), "time")
                         }
                     }
                     val dataSets: MutableList<IBarDataSet> = ArrayList()

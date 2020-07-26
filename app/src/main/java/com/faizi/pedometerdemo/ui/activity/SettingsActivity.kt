@@ -29,7 +29,7 @@ class SettingsActivity : Activity(), View.OnClickListener {
           finish()
         }
 
-        auto_count_switch.isEnabled = AppUtils.getDefaultPreferences(this).getString("pedo_state", null) == "stop"
+        auto_count_switch.isChecked = AppUtils.getDefaultPreferences(this).getString("pedo_state", null) == "stop"
 
         auto_count_switch.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
