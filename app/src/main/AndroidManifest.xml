@@ -47,38 +47,41 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".ui.activity.MapsActivity"
-            android:label="@string/title_activity_maps">
-        </activity>
-
-        <activity
             android:name=".ui.activity.SpeedometerActivity"
-            android:theme="@style/AppTheme.NoActionBar.Status">
+            android:theme="@style/AppTheme.NoActionBar.Status"
+            android:screenOrientation="portrait">
 
         </activity>
 
         <activity
             android:name=".ui.activity.PedometerActivity"
-            android:theme="@style/AppTheme.NoActionBar.Status">
+            android:theme="@style/AppTheme.NoActionBar.Status"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
 
         </activity>
 
-        <activity android:name=".ui.activity.SettingsActivity" />
+        <activity android:name=".ui.activity.SettingsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar.Splash">
+            android:theme="@style/AppTheme.NoActionBar.Splash"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:theme="@style/Custom"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.activity.MainActivity"
-            android:theme="@style/Custom">
+        <activity android:name=".ui.activity.SpeedoGraphActivity"
+            android:screenOrientation="portrait">
 
-        </activity>
-        <activity android:name=".ui.activity.SpeedoGraphActivity">
         </activity>
         <activity
             android:name=".ui.activity.MainSpeedometerActivity"

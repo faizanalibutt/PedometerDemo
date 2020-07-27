@@ -90,7 +90,7 @@ class DigitalFragment() : Fragment() {
 
         // for digi text in digital meter set font type to look digital
         val typeface = Typeface.createFromAsset(
-            mContext.assets, "fonts/digital.ttf"
+            view.context.assets, "fonts/digital.ttf"
         )
         view.digi_speed_txt.typeface = typeface
         view.digi_type_txt.typeface = typeface

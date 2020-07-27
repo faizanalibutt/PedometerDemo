@@ -108,11 +108,10 @@
             android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/margin_smaller_size"
-            android:orientation="horizontal"
-            android:paddingStart="@dimen/unknown_dp"
-            android:paddingEnd="@dimen/margin_small_size"
-            app:chipSpacing="@dimen/margin_medium_size"
+            android:paddingStart="@dimen/margin_smaller_size"
+            android:paddingEnd="@dimen/margin_smaller_size"
+            app:chipSpacingHorizontal="@dimen/dp_32"
+            app:selectionRequired="true"
             app:singleLine="true"
             app:singleSelection="true">
 

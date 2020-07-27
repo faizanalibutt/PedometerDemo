@@ -1,5 +1,6 @@
 package com.faizi.pedometerdemo.ui.fragment
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,6 +30,8 @@ import kotlinx.android.synthetic.main.fragment_report.*
 import kotlinx.android.synthetic.main.fragment_report.view.*
 import org.eazegraph.lib.charts.BarChart
 import org.eazegraph.lib.models.BarModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class DetailReportFragment() : Fragment() {
@@ -114,6 +117,7 @@ class DetailReportFragment() : Fragment() {
                 xAxis.position = XAxisPosition.BOTTOM
                 xAxis.setDrawGridLines(false)
                 xAxis.isGranularityEnabled = true
+                xAxis.setDrawAxisLine(false)
                 xAxis.granularity = 1f // only intervals of 1 day
 
                 chart!!.axisLeft.setDrawGridLines(false)
@@ -121,6 +125,8 @@ class DetailReportFragment() : Fragment() {
                 chart!!.axisLeft.isEnabled = false
                 chart!!.axisRight.isEnabled = false
                 chart!!.legend.isEnabled = false
+                chart!!.axisLeft.axisMinimum = 0f
+                chart!!.axisRight.axisMinimum = 0f
 
                 // add a nice and smooth animation
                 chart!!.animateY(1500)
@@ -222,6 +228,10 @@ class DetailReportFragment() : Fragment() {
                     )
                 chart!!.xAxis.valueFormatter = valueFormatter
                 chart!!.xAxis.setLabelCount(listCurrentDayInterval.size, false)
+                chart!!.axisRight.axisMaximum = listCurrentDayInterval[0].endTime + 86400000f
+                chart!!.axisLeft.axisMaximum = listCurrentDayInterval[0].endTime + 86400000f
+                chart!!.axisLeft.setLabelCount(listCurrentDayInterval.size, false)
+                chart!!.axisRight.setLabelCount(listCurrentDayInterval.size, false)
             }
 
             Graph.DISTANCE -> {
@@ -246,9 +256,11 @@ class DetailReportFragment() : Fragment() {
 
             else -> {
             }
+
         }
 
         val values: MutableList<BarEntry> = ArrayList()
+        chart!!.clear()
 
         for ((index, distance) in listCurrentDayInterval.withIndex()) {
             when (graphType) {
@@ -286,11 +298,6 @@ class DetailReportFragment() : Fragment() {
                 if (chart!!.data != null && chart!!.data.dataSetCount > 0) {
                     val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
                     set1.setDrawValues(true)
-                    set1.valueFormatter = object : ValueFormatter() {
-                        override fun getFormattedValue(value: Float): String {
-                            return getFormatDateTime(value.toLong(), "time")
-                        }
-                    }
                     set1.values = values
                     chart!!.data.notifyDataChanged()
                     chart!!.notifyDataSetChanged()
@@ -307,11 +314,13 @@ class DetailReportFragment() : Fragment() {
                             return getFormatDateTime(value.toLong(), "time")
                         }
                     }
+
                     val dataSets: MutableList<IBarDataSet> = ArrayList()
                     dataSets.add(set1)
                     val data = BarData(dataSets)
                     data.barWidth = 0.2f
                     chart!!.data = data
+                    chart!!.setScaleMinima(listCurrentDayInterval.size/5.toFloat(), 0f)
                     chart!!.setFitBars(true)
                 }
                 chart!!.invalidate()
@@ -322,11 +331,6 @@ class DetailReportFragment() : Fragment() {
                 ) {
                     val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
                     set1.setDrawValues(true)
-                    set1.valueFormatter = object : ValueFormatter() {
-                        override fun getFormattedValue(value: Float): String {
-                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
-                        }
-                    }
                     set1.values = values
                     chart!!.data.notifyDataChanged()
                     chart!!.notifyDataSetChanged()
