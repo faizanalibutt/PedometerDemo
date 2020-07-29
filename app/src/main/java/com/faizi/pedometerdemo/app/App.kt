@@ -12,6 +12,7 @@ import com.dev.bytes.adsmanager.loadInterstitialAd
 import com.faizi.pedometerdemo.BuildConfig
 import com.faizi.pedometerdemo.app.App.Companion.initBP
 import com.faizi.pedometerdemo.ui.activity.MainActivity
+import com.faizi.pedometerdemo.util.RemoteConfigUtils
 import timber.log.Timber
 
 class App : Application() {
@@ -27,6 +28,8 @@ class App : Application() {
 
         if (BuildConfig.DEBUG)
             Timber.plant(Timber.DebugTree())
+
+        RemoteConfigUtils.createConfigSettings().fetchAndActivate()
     }
 
     companion object {

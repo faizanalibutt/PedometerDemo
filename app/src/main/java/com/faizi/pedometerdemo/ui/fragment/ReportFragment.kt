@@ -6,8 +6,11 @@ import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.dev.bytes.adsmanager.ADUnitPlacements
+import com.dev.bytes.adsmanager.loadNativeAd
 import com.faizi.pedometerdemo.Database
 import com.faizi.pedometerdemo.R
 import com.faizi.pedometerdemo.util.AppUtils
@@ -91,6 +94,16 @@ class ReportFragment : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val ad_container = view.findViewById<FrameLayout>(R.id.ad_container_pedo)
+        view.context.loadNativeAd(
+            ad_container,
+            R.layout.ad_unified_common,
+            ADUnitPlacements.COMMON_NATIVE_AD
+        )
+    }
+
     private fun getIntervalsDataWeekly(database: Database, view: View, graphType: Graph) {
 
         listCurrentWeekInterval = database.getLastEntries(7)
@@ -156,8 +169,11 @@ class ReportFragment : Fragment() {
                         prefs.getFloat("stepsize_value", Fragment_Settings.DEFAULT_STEP_SIZE)
 
                     var distance_today: Float = stepsToday * stepsize
-                    distance_today /= if (prefs.getString("stepsize_unit",
-                            Fragment_Settings.DEFAULT_STEP_UNIT) == "cm") {
+                    distance_today /= if (prefs.getString(
+                            "stepsize_unit",
+                            Fragment_Settings.DEFAULT_STEP_UNIT
+                        ) == "cm"
+                    ) {
                         100000f
                     } else {
                         5280f
@@ -327,7 +343,8 @@ class ReportFragment : Fragment() {
                 }
                 chart!!.invalidate()
             }
-            else -> {}
+            else -> {
+            }
         }
     }
 

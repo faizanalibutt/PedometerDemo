@@ -72,7 +72,7 @@ enum class ADUnitPlacements(
     ),
     COMMON_INTERSTITIAL(
         R.string.mm_inter_am,
-        R.string.mm_inter_fb
+        R.string.mm_inter_fb,priority = AdsPriority.FACEBOOK_ADMOB
     )
 }
 

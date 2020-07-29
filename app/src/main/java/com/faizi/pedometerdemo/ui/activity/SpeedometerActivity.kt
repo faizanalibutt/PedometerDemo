@@ -69,13 +69,10 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
         tabView.setupWithViewPager(viewPager)
 
         ad_container_speedo.loadBannerAd(BannerPlacements.BANNER_AD)
-        loadInterstitialAd(ADUnitPlacements.COMMON_INTERSTITIAL, onLoaded = { commonInterstitialAd = it } )
+        loadInterstitialAd(ADUnitPlacements.COMMON_INTERSTITIAL, onLoaded = { commonInterstitialAd = it }, reloadOnClosed = true )
 
         nav_back.setOnClickListener {
-            finish()
-            commonInterstitialAd?.apply {
-                if (this.isLoaded()) this.showAd(this@SpeedometerActivity)
-            }
+            onBackPressed()
         }
 
         premium_services.setOnClickListener {
@@ -165,6 +162,9 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
                         timerThread()
 
                         currentLocation?.getLocation(this@SpeedometerActivity)
+                        commonInterstitialAd?.apply {
+                            if (this.isLoaded()) this.showAd(this@SpeedometerActivity,true)
+                        }
 
                     }
                 })
@@ -199,6 +199,9 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
             distance = 0.0
             maxSpeed = 0.0
             avgSpeed = 0.0
+            commonInterstitialAd?.apply {
+                if (this.isLoaded()) this.showAd(this@SpeedometerActivity,true)
+            }
         }
 
     }
@@ -301,7 +304,7 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
     override fun onBackPressed() {
         super.onBackPressed()
         commonInterstitialAd?.apply {
-            if (this.isLoaded()) this.showAd(this@SpeedometerActivity)
+            if (this.isLoaded()) this.showAd(this@SpeedometerActivity,true)
         }
     }
 

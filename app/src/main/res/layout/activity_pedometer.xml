@@ -10,24 +10,23 @@
     <View
         android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_60"
+        android:layout_height="?actionBarSize"
         android:background="@drawable/background_pedo_app_bar"
-        app:layout_constraintBottom_toTopOf="@+id/viewPager"
+        app:layout_constraintBottom_toTopOf="@+id/tabView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         style="@style/TextAppearance.Primary.Big.Dialog"
-        android:fontFamily="@font/roboto_medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small_size"
-        android:layout_marginTop="@dimen/margin_smaller_size"
+        android:fontFamily="@font/roboto_medium"
         android:text="@string/text_pedometer"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/appBar"
         app:layout_constraintStart_toEndOf="@+id/nav_back"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,23 +84,9 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/ad_container_pedo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabView" />
-
-    <androidx.cardview.widget.CardView
-        android:visibility="gone"
-        android:id="@+id/ad_container_pedo"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="0dp"
-        android:layout_marginBottom="@dimen/margin_smaller_size"
-        android:layout_marginHorizontal="@dimen/margin_smaller_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager" />
+        app:layout_constraintTop_toBottomOf="@+id/tabView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

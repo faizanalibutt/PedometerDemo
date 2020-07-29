@@ -57,7 +57,7 @@ class SettingsActivity : Activity(), View.OnClickListener {
         when(v?.id) {
             R.id.change_language -> {}
             R.id.privacy_policy -> {
-                val url = "https://www.freeprivacypolicy.com/privacy/view/50c5621471755f1548917ebbe5e90160"
+                val url = getString(R.string.privacy_policy_link_text)
                 val builder = CustomTabsIntent.Builder()
                 val customTabsIntent = builder.build()
                 customTabsIntent.launchUrl(this, Uri.parse(url))

@@ -10,12 +10,12 @@
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginStart="@dimen/margin_xmedium_size"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/margin_xmedium_size"
+        android:layout_marginTop="25dp"
         android:background="@drawable/background_vehicle_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/top_guideline" />
+        app:layout_constraintTop_toBottomOf="@+id/top_guideline" />
 
     <ImageView
         android:id="@+id/cycle_view"
@@ -107,11 +107,11 @@
         android:id="@+id/speedometer_view_img"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
         android:contentDescription="@string/app_name"
         android:visibility="visible"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,8 +120,8 @@
 
     <com.github.lzyzsd.circleprogress.ArcProgress
         android:id="@+id/speedometer_view"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:visibility="visible"
         app:arc_angle="255"
         app:arc_bottom_text="@null"
@@ -129,13 +129,12 @@
         app:arc_progress="0"
         app:arc_suffix_text_size="1sp"
         app:arc_text_color="@color/black_dark"
-        app:arc_text_size="28sp"
+        app:arc_text_size="42sp"
         app:arc_unfinished_color="@color/gray"
         app:layout_constraintBottom_toBottomOf="@+id/speedometer_view_img"
         app:layout_constraintEnd_toEndOf="@+id/speedometer_view_img"
         app:layout_constraintStart_toStartOf="@+id/speedometer_view_img"
-        app:layout_constraintTop_toTopOf="@+id/speedometer_view_img"
-        />
+        app:layout_constraintTop_toTopOf="@+id/speedometer_view_img" />
 
     <TextView
         android:id="@+id/digi_type_txt"
@@ -143,19 +142,19 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/KMH"
-        android:textSize="12sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/speedometer_view_img"
         app:layout_constraintEnd_toEndOf="@+id/speedometer_view_img"
         app:layout_constraintStart_toStartOf="@+id/speedometer_view_img"
         app:layout_constraintTop_toTopOf="@+id/speedometer_view_img"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintVertical_bias="0.65" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.16" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/bottom_guideline"

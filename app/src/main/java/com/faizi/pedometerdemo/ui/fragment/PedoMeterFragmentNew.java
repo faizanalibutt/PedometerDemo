@@ -25,29 +25,25 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.dev.bytes.adsmanager.ADUnitPlacements;
+import com.dev.bytes.adsmanager.NativeAdsManagerKt;
 import com.faizi.pedometerdemo.BuildConfig;
 import com.faizi.pedometerdemo.Database;
 import com.faizi.pedometerdemo.R;
 import com.faizi.pedometerdemo.SensorListener;
-import com.faizi.pedometerdemo.ui.Dialog_Split;
-import com.faizi.pedometerdemo.ui.Dialog_Statistics;
-import com.faizi.pedometerdemo.util.API26Wrapper;
 import com.faizi.pedometerdemo.util.AppUtils;
 import com.faizi.pedometerdemo.util.Logger;
 import com.faizi.pedometerdemo.util.TimeUtils;
@@ -55,25 +51,17 @@ import com.faizi.pedometerdemo.util.Util;
 import com.natasa.progressviews.CircleSegmentBar;
 import com.natasa.progressviews.utils.ProgressStartPoint;
 
-import org.eazegraph.lib.charts.BarChart;
-import org.eazegraph.lib.charts.PieChart;
-import org.eazegraph.lib.models.BarModel;
 import org.eazegraph.lib.models.PieModel;
 
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-
-import de.j4velin.pedometer.ui.Activity_Main;
 
 public class PedoMeterFragmentNew extends Fragment implements SensorEventListener {
 
     private TextView stepsView, totalView, miles;
     private PieModel sliceGoal, sliceCurrent;
-    private PieChart pg;
+    //    private PieChart pg;
     private View start_btn;
     ImageView step_btn_img;
     TextView step_btn_txt, timeValue;
@@ -106,19 +94,19 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         step_btn_img = v.findViewById(R.id.step_btn_img);
         step_btn_txt = v.findViewById(R.id.step_btn_txt);
 
-        pg = (PieChart) v.findViewById(R.id.pedo_process_graph);
+//        pg = (PieChart) v.findViewById(R.id.pedo_process_graph);
 
         // slice for the steps taken today
         sliceCurrent = new PieModel("", 0, Color.parseColor("#99CC00"));
-        pg.addPieSlice(sliceCurrent);
+//        pg.addPieSlice(sliceCurrent);
 
         // slice for the "missing" steps until reaching the goal
         sliceGoal = new PieModel("", Fragment_Settings.DEFAULT_GOAL, Color.parseColor("#CC0000"));
-        pg.addPieSlice(sliceGoal);
+//        pg.addPieSlice(sliceGoal);
 
         initSegmentProgressBar();
 
-        pg.setOnClickListener(new OnClickListener() {
+        /*pg.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View view) {
                 //showSteps = !showSteps;
@@ -128,7 +116,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
 
         pg.setDrawValueInPie(false);
         pg.setUsePieRotation(true);
-        pg.startAnimation();
+        pg.startAnimation();*/
 
         start_btn.setOnClickListener(v1 -> {
 
@@ -206,6 +194,17 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         }
 
         return v;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        FrameLayout ad_container = view.findViewById(R.id.ad_container_pedo);
+        NativeAdsManagerKt.loadNativeAd(view.getContext(), ad_container,
+                R.layout.ad_unified_common,
+                ADUnitPlacements.COMMON_NATIVE_AD, false, null,
+                null, null, null);
     }
 
     @Override
@@ -333,18 +332,18 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         segmentBar.setProgress((float) steps_today);
         if (goal - steps_today > 0) {
             // goal not reached yet
-            if (pg.getData().size() == 1) {
+            /*if (pg.getData().size() == 1) {
                 // can happen if the goal value was changed: old goal value was
                 // reached but now there are some steps missing for the new goal
                 pg.addPieSlice(sliceGoal);
-            }
+            }*/
             sliceGoal.setValue(goal - steps_today);
         } else {
             // goal reached
-            pg.clearChart();
-            pg.addPieSlice(sliceCurrent);
+            /*pg.clearChart();
+            pg.addPieSlice(sliceCurrent);*/
         }
-        pg.update();
+//        pg.update();
 
         stepsView.setText(formatter.format(steps_today));
         SharedPreferences prefs =
