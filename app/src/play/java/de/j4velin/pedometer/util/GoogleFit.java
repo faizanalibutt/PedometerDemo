@@ -30,8 +30,8 @@ import com.google.android.gms.fitness.data.Device;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import com.faizi.pedometerdemo.BuildConfig;
-import com.faizi.pedometerdemo.Database;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.BuildConfig;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.Database;
 
 /**
  * Class to manage the Google Fit sync

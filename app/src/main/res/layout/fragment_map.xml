@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.MapFragment">
+    tools:context="com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.MapFragment">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/speedometer_map_view"
@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_guideline"
-        tools:context=".ui.activity.SpeedometerActivity" />
+        tools:context="com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity.SpeedometerActivity" />
 
     <View
         android:id="@+id/view2"

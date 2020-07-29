@@ -8,7 +8,7 @@
     <View
         android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_60"
+        android:layout_height="?actionBarSize"
         android:background="@drawable/background_pedo_app_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,19 +19,20 @@
         style="@style/TextAppearance.Primary.Big.Dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small_size"
-        android:layout_marginTop="@dimen/margin_smaller_size"
+        android:layout_marginStart="@dimen/margin_smaller_size"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/text_settings"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/appBar"
         app:layout_constraintStart_toEndOf="@+id/nav_back"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/nav_back"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginStart="@dimen/margin_small_size"
+        android:layout_width="@dimen/dp_32"
+        android:layout_height="@dimen/dp_32"
+        android:padding="@dimen/dp_8"
+        android:layout_marginStart="@dimen/margin_smaller_size"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,22 +41,23 @@
 
     <ImageView
         android:id="@+id/premium_services"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="@dimen/margin_small_size"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        app:srcCompat="@drawable/ic_crown_pro_white_icon" />
+        app:srcCompat="@drawable/group_1" />
 
     <ScrollView
+        android:id="@+id/settings_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ad_container_settings"
         app:layout_constraintTop_toBottomOf="@+id/appBar"
-        tools:context=".ui.activity.SettingsActivity"
+        tools:context="com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity.SettingsActivity"
         tools:ignore="HardcodedText">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -299,6 +301,7 @@
                     android:id="@+id/change_language"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/sv2">
@@ -332,7 +335,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:gravity="center|start"
-                            android:text="Default"
+                            android:text="Choose your Language"
                             android:textSize="@dimen/font_size_primary_normal"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/s2"
@@ -461,7 +464,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_18"
-                            android:text="Rate us"
+                            android:text="Rate Us"
                             android:textColor="@color/settings_title_color"
                             android:textSize="@dimen/font_size_primary"
                             app:layout_constraintBottom_toTopOf="@+id/r3"
@@ -473,7 +476,7 @@
                             android:id="@+id/r3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Rate us 5 - stars"
+                            android:text="If you like our App please Rate us 5 - stars"
                             android:textSize="@dimen/font_size_primary_normal"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/r2"
@@ -483,6 +486,12 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/premium_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="ov4, premium" />
 
                 <View
                     android:id="@+id/ov4"
@@ -497,6 +506,7 @@
                     android:id="@+id/premium"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_50"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ov4">
@@ -595,7 +605,7 @@
                             android:id="@+id/s3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Share with friends"
+                            android:text="Share with your friends and family"
                             android:textSize="@dimen/font_size_primary_normal"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/s21"
@@ -612,5 +622,16 @@
 
     </ScrollView>
 
+    <FrameLayout
+        android:id="@+id/ad_container_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_smaller_size"
+        android:layout_marginVertical="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_scroll" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

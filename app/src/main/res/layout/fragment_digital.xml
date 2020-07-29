@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.DigitalFragment">
+    tools:context="com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.DigitalFragment">
 
     <View
         android:id="@+id/popup_units"

@@ -24,8 +24,8 @@ import android.preference.PreferenceManager;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 
-import com.faizi.pedometerdemo.Database;
-import com.faizi.pedometerdemo.R;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.Database;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R;
 
 /**
  * Class to manage the Google Play achievements

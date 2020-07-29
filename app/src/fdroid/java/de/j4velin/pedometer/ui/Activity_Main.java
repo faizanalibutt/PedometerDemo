@@ -33,11 +33,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.faizi.pedometerdemo.BuildConfig;
-import com.faizi.pedometerdemo.R;
-import com.faizi.pedometerdemo.SensorListener;
-import com.faizi.pedometerdemo.ui.fragment.PedoMeterFragment;
-import com.faizi.pedometerdemo.ui.fragment.Fragment_Settings;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.BuildConfig;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.SensorListener;
 
 public class Activity_Main extends FragmentActivity {
 

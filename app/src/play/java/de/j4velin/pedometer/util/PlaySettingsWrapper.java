@@ -25,8 +25,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.games.Games;
 
-import com.faizi.pedometerdemo.BuildConfig;
-import com.faizi.pedometerdemo.R;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.BuildConfig;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R;
 
 /**
  * Class to wrap some Google Play related stuff in the SettingsFragment

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:863203365808:android:277e454cdb844005",
         "android_client_info": {
-          "package_name": "com.faizi.pedometerdemo"
+          "package_name": "com.appswing.qr.barcodescanner.barcodereader"
         }
       },
       "oauth_client": [
@@ -119,6 +119,42 @@
         "mobilesdk_app_id": "1:863203365808:android:e487c66eea3859fb573c75",
         "android_client_info": {
           "package_name": "com.compassfree.digitalcompass.forandroid.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "863203365808-el9j246r4771rvb3gbvaitg7qqeqjm6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0p4thX0ceWMfq0GMmnyq0vbA5b85Wtmk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "863203365808-el9j246r4771rvb3gbvaitg7qqeqjm6s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "863203365808-7p6d719ss1gcaaqt26ubc7eenjg7g42f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.appswing.max.language.translator.text.voice.learn.alltranslator"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863203365808:android:1fd5208308a49203573c75",
+        "android_client_info": {
+          "package_name": "com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter"
         }
       },
       "oauth_client": [

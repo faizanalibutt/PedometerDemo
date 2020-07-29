@@ -56,12 +56,14 @@ enum class ADUnitPlacements(
     MAIN_MM_NATIVE_AD(
         R.string.mm_native_am,
         R.string.mm_native_fb,
-        mediaAspectRatio = NativeAdOptions.NATIVE_MEDIA_ASPECT_RATIO_LANDSCAPE
+        mediaAspectRatio = NativeAdOptions.NATIVE_MEDIA_ASPECT_RATIO_LANDSCAPE,
+        priority = AdsPriority.FACEBOOK_ADMOB
     ),
     EXIT_NATIVE_AD(
-        R.string.mm_native_am,
-        R.string.mm_native_fb,
-        mediaAspectRatio = NativeAdOptions.NATIVE_MEDIA_ASPECT_RATIO_SQUARE
+        R.string.exit_native_am,
+        R.string.exit_native_fb,
+        mediaAspectRatio = NativeAdOptions.NATIVE_MEDIA_ASPECT_RATIO_LANDSCAPE,
+        priority = AdsPriority.FACEBOOK_ADMOB
     ),
     COMMON_NATIVE_AD(
         R.string.mm_native_am,
@@ -70,9 +72,23 @@ enum class ADUnitPlacements(
     SPLASH_INTERSTITIAL(
         R.string.splash_inter_am
     ),
-    COMMON_INTERSTITIAL(
+    PEDO_START_STOP_INTERSTITIAL(
         R.string.mm_inter_am,
-        R.string.mm_inter_fb,priority = AdsPriority.FACEBOOK_ADMOB
+        R.string.mm_inter_fb
+    ),
+    PEDO_BACK_INTERSTITIAL(
+        R.string.mm_inter_am,
+        R.string.mm_inter_fb,
+        priority = AdsPriority.FACEBOOK_ADMOB
+    ),
+    SPEEDO_START_STOP_INTERSTITIAL(
+        R.string.mm_inter_am,
+        R.string.mm_inter_fb
+    ),
+    SPEEDO_BACK_INTERSTITIAL(
+        R.string.mm_inter_am,
+        R.string.mm_inter_fb,
+        priority = AdsPriority.FACEBOOK_ADMOB
     )
 }
 

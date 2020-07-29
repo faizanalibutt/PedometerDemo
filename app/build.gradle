@@ -11,7 +11,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.faizi.pedometerdemo"
+        applicationId "com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -50,15 +50,6 @@ android {
     }
 
     flavorDimensions "main"
-
-    productFlavors {
-        play {
-            dimension "main"
-        }
-        fdroid {
-            dimension "main"
-        }
-    }
 }
 
 dependencies {

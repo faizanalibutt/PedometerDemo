@@ -45,12 +45,12 @@ import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesActivityResultCodes;
 
-import com.faizi.pedometerdemo.BuildConfig;
-import com.faizi.pedometerdemo.R;
-import com.faizi.pedometerdemo.SensorListener;
-import com.faizi.pedometerdemo.util.API26Wrapper;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.BuildConfig;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.SensorListener;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.API26Wrapper;
 import de.j4velin.pedometer.util.GoogleFit;
-import com.faizi.pedometerdemo.util.Logger;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Logger;
 import de.j4velin.pedometer.util.util.PlayServices;
 
 public class Activity_Main extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks,

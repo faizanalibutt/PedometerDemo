@@ -37,4 +37,5 @@
     <color name="rating_bar_color">@color/white</color>
     <color name="dialog_pos_btn_color">#4f09c5</color>
     <color name="activity_bg">#F1F4F9</color>
+    <color name="icons_default_color">#805F6368</color>
 </resources>

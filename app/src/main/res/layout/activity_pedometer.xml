@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/activity_bg"
-    tools:context=".ui.activity.PedometerActivity">
+    tools:context="com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity.PedometerActivity">
 
     <View
         android:id="@+id/appBar"
@@ -22,7 +22,7 @@
         style="@style/TextAppearance.Primary.Big.Dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small_size"
+        android:layout_marginStart="@dimen/margin_smaller_size"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/text_pedometer"
         android:textColor="@color/white"
@@ -32,9 +32,10 @@
 
     <ImageView
         android:id="@+id/nav_back"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginStart="@dimen/margin_small_size"
+        android:layout_width="@dimen/dp_32"
+        android:layout_height="@dimen/dp_32"
+        android:padding="@dimen/dp_8"
+        android:layout_marginStart="@dimen/margin_smaller_size"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,14 +44,14 @@
 
     <ImageView
         android:id="@+id/premium_services"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="@dimen/margin_small_size"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        app:srcCompat="@drawable/ic_crown_pro_white_icon" />
+        app:srcCompat="@drawable/group_1" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabView"

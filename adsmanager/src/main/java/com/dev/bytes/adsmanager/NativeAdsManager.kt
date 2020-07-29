@@ -97,7 +97,7 @@ fun Context.loadNativeAd(
     }
     if (isShimmer && frameLayout != null /*&& frameLayout?.childCount == 0*/) {
         frameLayout.removeAllViews()
-        inflateShimmerView(adLayout)?.let { frameLayout.addView(it) }
+        inflateShimmerView(adLayout)?.let { frameLayout.addView(it);frameLayout.visibility = View.VISIBLE }
     }
 }
 
