@@ -43,11 +43,6 @@ class PedometerActivity : AppCompatActivity() {
         if (TinyDB.getInstance(this).getBoolean(getString(com.dev.bytes.R.string.is_premium)))
             premium_services.visibility = View.GONE
 
-        loadNativeAd(
-            ad_container_pedo,
-            R.layout.ad_unified_common,
-            ADUnitPlacements.COMMON_NATIVE_AD
-        )
         loadInterstitialAd(
             ADUnitPlacements.COMMON_INTERSTITIAL,
             onLoaded = { commonInterstitialAd = it })

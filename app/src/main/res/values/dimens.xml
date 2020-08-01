@@ -15,7 +15,7 @@
     <dimen name="font_size_title">24sp</dimen>
     <dimen name="font_size_giant_user">32sp</dimen>
     <dimen name="font_size_giant_medium">28sp</dimen>
-    <dimen name="font_size_joker">120sp</dimen>
+    <dimen name="font_size_joker">125sp</dimen>
 
     <!-- margins -->
     <dimen name="margin_standard_size">8dp</dimen>

@@ -1,6 +1,6 @@
 package com.faizi.pedometerdemo.ui.fragment
 
-import android.graphics.Color
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +13,11 @@ import com.faizi.pedometerdemo.model.Distance
 import com.faizi.pedometerdemo.model.DistanceTotal
 import com.faizi.pedometerdemo.util.AppUtils
 import com.faizi.pedometerdemo.util.Graph
-import com.faizi.pedometerdemo.util.TimeUtils
 import com.faizi.pedometerdemo.util.TimeUtils.getDuration
 import com.faizi.pedometerdemo.util.TimeUtils.getFormatDateTime
 import com.faizi.pedometerdemo.util.Util
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
@@ -27,10 +27,9 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.fragment_report.*
 import kotlinx.android.synthetic.main.fragment_report.view.*
-import org.eazegraph.lib.charts.BarChart
-import org.eazegraph.lib.models.BarModel
+import kotlin.math.pow
 
-
+@SuppressLint("SetTextI18n")
 class DetailReportFragment() : Fragment() {
 
     private var reportType = ""
@@ -68,6 +67,9 @@ class DetailReportFragment() : Fragment() {
                 xAxis.position = XAxisPosition.BOTTOM
                 xAxis.setDrawGridLines(false)
                 xAxis.isGranularityEnabled = true
+                xAxis.setDrawAxisLine(false)
+                xAxis.textSize = 8f
+//                xAxis.setCenterAxisLabels(true)
                 xAxis.granularity = 1f // only intervals of 1 day
 
                 chart!!.axisLeft.setDrawGridLines(false)
@@ -75,9 +77,11 @@ class DetailReportFragment() : Fragment() {
                 chart!!.axisLeft.isEnabled = false
                 chart!!.axisRight.isEnabled = false
                 chart!!.legend.isEnabled = false
+                chart!!.axisLeft.axisMinimum = 0f
+                chart!!.axisRight.axisMinimum = 0f
 
                 // add a nice and smooth animation
-                chart!!.animateY(1500)
+                chart!!.animateY(2000)
 
                 val chipGroup: ChipGroup = view.findViewById(R.id.chipGroup)
 
@@ -114,6 +118,9 @@ class DetailReportFragment() : Fragment() {
                 xAxis.position = XAxisPosition.BOTTOM
                 xAxis.setDrawGridLines(false)
                 xAxis.isGranularityEnabled = true
+                xAxis.setDrawAxisLine(false)
+                xAxis.textSize = 8f
+//                xAxis.setCenterAxisLabels(true)
                 xAxis.granularity = 1f // only intervals of 1 day
 
                 chart!!.axisLeft.setDrawGridLines(false)
@@ -121,9 +128,11 @@ class DetailReportFragment() : Fragment() {
                 chart!!.axisLeft.isEnabled = false
                 chart!!.axisRight.isEnabled = false
                 chart!!.legend.isEnabled = false
+                chart!!.axisLeft.axisMinimum = 0f
+                chart!!.axisRight.axisMinimum = 0f
 
                 // add a nice and smooth animation
-                chart!!.animateY(1500)
+                chart!!.animateY(2000)
 
                 val chipGroup: ChipGroup = view.findViewById(R.id.chipGroup)
                 chipGroup.setOnCheckedChangeListener { chip_group, i ->
@@ -146,48 +155,50 @@ class DetailReportFragment() : Fragment() {
 
                             getIntervalsData(database, view, Graph.DISTANCE)
 
-                            view.total_value.text = AppUtils.roundTwoDecimal(
+                            view.total_value.text = "${AppUtils.roundTwoDecimal(
                                 database.getTodayTotalDistance(
                                     getFormatDateTime(Util.getToday(), "date")
                                 )
-                            ).toString()
+                            )} km"
 
-                            view.average_value.text = AppUtils.roundTwoDecimal(
-                                database.getTodayAverageDistance(
+                            view.average_value.text = "${AppUtils.roundTwoDecimal(
+                                database.getTodayTotalDistance(
                                     getFormatDateTime(Util.getToday(), "date")
                                 )
-                            ).toString()
+                            )} km"
 
                         }
 
                         speed_graph -> {
                             getIntervalsData(database, view, Graph.SPEED)
 
-                            view.total_value.text = AppUtils.roundTwoDecimal(
+                            view.total_value.text = "${AppUtils.roundTwoDecimal(
                                 database.getTodayTotalSpeed(
                                     getFormatDateTime(Util.getToday(), "date")
                                 )
-                            ).toString()
+                            )} km"
 
-                            view.average_value.text = AppUtils.roundTwoDecimal(
+                            view.average_value.text = "${AppUtils.roundTwoDecimal(
                                 database.getTodayAverageSpeed(
                                     getFormatDateTime(Util.getToday(), "date")
                                 )
-                            ).toString()
+                            )} km"
                         }
                     }
                 }
                 // default show up Time it is.
-                view.time_graph.isChecked = true
-                view.total_value.text = getDuration(
-                    database.getTodayTotalTime(
-                        getFormatDateTime(Util.getToday(), "date")
-                    )
+                val totalValue = database.getTodayTotalTime(
+                    getFormatDateTime(Util.getToday(), "date")
                 )
-                view.average_value.text = getDuration(
-                    database.getTodayAverageTime(
-                        getFormatDateTime(Util.getToday(), "date")
-                    )
+                val averageValue = database.getTodayAverageTime(
+                    getFormatDateTime(Util.getToday(), "date")
+                )
+                view.time_graph.isChecked = true
+                view.total_value.text = if (totalValue == 0L) "00" else getDuration(
+                    totalValue
+                )
+                view.average_value.text = if (averageValue == 0L) "00" else getDuration(
+                    averageValue
                 )
                 getIntervalsData(database, view, Graph.TIME)
             }
@@ -204,11 +215,13 @@ class DetailReportFragment() : Fragment() {
         )
 
         if (listCurrentDayInterval.size == 0) {
-            view.emptyData.visibility = View.VISIBLE
-            view.text_total.visibility = View.INVISIBLE
-            view.text_average.visibility = View.INVISIBLE
-            view.chipGroup.visibility = View.INVISIBLE
-            chart!!.visibility = View.INVISIBLE
+            view.text_total.visibility = View.VISIBLE
+            view.text_average.visibility = View.VISIBLE
+            view.total_value.visibility = View.VISIBLE
+            view.average_value.visibility = View.VISIBLE
+            view.chipGroup.visibility = View.VISIBLE
+            chart!!.setNoDataText("No Data Found")
+            chart!!.setBackgroundColor(ContextCompat.getColor(view.context, R.color.white))
             return
         }
 
@@ -221,7 +234,13 @@ class DetailReportFragment() : Fragment() {
                         listCurrentDayInterval
                     )
                 chart!!.xAxis.valueFormatter = valueFormatter
-                chart!!.xAxis.setLabelCount(listCurrentDayInterval.size, false)
+                chart!!.xAxis.labelCount = listCurrentDayInterval.size
+                chart!!.axisRight.axisMaximum =
+                    Util.getRandom(10.toDouble().pow(5.toDouble()).toInt()).toFloat()
+                chart!!.axisLeft.axisMaximum =
+                    Util.getRandom(10.toDouble().pow(5.toDouble()).toInt()).toFloat()
+                chart!!.axisLeft.labelCount = listCurrentDayInterval.size
+                chart!!.axisRight.labelCount = listCurrentDayInterval.size
             }
 
             Graph.DISTANCE -> {
@@ -231,7 +250,11 @@ class DetailReportFragment() : Fragment() {
                         listCurrentDayInterval
                     )
                 chart!!.xAxis.valueFormatter = valueFormatter
-                chart!!.xAxis.setLabelCount(listCurrentDayInterval.size, false)
+                chart!!.xAxis.labelCount = listCurrentDayInterval.size
+                chart!!.axisRight.axisMaximum = 10000f
+                chart!!.axisLeft.axisMaximum = 10000f
+                chart!!.axisLeft.labelCount = listCurrentDayInterval.size
+                chart!!.axisRight.labelCount = listCurrentDayInterval.size
             }
 
             Graph.SPEED -> {
@@ -241,14 +264,20 @@ class DetailReportFragment() : Fragment() {
                         listCurrentDayInterval
                     )
                 chart!!.xAxis.valueFormatter = valueFormatter
-                chart!!.xAxis.setLabelCount(listCurrentDayInterval.size, false)
+                chart!!.xAxis.labelCount = listCurrentDayInterval.size
+                chart!!.axisRight.axisMaximum = 8640f
+                chart!!.axisLeft.axisMaximum = 8640f
+                chart!!.axisLeft.labelCount = listCurrentDayInterval.size
+                chart!!.axisRight.labelCount = listCurrentDayInterval.size
             }
 
             else -> {
             }
+
         }
 
         val values: MutableList<BarEntry> = ArrayList()
+        chart!!.clear()
 
         for ((index, distance) in listCurrentDayInterval.withIndex()) {
             when (graphType) {
@@ -285,12 +314,6 @@ class DetailReportFragment() : Fragment() {
             Graph.TIME -> {
                 if (chart!!.data != null && chart!!.data.dataSetCount > 0) {
                     val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
-                    set1.setDrawValues(true)
-                    set1.valueFormatter = object : ValueFormatter() {
-                        override fun getFormattedValue(value: Float): String {
-                            return getFormatDateTime(value.toLong(), "time")
-                        }
-                    }
                     set1.values = values
                     chart!!.data.notifyDataChanged()
                     chart!!.notifyDataSetChanged()
@@ -307,11 +330,27 @@ class DetailReportFragment() : Fragment() {
                             return getFormatDateTime(value.toLong(), "time")
                         }
                     }
+
                     val dataSets: MutableList<IBarDataSet> = ArrayList()
                     dataSets.add(set1)
                     val data = BarData(dataSets)
-                    data.barWidth = 0.2f
                     chart!!.data = data
+                    if (listCurrentDayInterval.size > 6) {
+                        data.barWidth = 0.1f
+                        chart!!.setScaleMinima(
+                            if (listCurrentDayInterval.size > 10)
+                                listCurrentDayInterval.size / 5.toFloat()
+                            else
+                                5f, 0f
+                        )
+                        chart!!.moveViewToAnimated(
+                            listCurrentDayInterval.size - 1.toFloat(),
+                            0f, YAxis.AxisDependency.RIGHT, 10000
+                        )
+                    } else {
+                        data.barWidth = 0.2f
+                        chart!!.setScaleMinima(1f, 0f)
+                    }
                     chart!!.setFitBars(true)
                 }
                 chart!!.invalidate()
@@ -321,12 +360,6 @@ class DetailReportFragment() : Fragment() {
                     chart!!.data.dataSetCount > 0
                 ) {
                     val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
-                    set1.setDrawValues(true)
-                    set1.valueFormatter = object : ValueFormatter() {
-                        override fun getFormattedValue(value: Float): String {
-                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
-                        }
-                    }
                     set1.values = values
                     chart!!.data.notifyDataChanged()
                     chart!!.notifyDataSetChanged()
@@ -340,14 +373,29 @@ class DetailReportFragment() : Fragment() {
                     set1.setDrawValues(true)
                     set1.valueFormatter = object : ValueFormatter() {
                         override fun getFormattedValue(value: Float): String {
-                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                            return "${AppUtils.roundTwoDecimal(value.toDouble())} km"
                         }
                     }
                     val dataSets: MutableList<IBarDataSet> = ArrayList()
                     dataSets.add(set1)
                     val data = BarData(dataSets)
-                    data.barWidth = 0.2f
                     chart!!.data = data
+                    if (listCurrentDayInterval.size > 6) {
+                        data.barWidth = 0.1f
+                        chart!!.setScaleMinima(
+                            if (listCurrentDayInterval.size > 10)
+                                listCurrentDayInterval.size / 5.toFloat()
+                            else
+                                5f, 0f
+                        )
+                        chart!!.moveViewToAnimated(
+                            listCurrentDayInterval.size - 1.toFloat(),
+                            0f, YAxis.AxisDependency.RIGHT, 10000
+                        )
+                    } else {
+                        data.barWidth = 0.2f
+                        chart!!.setScaleMinima(1f, 0f)
+                    }
                     chart!!.setFitBars(true)
 
                 }
@@ -359,12 +407,6 @@ class DetailReportFragment() : Fragment() {
                     chart!!.data.dataSetCount > 0
                 ) {
                     val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
-                    set1.setDrawValues(true)
-                    set1.valueFormatter = object : ValueFormatter() {
-                        override fun getFormattedValue(value: Float): String {
-                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
-                        }
-                    }
                     set1.values = values
                     chart!!.data.notifyDataChanged()
                     chart!!.notifyDataSetChanged()
@@ -377,21 +419,37 @@ class DetailReportFragment() : Fragment() {
                     set1.setDrawValues(true)
                     set1.valueFormatter = object : ValueFormatter() {
                         override fun getFormattedValue(value: Float): String {
-                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                            return "${AppUtils.roundTwoDecimal(value.toDouble())} km"
                         }
                     }
                     val dataSets: MutableList<IBarDataSet> = ArrayList()
                     dataSets.add(set1)
                     val data = BarData(dataSets)
-                    data.barWidth = 0.2f
                     chart!!.data = data
+                    if (listCurrentDayInterval.size > 6) {
+                        data.barWidth = 0.1f
+                        chart!!.setScaleMinima(
+                            if (listCurrentDayInterval.size > 10)
+                                listCurrentDayInterval.size / 5.toFloat()
+                            else
+                                5f, 0f
+                        )
+                        chart!!.moveViewToAnimated(
+                            listCurrentDayInterval.size - 1.toFloat(),
+                            0f, YAxis.AxisDependency.RIGHT, 10000
+                        )
+                    } else {
+                        data.barWidth = 0.2f
+                        chart!!.setScaleMinima(1f, 0f)
+                    }
                     chart!!.setFitBars(true)
 
                 }
 
                 chart!!.invalidate()
             }
-            else -> {}
+            else -> {
+            }
         }
     }
 
@@ -402,12 +460,19 @@ class DetailReportFragment() : Fragment() {
             getFormatDateTime(Util.getRandom(-6), "date")
         )
 
+//        if (listCurrentDayInterval.size < 7) {
+//            database.saveInterval(Distance(0, 0,
+//                0.toDouble(), 0.toDouble(), "", 0))
+//        }
+
         if (listCurrentWeekInterval.size == 0) {
-            view.emptyData.visibility = View.VISIBLE
-            view.text_total.visibility = View.INVISIBLE
-            view.text_average.visibility = View.INVISIBLE
-            view.chipGroup.visibility = View.INVISIBLE
-            chart!!.visibility = View.INVISIBLE
+            view.text_total.visibility = View.VISIBLE
+            view.text_average.visibility = View.VISIBLE
+            view.total_value.visibility = View.VISIBLE
+            view.average_value.visibility = View.VISIBLE
+            view.chipGroup.visibility = View.VISIBLE
+            chart!!.setNoDataText("No Data Found")
+            chart!!.setBackgroundColor(ContextCompat.getColor(view.context, R.color.white))
             return
         }
 
@@ -420,7 +485,13 @@ class DetailReportFragment() : Fragment() {
                         listCurrentWeekInterval
                     )
                 chart!!.xAxis.valueFormatter = valueFormatter
-                chart!!.xAxis.setLabelCount(listCurrentWeekInterval.size, false)
+                chart!!.xAxis.labelCount = listCurrentWeekInterval.size
+                chart!!.axisRight.axisMaximum =
+                    Util.getRandom(10.toDouble().pow(5.toDouble()).toInt()).toFloat()
+                chart!!.axisLeft.axisMaximum =
+                    Util.getRandom(10.toDouble().pow(5.toDouble()).toInt()).toFloat()
+                chart!!.axisLeft.labelCount = listCurrentWeekInterval.size
+                chart!!.axisRight.labelCount = listCurrentWeekInterval.size
             }
 
             Graph.DISTANCE -> {
@@ -430,7 +501,11 @@ class DetailReportFragment() : Fragment() {
                         listCurrentWeekInterval
                     )
                 chart!!.xAxis.valueFormatter = valueFormatter
-                chart!!.xAxis.setLabelCount(listCurrentWeekInterval.size, false)
+                chart!!.xAxis.labelCount = listCurrentWeekInterval.size
+                chart!!.axisRight.axisMaximum = 10000f
+                chart!!.axisLeft.axisMaximum = 10000f
+                chart!!.axisLeft.labelCount = listCurrentWeekInterval.size
+                chart!!.axisRight.labelCount = listCurrentWeekInterval.size
             }
 
             Graph.SPEED -> {
@@ -440,7 +515,11 @@ class DetailReportFragment() : Fragment() {
                         listCurrentWeekInterval
                     )
                 chart!!.xAxis.valueFormatter = valueFormatter
-                chart!!.xAxis.setLabelCount(listCurrentWeekInterval.size, false)
+                chart!!.xAxis.labelCount = listCurrentWeekInterval.size
+                chart!!.axisRight.axisMaximum = 8640f
+                chart!!.axisLeft.axisMaximum = 8640f
+                chart!!.axisLeft.labelCount = listCurrentWeekInterval.size
+                chart!!.axisRight.labelCount = listCurrentWeekInterval.size
             }
 
             else -> {
@@ -448,9 +527,10 @@ class DetailReportFragment() : Fragment() {
         }
 
         val values: MutableList<BarEntry> = ArrayList()
-        var bm: BarModel? = null
+        chart!!.clear()
         var total = 0.0
         var average = 0.0
+
         for ((index, distance) in listCurrentWeekInterval.withIndex()) {
 
             when (graphType) {
@@ -492,16 +572,17 @@ class DetailReportFragment() : Fragment() {
                     getDuration(average.toLong() / listCurrentWeekInterval.size)
             }
             Graph.DISTANCE -> {
-                view.total_value.text = AppUtils.roundTwoDecimal(total).toString()
+                view.total_value.text = "${AppUtils.roundTwoDecimal(total).toString()} km"
                 view.average_value.text =
-                    AppUtils.roundTwoDecimal(average / listCurrentWeekInterval.size).toString()
+                    "${AppUtils.roundTwoDecimal(average / listCurrentWeekInterval.size).toString()} km"
             }
             Graph.SPEED -> {
-                view.total_value.text = AppUtils.roundTwoDecimal(total).toString()
+                view.total_value.text = "${AppUtils.roundTwoDecimal(total).toString()} km"
                 view.average_value.text =
-                    AppUtils.roundTwoDecimal(average / listCurrentWeekInterval.size).toString()
+                    "${AppUtils.roundTwoDecimal(average / listCurrentWeekInterval.size).toString()} km"
             }
-            else -> {}
+            else -> {
+            }
         }
 
     }
@@ -516,12 +597,6 @@ class DetailReportFragment() : Fragment() {
             Graph.TIME -> {
                 if (chart!!.data != null && chart!!.data.dataSetCount > 0) {
                     val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
-                    set1.setDrawValues(true)
-                    set1.valueFormatter = object : ValueFormatter() {
-                        override fun getFormattedValue(value: Float): String {
-                            return getDuration(value.toLong())
-                        }
-                    }
                     set1.values = values
                     chart!!.data.notifyDataChanged()
                     chart!!.notifyDataSetChanged()
@@ -541,8 +616,20 @@ class DetailReportFragment() : Fragment() {
                     val dataSets: MutableList<IBarDataSet> = ArrayList()
                     dataSets.add(set1)
                     val data = BarData(dataSets)
-                    data.barWidth = 0.2f
                     chart!!.data = data
+                    if (listCurrentWeekInterval.size > 6) {
+                        data.barWidth = 0.1f
+                        chart!!.setScaleMinima(
+                            5f, 0f
+                        )
+                        chart!!.moveViewToAnimated(
+                            listCurrentWeekInterval.size - 1.toFloat(),
+                            0f, YAxis.AxisDependency.RIGHT, 10000
+                        )
+                    } else {
+                        data.barWidth = 0.2f
+                        chart!!.setScaleMinima(1f, 0f)
+                    }
                     chart!!.setFitBars(true)
                 }
                 chart!!.invalidate()
@@ -552,12 +639,6 @@ class DetailReportFragment() : Fragment() {
                     chart!!.data.dataSetCount > 0
                 ) {
                     val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
-                    set1.setDrawValues(true)
-                    set1.valueFormatter = object : ValueFormatter() {
-                        override fun getFormattedValue(value: Float): String {
-                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
-                        }
-                    }
                     set1.values = values
                     chart!!.data.notifyDataChanged()
                     chart!!.notifyDataSetChanged()
@@ -571,14 +652,26 @@ class DetailReportFragment() : Fragment() {
                     set1.setDrawValues(true)
                     set1.valueFormatter = object : ValueFormatter() {
                         override fun getFormattedValue(value: Float): String {
-                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                            return "${AppUtils.roundTwoDecimal(value.toDouble())} km"
                         }
                     }
                     val dataSets: MutableList<IBarDataSet> = ArrayList()
                     dataSets.add(set1)
                     val data = BarData(dataSets)
-                    data.barWidth = 0.2f
                     chart!!.data = data
+                    if (listCurrentWeekInterval.size > 6) {
+                        data.barWidth = 0.1f
+                        chart!!.setScaleMinima(
+                            5f, 0f
+                        )
+                        chart!!.moveViewToAnimated(
+                            listCurrentWeekInterval.size - 1.toFloat(),
+                            0f, YAxis.AxisDependency.RIGHT, 10000
+                        )
+                    } else {
+                        data.barWidth = 0.2f
+                        chart!!.setScaleMinima(1f, 0f)
+                    }
                     chart!!.setFitBars(true)
 
                 }
@@ -590,12 +683,6 @@ class DetailReportFragment() : Fragment() {
                     chart!!.data.dataSetCount > 0
                 ) {
                     val set1 = chart!!.data.getDataSetByIndex(0) as BarDataSet
-                    set1.setDrawValues(true)
-                    set1.valueFormatter = object : ValueFormatter() {
-                        override fun getFormattedValue(value: Float): String {
-                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
-                        }
-                    }
                     set1.values = values
                     chart!!.data.notifyDataChanged()
                     chart!!.notifyDataSetChanged()
@@ -608,21 +695,34 @@ class DetailReportFragment() : Fragment() {
                     set1.setDrawValues(true)
                     set1.valueFormatter = object : ValueFormatter() {
                         override fun getFormattedValue(value: Float): String {
-                            return AppUtils.roundTwoDecimal(value.toDouble()).toString()
+                            return "${AppUtils.roundTwoDecimal(value.toDouble())} km"
                         }
                     }
                     val dataSets: MutableList<IBarDataSet> = ArrayList()
                     dataSets.add(set1)
                     val data = BarData(dataSets)
-                    data.barWidth = 0.2f
                     chart!!.data = data
+                    if (listCurrentWeekInterval.size > 6) {
+                        data.barWidth = 0.1f
+                        chart!!.setScaleMinima(
+                            5f, 0f
+                        )
+                        chart!!.moveViewToAnimated(
+                            listCurrentWeekInterval.size - 1.toFloat(),
+                            0f, YAxis.AxisDependency.RIGHT, 10000
+                        )
+                    } else {
+                        data.barWidth = 0.2f
+                        chart!!.setScaleMinima(1f, 0f)
+                    }
                     chart!!.setFitBars(true)
 
                 }
 
                 chart!!.invalidate()
             }
-            else -> {}
+            else -> {
+            }
         }
     }
 

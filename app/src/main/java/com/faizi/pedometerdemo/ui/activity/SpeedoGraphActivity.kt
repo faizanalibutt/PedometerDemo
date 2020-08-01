@@ -32,6 +32,7 @@ class SpeedoGraphActivity : AppCompatActivity() {
         tabView.setupWithViewPager(viewPager)
 
         nav_back.setOnClickListener {
+            startActivity(Intent(this, SpeedometerActivity::class.java))
             finish()
         }
 

@@ -30,7 +30,7 @@ public class SpeedAxisValueFormatter extends ValueFormatter
     @Override
     public String getFormattedValue(float value) {
 
-        return String.valueOf(AppUtils.INSTANCE.roundTwoDecimal(listCurrentDayInterval.get((int) value).getSpeed()));
+        return String.valueOf(AppUtils.INSTANCE.roundTwoDecimal(listCurrentDayInterval.get((int) value).getSpeed()) + " km");
     }
 
 }

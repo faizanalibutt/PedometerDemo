@@ -7,17 +7,18 @@ import com.anjlab.android.iab.v3.BillingProcessor.IBillingHandler
 import com.anjlab.android.iab.v3.TransactionDetails
 import com.dev.bytes.R
 import com.dev.bytes.adsmanager.TinyDB
+import com.faizi.pedometerdemo.BuildConfig
 import org.jetbrains.anko.longToast
 import timber.log.Timber
 
 //const val INAPP_API_KEY =
 //    "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiH9zQO3vaczPyEDRI72n6CVDLjjamkYSSWhAKDWXOAyyVW8Aoqv2JiaK7In7m5ZK8/W08IoA91YgE/KSO1BEEw9t6vGbHrb6isdwTCw55iq2GFDyUwxCqySzDZF3h5n6gzmyonqheZ7pyq5oxk30hKCo6MVJh/uneJtUgpvl8qiCxLNUSrRgHhks5hvk5V1UqCajjG4BY4nIyZSvV8S6q9gw+a1If6Nono66Z2dEX0VPKgCPyqn+PAqdfOvFB/FIgTUNWyw3Y0BQfoPPLl1NkT9EJ9FO0hROwNr8xyKFDv1cIcRNvN2M1mtRQrGwbNqrXgcWDEmEFMGkr5X+aZy5XwIDAQAB"
 
-//const val TEST_PURCHASE_KEY = /*"android.test.canceled"*/"android.test.purchased"
-//val REMOVE_AD_KEY = if (BuildConfig.DEBUG) TEST_PURCHASE_KEY else "is_premium"
+const val TEST_PURCHASE_KEY = /*"android.test.canceled"*/"android.test.purchased"
+val productKey = if (BuildConfig.DEBUG) TEST_PURCHASE_KEY else "remove_ads"
 
-val Context.productKey: String
-    get() = this.getString(R.string.remove_ads_key)
+//val Context.productKey: String
+//    get() = this.getString(R.string.remove_ads_key)
 
 fun Context.setPremium() = TinyDB(this).putBoolean(getString(R.string.is_premium), true)
 
@@ -55,7 +56,7 @@ fun Context.initBilling(
 
 fun BillingProcessor.purchaseRemoveAds(activity: Activity) =
     if (isInitialized && isOneTimePurchaseSupported)
-        purchase(activity, activity.productKey)
+        purchase(activity, productKey)
     else {
         activity.longToast("Service initialization failed.. Please try again!")
         false

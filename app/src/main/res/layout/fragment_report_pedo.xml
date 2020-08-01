@@ -7,19 +7,34 @@
     android:background="@color/activity_bg"
     tools:context=".ui.fragment.ReportFragment">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ad_container_pedo"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="@dimen/margin_smaller_size"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:visibility="gone"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/average_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/average_value"
         style="@style/TextAppearance.Primary.Bigger"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_medium_size"
-        android:layout_marginTop="@dimen/margin_medium_size"
-        android:gravity="center"
+        android:layout_marginTop="@dimen/margin_smallest_size"
         android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
         android:textColor="@color/settings_heading_color"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ad_container_pedo" />
 
     <TextView
         android:id="@+id/text_average"
@@ -58,12 +73,12 @@
         app:layout_constraintTop_toTopOf="@+id/text_average" />
 
     <TextView
-        style="@style/TextAppearance.Primary.Big"
         android:id="@+id/emptyData"
+        style="@style/TextAppearance.Primary.Big"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="@string/no_data_found"
         android:gravity="center"
+        android:text="@string/no_data_found"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/bargraph1"
         app:layout_constraintEnd_toEndOf="@+id/bargraph1"
@@ -90,14 +105,14 @@
         app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_average"/>
+        app:layout_constraintTop_toBottomOf="@+id/text_average" />
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/margin_small_size"
+        android:layout_marginTop="@dimen/margin_smaller_size"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,11 +123,10 @@
             android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/margin_smaller_size"
-            android:orientation="horizontal"
-            android:paddingStart="@dimen/unknown_dp"
-            android:paddingEnd="@dimen/margin_small_size"
-            app:chipSpacing="@dimen/margin_medium_size"
+            android:paddingStart="@dimen/margin_smaller_size"
+            android:paddingEnd="@dimen/margin_smaller_size"
+            app:chipSpacingHorizontal="@dimen/dp_32"
+            app:selectionRequired="true"
             app:singleLine="true"
             app:singleSelection="true">
 

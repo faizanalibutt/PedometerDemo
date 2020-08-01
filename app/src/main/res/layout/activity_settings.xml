@@ -518,7 +518,7 @@
                             android:layout_marginStart="@dimen/dp_18"
                             android:fontFamily="@font/roboto_medium"
                             android:text="GET PRO NOW"
-                            android:textColor="@color/settings_title_color"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/font_size_primary"
                             app:layout_constraintBottom_toTopOf="@+id/p3"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -612,6 +612,5 @@
 
     </ScrollView>
 
-    <!--<include layout="@layout/banner_ads_layout_tag" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import com.faizi.pedometerdemo.model.Distance;
 import com.faizi.pedometerdemo.model.DistanceTotal;
 import com.faizi.pedometerdemo.util.AppUtils;
 import com.faizi.pedometerdemo.util.Logger;
+import com.faizi.pedometerdemo.util.TimeUtils;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.BarLineChartBase;
 import com.github.mikephil.charting.formatter.ValueFormatter;
@@ -36,7 +37,7 @@ public class DistanceAxisValueFormatterWeek extends ValueFormatter
             if (index >= listCurrentWeekInterval.size()) {
                 index = listCurrentWeekInterval.size() - 1;
             }
-            return listCurrentWeekInterval.get((int) index).getDate();
+            return TimeUtils.getFormatStringDate(listCurrentWeekInterval.get((int) index).getDate());
         } catch (Exception exp) {
             Logger.log(exp + " value is: " + value);
             return "";

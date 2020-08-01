@@ -75,12 +75,12 @@ class MainActivity :
                 dialog!!.show()
             }
             R.id.nav_privacy -> {
-                val url = "https://www.freeprivacypolicy.com/privacy/view/50c5621471755f1548917ebbe5e90160"
+                val url = getString(R.string.privacy_policy_link_text)
                 val builder = CustomTabsIntent.Builder()
                 val customTabsIntent = builder.build()
                 customTabsIntent.launchUrl(this, Uri.parse(url))
             }
-            R.id.nav_about -> {}
+            //R.id.nav_about -> {}
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true

@@ -36,7 +36,7 @@ data class InterAdPair(var interAM: InterstitialAd? = null, var interFB: Interst
 @Keep
 object InterDelayTimer {
     private var lastShowTimeInMillis = 0L
-    const val INTERSTITIAL_DELAY_TIME = "interstitial_delay_time"
+    const val INTERSTITIAL_DELAY_TIME = "pm_sm_interstitial_delay_time"
     fun isDelaySpent(): Boolean {
         val currentTime = Calendar.getInstance().timeInMillis
         val diff = (currentTime - lastShowTimeInMillis) / 1000L

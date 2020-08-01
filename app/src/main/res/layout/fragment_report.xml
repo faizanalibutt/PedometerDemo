@@ -13,8 +13,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_medium_size"
-        android:layout_marginTop="@dimen/margin_medium_size"
+        android:layout_marginTop="@dimen/margin_smallest_size"
         android:gravity="center"
+        android:text="00"
+        android:textSize="32sp"
         android:fontFamily="@font/roboto_medium"
         android:textColor="@color/settings_heading_color"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
@@ -26,8 +28,9 @@
         style="@style/TextAppearance.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_standard_size"
+        android:layout_marginTop="5dp"
         android:text="@string/text_average"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/average_value"
         app:layout_constraintStart_toStartOf="@+id/average_value"
         app:layout_constraintTop_toBottomOf="@+id/average_value" />
@@ -39,6 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_medium_size"
         android:gravity="center"
+        android:text="00"
+        android:textSize="32sp"
         android:fontFamily="@font/roboto_medium"
         android:textColor="@color/settings_heading_color"
         app:layout_constraintBottom_toBottomOf="@+id/average_value"
@@ -52,6 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_total"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_average"
         app:layout_constraintEnd_toEndOf="@+id/total_value"
         app:layout_constraintStart_toStartOf="@+id/total_value"
@@ -88,6 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="visible"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,9 +103,9 @@
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/margin_medium_size"
+        android:layout_marginTop="@dimen/margin_standard_size"
         android:fillViewport="true"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -112,7 +119,7 @@
             android:layout_height="match_parent"
             android:paddingStart="@dimen/margin_smaller_size"
             android:paddingEnd="@dimen/margin_smaller_size"
-            app:chipSpacingHorizontal="@dimen/dp_32"
+            app:chipSpacingHorizontal="@dimen/dp_16"
             app:selectionRequired="true"
             app:singleLine="true"
             app:singleSelection="true">
@@ -135,18 +142,6 @@
         </com.google.android.material.chip.ChipGroup>
 
     </HorizontalScrollView>
-
-    <FrameLayout
-        android:id="@+id/ad_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
-
-    </FrameLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
