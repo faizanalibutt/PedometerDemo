@@ -208,12 +208,24 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        pedoState = AppUtils.INSTANCE.getDefaultPreferences(
+                (AppCompatActivity) requireActivity()
+        ).getString("pedo_state", null);
+        if (pedoState != null && pedoState.equals("stop")) {
+            setUpListener(true);
+        }
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         pedoState = AppUtils.INSTANCE.getDefaultPreferences(
                 (AppCompatActivity) requireActivity()
         ).getString("pedo_state", null);
         if (pedoState != null && pedoState.equals("stop")) {
+            setUpListener(false);
             Database db = Database.getInstance(getActivity());
             db.saveCurrentSteps(since_boot);
             db.close();
@@ -358,7 +370,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         }
         miles.setText("" + AppUtils.INSTANCE.roundTwoDecimal(distance_today));
         // TODO: 7/15/2020 increase step count to 150
-        timeValue.setText(TimeUtils.INSTANCE.getDurationSpeedo((steps_today / 10) * 60000));
+        timeValue.setText(TimeUtils.INSTANCE.getDurationSpeedo((steps_today / 150) * 60000));
     }
 
 }
