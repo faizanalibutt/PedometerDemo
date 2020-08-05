@@ -12,11 +12,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.dev.bytes.adsmanager.ADUnitPlacements
 import com.dev.bytes.adsmanager.loadNativeAd
-import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.Database
-import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
-import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
-import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Graph
-import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.TimeUtils.getDuration
+import com.faizi.pedometerdemo.Database
+import com.faizi.pedometerdemo.R
+import com.faizi.pedometerdemo.util.AppUtils
+import com.faizi.pedometerdemo.util.Graph
+import com.faizi.pedometerdemo.util.TimeUtils.getDuration
+import com.faizi.pedometerdemo.util.Util
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
@@ -34,7 +35,6 @@ import kotlinx.android.synthetic.main.fragment_report_pedo.*
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.*
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.bargraph1
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.chipGroup
-import kotlinx.android.synthetic.main.fragment_report_pedo.view.emptyData
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.text_average
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.text_total
 import kotlin.math.pow
@@ -42,6 +42,8 @@ import kotlin.math.pow
 @SuppressLint("SetTextI18n")
 class ReportFragment : Fragment() {
 
+    private var today: Boolean = true
+    private lateinit var mView: View
     private var listCurrentWeekInterval: MutableList<Pair<Long, Int>> = ArrayList()
 
     private var chart: com.github.mikephil.charting.charts.BarChart? = null
@@ -99,9 +101,6 @@ class ReportFragment : Fragment() {
             }
         }
 
-        view.step_graph.isChecked = true
-        getIntervalsDataWeekly(database, view, Graph.STEP)
-
         return view
     }
 
@@ -113,6 +112,15 @@ class ReportFragment : Fragment() {
             R.layout.ad_unified_common,
             ADUnitPlacements.COMMON_NATIVE_AD, true
         )
+        mView = view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mView.let {
+            mView.step_graph.isChecked = true
+            getIntervalsDataWeekly(Database.getInstance(mView.context), mView, Graph.STEP)
+        }
     }
 
     private fun getIntervalsDataWeekly(database: Database, view: View, graphType: Graph) {
@@ -141,9 +149,9 @@ class ReportFragment : Fragment() {
             Graph.TIME -> {
                 chart!!.xAxis.labelCount = listCurrentWeekInterval.size
                 chart!!.axisRight.axisMaximum =
-                    Util.getRandom(10.toDouble().pow(5.toDouble()).toInt()).toFloat()
+                    Util.getRandom(10.toDouble().pow(3.toDouble()).toInt()).toFloat()
                 chart!!.axisLeft.axisMaximum =
-                    Util.getRandom(10.toDouble().pow(5.toDouble()).toInt()).toFloat()
+                    Util.getRandom(10.toDouble().pow(3.toDouble()).toInt()).toFloat()
                 chart!!.axisLeft.labelCount = listCurrentWeekInterval.size
                 chart!!.axisRight.labelCount = listCurrentWeekInterval.size
             }
@@ -169,8 +177,9 @@ class ReportFragment : Fragment() {
         }
 
         var total = 0.0
-        val values: MutableList<BarEntry> = ArrayList()
         chart!!.clear()
+        today = true
+        val values: MutableList<BarEntry> = ArrayList()
 
         for ((index, step) in listCurrentWeekInterval.withIndex()) {
 
@@ -178,16 +187,22 @@ class ReportFragment : Fragment() {
 
                 Graph.TIME -> {
 
-                    var todayOffset = database.getSteps(step.first)
-                    var stepsToday = database.currentSteps
-                    database.close()
+                    var steps: Int
 
-                    if (todayOffset == Integer.MIN_VALUE)
-                        todayOffset = -stepsToday
+                    if (today) {
+                        var todayOffset = database.getSteps(step.first)
+                        steps = database.currentSteps
+                        database.close()
 
-                    stepsToday += todayOffset
+                        if (todayOffset == Integer.MIN_VALUE)
+                            todayOffset = -steps
 
-                    val stepTime = stepsToday / 10 * 60000.toLong()
+                        steps += todayOffset
+                        today = false
+                    } else
+                        steps = step.second
+
+                    val stepTime = steps / 150 * 60000.toLong()
                     total += stepTime
 
                     values.add(BarEntry(index.toFloat(), stepTime.toFloat()))
@@ -197,14 +212,20 @@ class ReportFragment : Fragment() {
 
                 Graph.DISTANCE -> {
 
-                    var todayOffset = database.getSteps(step.first)
-                    var stepsToday = database.currentSteps
-                    database.close()
+                    var steps: Int
 
-                    if (todayOffset == Integer.MIN_VALUE)
-                        todayOffset = -stepsToday
+                    if (today) {
+                        var todayOffset = database.getSteps(step.first)
+                        steps = database.currentSteps
+                        database.close()
 
-                    stepsToday += todayOffset
+                        if (todayOffset == Integer.MIN_VALUE)
+                            todayOffset = -steps
+
+                        steps += todayOffset
+                        today = false
+                    } else
+                        steps = step.second
 
                     // update only every 10 steps when displaying distance
                     val prefs = requireActivity().getSharedPreferences(
@@ -214,8 +235,8 @@ class ReportFragment : Fragment() {
                     val stepsize =
                         prefs.getFloat("stepsize_value", Fragment_Settings.DEFAULT_STEP_SIZE)
 
-                    var distance_today: Float = stepsToday * stepsize
-                    distance_today /= if (prefs.getString(
+                    var distance: Float = steps * stepsize
+                    distance /= if (prefs.getString(
                             "stepsize_unit",
                             Fragment_Settings.DEFAULT_STEP_UNIT
                         ) == "cm"
@@ -225,27 +246,31 @@ class ReportFragment : Fragment() {
                         5280f
                     }
 
-                    total += distance_today
-
-                    values.add(BarEntry(index.toFloat(), distance_today))
+                    total += distance
+                    values.add(BarEntry(index.toFloat(), distance))
                     chartData(values, view, graphType)
 
                 }
 
                 Graph.STEP -> {
 
-                    var todayOffset = database.getSteps(step.first)
-                    var stepsToday = database.currentSteps
-                    database.close()
+                    var steps: Int
 
-                    if (todayOffset == Integer.MIN_VALUE)
-                        todayOffset = -stepsToday
+                    if (today) {
+                        var todayOffset = database.getSteps(step.first)
+                        steps = database.currentSteps
+                        database.close()
 
-                    stepsToday += todayOffset
+                        if (todayOffset == Integer.MIN_VALUE)
+                            todayOffset = -steps
 
-                    total += stepsToday
+                        steps += todayOffset
+                        today = false
+                    } else
+                        steps = step.second
 
-                    values.add(BarEntry(index.toFloat(), stepsToday.toFloat()))
+                    total += steps
+                    values.add(BarEntry(index.toFloat(), steps.toFloat()))
                     chartData(values, view, graphType)
                 }
                 else -> {
