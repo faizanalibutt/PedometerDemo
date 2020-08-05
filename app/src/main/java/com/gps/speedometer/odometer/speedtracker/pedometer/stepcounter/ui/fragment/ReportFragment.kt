@@ -12,12 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.dev.bytes.adsmanager.ADUnitPlacements
 import com.dev.bytes.adsmanager.loadNativeAd
-import com.faizi.pedometerdemo.Database
-import com.faizi.pedometerdemo.R
-import com.faizi.pedometerdemo.util.AppUtils
-import com.faizi.pedometerdemo.util.Graph
-import com.faizi.pedometerdemo.util.TimeUtils.getDuration
-import com.faizi.pedometerdemo.util.Util
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
@@ -27,8 +21,13 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.BuildConfig
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.Database
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Graph
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.TimeUtils.getDuration
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Util
-import kotlinx.android.synthetic.main.fragment_report.view.*
 import kotlinx.android.synthetic.main.fragment_report.view.average_value
 import kotlinx.android.synthetic.main.fragment_report.view.total_value
 import kotlinx.android.synthetic.main.fragment_report_pedo.*
@@ -202,7 +201,12 @@ class ReportFragment : Fragment() {
                     } else
                         steps = step.second
 
-                    val stepTime = steps / 150 * 60000.toLong()
+                    val stepTime: Long
+                    stepTime = if (BuildConfig.DEBUG)
+                        steps / 10 * 60000.toLong()
+                    else
+                        steps / 150 * 60000.toLong()
+
                     total += stepTime
 
                     values.add(BarEntry(index.toFloat(), stepTime.toFloat()))
@@ -281,18 +285,21 @@ class ReportFragment : Fragment() {
 
         when (graphType) {
             Graph.TIME -> {
-                view.total_value.text = getDuration(total.toLong())
-                view.average_value.text = getDuration(total.toLong() / listCurrentWeekInterval.size)
+                view.total_value.text = if (total.toLong() == 0L) "00" else getDuration(
+                    total.toLong()
+                )
+                view.average_value.text = if (total.toLong() == 0L) "00" else getDuration(
+                    total.toLong() / listCurrentWeekInterval.size
+                )
             }
             Graph.DISTANCE -> {
-                view.total_value.text = "${AppUtils.roundTwoDecimal(total).toString()} km"
+                view.total_value.text = "${AppUtils.roundTwoDecimal(total)} km"
                 view.average_value.text =
-                    "${AppUtils.roundTwoDecimal(total / listCurrentWeekInterval.size).toString()} km"
+                    "${AppUtils.roundTwoDecimal(total / listCurrentWeekInterval.size)} km"
             }
             Graph.STEP -> {
-                view.total_value.text = "${AppUtils.roundTwoDecimal(total).toString()} km"
-                view.average_value.text =
-                    "${AppUtils.roundTwoDecimal(total / listCurrentWeekInterval.size).toString()} km"
+                view.total_value.text = "${total.toInt()}"
+                view.average_value.text = "${(total / listCurrentWeekInterval.size).toInt()}"
             }
             else -> {
             }
@@ -408,7 +415,7 @@ class ReportFragment : Fragment() {
                     set1.setDrawValues(true)
                     set1.valueFormatter = object : ValueFormatter() {
                         override fun getFormattedValue(value: Float): String {
-                            return "${AppUtils.roundTwoDecimal(value.toDouble())} km"
+                            return "${value.toInt()}"
                         }
                     }
                     val dataSets: MutableList<IBarDataSet> = ArrayList()

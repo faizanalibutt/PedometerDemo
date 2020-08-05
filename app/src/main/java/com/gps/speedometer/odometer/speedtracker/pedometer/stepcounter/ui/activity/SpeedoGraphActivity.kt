@@ -12,13 +12,15 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.ViewPagerAdapter
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.DetailReportFragment
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
+import kotlinx.android.synthetic.main.activity_pedometer.*
 import kotlinx.android.synthetic.main.activity_pedometer.nav_back
 import kotlinx.android.synthetic.main.activity_pedometer.tabView
 import kotlinx.android.synthetic.main.activity_pedometer.viewPager
 import kotlinx.android.synthetic.main.activity_speedo_graph.*
 import kotlinx.android.synthetic.main.activity_speedo_graph.premium_services
 
-class SpeedoGraphActivity : AppCompatActivity() {
+class SpeedoGraphActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,8 @@ class SpeedoGraphActivity : AppCompatActivity() {
 
         if (TinyDB.getInstance(this).getBoolean(getString(com.dev.bytes.R.string.is_premium)))
             premium_services.visibility = View.GONE
+        else
+            AppUtils.animateProButton(this, premium_services)
 
         loadNativeAd(ad_container_graph, R.layout.ad_unified_common, ADUnitPlacements.COMMON_NATIVE_AD, true)
 

@@ -86,6 +86,15 @@
                     app:layout_constraintEnd_toStartOf="@+id/ver_line"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.SpeedoRippleEffect
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:id="@+id/speedo_view_effect"
+                    app:layout_constraintStart_toStartOf="@+id/speedo_view"
+                    app:layout_constraintBottom_toBottomOf="@+id/speedo_view"
+                    app:layout_constraintEnd_toEndOf="@+id/speedo_view"
+                    app:layout_constraintTop_toTopOf="@+id/speedo_view" />
+
                 <ImageView
                     android:id="@+id/face1"
                     android:layout_width="@dimen/dp_54"

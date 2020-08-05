@@ -28,10 +28,15 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Curr
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.TimeUtils
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
+import kotlinx.android.synthetic.main.activity_pedometer.*
 import kotlinx.android.synthetic.main.activity_speedometer.*
+import kotlinx.android.synthetic.main.activity_speedometer.nav_back
+import kotlinx.android.synthetic.main.activity_speedometer.premium_services
+import kotlinx.android.synthetic.main.activity_speedometer.tabView
+import kotlinx.android.synthetic.main.activity_speedometer.viewPager
 import java.util.*
 
-class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultListener {
+class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
     private var isStartStopShown: Boolean = false
     private var speed: Double = 0.0
@@ -90,6 +95,8 @@ class SpeedometerActivity : AppCompatActivity(), CurrentLocation.LocationResultL
 
         if (TinyDB.getInstance(this).getBoolean(getString(com.dev.bytes.R.string.is_premium)))
             premium_services.visibility = View.GONE
+        else
+            AppUtils.animateProButton(this, premium_services)
 
         speedo_graph.setOnClickListener {
             startActivity(Intent(this, SpeedoGraphActivity::class.java))

@@ -38,10 +38,18 @@ class MainActivity :
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
 
-        if (TinyDB.getInstance(this).getBoolean(getString(com.dev.bytes.R.string.is_premium))) {
+        if (getInstance(this).getBoolean(getString(com.dev.bytes.R.string.is_premium))) {
             nav_pro_group.visibility = View.GONE
             premium_services.visibility = View.GONE
             hideItem()
+        }
+
+        speedo_view_effect.setOnRippleCompleteListener {
+            speedo_view_effect.startAnimateRipple()
+        }
+        speedo_view_effect.startAnimateRipple()
+        speedo_view_effect.setOnClickListener {
+            openSpeedo(it)
         }
 
         showRemoveAdsDialogue()

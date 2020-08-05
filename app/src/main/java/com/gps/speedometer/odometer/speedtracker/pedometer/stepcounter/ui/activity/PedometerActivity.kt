@@ -11,11 +11,13 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.ViewPagerAdapter
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.PedoMeterFragmentNew
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.ReportFragment
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
 import kotlinx.android.synthetic.main.activity_pedometer.*
 import kotlinx.android.synthetic.main.activity_pedometer.premium_services
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_map.view.*
 
-class PedometerActivity : AppCompatActivity() {
+class PedometerActivity : Activity() {
 
     var startStopInterstitialAd: InterAdPair? = null
     var backInterstitialAd: InterAdPair? = null
@@ -41,6 +43,8 @@ class PedometerActivity : AppCompatActivity() {
 
         if (TinyDB.getInstance(this).getBoolean(getString(com.dev.bytes.R.string.is_premium)))
             premium_services.visibility = View.GONE
+        else
+            AppUtils.animateProButton(this, premium_services)
 
         loadInterstitialAd(
             ADUnitPlacements.PEDO_START_STOP_INTERSTITIAL,
