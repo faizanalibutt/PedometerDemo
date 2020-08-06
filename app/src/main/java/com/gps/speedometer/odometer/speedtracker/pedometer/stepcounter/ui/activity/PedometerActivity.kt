@@ -1,17 +1,15 @@
 package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity
 
 import android.Manifest
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import com.dev.bytes.adsmanager.*
+import com.dev.bytes.adsmanager.ADUnitPlacements
+import com.dev.bytes.adsmanager.InterAdPair
+import com.dev.bytes.adsmanager.TinyDB
 import com.dev.bytes.adsmanager.billing.purchaseRemoveAds
+import com.dev.bytes.adsmanager.loadInterstitialAd
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.ViewPagerAdapter
@@ -21,14 +19,6 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppU
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
 import kotlinx.android.synthetic.main.activity_pedometer.*
-import kotlinx.android.synthetic.main.activity_pedometer.nav_back
-import kotlinx.android.synthetic.main.activity_pedometer.premium_services
-import kotlinx.android.synthetic.main.activity_pedometer.tabView
-import kotlinx.android.synthetic.main.activity_pedometer.viewPager
-import kotlinx.android.synthetic.main.activity_speedometer.*
-import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.android.synthetic.main.fragment_map.view.*
-import java.util.*
 
 class PedometerActivity : Activity() {
 
@@ -71,7 +61,8 @@ class PedometerActivity : Activity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val permissions = arrayOf(Manifest.permission.ACTIVITY_RECOGNITION)
-            val rationale = "Please provide Activity Recognition Permission to start counting steps..."
+            val rationale =
+                "Please provide Activity Recognition Permission to start counting steps..."
             val options = Permissions.Options().setRationaleDialogTitle("Info")
                 .setSettingsDialogTitle("Warning")
 
@@ -105,8 +96,8 @@ class PedometerActivity : Activity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (!(App.bp!!.handleActivityResult(requestCode, resultCode, intent)))
-            super.onActivityResult(requestCode, resultCode, data)
+        if ((App.bp?.handleActivityResult(requestCode, resultCode, intent))  != true)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
 }

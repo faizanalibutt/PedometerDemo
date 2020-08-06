@@ -46,7 +46,7 @@ import kotlin.math.pow
 @SuppressLint("SetTextI18n")
 class ReportFragment : Fragment() {
 
-    private var today: Boolean = true
+    private var today: Int = 0
     private lateinit var mView: View
     private var listCurrentWeekInterval: MutableList<Pair<Long, Int>> = ArrayList()
 
@@ -198,7 +198,7 @@ class ReportFragment : Fragment() {
 
         var total = 0.0
         chart!!.clear()
-        today = true
+        today = listCurrentWeekInterval.size - 1
         val values: MutableList<BarEntry> = ArrayList()
 
         for ((index, step) in listCurrentWeekInterval.withIndex()) {
@@ -209,7 +209,7 @@ class ReportFragment : Fragment() {
 
                     var steps: Int
 
-                    if (today) {
+                    if (index == today) {
                         var todayOffset = database.getSteps(step.first)
                         steps = database.currentSteps
                         database.close()
@@ -218,7 +218,7 @@ class ReportFragment : Fragment() {
                             todayOffset = -steps
 
                         steps += todayOffset
-                        today = false
+                        today = 0
                     } else
                         steps = step.second
 
@@ -239,7 +239,7 @@ class ReportFragment : Fragment() {
 
                     var steps: Int
 
-                    if (today) {
+                    if (index == today) {
                         var todayOffset = database.getSteps(step.first)
                         steps = database.currentSteps
                         database.close()
@@ -248,7 +248,7 @@ class ReportFragment : Fragment() {
                             todayOffset = -steps
 
                         steps += todayOffset
-                        today = false
+                        today = 0
                     } else
                         steps = step.second
 
@@ -278,7 +278,7 @@ class ReportFragment : Fragment() {
 
                     var steps: Int
 
-                    if (today) {
+                    if (index == today) {
                         var todayOffset = database.getSteps(step.first)
                         steps = database.currentSteps
                         database.close()
@@ -287,7 +287,7 @@ class ReportFragment : Fragment() {
                             todayOffset = -steps
 
                         steps += todayOffset
-                        today = false
+                        today = 0
                     } else
                         steps = step.second
 
