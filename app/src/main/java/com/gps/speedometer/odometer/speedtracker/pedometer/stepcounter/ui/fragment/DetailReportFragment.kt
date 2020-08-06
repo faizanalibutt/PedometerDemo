@@ -5,8 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import com.google.android.material.radiobutton.MaterialRadioButton
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.Database
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Distance
@@ -16,15 +25,6 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Grap
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.TimeUtils.getDuration
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.TimeUtils.getFormatDateTime
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Util
-import com.github.mikephil.charting.components.XAxis.XAxisPosition
-import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.formatter.ValueFormatter
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.fragment_report.*
 import kotlinx.android.synthetic.main.fragment_report.view.*
 import kotlin.math.pow
@@ -83,17 +83,26 @@ class DetailReportFragment() : Fragment() {
                 // add a nice and smooth animation
                 chart!!.animateY(2000)
 
-                val chipGroup: ChipGroup = view.findViewById(R.id.chipGroup)
+                val chipGroup: RadioGroup = view.findViewById(R.id.chipGroup)
 
                 chipGroup.setOnCheckedChangeListener { chip_group, i ->
-                    when (chip_group.findViewById<Chip>(i)) {
+                    when (chip_group.findViewById<MaterialRadioButton>(i)) {
                         time_graph -> {
+                            time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                            distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                            speed_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
                             getIntervalsDataWeekly(database, view, Graph.TIME)
                         }
                         distance_graph -> {
+                            time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                            distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                            speed_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
                             getIntervalsDataWeekly(database, view, Graph.DISTANCE)
                         }
                         speed_graph -> {
+                            time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                            distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                            speed_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                             getIntervalsDataWeekly(database, view, Graph.SPEED)
                         }
                     }
@@ -134,11 +143,16 @@ class DetailReportFragment() : Fragment() {
                 // add a nice and smooth animation
                 chart!!.animateY(2000)
 
-                val chipGroup: ChipGroup = view.findViewById(R.id.chipGroup)
+                val chipGroup: RadioGroup = view.findViewById(R.id.chipGroup)
                 chipGroup.setOnCheckedChangeListener { chip_group, i ->
-                    when (chip_group.findViewById<Chip>(i)) {
+                    when (chip_group.findViewById<MaterialRadioButton>(i)) {
                         time_graph -> {
+                            time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                            distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                            speed_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+
                             getIntervalsData(database, view, Graph.TIME)
+
                             view.total_value.text = getDuration(
                                 database.getTodayTotalTime(
                                     getFormatDateTime(Util.getToday(), "date")
@@ -152,6 +166,9 @@ class DetailReportFragment() : Fragment() {
                         }
 
                         distance_graph -> {
+                            time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                            distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                            speed_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
 
                             getIntervalsData(database, view, Graph.DISTANCE)
 
@@ -160,7 +177,6 @@ class DetailReportFragment() : Fragment() {
                                     getFormatDateTime(Util.getToday(), "date")
                                 )
                             )} km"
-
                             view.average_value.text = "${AppUtils.roundTwoDecimal(
                                 database.getTodayTotalDistance(
                                     getFormatDateTime(Util.getToday(), "date")
@@ -170,6 +186,10 @@ class DetailReportFragment() : Fragment() {
                         }
 
                         speed_graph -> {
+                            time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                            distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                            speed_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+
                             getIntervalsData(database, view, Graph.SPEED)
 
                             view.total_value.text = "${AppUtils.roundTwoDecimal(

@@ -24,7 +24,7 @@
 
     <TextView
         android:id="@+id/average_value"
-        style="@style/TextAppearance.Primary.Bigger"
+        style="@style/TextAppearance.Primary.Bigger.SingleLine"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_medium_size"
@@ -32,7 +32,7 @@
         android:layout_marginTop="@dimen/margin_smallest_size"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:textColor="@color/settings_heading_color"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,21 +45,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_standard_size"
         android:text="@string/text_average"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/average_value"
         app:layout_constraintStart_toStartOf="@+id/average_value"
         app:layout_constraintTop_toBottomOf="@+id/average_value" />
 
     <TextView
         android:id="@+id/total_value"
-        style="@style/TextAppearance.Primary.Bigger"
+        style="@style/TextAppearance.Primary.Bigger.SingleLine"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_medium_size"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:text="00"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:textColor="@color/settings_heading_color"
         app:layout_constraintBottom_toBottomOf="@+id/average_value"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_total"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_average"
         app:layout_constraintEnd_toEndOf="@+id/total_value"
         app:layout_constraintStart_toStartOf="@+id/total_value"
@@ -109,58 +109,81 @@
         android:layout_height="0dp"
         android:visibility="visible"
         android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+        app:layout_constraintBottom_toTopOf="@+id/chipGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_average" />
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
+    <RadioGroup
+        android:id="@+id/chipGroup"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="?actionBarSize"
         android:layout_marginTop="@dimen/margin_standard_size"
         android:layout_marginBottom="@dimen/margin_standard_size"
-        android:scrollbars="none"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:chipSpacingHorizontal="10dp"
+        app:singleLine="true"
+        app:singleSelection="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bargraph1">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingStart="@dimen/margin_smaller_size"
-            android:paddingEnd="@dimen/margin_smaller_size"
-            app:chipSpacingHorizontal="@dimen/dp_32"
-            app:selectionRequired="true"
-            app:singleLine="true"
-            app:singleSelection="true">
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/step_graph"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight=".3"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="@string/text_step"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="normal" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/step_graph"
-                style="@style/Widget.MaterialComponents.Chip.Choice.ChipStyle"
-                android:text="@string/text_step" />
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/distance_graph"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_weight=".3"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@android:color/transparent"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@string/text_distance"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="normal" />
 
-            <!--<com.google.android.material.chip.Chip
-                android:id="@+id/calorie_graph"
-                style="@style/Widget.MaterialComponents.Chip.Choice.ChipStyle"
-                android:text="@string/text_calorie" />-->
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/time_graph"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight=".3"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@android:color/transparent"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@string/text_times"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="normal" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/distance_graph"
-                style="@style/Widget.MaterialComponents.Chip.Choice.ChipStyle"
-                android:text="@string/text_distance" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/time_graph"
-                style="@style/Widget.MaterialComponents.Chip.Choice.ChipStyle"
-                android:text="@string/text_times" />
-
-        </com.google.android.material.chip.ChipGroup>
-
-    </HorizontalScrollView>
+    </RadioGroup>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"

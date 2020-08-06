@@ -357,7 +357,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         float distance_today = steps_today * stepsize;
         if (Objects.equals(prefs.getString
                 ("stepsize_unit", Fragment_Settings.DEFAULT_STEP_UNIT), "cm")) {
-            distance_today /= 100000;
+            distance_today /= 160934;
         } else {
             distance_today /= 5280;
         }

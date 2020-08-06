@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.dev.bytes.adsmanager.ADUnitPlacements
@@ -21,6 +23,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.radiobutton.MaterialRadioButton
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.BuildConfig
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.Database
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
@@ -36,6 +39,7 @@ import kotlinx.android.synthetic.main.fragment_report_pedo.view.bargraph1
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.chipGroup
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.text_average
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.text_total
+import kotlin.math.abs
 import kotlin.math.pow
 
 @SuppressLint("SetTextI18n")
@@ -83,18 +87,27 @@ class ReportFragment : Fragment() {
         // add a nice and smooth animation
         chart!!.animateY(2000)
 
-        val chipGroup: ChipGroup = view.findViewById(R.id.chipGroup)
+        val chipGroup: RadioGroup = view.findViewById(R.id.chipGroup)
         val database = Database.getInstance(view.context)
 
         chipGroup.setOnCheckedChangeListener { chip_group, i ->
-            when (chip_group.findViewById<Chip>(i)) {
+            when (chip_group.findViewById<MaterialRadioButton>(i)) {
                 time_graph -> {
+                    time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                    step_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
                     getIntervalsDataWeekly(database, view, Graph.TIME)
                 }
                 distance_graph -> {
+                    time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                    distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    step_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
                     getIntervalsDataWeekly(database, view, Graph.DISTANCE)
                 }
                 step_graph -> {
+                    time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                    distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                    step_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                     getIntervalsDataWeekly(database, view, Graph.STEP)
                 }
             }
@@ -240,18 +253,15 @@ class ReportFragment : Fragment() {
                         prefs.getFloat("stepsize_value", Fragment_Settings.DEFAULT_STEP_SIZE)
 
                     var distance: Float = steps * stepsize
-                    distance /= if (prefs.getString(
-                            "stepsize_unit",
-                            Fragment_Settings.DEFAULT_STEP_UNIT
-                        ) == "cm"
-                    ) {
-                        100000f
+                    distance /= if (prefs.getString("stepsize_unit",
+                            Fragment_Settings.DEFAULT_STEP_UNIT) == "cm") {
+                        160934f
                     } else {
                         5280f
                     }
 
                     total += distance
-                    values.add(BarEntry(index.toFloat(), distance))
+                    values.add(BarEntry(index.toFloat(), if (distance < 0) 0.0f else distance))
                     chartData(values, view, graphType)
 
                 }

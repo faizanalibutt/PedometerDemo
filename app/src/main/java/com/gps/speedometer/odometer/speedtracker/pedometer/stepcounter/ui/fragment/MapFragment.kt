@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.fragment_map.view.*
 class MapFragment() : Fragment(), OnMapReadyCallback {
 
     private var mMap: GoogleMap? = null
-    private lateinit var mContext: Context
+    private var mContext: Context? = null
     private lateinit var mView: View
 
     constructor(context: Context) : this() {
@@ -132,19 +132,21 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
         val options = Permissions.Options().setRationaleDialogTitle("Info")
             .setSettingsDialogTitle("Warning")
 
-        Permissions.check(
-            mContext,
-            permissions,
-            rationale,
-            options,
-            object : PermissionHandler() {
+        if (mContext != null) {
+            Permissions.check(
+                mContext,
+                permissions,
+                rationale,
+                options,
+                object : PermissionHandler() {
 
-                @SuppressLint("MissingPermission")
-                override fun onGranted() {
-                    mMap?.isMyLocationEnabled = true
+                    @SuppressLint("MissingPermission")
+                    override fun onGranted() {
+                        mMap?.isMyLocationEnabled = true
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 
 }

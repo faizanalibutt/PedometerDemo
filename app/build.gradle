@@ -137,4 +137,7 @@ dependencies {
     // graphs
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    // flexbox to align chip views
+    implementation 'com.google.android:flexbox:2.0.1'
+
 }

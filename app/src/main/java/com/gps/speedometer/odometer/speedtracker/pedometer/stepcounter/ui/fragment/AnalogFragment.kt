@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_analog.view.train_view
 
 class AnalogFragment() : Fragment() {
 
-    private lateinit var mContext: Context
+    private var mContext: Context? = null
     private lateinit var mView: View
 
     private var vehicle: String = "car"
@@ -79,11 +79,13 @@ class AnalogFragment() : Fragment() {
     }
 
     private fun changeVehicleView(view: ImageView, color: Int) {
-        ImageViewCompat.setImageTintList(
-            view, ColorStateList.valueOf(
-                ContextCompat.getColor(mContext, color)
+        if (mContext != null) {
+            ImageViewCompat.setImageTintList(
+                view, ColorStateList.valueOf(
+                    ContextCompat.getColor(mContext!!, color)
+                )
             )
-        )
+        }
     }
 
     private fun defaultSettings(view: View) {
@@ -149,7 +151,7 @@ class AnalogFragment() : Fragment() {
 
     private fun showPopup(view: View) {
 
-        val popup = PopupMenu(mContext, view.popup_units)
+        val popup = PopupMenu(mContext!!, view.popup_units)
         popup.menuInflater.inflate(R.menu.units_popup_menu, popup.menu)
 
         popup.setOnMenuItemClickListener {

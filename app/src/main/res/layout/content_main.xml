@@ -82,21 +82,30 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:onClick="openSpeedo"
                     app:layout_constraintBottom_toBottomOf="@+id/ver_line"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/ver_line"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.SpeedoRippleEffect
+                    android:id="@+id/speedo_view_effect"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:id="@+id/speedo_view_effect"
-                    app:layout_constraintStart_toStartOf="@+id/speedo_view"
                     app:layout_constraintBottom_toBottomOf="@+id/speedo_view"
                     app:layout_constraintEnd_toEndOf="@+id/speedo_view"
+                    app:layout_constraintStart_toStartOf="@+id/speedo_view"
+                    app:layout_constraintTop_toTopOf="@+id/speedo_view" />
+
+                <com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.SpeedoRippleEffect
+                    android:id="@+id/speedo_view_effect2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/speedo_view"
+                    app:layout_constraintEnd_toEndOf="@+id/speedo_view"
+                    app:layout_constraintStart_toStartOf="@+id/speedo_view"
                     app:layout_constraintTop_toTopOf="@+id/speedo_view" />
 
                 <ImageView
-                    android:id="@+id/face1"
+                    android:id="@+id/speedo_img"
                     android:layout_width="@dimen/dp_54"
                     android:layout_height="@dimen/dp_54"
                     android:layout_marginTop="@dimen/dp_12"
@@ -104,7 +113,19 @@
                     app:layout_constraintEnd_toEndOf="@+id/speedo_view"
                     app:layout_constraintStart_toStartOf="@+id/speedo_view"
                     app:layout_constraintTop_toTopOf="@+id/speedo_view"
+                    app:layout_constraintBottom_toTopOf="@+id/textView31"
                     app:srcCompat="@drawable/group_236" />
+                <Space
+                    android:id="@+id/ripple_pivot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constrainedWidth="false"
+                    app:layout_constrainedHeight="false"
+                    android:contentDescription="@string/app_name"
+                    app:layout_constraintEnd_toEndOf="@+id/speedo_img"
+                    app:layout_constraintStart_toStartOf="@+id/speedo_img"
+                    app:layout_constraintTop_toTopOf="@+id/speedo_img"
+                    app:layout_constraintBottom_toBottomOf="@+id/speedo_img" />
 
                 <TextView
                     android:id="@+id/textView31"
@@ -112,12 +133,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_smallest_size"
-                    android:text="@string/text_speedo"
                     android:fontFamily="@font/roboto_bold"
+                    android:text="@string/text_speedo"
                     android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="@+id/face1"
-                    app:layout_constraintStart_toStartOf="@+id/face1"
-                    app:layout_constraintTop_toBottomOf="@+id/face1" />
+                    app:layout_constraintEnd_toEndOf="@+id/speedo_img"
+                    app:layout_constraintStart_toStartOf="@+id/speedo_img"
+                    app:layout_constraintTop_toBottomOf="@+id/speedo_img" />
 
                 <View
                     android:id="@+id/view"
@@ -161,9 +182,9 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/background_pedo_button"
                     android:onClick="openPedoMeter"
-                    app:layout_constraintStart_toEndOf="@+id/ver_line"
                     app:layout_constraintBottom_toBottomOf="@+id/ver_line"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ver_line"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -183,8 +204,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_smallest_size"
-                    android:text="@string/text_pedometer"
                     android:fontFamily="@font/roboto_bold"
+                    android:text="@string/text_pedometer"
                     android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="@+id/face"
                     app:layout_constraintStart_toStartOf="@+id/face"
@@ -209,8 +230,8 @@
                     android:paddingStart="@dimen/dp_12"
                     android:paddingEnd="@dimen/dp_12"
                     android:text="@string/text_start"
-                    android:textSize="@dimen/font_size_small"
                     android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_small"
                     app:layout_constraintBottom_toBottomOf="@+id/pedo_view"
                     app:layout_constraintEnd_toEndOf="@+id/face"
                     app:layout_constraintStart_toStartOf="@+id/face"
@@ -222,12 +243,12 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="@dimen/dp_12"
                     android:paddingEnd="@dimen/dp_12"
-                    android:textSize="@dimen/font_size_small"
                     android:text="@string/text_start"
                     android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_small"
                     app:layout_constraintBottom_toBottomOf="@+id/speedo_view"
-                    app:layout_constraintEnd_toEndOf="@+id/face1"
-                    app:layout_constraintStart_toStartOf="@+id/face1"
+                    app:layout_constraintEnd_toEndOf="@+id/speedo_img"
+                    app:layout_constraintStart_toStartOf="@+id/speedo_img"
                     app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
                 <View

@@ -8,10 +8,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.*
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.dev.bytes.adsmanager.ADUnitPlacements
-import com.dev.bytes.adsmanager.TinyDB
 import com.dev.bytes.adsmanager.TinyDB.Companion.getInstance
 import com.dev.bytes.adsmanager.billing.purchaseRemoveAds
 import com.dev.bytes.adsmanager.loadNativeAd
@@ -44,13 +44,7 @@ class MainActivity :
             hideItem()
         }
 
-        speedo_view_effect.setOnRippleCompleteListener {
-            speedo_view_effect.startAnimateRipple()
-        }
-        speedo_view_effect.startAnimateRipple()
-        speedo_view_effect.setOnClickListener {
-            openSpeedo(it)
-        }
+        speedo_img.postDelayed({ setSpeedoRippleEffect() }, 200)
 
         showRemoveAdsDialogue()
         AppUtils.animateProButton(this, premium_services)
@@ -80,6 +74,31 @@ class MainActivity :
                 }
         }
 
+    }
+
+    val xPivot : Float
+        get() = speedo_view?.pivotX ?: 0f
+    val yPivot : Float
+        get() = (speedo_img?.pivotY ?: 0f) + resources.getDimension(R.dimen.dp_12)
+
+    private fun setSpeedoRippleEffect() {
+
+        speedo_view_effect.setOnRippleCompleteListener {
+            speedo_view_effect.animateRipple(xPivot, yPivot)
+        }
+        speedo_view_effect.rippleColor = R.color.white
+        speedo_view_effect.zoomScale = 2.0f
+        speedo_view_effect.animateRipple(xPivot, yPivot)
+
+        speedo_view_effect2.setOnRippleCompleteListener {
+            speedo_view_effect2.animateRipple(xPivot, yPivot)
+        }
+        speedo_view_effect2.rippleColor = R.color.white_tab
+        speedo_view_effect2.animateRipple(xPivot, yPivot)
+
+        speedo_view_effect2.setOnClickListener {
+            openSpeedo(it)
+        }
     }
 
     private fun showRemoveAdsDialogue() {
@@ -203,7 +222,6 @@ class MainActivity :
         dialog.setCancelable(false)
         return dialog
     }
-
 
 
 }

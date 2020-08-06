@@ -59,7 +59,7 @@
         <item name="android:textColor">@color/black_gray</item>
     </style>
 
-    <style name="TextAppearance.Primary.Big.SingleLine">
+    <style name="TextAppearance.Primary.Bigger.SingleLine">
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
     </style>
