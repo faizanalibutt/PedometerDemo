@@ -46,8 +46,6 @@ class SpeedoGraphActivity : Activity() {
         else
             AppUtils.animateProButton(this, premium_services)
 
-        loadNativeAd(ad_container_graph, R.layout.ad_unified_common, ADUnitPlacements.COMMON_NATIVE_AD, true)
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

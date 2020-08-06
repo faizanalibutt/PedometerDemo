@@ -3,6 +3,7 @@ package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragm
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
@@ -83,6 +84,7 @@ class ReportFragment : Fragment() {
         chart!!.legend.isEnabled = false
         chart!!.axisLeft.axisMinimum = 0f
         chart!!.axisRight.axisMinimum = 0f
+        chart?.setScaleEnabled(false)
 
         // add a nice and smooth animation
         chart!!.animateY(2000)
@@ -125,13 +127,19 @@ class ReportFragment : Fragment() {
             ADUnitPlacements.COMMON_NATIVE_AD, true
         )
         mView = view
+        view.step_graph.isChecked = true
+        chart?.visibility = View.INVISIBLE
+        getIntervalsDataWeekly(Database.getInstance(view.context), view, Graph.STEP)
     }
 
     override fun onResume() {
         super.onResume()
         mView.let {
             mView.step_graph.isChecked = true
-            getIntervalsDataWeekly(Database.getInstance(mView.context), mView, Graph.STEP)
+            Handler().postDelayed({
+                chart?.visibility = View.VISIBLE
+                getIntervalsDataWeekly(Database.getInstance(mView.context), mView, Graph.STEP)
+            }, 200)
         }
     }
 
@@ -284,7 +292,7 @@ class ReportFragment : Fragment() {
                         steps = step.second
 
                     total += steps
-                    values.add(BarEntry(index.toFloat(), steps.toFloat()))
+                    values.add(BarEntry(index.toFloat(), if (steps < 0) 0.0f else steps.toFloat()))
                     chartData(values, view, graphType)
                 }
                 else -> {
@@ -348,6 +356,7 @@ class ReportFragment : Fragment() {
                     dataSets.add(set1)
                     val data = BarData(dataSets)
                     chart!!.data = data
+                    chart!!.data.isHighlightEnabled = false
                     if (listCurrentWeekInterval.size > 6) {
                         data.barWidth = 0.1f
                         chart!!.setScaleMinima(
@@ -390,6 +399,7 @@ class ReportFragment : Fragment() {
                     dataSets.add(set1)
                     val data = BarData(dataSets)
                     chart!!.data = data
+                    chart!!.data.isHighlightEnabled = false
                     if (listCurrentWeekInterval.size > 6) {
                         data.barWidth = 0.1f
                         chart!!.setScaleMinima(
@@ -432,6 +442,7 @@ class ReportFragment : Fragment() {
                     dataSets.add(set1)
                     val data = BarData(dataSets)
                     chart!!.data = data
+                    chart!!.data.isHighlightEnabled = false
                     if (listCurrentWeekInterval.size > 6) {
                         data.barWidth = 0.1f
                         chart!!.setScaleMinima(

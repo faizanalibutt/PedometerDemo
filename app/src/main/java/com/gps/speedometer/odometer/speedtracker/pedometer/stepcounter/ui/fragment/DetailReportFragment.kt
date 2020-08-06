@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.RadioGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.dev.bytes.adsmanager.ADUnitPlacements
+import com.dev.bytes.adsmanager.loadNativeAd
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
@@ -35,6 +37,7 @@ class DetailReportFragment() : Fragment() {
     private var reportType = ""
     private var listCurrentDayInterval: MutableList<Distance> = ArrayList()
     private var listCurrentWeekInterval: MutableList<DistanceTotal> = ArrayList()
+    private var mView: View? = null
 
     private var chart: com.github.mikephil.charting.charts.BarChart? = null
 
@@ -79,6 +82,7 @@ class DetailReportFragment() : Fragment() {
                 chart!!.legend.isEnabled = false
                 chart!!.axisLeft.axisMinimum = 0f
                 chart!!.axisRight.axisMinimum = 0f
+                chart?.setScaleEnabled(false)
 
                 // add a nice and smooth animation
                 chart!!.animateY(2000)
@@ -139,6 +143,7 @@ class DetailReportFragment() : Fragment() {
                 chart!!.legend.isEnabled = false
                 chart!!.axisLeft.axisMinimum = 0f
                 chart!!.axisRight.axisMinimum = 0f
+                chart?.setScaleEnabled(false)
 
                 // add a nice and smooth animation
                 chart!!.animateY(2000)
@@ -220,6 +225,7 @@ class DetailReportFragment() : Fragment() {
                 view.average_value.text = if (averageValue == 0L) "00" else getDuration(
                     averageValue
                 )
+                chart!!.visibility = View.INVISIBLE
                 getIntervalsData(database, view, Graph.TIME)
             }
         }
@@ -227,6 +233,31 @@ class DetailReportFragment() : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.context.loadNativeAd(
+            ad_container_graph,
+            R.layout.ad_unified_common,
+            ADUnitPlacements.COMMON_NATIVE_AD, true
+        )
+        mView = view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mView.let {
+            when (reportType) {
+                "today" -> {
+                    chart!!.visibility = View.VISIBLE
+                    getIntervalsData(Database.getInstance(requireContext()), mView!!, Graph.TIME)
+                }
+                "week" -> {
+                    getIntervalsDataWeekly(Database.getInstance(requireContext()), mView!!, Graph.TIME)
+                }
+                else -> {}
+            }
+        }
+    }
 
     private fun getIntervalsData(database: Database, view: View, graphType: Graph) {
 
@@ -355,6 +386,7 @@ class DetailReportFragment() : Fragment() {
                     dataSets.add(set1)
                     val data = BarData(dataSets)
                     chart!!.data = data
+                    chart!!.data.isHighlightEnabled = false
                     if (listCurrentDayInterval.size > 6) {
                         data.barWidth = 0.1f
                         chart!!.setScaleMinima(
@@ -400,6 +432,7 @@ class DetailReportFragment() : Fragment() {
                     dataSets.add(set1)
                     val data = BarData(dataSets)
                     chart!!.data = data
+                    chart!!.data.isHighlightEnabled = false
                     if (listCurrentDayInterval.size > 6) {
                         data.barWidth = 0.1f
                         chart!!.setScaleMinima(
@@ -446,6 +479,7 @@ class DetailReportFragment() : Fragment() {
                     dataSets.add(set1)
                     val data = BarData(dataSets)
                     chart!!.data = data
+                    chart!!.data.isHighlightEnabled = false
                     if (listCurrentDayInterval.size > 6) {
                         data.barWidth = 0.1f
                         chart!!.setScaleMinima(
@@ -637,6 +671,7 @@ class DetailReportFragment() : Fragment() {
                     dataSets.add(set1)
                     val data = BarData(dataSets)
                     chart!!.data = data
+                    chart!!.data.isHighlightEnabled = false
                     if (listCurrentWeekInterval.size > 6) {
                         data.barWidth = 0.1f
                         chart!!.setScaleMinima(
@@ -679,6 +714,7 @@ class DetailReportFragment() : Fragment() {
                     dataSets.add(set1)
                     val data = BarData(dataSets)
                     chart!!.data = data
+                    chart!!.data.isHighlightEnabled = false
                     if (listCurrentWeekInterval.size > 6) {
                         data.barWidth = 0.1f
                         chart!!.setScaleMinima(
@@ -722,6 +758,7 @@ class DetailReportFragment() : Fragment() {
                     dataSets.add(set1)
                     val data = BarData(dataSets)
                     chart!!.data = data
+                    chart!!.data.isHighlightEnabled = false
                     if (listCurrentWeekInterval.size > 6) {
                         data.barWidth = 0.1f
                         chart!!.setScaleMinima(
