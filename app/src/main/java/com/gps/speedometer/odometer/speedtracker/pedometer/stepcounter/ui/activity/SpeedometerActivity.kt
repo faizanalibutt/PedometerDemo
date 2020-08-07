@@ -255,7 +255,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
         when (unitType) {
             "km" -> {
-                speed = (it.speed * 18) / 5.toDouble()
+                speed = (it.speed * 3600 ) / 1000.toDouble()
             }
             "mph" -> {
                 speed = it.speed * 2.2369

@@ -136,7 +136,7 @@ class AnalogFragment() : Fragment() {
 
         when (unitMain) {
             "km" -> {
-                mView.speedometer_view.progress = AppUtils.roundTwoDecimal((it.speed * 18) / 5.toDouble()).toInt()
+                mView.speedometer_view.progress = AppUtils.roundTwoDecimal((it.speed * 3600 ) / 1000.toDouble()).toInt()
             }
 
             "mph" -> {
@@ -193,7 +193,7 @@ class AnalogFragment() : Fragment() {
                     }
                     "mph" -> {
 
-                        mView.speedometer_view.max = 90
+                        mView.speedometer_view.max = 150
                         mView.digi_type_txt.text = "mph"
 
                         view.speedometer_view_img.setImageResource(

@@ -113,6 +113,7 @@ class DetailReportFragment() : Fragment() {
                 }
 
                 view.time_graph.isChecked = true
+                chart!!.visibility = View.INVISIBLE
                 getIntervalsDataWeekly(database, view, Graph.TIME)
 
             }
@@ -248,10 +249,15 @@ class DetailReportFragment() : Fragment() {
         mView.let {
             when (reportType) {
                 "today" -> {
+                    mView!!.time_graph.isChecked = true
                     chart!!.visibility = View.VISIBLE
+                    chart!!.clear()
                     getIntervalsData(Database.getInstance(requireContext()), mView!!, Graph.TIME)
                 }
                 "week" -> {
+                    mView!!.time_graph.isChecked = true
+                    chart!!.visibility = View.VISIBLE
+                    chart!!.clear()
                     getIntervalsDataWeekly(Database.getInstance(requireContext()), mView!!, Graph.TIME)
                 }
                 else -> {}

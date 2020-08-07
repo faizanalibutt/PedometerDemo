@@ -93,7 +93,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
         location = it
         it.let {
             val sydney = LatLng(it!!.latitude, it.longitude)
-            val cameraPosition = CameraPosition.Builder().target(sydney).zoom(13f).build()
+            val cameraPosition = CameraPosition.Builder().target(sydney).zoom(15f).build()
             mMap?.animateCamera(
                 CameraUpdateFactory.newCameraPosition(
                     cameraPosition
@@ -105,7 +105,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
 
             "km" -> {
                 mView.digi_speed_txt.max = 240
-                mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal((location!!.speed * 18) / 5.toDouble()).toInt()
+                mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal((location!!.speed * 3600 ) / 1000.toDouble()).toInt()
                 mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
             }
 
