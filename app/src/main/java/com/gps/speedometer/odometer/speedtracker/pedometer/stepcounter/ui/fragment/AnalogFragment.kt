@@ -133,6 +133,7 @@ class AnalogFragment() : Fragment() {
     private fun getSpeed(it: Location) {
 
         AppUtils.unit = unitMain
+        AppUtils.type = vehicle
 
         when (unitMain) {
             "km" -> {
@@ -203,7 +204,7 @@ class AnalogFragment() : Fragment() {
                     }
                     "knot" -> {
 
-                        mView.speedometer_view.max = 63
+                        mView.speedometer_view.max = 128
                         mView.digi_type_txt.text = "knot"
 
                         view.speedometer_view_img.setImageResource(
@@ -267,7 +268,7 @@ class AnalogFragment() : Fragment() {
                     }
                     "mph" -> {
 
-                        mView.speedometer_view.max = 180
+                        mView.speedometer_view.max = 220
                         mView.digi_type_txt.text = "mph"
 
                         view.speedometer_view_img.setImageResource(
@@ -277,7 +278,7 @@ class AnalogFragment() : Fragment() {
                     }
                     "knot" -> {
 
-                        mView.speedometer_view.max = 90
+                        mView.speedometer_view.max = 200
                         mView.digi_type_txt.text = "knot"
 
                         view.speedometer_view_img.setImageResource(

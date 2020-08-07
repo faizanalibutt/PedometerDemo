@@ -318,6 +318,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
         currentLocation?.removeFusedLocationClient()
         handler?.removeCallbacks(updateTimerThread!!)
         AppUtils.unit = "km"
+        AppUtils.type = "cycle"
     }
 
     override fun onBackPressed() {

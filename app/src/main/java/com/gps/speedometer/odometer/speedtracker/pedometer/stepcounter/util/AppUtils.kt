@@ -14,6 +14,7 @@ import kotlin.math.roundToInt
 object AppUtils {
 
     var unit = "km"
+    var type = "cycle"
 
     fun getDefaultPreferences(activity: AppCompatActivity): SharedPreferences {
         return activity.getSharedPreferences("pedo", MODE_PRIVATE)

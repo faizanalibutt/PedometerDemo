@@ -101,26 +101,76 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
             )
         }
 
-        when (AppUtils.unit) {
+        when (AppUtils.type) {
+            "car" -> {
+                when (AppUtils.unit) {
 
-            "km" -> {
-                mView.digi_speed_txt.max = 240
-                mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal((location!!.speed * 3600 ) / 1000.toDouble()).toInt()
-                mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
+                    "km" -> {
+                        mView.digi_speed_txt.max = 240
+                        mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal((location!!.speed * 3600 ) / 1000.toDouble()).toInt()
+                        mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
+                    }
+
+                    "mph" -> {
+                        mView.digi_speed_txt.max = 150
+                        mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 2.2369))).toInt()
+                        mView.digi_type_txt.text = resources.getString(R.string.mph_c)
+                    }
+
+                    "knot" -> {
+                        mView.digi_speed_txt.max = 128
+                        mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 1.94384))).toInt()
+                        mView.digi_type_txt.text = resources.getString(R.string.knot_c)
+                    }
+
+                }
             }
+            "cycle" -> {
+                when (AppUtils.unit) {
 
-            "mph" -> {
-                mView.digi_speed_txt.max = 90
-                mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 2.2369))).toInt()
-                mView.digi_type_txt.text = resources.getString(R.string.mph_c)
+                    "km" -> {
+                        mView.digi_speed_txt.max = 72
+                        mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal((location!!.speed * 3600 ) / 1000.toDouble()).toInt()
+                        mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
+                    }
+
+                    "mph" -> {
+                        mView.digi_speed_txt.max = 36
+                        mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 2.2369))).toInt()
+                        mView.digi_type_txt.text = resources.getString(R.string.mph_c)
+                    }
+
+                    "knot" -> {
+                        mView.digi_speed_txt.max = 27
+                        mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 1.94384))).toInt()
+                        mView.digi_type_txt.text = resources.getString(R.string.knot_c)
+                    }
+
+                }
             }
+            "train" -> {
+                when (AppUtils.unit) {
 
-            "knot" -> {
-                mView.digi_speed_txt.max = 63
-                mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 1.94384))).toInt()
-                mView.digi_type_txt.text = resources.getString(R.string.knot_c)
+                    "km" -> {
+                        mView.digi_speed_txt.max = 360
+                        mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal((location!!.speed * 3600 ) / 1000.toDouble()).toInt()
+                        mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
+                    }
+
+                    "mph" -> {
+                        mView.digi_speed_txt.max = 220
+                        mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 2.2369))).toInt()
+                        mView.digi_type_txt.text = resources.getString(R.string.mph_c)
+                    }
+
+                    "knot" -> {
+                        mView.digi_speed_txt.max = 200
+                        mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 1.94384))).toInt()
+                        mView.digi_type_txt.text = resources.getString(R.string.knot_c)
+                    }
+
+                }
             }
-
         }
     }
 

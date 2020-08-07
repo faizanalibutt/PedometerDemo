@@ -2,6 +2,7 @@ package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragm
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -92,21 +93,66 @@ class DetailReportFragment() : Fragment() {
                 chipGroup.setOnCheckedChangeListener { chip_group, i ->
                     when (chip_group.findViewById<MaterialRadioButton>(i)) {
                         time_graph -> {
-                            time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                            distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                            speed_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                            time_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.white
+                                )
+                            )
+                            distance_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.black
+                                )
+                            )
+                            speed_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.black
+                                )
+                            )
                             getIntervalsDataWeekly(database, view, Graph.TIME)
                         }
                         distance_graph -> {
-                            time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                            distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                            speed_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                            time_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.black
+                                )
+                            )
+                            distance_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.white
+                                )
+                            )
+                            speed_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.black
+                                )
+                            )
                             getIntervalsDataWeekly(database, view, Graph.DISTANCE)
                         }
                         speed_graph -> {
-                            time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                            distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                            speed_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                            time_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.black
+                                )
+                            )
+                            distance_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.black
+                                )
+                            )
+                            speed_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.white
+                                )
+                            )
                             getIntervalsDataWeekly(database, view, Graph.SPEED)
                         }
                     }
@@ -153,9 +199,24 @@ class DetailReportFragment() : Fragment() {
                 chipGroup.setOnCheckedChangeListener { chip_group, i ->
                     when (chip_group.findViewById<MaterialRadioButton>(i)) {
                         time_graph -> {
-                            time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                            distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                            speed_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                            time_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.white
+                                )
+                            )
+                            distance_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.black
+                                )
+                            )
+                            speed_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.black
+                                )
+                            )
 
                             getIntervalsData(database, view, Graph.TIME)
 
@@ -172,9 +233,24 @@ class DetailReportFragment() : Fragment() {
                         }
 
                         distance_graph -> {
-                            time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                            distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                            speed_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                            time_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.black
+                                )
+                            )
+                            distance_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.white
+                                )
+                            )
+                            speed_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.black
+                                )
+                            )
 
                             getIntervalsData(database, view, Graph.DISTANCE)
 
@@ -192,9 +268,24 @@ class DetailReportFragment() : Fragment() {
                         }
 
                         speed_graph -> {
-                            time_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                            distance_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                            speed_graph.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                            time_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.black
+                                )
+                            )
+                            distance_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.black
+                                )
+                            )
+                            speed_graph.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.white
+                                )
+                            )
 
                             getIntervalsData(database, view, Graph.SPEED)
 
@@ -246,23 +337,36 @@ class DetailReportFragment() : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
         mView.let {
-            when (reportType) {
-                "today" -> {
-                    mView!!.time_graph.isChecked = true
-                    chart!!.visibility = View.VISIBLE
-                    chart!!.clear()
-                    getIntervalsData(Database.getInstance(requireContext()), mView!!, Graph.TIME)
+            Handler().postDelayed({
+                when (reportType) {
+                    "today" -> {
+                        mView!!.time_graph.isChecked = true
+                        chart!!.visibility = View.VISIBLE
+                        chart!!.clear()
+                        getIntervalsData(
+                            Database.getInstance(requireContext()),
+                            mView!!,
+                            Graph.TIME
+                        )
+                    }
+                    "week" -> {
+                        mView!!.time_graph.isChecked = true
+                        chart!!.visibility = View.VISIBLE
+                        chart!!.clear()
+                        getIntervalsDataWeekly(
+                            Database.getInstance(requireContext()),
+                            mView!!,
+                            Graph.TIME
+                        )
+                    }
+                    else -> {
+                    }
                 }
-                "week" -> {
-                    mView!!.time_graph.isChecked = true
-                    chart!!.visibility = View.VISIBLE
-                    chart!!.clear()
-                    getIntervalsDataWeekly(Database.getInstance(requireContext()), mView!!, Graph.TIME)
-                }
-                else -> {}
-            }
+            }, 1000)
         }
+
     }
 
     private fun getIntervalsData(database: Database, view: View, graphType: Graph) {
@@ -308,8 +412,8 @@ class DetailReportFragment() : Fragment() {
                     )
                 chart!!.xAxis.valueFormatter = valueFormatter
                 chart!!.xAxis.labelCount = listCurrentDayInterval.size
-                chart!!.axisRight.axisMaximum = 10000f
-                chart!!.axisLeft.axisMaximum = 10000f
+                chart!!.axisRight.axisMaximum = 100000f
+                chart!!.axisLeft.axisMaximum = 100000f
                 chart!!.axisLeft.labelCount = listCurrentDayInterval.size
                 chart!!.axisRight.labelCount = listCurrentDayInterval.size
             }
@@ -322,8 +426,8 @@ class DetailReportFragment() : Fragment() {
                     )
                 chart!!.xAxis.valueFormatter = valueFormatter
                 chart!!.xAxis.labelCount = listCurrentDayInterval.size
-                chart!!.axisRight.axisMaximum = 8640f
-                chart!!.axisLeft.axisMaximum = 8640f
+                chart!!.axisRight.axisMaximum = 500f
+                chart!!.axisLeft.axisMaximum = 500f
                 chart!!.axisLeft.labelCount = listCurrentDayInterval.size
                 chart!!.axisRight.labelCount = listCurrentDayInterval.size
             }
@@ -546,10 +650,8 @@ class DetailReportFragment() : Fragment() {
                     )
                 chart!!.xAxis.valueFormatter = valueFormatter
                 chart!!.xAxis.labelCount = listCurrentWeekInterval.size
-                chart!!.axisRight.axisMaximum =
-                    Util.getRandom(10.toDouble().pow(5.toDouble()).toInt()).toFloat()
-                chart!!.axisLeft.axisMaximum =
-                    Util.getRandom(10.toDouble().pow(5.toDouble()).toInt()).toFloat()
+                chart!!.axisRight.axisMaximum = 86400000f
+                chart!!.axisLeft.axisMaximum = 86400000f
                 chart!!.axisLeft.labelCount = listCurrentWeekInterval.size
                 chart!!.axisRight.labelCount = listCurrentWeekInterval.size
             }
@@ -562,8 +664,8 @@ class DetailReportFragment() : Fragment() {
                     )
                 chart!!.xAxis.valueFormatter = valueFormatter
                 chart!!.xAxis.labelCount = listCurrentWeekInterval.size
-                chart!!.axisRight.axisMaximum = 10000f
-                chart!!.axisLeft.axisMaximum = 10000f
+                chart!!.axisRight.axisMaximum = 100000f
+                chart!!.axisLeft.axisMaximum = 100000f
                 chart!!.axisLeft.labelCount = listCurrentWeekInterval.size
                 chart!!.axisRight.labelCount = listCurrentWeekInterval.size
             }
@@ -576,8 +678,8 @@ class DetailReportFragment() : Fragment() {
                     )
                 chart!!.xAxis.valueFormatter = valueFormatter
                 chart!!.xAxis.labelCount = listCurrentWeekInterval.size
-                chart!!.axisRight.axisMaximum = 8640f
-                chart!!.axisLeft.axisMaximum = 8640f
+                chart!!.axisRight.axisMaximum = 500000f
+                chart!!.axisLeft.axisMaximum = 500000f
                 chart!!.axisLeft.labelCount = listCurrentWeekInterval.size
                 chart!!.axisRight.labelCount = listCurrentWeekInterval.size
             }

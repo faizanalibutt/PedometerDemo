@@ -139,6 +139,7 @@ class DigitalFragment() : Fragment() {
     private fun getSpeed(it: Location) {
 
         AppUtils.unit = unitMain
+        AppUtils.type = vehicle
 
         when (unitMain) {
 

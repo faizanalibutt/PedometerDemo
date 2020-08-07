@@ -139,7 +139,7 @@ class ReportFragment : Fragment() {
             Handler().postDelayed({
                 chart?.visibility = View.VISIBLE
                 getIntervalsDataWeekly(Database.getInstance(mView.context), mView, Graph.STEP)
-            }, 200)
+            }, 1000)
         }
     }
 
@@ -169,25 +169,25 @@ class ReportFragment : Fragment() {
             Graph.TIME -> {
                 chart!!.xAxis.labelCount = listCurrentWeekInterval.size
                 chart!!.axisRight.axisMaximum =
-                    Util.getRandom(10.toDouble().pow(3.toDouble()).toInt()).toFloat()
+                    Util.getRandom(10.toDouble().pow(5.toDouble()).toInt()).toFloat()
                 chart!!.axisLeft.axisMaximum =
-                    Util.getRandom(10.toDouble().pow(3.toDouble()).toInt()).toFloat()
+                    Util.getRandom(10.toDouble().pow(5.toDouble()).toInt()).toFloat()
                 chart!!.axisLeft.labelCount = listCurrentWeekInterval.size
                 chart!!.axisRight.labelCount = listCurrentWeekInterval.size
             }
 
             Graph.DISTANCE -> {
                 chart!!.xAxis.labelCount = listCurrentWeekInterval.size
-                chart!!.axisRight.axisMaximum = 10000f
-                chart!!.axisLeft.axisMaximum = 10000f
+                chart!!.axisRight.axisMaximum = 100000f
+                chart!!.axisLeft.axisMaximum = 100000f
                 chart!!.axisLeft.labelCount = listCurrentWeekInterval.size
                 chart!!.axisRight.labelCount = listCurrentWeekInterval.size
             }
 
             Graph.STEP -> {
                 chart!!.xAxis.labelCount = listCurrentWeekInterval.size
-                chart!!.axisRight.axisMaximum = 8640f
-                chart!!.axisLeft.axisMaximum = 8640f
+                chart!!.axisRight.axisMaximum = 10000f
+                chart!!.axisLeft.axisMaximum = 10000f
                 chart!!.axisLeft.labelCount = listCurrentWeekInterval.size
                 chart!!.axisRight.labelCount = listCurrentWeekInterval.size
             }
