@@ -19,8 +19,9 @@
 
     <ImageView
         android:id="@+id/cycle_view"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:padding="5dp"
         android:contentDescription="@string/text_speedo"
         android:tint="@color/text_color_chip_state"
         app:layout_constraintBottom_toBottomOf="@+id/vehicle_view"
@@ -31,8 +32,9 @@
 
     <ImageView
         android:id="@+id/car_view"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:padding="5dp"
         android:contentDescription="@string/text_speedo"
         app:layout_constraintBottom_toBottomOf="@+id/vehicle_view"
         app:layout_constraintEnd_toStartOf="@+id/v12"
@@ -42,8 +44,9 @@
 
     <ImageView
         android:id="@+id/train_view"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:padding="5dp"
         android:contentDescription="@string/text_speedo"
         app:layout_constraintBottom_toBottomOf="@+id/vehicle_view"
         app:layout_constraintEnd_toEndOf="@+id/vehicle_view"
@@ -54,7 +57,7 @@
     <View
         android:id="@+id/v11"
         android:layout_width="1dp"
-        android:layout_height="0dp"
+        android:layout_height="16dp"
         android:background="#36000000"
         app:layout_constraintBottom_toBottomOf="@+id/car_view"
         app:layout_constraintEnd_toStartOf="@+id/car_view"
@@ -64,7 +67,7 @@
     <View
         android:id="@+id/v12"
         android:layout_width="1dp"
-        android:layout_height="0dp"
+        android:layout_height="16dp"
         android:background="@color/color_pedo_view_units_bar"
         app:layout_constraintBottom_toBottomOf="@+id/car_view"
         app:layout_constraintEnd_toStartOf="@+id/train_view"

@@ -194,11 +194,11 @@ class AnalogFragment() : Fragment() {
                     }
                     "mph" -> {
 
-                        mView.speedometer_view.max = 150
+                        mView.speedometer_view.max = 160
                         mView.digi_type_txt.text = "mph"
 
                         view.speedometer_view_img.setImageResource(
-                            R.drawable.ic_car_mph
+                            R.drawable.ic_car_mph_01
                         )
 
                     }
