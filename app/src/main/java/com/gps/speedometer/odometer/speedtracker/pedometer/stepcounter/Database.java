@@ -525,7 +525,7 @@ public class Database extends SQLiteOpenHelper {
 
     public double getTodayAverageDistance(String date) {
         Cursor c = getReadableDatabase().query(
-                Database.TABLE_SPEED, new String[]{"MAX(distance)"},
+                Database.TABLE_SPEED, new String[]{"AVG(distance)"},
                 "speed_date = ?", new String[]{date}, null, null, null, null
         );
         c.moveToFirst();
@@ -537,7 +537,7 @@ public class Database extends SQLiteOpenHelper {
 
     public double getTodayAverageSpeed(String date) {
         Cursor c = getReadableDatabase().query(
-                Database.TABLE_SPEED, new String[]{"MAX(speed)"},
+                Database.TABLE_SPEED, new String[]{"AVG(speed)"},
                 "speed_date = ?", new String[]{date}, null, null, null, null
         );
         c.moveToFirst();

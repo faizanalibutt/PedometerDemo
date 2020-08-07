@@ -136,15 +136,15 @@ class AnalogFragment() : Fragment() {
 
         when (unitMain) {
             "km" -> {
-                mView.speedometer_view.progress = ((it.speed * 18) / 5).toInt()
+                mView.speedometer_view.progress = AppUtils.roundTwoDecimal((it.speed * 18) / 5.toDouble()).toInt()
             }
 
             "mph" -> {
-                mView.speedometer_view.progress = (it.speed * 2.2369).toInt()
+                mView.speedometer_view.progress = AppUtils.roundTwoDecimal(it.speed * 2.2369).toInt()
             }
 
             "knot" -> {
-                mView.speedometer_view.progress = (it.speed * 1.94384).toInt()
+                mView.speedometer_view.progress = AppUtils.roundTwoDecimal(it.speed * 1.94384).toInt()
             }
         }
     }

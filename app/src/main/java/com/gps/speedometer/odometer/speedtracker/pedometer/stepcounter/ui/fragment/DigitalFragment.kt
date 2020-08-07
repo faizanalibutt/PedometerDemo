@@ -143,7 +143,7 @@ class DigitalFragment() : Fragment() {
         when (unitMain) {
 
             "km" -> {
-                digi_speed_txt.text = AppUtils.roundTwoDecimal(((it.speed * 2.2369))).toString()
+                digi_speed_txt.text = AppUtils.roundTwoDecimal(((it.speed * 18) / 5).toDouble()).toString()
             }
 
             "mph" -> {

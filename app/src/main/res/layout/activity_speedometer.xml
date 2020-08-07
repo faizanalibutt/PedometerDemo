@@ -154,7 +154,7 @@
 
     <TextView
         android:id="@+id/distance_value"
-        style="@style/TextAppearance.Primary"
+        style="@style/TextAppearance.Primary.SingleLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_17"
@@ -198,7 +198,7 @@
 
     <TextView
         android:id="@+id/time_values"
-        style="@style/TextAppearance.Primary"
+        style="@style/TextAppearance.Primary.SingleLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_smaller_size"
@@ -245,7 +245,7 @@
 
     <TextView
         android:id="@+id/speed_value"
-        style="@style/TextAppearance.Primary"
+        style="@style/TextAppearance.Primary.SingleLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_20"

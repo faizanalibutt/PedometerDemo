@@ -183,7 +183,7 @@ class DetailReportFragment() : Fragment() {
                                 )
                             )} km"
                             view.average_value.text = "${AppUtils.roundTwoDecimal(
-                                database.getTodayTotalDistance(
+                                database.getTodayAverageDistance(
                                     getFormatDateTime(Util.getToday(), "date")
                                 )
                             )} km"
@@ -623,17 +623,17 @@ class DetailReportFragment() : Fragment() {
             Graph.TIME -> {
                 view.total_value.text = getDuration(total.toLong())
                 view.average_value.text =
-                    getDuration(average.toLong() / listCurrentWeekInterval.size)
+                    getDuration(total.toLong() / listCurrentWeekInterval.size)
             }
             Graph.DISTANCE -> {
                 view.total_value.text = "${AppUtils.roundTwoDecimal(total)} km"
                 view.average_value.text =
-                    "${AppUtils.roundTwoDecimal(average / listCurrentWeekInterval.size)} km"
+                    "${AppUtils.roundTwoDecimal(total / listCurrentWeekInterval.size)} km"
             }
             Graph.SPEED -> {
                 view.total_value.text = "${AppUtils.roundTwoDecimal(total)} km"
                 view.average_value.text =
-                    "${AppUtils.roundTwoDecimal(average / listCurrentWeekInterval.size)} km"
+                    "${AppUtils.roundTwoDecimal(total / listCurrentWeekInterval.size)} km"
             }
             else -> {
             }

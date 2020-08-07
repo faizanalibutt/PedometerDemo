@@ -181,7 +181,7 @@ class MainActivity :
         val shareSubText = this.resources.getString(R.string.great_app)
         // TODO: 7/24/2020 get app link ""DONE""
         val shareBodyText =
-            this.resources.getString(R.string.use_one) + "https://play.google.com/store/apps/developer?id=" + packageName
+            this.resources.getString(R.string.use_one) + " https://play.google.com/store/apps/developer?id=" + packageName
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubText)
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText)
         startActivity(
