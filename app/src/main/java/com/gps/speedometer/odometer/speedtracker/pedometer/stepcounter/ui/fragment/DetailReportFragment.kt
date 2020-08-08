@@ -218,18 +218,21 @@ class DetailReportFragment() : Fragment() {
                                 )
                             )
 
-                            getIntervalsData(database, view, Graph.TIME)
+                            val totalValue = database.getTodayTotalTime(
+                                getFormatDateTime(Util.getToday(), "date")
+                            )
+                            val averageValue = database.getTodayAverageTime(
+                                getFormatDateTime(Util.getToday(), "date")
+                            )
 
-                            view.total_value.text = getDuration(
-                                database.getTodayTotalTime(
-                                    getFormatDateTime(Util.getToday(), "date")
-                                )
+                            view.total_value.text = if (totalValue <= 999L) "00" else getDuration(
+                                totalValue
                             )
-                            view.average_value.text = getDuration(
-                                database.getTodayAverageTime(
-                                    getFormatDateTime(Util.getToday(), "date")
-                                )
+                            view.average_value.text = if (averageValue <= 999L) "00" else getDuration(
+                                averageValue
                             )
+
+                            getIntervalsData(database, view, Graph.TIME)
                         }
 
                         distance_graph -> {
@@ -311,10 +314,10 @@ class DetailReportFragment() : Fragment() {
                     getFormatDateTime(Util.getToday(), "date")
                 )
                 view.time_graph.isChecked = true
-                view.total_value.text = if (totalValue == 0L) "00" else getDuration(
+                view.total_value.text = if (totalValue <= 999L) "00" else getDuration(
                     totalValue
                 )
-                view.average_value.text = if (averageValue == 0L) "00" else getDuration(
+                view.average_value.text = if (averageValue <= 999L) "00" else getDuration(
                     averageValue
                 )
                 chart!!.visibility = View.INVISIBLE
@@ -729,9 +732,10 @@ class DetailReportFragment() : Fragment() {
 
         when (graphType) {
             Graph.TIME -> {
-                view.total_value.text = getDuration(total.toLong())
+                view.total_value.text = if (total.toLong() <= 999L) "00" else getDuration(total.toLong())
                 view.average_value.text =
-                    getDuration(total.toLong() / listCurrentWeekInterval.size)
+                    if (total.toLong() / listCurrentWeekInterval.size <= 999L)
+                        "00" else getDuration(total.toLong() / listCurrentWeekInterval.size)
             }
             Graph.DISTANCE -> {
                 view.total_value.text = "${AppUtils.roundTwoDecimal(total)} km"

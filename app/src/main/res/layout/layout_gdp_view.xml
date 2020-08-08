@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toTopOf="@+id/appname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_title_app_icon_update" />
+        app:srcCompat="@drawable/ic_title_new_blue_01e2" />
 
     <TextView
         android:id="@+id/appname"
