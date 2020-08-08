@@ -34,6 +34,16 @@ object AppUtils {
         }
     }
 
+    fun roundOneDecimal(d: Double): Double {
+        return try {
+            (d * 10.0).roundToInt() / 10.0
+        } catch (e: Exception) {
+            0.0
+        } catch (e: IllegalArgumentException) {
+            0.0
+        }
+    }
+
     fun animateProButton(activity: Activity, imagePro: ImageView) {
         val animation_zoom_enter =
             AnimationUtils.loadAnimation(activity, R.anim.pro_btn_animation)

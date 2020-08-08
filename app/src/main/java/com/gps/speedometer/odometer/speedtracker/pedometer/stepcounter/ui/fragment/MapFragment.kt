@@ -109,18 +109,21 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
                         mView.digi_speed_txt.max = 240
                         mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal((location!!.speed * 3600 ) / 1000.toDouble()).toInt()
                         mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
+                        mView.digi_type_txt_value.text = "${AppUtils.roundOneDecimal((location!!.speed * 3600 ) / 1000.toDouble())}"
                     }
 
                     "mph" -> {
                         mView.digi_speed_txt.max = 150
                         mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 2.2369))).toInt()
                         mView.digi_type_txt.text = resources.getString(R.string.mph_c)
+                        mView.digi_type_txt_value.text = "${AppUtils.roundOneDecimal(location!!.speed * 2.2369)}"
                     }
 
                     "knot" -> {
                         mView.digi_speed_txt.max = 128
-                        mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 1.94384))).toInt()
+                        mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(location!!.speed * 1.94384).toInt()
                         mView.digi_type_txt.text = resources.getString(R.string.knot_c)
+                        mView.digi_type_txt_value.text = "${AppUtils.roundOneDecimal(location!!.speed * 1.94384)}"
                     }
 
                 }
@@ -132,18 +135,21 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
                         mView.digi_speed_txt.max = 72
                         mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal((location!!.speed * 3600 ) / 1000.toDouble()).toInt()
                         mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
+                        mView.digi_type_txt_value.text = "${AppUtils.roundOneDecimal((location!!.speed * 3600 ) / 1000.toDouble())}"
                     }
 
                     "mph" -> {
                         mView.digi_speed_txt.max = 36
-                        mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 2.2369))).toInt()
+                        mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(location!!.speed * 2.2369).toInt()
                         mView.digi_type_txt.text = resources.getString(R.string.mph_c)
+                        mView.digi_type_txt_value.text = "${AppUtils.roundOneDecimal(location!!.speed * 2.2369)}"
                     }
 
                     "knot" -> {
                         mView.digi_speed_txt.max = 27
                         mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 1.94384))).toInt()
                         mView.digi_type_txt.text = resources.getString(R.string.knot_c)
+                        mView.digi_type_txt_value.text = "${AppUtils.roundOneDecimal(location!!.speed * 1.94384)}"
                     }
 
                 }
@@ -155,18 +161,21 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
                         mView.digi_speed_txt.max = 360
                         mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal((location!!.speed * 3600 ) / 1000.toDouble()).toInt()
                         mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
+                        mView.digi_type_txt_value.text = "${AppUtils.roundOneDecimal((location!!.speed * 3600 ) / 1000.toDouble())}"
                     }
 
                     "mph" -> {
                         mView.digi_speed_txt.max = 220
                         mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 2.2369))).toInt()
                         mView.digi_type_txt.text = resources.getString(R.string.mph_c)
+                        mView.digi_type_txt_value.text = "${AppUtils.roundOneDecimal(location!!.speed * 2.2369)}"
                     }
 
                     "knot" -> {
                         mView.digi_speed_txt.max = 200
                         mView.digi_speed_txt.progress = AppUtils.roundTwoDecimal(((location!!.speed * 1.94384))).toInt()
                         mView.digi_type_txt.text = resources.getString(R.string.knot_c)
+                        mView.digi_type_txt_value.text = "${AppUtils.roundOneDecimal(location!!.speed * 1.94384)}"
                     }
 
                 }

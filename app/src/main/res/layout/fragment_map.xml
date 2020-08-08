@@ -27,28 +27,16 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/digi_type_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/KMH"
-        android:textSize="12sp"
-        app:layout_constraintVertical_bias="0.8"
-        app:layout_constraintBottom_toBottomOf="@+id/digi_speed_txt"
-        app:layout_constraintEnd_toEndOf="@+id/digi_speed_txt"
-        app:layout_constraintStart_toStartOf="@+id/digi_speed_txt"
-        app:layout_constraintTop_toTopOf="@+id/digi_speed_txt" />
-
     <com.github.lzyzsd.circleprogress.ArcProgress
         android:id="@+id/digi_speed_txt"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
         app:arc_bottom_text="@null"
         app:arc_finished_color="@color/colorPrimary"
         app:arc_progress="0"
-        app:arc_text_size="28sp"
-        app:arc_angle="270"
-        app:arc_suffix_text_size="1sp"
+        app:arc_text_size="0sp"
+        app:arc_angle="255"
+        app:arc_suffix_text_size="0sp"
         app:arc_text_color="@color/black_dark"
         app:arc_unfinished_color="@color/gray"
         app:layout_constraintBottom_toBottomOf="@+id/view2"
@@ -60,18 +48,42 @@
         android:id="@+id/btn_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:text="START"
         android:textColor="@color/colorPrimary"
-        android:textSize="11sp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_marginBottom="10dp"
         android:visibility="visible"
-        android:fontFamily="@font/roboto_medium"
-        app:layout_constraintTop_toBottomOf="@+id/digi_type_txt"
+        app:layout_constraintVertical_bias="0.45"
         app:layout_constraintBottom_toBottomOf="@+id/view2"
+        app:layout_constraintEnd_toEndOf="@+id/view2"
         app:layout_constraintStart_toStartOf="@+id/view2"
-        app:layout_constraintEnd_toEndOf="@+id/view2" />
+        app:layout_constraintTop_toTopOf="@+id/view2" />
+
+    <TextView
+        android:id="@+id/digi_type_txt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="km/h"
+        android:textAlignment="center"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="@+id/digi_speed_txt"
+        app:layout_constraintEnd_toEndOf="@+id/digi_type_txt_value"
+        app:layout_constraintStart_toStartOf="@+id/digi_type_txt_value" />
+
+    <TextView
+        android:id="@+id/digi_type_txt_value"
+        style="@style/TextAppearance.Primary.SingleLine"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="500.1"
+        android:textAlignment="center"
+        android:fontFamily="@font/roboto_medium"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/digi_type_txt"
+        app:layout_constraintEnd_toEndOf="@+id/btn_state"
+        app:layout_constraintStart_toStartOf="@+id/btn_state" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline"
