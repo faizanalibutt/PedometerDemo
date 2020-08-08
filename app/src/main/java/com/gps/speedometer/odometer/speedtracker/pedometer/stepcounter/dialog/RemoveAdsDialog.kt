@@ -33,6 +33,7 @@ class RemoveAdsDialog(private var ctx: Context) : Dialog(ctx) {
         @JvmStatic
         fun show(ctx: Activity) = RemoveAdsDialog(ctx).apply {
             show()
+            setCancelable(false)
             val window = window
             if (window != null) {
                 val display: Display = ctx.windowManager.defaultDisplay

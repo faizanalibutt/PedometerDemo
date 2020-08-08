@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.*
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.dev.bytes.adsmanager.ADUnitPlacements
@@ -168,11 +167,13 @@ class MainActivity :
     }
 
     override fun onBackPressed() {
-        if (dialog == null || menuClicked) {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START)
+        else if (dialog == null || menuClicked) {
             menuClicked = false
             dialog = showRateExitDialogue(this@MainActivity, false)
-        }
-        dialog?.show()
+        } else
+            dialog?.show()
     }
 
     private fun shareIntent() {
@@ -181,7 +182,7 @@ class MainActivity :
         val shareSubText = this.resources.getString(R.string.great_app)
         // TODO: 7/24/2020 get app link ""DONE""
         val shareBodyText =
-            this.resources.getString(R.string.use_one) + " https://play.google.com/store/apps/developer?id=" + packageName
+            this.resources.getString(R.string.share_desc) + " https://play.google.com/store/apps/developer?id=" + packageName
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubText)
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText)
         startActivity(

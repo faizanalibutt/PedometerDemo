@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Pedometer</string>
+    <string name="app_name">GPS Speedometer</string>
     <string name="goal">Мэта</string>
     <string name="step_size">Даўжыня кроку</string>
     <string name="about">Звесткі</string>

@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toTopOf="@+id/appname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/img_icon_splash" />
+        app:srcCompat="@drawable/ic_title_app_icon_update" />
 
     <TextView
         android:id="@+id/appname"

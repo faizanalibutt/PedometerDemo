@@ -176,7 +176,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap
-
+        googleMap?.uiSettings?.isScrollGesturesEnabled = false
         val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
         val rationale = "Please provide location permission..."
         val options = Permissions.Options().setRationaleDialogTitle("Info")
@@ -193,6 +193,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
                     @SuppressLint("MissingPermission")
                     override fun onGranted() {
                         mMap?.isMyLocationEnabled = true
+                        mMap?.uiSettings?.isScrollGesturesEnabled = false
                     }
                 }
             )

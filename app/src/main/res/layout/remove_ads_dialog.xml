@@ -59,7 +59,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:text="Step Counter is supported by ads but now you can remove them!"
+        android:text="GPS Speedometer is supported by ads but now you can remove this!"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

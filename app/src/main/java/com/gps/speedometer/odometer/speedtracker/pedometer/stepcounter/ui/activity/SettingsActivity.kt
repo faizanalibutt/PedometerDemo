@@ -13,7 +13,6 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.SensorListener
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
-import kotlinx.android.synthetic.main.activity_pedometer.*
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.activity_settings.nav_back
 import kotlinx.android.synthetic.main.activity_settings.premium_services
@@ -85,7 +84,7 @@ class SettingsActivity : Activity(), View.OnClickListener {
         shareIntent.type = "text/plain"
         val shareSubText = this.resources.getString(R.string.great_app)
         // TODO: 7/24/2020 get app link ""DONE""
-        val shareBodyText = this.resources.getString(R.string.use_one) + " https://play.google.com/store/apps/developer?id=" + packageName
+        val shareBodyText = this.resources.getString(R.string.share_desc) + " https://play.google.com/store/apps/developer?id=" + packageName
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubText)
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText)
         startActivity(Intent.createChooser(shareIntent, this.resources.getString(R.string.share_with)))

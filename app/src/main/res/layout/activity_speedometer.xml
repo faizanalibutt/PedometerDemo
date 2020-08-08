@@ -136,7 +136,7 @@
         android:layout_width="80dp"
         android:layout_height="100dp"
         android:layout_marginTop="@dimen/margin_standard_size"
-        app:layout_constraintBottom_toTopOf="@+id/ad_container_speedo"
+        app:layout_constraintBottom_toTopOf="@+id/ad_container_speedo_map"
         app:layout_constraintEnd_toStartOf="@+id/v2"
         app:layout_constraintStart_toEndOf="@+id/v1"
         app:layout_constraintTop_toBottomOf="@+id/start_btn"
@@ -288,16 +288,23 @@
         app:layout_constraintTop_toBottomOf="@+id/icon1" />
 
     <FrameLayout
-        android:id="@+id/ad_container_speedo"
+        android:id="@+id/ad_container_speedo_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_smaller_size"
-        android:layout_marginVertical="@dimen/margin_standard_size"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/distance_view" />
+        app:layout_constraintTop_toBottomOf="@+id/distance_view">
+        <FrameLayout
+            android:id="@+id/ad_container_speedo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_smaller_size"
+            android:layout_marginEnd="@dimen/margin_smaller_size"
+            android:layout_marginTop="@dimen/margin_standard_size"
+            android:layout_marginBottom="@dimen/margin_standard_size"
+            android:visibility="gone" />
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline"

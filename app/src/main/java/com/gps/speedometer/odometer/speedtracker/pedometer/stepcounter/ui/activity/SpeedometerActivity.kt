@@ -122,15 +122,19 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
                     0 -> {
                         start_btn_group.visibility = View.VISIBLE
                         actionBarText.text = getString(R.string.analog_meter)
+                        ad_container_speedo_map.visibility = View.VISIBLE
                     }
                     1 -> {
                         start_btn_group.visibility = View.VISIBLE
                         actionBarText.text = getString(R.string.digital_meter)
+                        ad_container_speedo_map.visibility = View.VISIBLE
                     }
-                    else -> {
+                    2 -> {
                         start_btn_group.visibility = View.GONE
                         actionBarText.text = getString(R.string.text_map)
+                        ad_container_speedo_map.visibility = View.GONE
                     }
+                    else -> {}
                 }
             }
 
