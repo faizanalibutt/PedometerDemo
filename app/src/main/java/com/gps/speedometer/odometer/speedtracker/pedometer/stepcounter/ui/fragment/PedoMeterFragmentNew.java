@@ -245,15 +245,14 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
                             public void onDismiss(final DialogInterface dialogInterface) {
                                 requireActivity().finish();
                             }
-                        }).setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        }).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
                     }
                 }).create().show();
-            } else {
+            } else
                 sm.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI, 0);
-            }
         } else {
             try {
                 SensorManager sm =
