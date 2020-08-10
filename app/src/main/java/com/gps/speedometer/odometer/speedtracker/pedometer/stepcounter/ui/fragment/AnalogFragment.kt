@@ -75,6 +75,8 @@ class AnalogFragment() : Fragment() {
             showPopup(mView)
         }
 
+        view.speedometer_view.progress = 0
+
         return view
     }
 

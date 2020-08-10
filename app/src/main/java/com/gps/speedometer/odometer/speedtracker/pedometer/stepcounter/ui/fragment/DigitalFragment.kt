@@ -18,11 +18,13 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.callback.Callback
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Speedo
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
+import kotlinx.android.synthetic.main.fragment_analog.view.*
 import kotlinx.android.synthetic.main.fragment_digital.*
 import kotlinx.android.synthetic.main.fragment_digital.units_text
 import kotlinx.android.synthetic.main.fragment_digital.view.*
 import kotlinx.android.synthetic.main.fragment_digital.view.car_view
 import kotlinx.android.synthetic.main.fragment_digital.view.cycle_view
+import kotlinx.android.synthetic.main.fragment_digital.view.digi_type_txt
 import kotlinx.android.synthetic.main.fragment_digital.view.popup_units
 import kotlinx.android.synthetic.main.fragment_digital.view.train_view
 
@@ -73,6 +75,8 @@ class DigitalFragment() : Fragment() {
         view.popup_units.setOnClickListener {
             showPopup(mView)
         }
+
+        view.digi_speed_txt.text = "00"
 
         return view
     }

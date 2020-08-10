@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabView" />
 
-    <androidx.viewpager.widget.ViewPager
+    <com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.SmartViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

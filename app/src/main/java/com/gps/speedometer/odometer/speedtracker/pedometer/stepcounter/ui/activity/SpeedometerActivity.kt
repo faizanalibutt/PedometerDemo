@@ -7,6 +7,7 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
@@ -334,7 +335,40 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (!(App.bp!!.handleActivityResult(requestCode, resultCode, intent)))
+        if (requestCode == CurrentLocation.REQUEST_LOCATION) {
+            if (resultCode == android.app.Activity.RESULT_OK) {
+
+                currentLocation?.getLocation(this@SpeedometerActivity)
+
+            } else if (resultCode == android.app.Activity.RESULT_CANCELED) {
+                Toast.makeText(
+                    this, "Please enable Gps to get current location.", Toast.LENGTH_SHORT
+                ).show()
+                val btnText = getString(R.string.text_start_now)
+                start_btn_txt.text = btnText
+                mViewModel?.startStopBtnState?.postValue(btnText)
+
+                start_btn.background = ContextCompat.getDrawable(
+                    this,
+                    R.drawable.background_start_btn
+                )
+
+                handler?.removeCallbacks(updateTimerThread)
+                currentLocation?.removeFusedLocationClient()
+                Callback.getMeterValue1().removeObservers(this)
+                Callback.getLocationData().removeObservers(this)
+                isStop = true
+                totalTime = 0
+                endTime = 0
+                paused = false
+                mCurrentLocation = null
+                lStart = null
+                lEnd = null
+                distance = 0.0
+                maxSpeed = 0.0
+                avgSpeed = 0.0
+            }
+        } else if (!(App.bp!!.handleActivityResult(requestCode, resultCode, intent)))
             super.onActivityResult(requestCode, resultCode, data)
     }
 

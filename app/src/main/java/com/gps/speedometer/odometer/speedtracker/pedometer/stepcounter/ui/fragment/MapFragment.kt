@@ -62,6 +62,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        view.digi_type_txt_value.text = "0.0"
         activity?.let { act ->
             mViewModel = ViewModelProviders.of(act).get(SpeedViewModel::class.java)
 
@@ -75,6 +76,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
             })
             (act as? SpeedometerActivity)?.let { view.view2.setOnClickListener(it::startStopBtn) }
         }
+
     }
 
     private fun defaultSettings(view: View) {

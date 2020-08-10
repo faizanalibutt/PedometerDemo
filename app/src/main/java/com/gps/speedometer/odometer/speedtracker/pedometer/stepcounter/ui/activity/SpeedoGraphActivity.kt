@@ -3,20 +3,15 @@ package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activ
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import com.dev.bytes.adsmanager.ADUnitPlacements
 import com.dev.bytes.adsmanager.TinyDB
 import com.dev.bytes.adsmanager.billing.purchaseRemoveAds
-import com.dev.bytes.adsmanager.loadNativeAd
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.ViewPagerAdapter
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.DetailReportFragment
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
-import kotlinx.android.synthetic.main.activity_pedometer.*
 import kotlinx.android.synthetic.main.activity_pedometer.nav_back
 import kotlinx.android.synthetic.main.activity_pedometer.tabView
-import kotlinx.android.synthetic.main.activity_pedometer.viewPager
 import kotlinx.android.synthetic.main.activity_speedo_graph.*
 import kotlinx.android.synthetic.main.activity_speedo_graph.premium_services
 
@@ -30,6 +25,8 @@ class SpeedoGraphActivity : Activity() {
         adapter.addFragment(DetailReportFragment("today"), "TODAY")
         adapter.addFragment(DetailReportFragment("week"), "LAST WEEk")
         viewPager.adapter = adapter
+        viewPager.disableScroll(true)
+        viewPager.invalidate()
         tabView.setupWithViewPager(viewPager)
 
         nav_back.setOnClickListener {
