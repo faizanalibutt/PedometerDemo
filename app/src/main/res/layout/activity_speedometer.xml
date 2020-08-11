@@ -106,7 +106,7 @@
         android:id="@+id/start_btn"
         android:layout_width="130dp"
         android:layout_height="@dimen/dp_40"
-        android:layout_marginTop="@dimen/margin_standard_size"
+        android:layout_marginTop="5dp"
         android:background="@drawable/background_start_btn"
         app:layout_constraintBottom_toTopOf="@+id/distance_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +138,7 @@
         android:id="@+id/distance_view"
         android:layout_width="80dp"
         android:layout_height="100dp"
-        android:layout_marginTop="@dimen/margin_standard_size"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toTopOf="@+id/ad_container_speedo_map"
         app:layout_constraintEnd_toStartOf="@+id/v2"
         app:layout_constraintStart_toEndOf="@+id/v1"
@@ -226,8 +226,7 @@
     <View
         android:id="@+id/speed_view"
         android:layout_width="80dp"
-        android:layout_height="100dp"
-
+        android:layout_height="0dp"
         android:layout_marginEnd="@dimen/margin_smaller_size"
         app:layout_constraintBottom_toBottomOf="@+id/distance_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -304,9 +303,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_smaller_size"
-            android:layout_marginTop="@dimen/margin_standard_size"
             android:layout_marginEnd="@dimen/margin_smaller_size"
-            android:layout_marginBottom="@dimen/dp_2"
             android:visibility="gone" />
     </FrameLayout>
 
@@ -322,6 +319,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
+        app:layout_constraintGuide_percent="0.60" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

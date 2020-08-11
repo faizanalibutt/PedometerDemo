@@ -132,15 +132,14 @@
         android:id="@+id/speedometer_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginBottom="35dp"
-        app:arc_angle="255"
+        app:arc_angle="260"
         app:arc_bottom_text="@null"
         app:arc_finished_color="@color/colorPrimary"
         app:arc_progress="0"
         app:arc_suffix_text_size="0sp"
         app:arc_text_color="@color/black_dark"
         app:arc_text_size="42sp"
+        android:layout_margin="60dp"
         app:arc_unfinished_color="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
         app:layout_constraintDimensionRatio="V, 1:1"
@@ -154,12 +153,12 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/KMH"
-        android:textSize="13sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/speedometer_view_img"
         app:layout_constraintEnd_toEndOf="@+id/speedometer_view_img"
         app:layout_constraintStart_toStartOf="@+id/speedometer_view_img"
         app:layout_constraintTop_toTopOf="@+id/speedometer_view_img"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintVertical_bias=".65" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline"

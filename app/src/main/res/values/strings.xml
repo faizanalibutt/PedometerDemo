@@ -54,7 +54,7 @@
     <string name="no_split_active">No split counter active. Click start to count the steps from now on</string>
     <string name="split_count">Split count</string>
     <string name="no_sensor">Sensor not found</string>
-    <string name="no_sensor_explain">This app requires a dedicated hardware step sensor - which your device does not have. This app won\'t run on your device.</string>
+    <string name="no_sensor_explain">This app requires a dedicated hardware step sensor - which your device does not have. This feature won\'t run on your device.</string>
     <string name="permission_external_storage">No permission to access external storage</string>
     <string name="notification_settings">Notification settings</string>
     <string name="text_miles">Mile</string>

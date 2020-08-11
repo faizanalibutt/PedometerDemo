@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import com.dev.bytes.adsmanager.ADUnitPlacements
+import com.dev.bytes.adsmanager.TinyDB
 import com.dev.bytes.adsmanager.loadInterstitialAd
 import com.dev.bytes.adsmanager.loadNativeAd
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
@@ -98,16 +99,22 @@ class SplashActivity : AppCompatActivity() {
         )
 
         val isOnline = NetworkUtils.isOnline(this@SplashActivity)
-        val stuckLimit: Long = if (isOnline) 8000 else 3000
+        val stuckLimit: Long = if (isOnline && !(TinyDB.getInstance(this).getBoolean
+                (getString(com.dev.bytes.R.string.is_premium)))
+        ) 8000 else 3000
         var skip = 8
         Thread {
-            for ((progress, _) in (1..if (isOnline) 8 else 3).withIndex()) {
+            for ((progress, _) in (1..if (isOnline && !(TinyDB.getInstance(this).getBoolean
+                    (getString(com.dev.bytes.R.string.is_premium)))
+            ) 8 else 3).withIndex()) {
                 try {
                     Thread.sleep(1000)
                 } catch (e: Exception) {
                 }
                 runOnUiThread {
-                    progressBar.max = if (isOnline) 8 else 3
+                    progressBar.max = if (isOnline && !(TinyDB.getInstance(this).getBoolean
+                            (getString(com.dev.bytes.R.string.is_premium)))
+                    ) 8 else 3
                     progressBar.progress = progress + 1
                     skip -= 1
                     skipText.text = String.format("Skip $skip")
@@ -115,10 +122,7 @@ class SplashActivity : AppCompatActivity() {
             }
         }.start()
 
-        if (isOnline)
-            showMain(stuckLimit)
-        else
-            showMain(stuckLimit)
+        showMain(stuckLimit)
     }
 
     private fun showMain(stuckLimit: Long) {
