@@ -148,15 +148,15 @@ class DigitalFragment() : Fragment() {
         when (unitMain) {
 
             "km" -> {
-                digi_speed_txt.text = AppUtils.roundTwoDecimal(((it.speed * 3600 ) / 1000).toDouble()).toString()
+                digi_speed_txt.text = AppUtils.roundOneDecimal(((it.speed * 3600 ) / 1000).toDouble()).toString()
             }
 
             "mph" -> {
-                digi_speed_txt.text = AppUtils.roundTwoDecimal(((it.speed * 2.2369))).toString()
+                digi_speed_txt.text = AppUtils.roundOneDecimal(((it.speed * 2.2369))).toString()
             }
 
             "knot" -> {
-                digi_speed_txt.text = AppUtils.roundTwoDecimal(((it.speed * 1.94384))).toString()
+                digi_speed_txt.text = AppUtils.roundOneDecimal(((it.speed * 1.94384))).toString()
             }
 
         }

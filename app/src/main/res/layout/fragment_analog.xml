@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,8 +9,8 @@
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginStart="@dimen/margin_xmedium_size"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/margin_xmedium_size"
-        android:layout_marginTop="25dp"
         android:background="@drawable/background_vehicle_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,8 +20,8 @@
         android:id="@+id/cycle_view"
         android:layout_width="28dp"
         android:layout_height="28dp"
-        android:padding="5dp"
         android:contentDescription="@string/text_speedo"
+        android:padding="5dp"
         android:tint="@color/text_color_chip_state"
         app:layout_constraintBottom_toBottomOf="@+id/vehicle_view"
         app:layout_constraintEnd_toStartOf="@+id/v11"
@@ -34,8 +33,8 @@
         android:id="@+id/car_view"
         android:layout_width="28dp"
         android:layout_height="28dp"
-        android:padding="5dp"
         android:contentDescription="@string/text_speedo"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/vehicle_view"
         app:layout_constraintEnd_toStartOf="@+id/v12"
         app:layout_constraintStart_toEndOf="@+id/v11"
@@ -46,8 +45,8 @@
         android:id="@+id/train_view"
         android:layout_width="28dp"
         android:layout_height="28dp"
-        android:padding="5dp"
         android:contentDescription="@string/text_speedo"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/vehicle_view"
         app:layout_constraintEnd_toEndOf="@+id/vehicle_view"
         app:layout_constraintStart_toEndOf="@+id/v12"
@@ -106,38 +105,48 @@
         app:layout_constraintStart_toStartOf="@+id/popup_units"
         app:layout_constraintTop_toTopOf="@id/popup_units" />
 
-    <ImageView
+    <View
+        android:id="@+id/tempView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
+        app:layout_constraintDimensionRatio="V, 1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vehicle_view" />
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/speedometer_view_img"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"
-        android:visibility="visible"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vehicle_view"
+        app:layout_constraintBottom_toBottomOf="@+id/tempView"
+        app:layout_constraintEnd_toEndOf="@+id/tempView"
+        app:layout_constraintStart_toStartOf="@+id/tempView"
+        app:layout_constraintTop_toTopOf="@+id/tempView"
         app:srcCompat="@drawable/ic_car_kmph" />
 
     <com.github.lzyzsd.circleprogress.ArcProgress
         android:id="@+id/speedometer_view"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:visibility="visible"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="35dp"
         app:arc_angle="255"
         app:arc_bottom_text="@null"
         app:arc_finished_color="@color/colorPrimary"
         app:arc_progress="0"
-        app:arc_suffix_text_size="1sp"
+        app:arc_suffix_text_size="0sp"
         app:arc_text_color="@color/black_dark"
         app:arc_text_size="42sp"
         app:arc_unfinished_color="@color/gray"
-        app:layout_constraintBottom_toBottomOf="@+id/speedometer_view_img"
-        app:layout_constraintEnd_toEndOf="@+id/speedometer_view_img"
-        app:layout_constraintStart_toStartOf="@+id/speedometer_view_img"
-        app:layout_constraintTop_toTopOf="@+id/speedometer_view_img" />
+        app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
+        app:layout_constraintDimensionRatio="V, 1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vehicle_view" />
 
     <TextView
         android:id="@+id/digi_type_txt"
@@ -150,14 +159,14 @@
         app:layout_constraintEnd_toEndOf="@+id/speedometer_view_img"
         app:layout_constraintStart_toStartOf="@+id/speedometer_view_img"
         app:layout_constraintTop_toTopOf="@+id/speedometer_view_img"
-        app:layout_constraintVertical_bias="0.65" />
+        app:layout_constraintVertical_bias="0.68" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.16" />
+        app:layout_constraintGuide_percent="0.20" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/bottom_guideline"

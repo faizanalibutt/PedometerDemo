@@ -1,10 +1,16 @@
 package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.dev.bytes.adsmanager.BannerPlacements
 import com.dev.bytes.adsmanager.TinyDB
 import com.dev.bytes.adsmanager.billing.purchaseRemoveAds
@@ -14,8 +20,6 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.SensorLis
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
 import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_settings.nav_back
-import kotlinx.android.synthetic.main.activity_settings.premium_services
 
 class SettingsActivity : Activity(), View.OnClickListener {
 
@@ -27,15 +31,22 @@ class SettingsActivity : Activity(), View.OnClickListener {
           finish()
         }
 
-        auto_count_switch.isChecked = AppUtils.getDefaultPreferences(this).getString("pedo_state", null) == "stop"
+        if (isStepSensorAvailable(false))
+            auto_count_switch.isChecked = AppUtils.getDefaultPreferences(
+                this
+            ).getString("pedo_state", null) == "stop"
 
         auto_count_switch.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                AppUtils.getDefaultPreferences(this).edit().putString("pedo_state", "stop").apply()
-                startService(Intent(this, SensorListener::class.java))
-            } else {
-                AppUtils.getDefaultPreferences(this).edit().putString("pedo_state", "resume").apply()
-                stopService(Intent(this, SensorListener::class.java))
+            if (isStepSensorAvailable(true)) {
+                if (isChecked) {
+                    AppUtils.getDefaultPreferences(this).edit().putString("pedo_state", "stop")
+                        .apply()
+                    startService(Intent(this, SensorListener::class.java))
+                } else {
+                    AppUtils.getDefaultPreferences(this).edit().putString("pedo_state", "resume")
+                        .apply()
+                    stopService(Intent(this, SensorListener::class.java))
+                }
             }
         }
 
@@ -55,6 +66,24 @@ class SettingsActivity : Activity(), View.OnClickListener {
         } else
             AppUtils.animateProButton(this, premium_services)
 
+    }
+
+    private fun isStepSensorAvailable(check: Boolean): Boolean {
+        val sm = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        val sensor =
+            sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        return if (sensor == null) {
+            if (check)
+                AlertDialog.Builder(this).setTitle(R.string.no_sensor)
+                .setMessage(R.string.no_sensor_explain)
+                .setOnDismissListener { it.dismiss() }
+                .setPositiveButton(
+                    android.R.string.ok
+                ) { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }.create()
+                .show()
+            false
+        } else
+            true
     }
 
     override fun onClick(v: View?) {

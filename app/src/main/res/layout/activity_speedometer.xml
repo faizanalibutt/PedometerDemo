@@ -18,7 +18,7 @@
     <View
         android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="0dp"
         android:background="@drawable/background_pedo_app_bar"
         app:layout_constraintBottom_toTopOf="@+id/tabView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,13 +28,15 @@
     <TextView
         android:id="@+id/actionBarText"
         style="@style/TextAppearance.Primary.Big.Dialog"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_smaller_size"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/text_speedo"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/appBar"
+        app:layout_constraintEnd_toStartOf="@+id/speedo_graph"
         app:layout_constraintStart_toEndOf="@+id/nav_back"
         app:layout_constraintTop_toTopOf="@+id/appBar" />
 
@@ -42,9 +44,9 @@
         android:id="@+id/nav_back"
         android:layout_width="@dimen/dp_32"
         android:layout_height="@dimen/dp_32"
-        android:padding="@dimen/dp_8"
         android:layout_marginStart="@dimen/margin_smaller_size"
         android:contentDescription="@string/app_name"
+        android:padding="@dimen/dp_8"
         app:layout_constraintBottom_toBottomOf="@+id/actionBarText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/actionBarText"
@@ -54,7 +56,7 @@
         android:id="@+id/premium_services"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="@dimen/margin_small_size"
+        android:layout_marginEnd="@dimen/margin_smaller_size"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/actionBarText"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +67,7 @@
         android:id="@+id/speedo_graph"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginEnd="@dimen/margin_small_size"
+        android:layout_marginEnd="@dimen/margin_smaller_size"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/actionBarText"
         app:layout_constraintEnd_toStartOf="@+id/premium_services"
@@ -76,7 +78,8 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabView"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/top_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBar"
@@ -295,14 +298,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/distance_view">
+
         <FrameLayout
             android:id="@+id/ad_container_speedo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_smaller_size"
-            android:layout_marginEnd="@dimen/margin_smaller_size"
             android:layout_marginTop="@dimen/margin_standard_size"
-            android:layout_marginBottom="@dimen/margin_standard_size"
+            android:layout_marginEnd="@dimen/margin_smaller_size"
+            android:layout_marginBottom="@dimen/dp_2"
             android:visibility="gone" />
     </FrameLayout>
 
@@ -311,7 +315,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.16" />
+        app:layout_constraintGuide_percent="0.20" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/bottom_guideline"

@@ -193,6 +193,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        isStepSensorAvailable();
         FrameLayout ad_container = view.findViewById(R.id.ad_container_pedo);
         NativeAdsManagerKt.loadNativeAd(view.getContext(), ad_container,
                 R.layout.ad_unified_common,
@@ -261,6 +262,22 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
             } catch (Exception e) {
                 if (BuildConfig.DEBUG) Logger.log(e);
             }
+        }
+    }
+
+    private void isStepSensorAvailable() {
+        SensorManager sm = (SensorManager) requireContext().getSystemService(Context.SENSOR_SERVICE);
+        Sensor sensor = sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if (sensor == null) {
+            new AlertDialog.Builder(getActivity()).setTitle(R.string.no_sensor)
+                    .setMessage(R.string.no_sensor_explain)
+                    .setOnDismissListener(
+                            dialogInterface ->
+                                    requireActivity().finish()
+                    ).setPositiveButton(
+                            android.R.string.ok,
+                    (dialogInterface, i) -> dialogInterface.dismiss()
+            ).create().show();
         }
     }
 
@@ -363,7 +380,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         miles.setText("" + AppUtils.INSTANCE.roundTwoDecimal(distance_today));
         // TODO: 7/15/2020 increase step count to 150
         timeValue.setText(TimeUtils.INSTANCE.getDurationSpeedo(BuildConfig.DEBUG ?
-            (steps_today / 10) * 60000 : (steps_today / 150) * 60000));
+                (steps_today / 10) * 60000 : (steps_today / 150) * 60000));
     }
 
 }

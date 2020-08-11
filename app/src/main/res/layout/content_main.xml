@@ -22,12 +22,14 @@
         <TextView
             android:id="@+id/textView"
             style="@style/TextAppearance.Primary.Big.Dialog"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
             android:layout_marginStart="@dimen/margin_small_size"
             android:layout_marginTop="@dimen/margin_smaller_size"
             android:text="@string/main_bar_title"
             android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/premium_services"
             app:layout_constraintStart_toEndOf="@+id/nav_menu"
             app:layout_constraintTop_toTopOf="parent" />
 
