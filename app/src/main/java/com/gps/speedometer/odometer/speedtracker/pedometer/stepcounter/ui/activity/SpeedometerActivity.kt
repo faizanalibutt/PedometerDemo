@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.dev.bytes.adsmanager.*
@@ -32,7 +31,6 @@ import com.nabinbhandari.android.permissions.Permissions
 import kotlinx.android.synthetic.main.activity_pedometer.*
 import kotlinx.android.synthetic.main.activity_speedometer.*
 import kotlinx.android.synthetic.main.activity_speedometer.nav_back
-import kotlinx.android.synthetic.main.activity_speedometer.premium_services
 import kotlinx.android.synthetic.main.activity_speedometer.tabView
 import kotlinx.android.synthetic.main.activity_speedometer.viewPager
 import java.util.*
@@ -90,14 +88,14 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             onBackPressed()
         }
 
-        premium_services.setOnClickListener {
+        /*premium_services.setOnClickListener {
             App.bp?.purchaseRemoveAds(this)
         }
 
         if (TinyDB.getInstance(this).getBoolean(getString(com.dev.bytes.R.string.is_premium)))
             premium_services.visibility = View.GONE
         else
-            AppUtils.animateProButton(this, premium_services)
+            AppUtils.animateProButton(this, premium_services)*/
 
         speedo_graph.setOnClickListener {
             startActivity(Intent(this, SpeedoGraphActivity::class.java))
@@ -135,7 +133,8 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
                         actionBarText.text = getString(R.string.text_map)
                         ad_container_speedo_map.visibility = View.GONE
                     }
-                    else -> {}
+                    else -> {
+                    }
                 }
             }
 
@@ -260,7 +259,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
         when (unitType) {
             "km" -> {
-                speed = (it.speed * 3600 ) / 1000.toDouble()
+                speed = (it.speed * 3600) / 1000.toDouble()
             }
             "mph" -> {
                 speed = it.speed * 2.2369
@@ -335,6 +334,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CurrentLocation.REQUEST_LOCATION) {
             if (resultCode == android.app.Activity.RESULT_OK) {
 
@@ -368,8 +368,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
                 maxSpeed = 0.0
                 avgSpeed = 0.0
             }
-        } else if (!(App.bp!!.handleActivityResult(requestCode, resultCode, intent)))
-            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
 }

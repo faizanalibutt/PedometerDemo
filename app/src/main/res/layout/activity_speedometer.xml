@@ -52,7 +52,7 @@
         app:layout_constraintTop_toTopOf="@+id/actionBarText"
         app:srcCompat="@drawable/ic_back_white_icon" />
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/premium_services"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -61,18 +61,19 @@
         app:layout_constraintBottom_toBottomOf="@+id/actionBarText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/actionBarText"
-        app:srcCompat="@drawable/group_1" />
+        app:srcCompat="@drawable/ic_shape_704_copy" />-->
 
     <ImageView
         android:id="@+id/speedo_graph"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:padding="6dp"
         android:layout_marginEnd="@dimen/margin_smaller_size"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/actionBarText"
-        app:layout_constraintEnd_toStartOf="@+id/premium_services"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/actionBarText"
-        app:srcCompat="@drawable/ic_shape_704_copy" />
+        app:srcCompat="@drawable/ic_shape_704_copy"  />
 
 
     <com.google.android.material.tabs.TabLayout
