@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.dev.bytes.adsmanager.BannerPlacements
 import com.dev.bytes.adsmanager.TinyDB
 import com.dev.bytes.adsmanager.billing.purchaseRemoveAds
@@ -28,7 +27,7 @@ class SettingsActivity : Activity(), View.OnClickListener {
         setContentView(R.layout.activity_settings)
 
         nav_back.setOnClickListener {
-          finish()
+            finish()
         }
 
         if (isStepSensorAvailable(false))
@@ -59,8 +58,7 @@ class SettingsActivity : Activity(), View.OnClickListener {
 
         ad_container_settings.loadBannerAd(BannerPlacements.BANNER_AD)
 
-        if (TinyDB.getInstance(this).getBoolean(getString(com.dev.bytes.R.string.is_premium)))
-        {
+        if (TinyDB.getInstance(this).getBoolean(getString(com.dev.bytes.R.string.is_premium))) {
             premium_services.visibility = View.GONE
             premium_group.visibility = View.GONE
         } else
@@ -73,22 +71,28 @@ class SettingsActivity : Activity(), View.OnClickListener {
         val sensor =
             sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         return if (sensor == null) {
-            if (check)
+            if (check) {
                 AlertDialog.Builder(this).setTitle(R.string.no_sensor)
-                .setMessage(R.string.no_sensor_explain)
-                .setOnDismissListener { it.dismiss() }
-                .setPositiveButton(
-                    android.R.string.ok
-                ) { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }.create()
-                .show()
+                    .setMessage(R.string.no_sensor_explain)
+                    .setOnDismissListener { it.dismiss() }
+                    .setPositiveButton(
+                        android.R.string.ok
+                    ) { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
+                    .create()
+                    .show()
+                if (auto_count_switch.isChecked)
+                    auto_count_switch.isChecked = false
+                auto_count_switch.isEnabled = false
+            }
             false
         } else
             true
     }
 
     override fun onClick(v: View?) {
-        when(v?.id) {
-            R.id.change_language -> {}
+        when (v?.id) {
+            R.id.change_language -> {
+            }
             R.id.privacy_policy -> {
                 val url = getString(R.string.privacy_policy_link_text)
                 val builder = CustomTabsIntent.Builder()
@@ -113,10 +117,16 @@ class SettingsActivity : Activity(), View.OnClickListener {
         shareIntent.type = "text/plain"
         val shareSubText = this.resources.getString(R.string.great_app)
         // TODO: 7/24/2020 get app link ""DONE""
-        val shareBodyText = this.resources.getString(R.string.share_desc) + " https://play.google.com/store/apps/developer?id=" + packageName
+        val shareBodyText =
+            this.resources.getString(R.string.share_desc) + " https://play.google.com/store/apps/developer?id=" + packageName
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubText)
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText)
-        startActivity(Intent.createChooser(shareIntent, this.resources.getString(R.string.share_with)))
+        startActivity(
+            Intent.createChooser(
+                shareIntent,
+                this.resources.getString(R.string.share_with)
+            )
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

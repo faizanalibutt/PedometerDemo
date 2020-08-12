@@ -52,7 +52,17 @@ class DetailReportFragment() : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_report, container, false)
+        return inflater.inflate(R.layout.fragment_report, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.context.loadNativeAd(
+            ad_container_graph,
+            R.layout.ad_unified_common,
+            ADUnitPlacements.COMMON_NATIVE_AD, true
+        )
+        mView = view
         val database = Database.getInstance(view.context)
 
         when (reportType) {
@@ -95,19 +105,19 @@ class DetailReportFragment() : Fragment() {
                         time_graph -> {
                             time_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.white
                                 )
                             )
                             distance_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.black
                                 )
                             )
                             speed_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.black
                                 )
                             )
@@ -116,19 +126,19 @@ class DetailReportFragment() : Fragment() {
                         distance_graph -> {
                             time_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.black
                                 )
                             )
                             distance_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.white
                                 )
                             )
                             speed_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.black
                                 )
                             )
@@ -137,19 +147,19 @@ class DetailReportFragment() : Fragment() {
                         speed_graph -> {
                             time_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.black
                                 )
                             )
                             distance_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.black
                                 )
                             )
                             speed_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.white
                                 )
                             )
@@ -201,19 +211,19 @@ class DetailReportFragment() : Fragment() {
                         time_graph -> {
                             time_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.white
                                 )
                             )
                             distance_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.black
                                 )
                             )
                             speed_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.black
                                 )
                             )
@@ -238,19 +248,19 @@ class DetailReportFragment() : Fragment() {
                         distance_graph -> {
                             time_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.black
                                 )
                             )
                             distance_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.white
                                 )
                             )
                             speed_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.black
                                 )
                             )
@@ -273,19 +283,19 @@ class DetailReportFragment() : Fragment() {
                         speed_graph -> {
                             time_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.black
                                 )
                             )
                             distance_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.black
                                 )
                             )
                             speed_graph.setTextColor(
                                 ContextCompat.getColor(
-                                    requireContext(),
+                                    view.context,
                                     R.color.white
                                 )
                             )
@@ -324,18 +334,6 @@ class DetailReportFragment() : Fragment() {
                 getIntervalsData(database, view, Graph.TIME)
             }
         }
-
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        view.context.loadNativeAd(
-            ad_container_graph,
-            R.layout.ad_unified_common,
-            ADUnitPlacements.COMMON_NATIVE_AD, true
-        )
-        mView = view
     }
 
     override fun onResume() {
@@ -349,7 +347,7 @@ class DetailReportFragment() : Fragment() {
                         chart!!.visibility = View.VISIBLE
                         chart!!.clear()
                         getIntervalsData(
-                            Database.getInstance(requireContext()),
+                            Database.getInstance(mView?.context),
                             mView!!,
                             Graph.TIME
                         )
@@ -359,7 +357,7 @@ class DetailReportFragment() : Fragment() {
                         chart!!.visibility = View.VISIBLE
                         chart!!.clear()
                         getIntervalsDataWeekly(
-                            Database.getInstance(requireContext()),
+                            Database.getInstance(mView?.context),
                             mView!!,
                             Graph.TIME
                         )
