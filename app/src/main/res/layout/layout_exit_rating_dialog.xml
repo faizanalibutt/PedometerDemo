@@ -65,9 +65,7 @@
             android:id="@+id/ad_container_exit"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@+id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/dialogTitle" />
+            android:visibility="gone" />
 
     </LinearLayout>
 

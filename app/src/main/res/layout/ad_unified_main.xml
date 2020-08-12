@@ -9,33 +9,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="end"
-        android:visibility="gone"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/icon_container"
         android:layout_width="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/ad_media"
-        android:minHeight="70dp"
-        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_height="wrap_content"
+        android:minHeight="60dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/ad_call_to_action"
         app:layout_constraintEnd_toStartOf="@+id/ad_headline"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/ad_icon"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_margin="10dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="@null"
-        android:visibility="gone" />
+        app:layout_constraintTop_toBottomOf="@+id/media_group">
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/ad_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_centerInParent="true"
+            android:visibility="visible" />
+
+        <com.facebook.ads.MediaView
+            android:id="@+id/ad_icon_fb"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/ad_headline"
         android:layout_width="0dp"
@@ -43,19 +54,18 @@
         android:layout_marginHorizontal="10dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:paddingVertical="5dp"
         android:textColor="@android:color/black"
-        app:layout_goneMarginBottom="10dp"
         android:textSize="@dimen/headline_mm"
         app:layout_constraintBottom_toTopOf="@+id/ad_body"
         app:layout_constraintEnd_toStartOf="@+id/ad_attribution"
         app:layout_constraintStart_toEndOf="@+id/icon_container"
         app:layout_constraintTop_toTopOf="@+id/icon_container"
-        app:layout_constraintVertical_chainStyle="spread" />
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_goneMarginBottom="10dp" />
 
     <TextView
-        style="@style/AppTheme.AdAttribution"
         android:id="@+id/ad_attribution"
+        style="@style/AppTheme.AdAttribution"
         android:layout_marginEnd="@dimen/dp_10"
         android:text="@string/sponsored"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,28 +82,45 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/icon_container"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ad_headline"
-        app:layout_constraintStart_toStartOf="@id/ad_headline" />
+        app:layout_constraintStart_toStartOf="@id/ad_headline"
+        app:layout_constraintTop_toBottomOf="@+id/ad_headline" />
 
-    <com.google.android.gms.ads.formats.MediaView
-        android:id="@+id/ad_media"
+    <LinearLayout
+        android:id="@+id/media_group"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/dp_8"
+        android:layout_marginBottom="@dimen/dp_5"
+        android:orientation="vertical"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/icon_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.gms.ads.formats.MediaView
+            android:id="@+id/ad_media"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:visibility="gone" />
+
+        <com.facebook.ads.MediaView
+            android:id="@+id/ad_media_fb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:visibility="visible" />
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/ad_call_to_action"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_margin="16dp"
-        android:fontFamily="@font/roboto_medium"
         android:background="@drawable/ad_btn_bg"
         android:ellipsize="end"
+        android:fontFamily="@font/roboto_medium"
         android:lines="1"
         android:text="Install now"
         android:textAllCaps="true"

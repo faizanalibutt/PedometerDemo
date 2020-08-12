@@ -38,7 +38,7 @@
         app:layout_goneMarginEnd="90dp"
         app:layout_goneMarginStart="90dp" />
 
-    <com.facebook.ads.AdIconView
+    <com.facebook.ads.MediaView
         android:id="@+id/ad_icon_fb"
         android:layout_width="70dp"
         android:layout_height="70dp"
