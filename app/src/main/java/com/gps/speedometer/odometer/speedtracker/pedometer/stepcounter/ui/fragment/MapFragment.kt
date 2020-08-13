@@ -28,7 +28,10 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppU
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.NetworkUtils
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
+import kotlinx.android.synthetic.main.fragment_digital.view.*
 import kotlinx.android.synthetic.main.fragment_map.view.*
+import kotlinx.android.synthetic.main.fragment_map.view.digi_speed_txt
+import kotlinx.android.synthetic.main.fragment_map.view.digi_type_txt
 
 
 class MapFragment() : Fragment(), OnMapReadyCallback {
@@ -94,6 +97,8 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
             mView = view
         }
 
+        Callback.setDefaultSpeedo(true)
+
     }
 
     private fun defaultSettings(view: View) {
@@ -102,7 +107,17 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
             getSpeed(it)
         }
 
+        val defaultObserver = Observer<Boolean> {
+            if (it) {
+                mView.digi_speed_txt.max = 240
+                mView.digi_speed_txt.progress = 0
+                mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
+                mView.digi_type_txt_value.text = "0.0"
+            }
+        }
+
         Callback.getLocationData().observe(viewLifecycleOwner, speedObserver)
+        Callback.getDefaultSpeedoValues().observe(viewLifecycleOwner, defaultObserver)
 
     }
 

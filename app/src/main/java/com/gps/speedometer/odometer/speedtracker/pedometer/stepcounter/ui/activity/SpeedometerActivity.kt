@@ -19,6 +19,7 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.callback.Callback
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Distance
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Speedo
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.ViewPagerAdapter
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.AnalogFragment
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.DigitalFragment
@@ -39,6 +40,7 @@ import kotlin.math.max
 
 class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
+    private var avgSpeedInDB: Double = 0.0
     private var maxSpeedInDB: Double = 0.0
     private var distanceInDB: Double = 0.0
     private var isStartStopShown: Boolean = false
@@ -159,6 +161,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
             speed_value.text = "0"
             distance_value.text = "0"
+            Callback.setMeterValue1(Speedo("car", "km", "KM/H", ""))
 
             val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
             val rationale = "Please provide location permission..."
@@ -196,6 +199,9 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             val btnText = getString(R.string.text_start_now)
             start_btn_txt.text = btnText
             mViewModel?.startStopBtnState?.postValue(btnText)
+            speed_value.text = "0"
+            distance_value.text = "0"
+            time_values.text = "00:00"
 
             start_btn.background = ContextCompat.getDrawable(
                 this,
@@ -207,10 +213,8 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             val db = Database.getInstance(this)
             endTime = System.currentTimeMillis()
             val date = TimeUtils.getFormatDateTime(endTime, "date")
-            val distanceObj = Distance(startTime, endTime, maxSpeedInDB, distanceInDB, date, totalTime)
+            val distanceObj = Distance(startTime, endTime, avgSpeedInDB, distanceInDB, date, totalTime)
             db.saveInterval(distanceObj)
-            Callback.getMeterValue1().removeObservers(this)
-            Callback.getLocationData().removeObservers(this)
             isStop = true
             totalTime = 0
             endTime = 0
@@ -221,9 +225,12 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             distance = 0.0
             distanceInDB = 0.0
             maxSpeedInDB = 0.0
+            avgSpeedInDB = 0.0
             maxSpeed = 0.0
             avgSpeed = 0.0
             showStartStopInter()
+            Callback.setDefaultSpeedo(true)
+            Callback.setMeterValue1(Speedo("car", "km", "KM/H", ""))
         }
 
     }
@@ -277,6 +284,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
         val speedDB = (it.speed * 3600) / 1000.toDouble()
         maxSpeedInDB = max(speedDB, maxSpeedInDB)
+        avgSpeedInDB = speedDB + maxSpeedInDB / 2
 
         if (speed > maxSpeed) {
             maxSpeed = speed
@@ -334,13 +342,6 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             }
 
         }
-        // tried solutions
-        /*val distanceResults = FloatArray(1)
-                    Location.distanceBetween(
-                        lStart!!.latitude, lStart!!.longitude,
-                        lEnd!!.latitude, lEnd!!.longitude, distanceResults
-                    )
-                    distance = ( distanceResults[0] / 1000.0 )*/
 
     }
 

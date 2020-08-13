@@ -76,7 +76,7 @@ class DigitalFragment() : Fragment() {
             showPopup(mView)
         }
 
-        view.digi_speed_txt.text = "00"
+        Callback.setDefaultSpeedo(true)
 
         return view
     }
@@ -108,8 +108,15 @@ class DigitalFragment() : Fragment() {
             setValues(it, view)
         }
 
+        val defaultObserver = Observer<Boolean> {
+            if (it) {
+                view.digi_speed_txt.text = "00"
+            }
+        }
+
         Callback.getLocationData().observe(viewLifecycleOwner, speedObserver)
         Callback.getMeterValue1().observe(viewLifecycleOwner, meterObserver)
+        Callback.getDefaultSpeedoValues().observe(viewLifecycleOwner, defaultObserver)
 
     }
 

@@ -40,4 +40,15 @@ object Callback {
         return meterValue1
     }
 
+    @JvmField
+    var defaultSpeedoValues = MutableLiveData<Boolean>()
+
+    fun setDefaultSpeedo(default: Boolean) {
+        defaultSpeedoValues.value = default
+    }
+
+    fun getDefaultSpeedoValues(): LiveData<Boolean> {
+        return defaultSpeedoValues
+    }
+
 }

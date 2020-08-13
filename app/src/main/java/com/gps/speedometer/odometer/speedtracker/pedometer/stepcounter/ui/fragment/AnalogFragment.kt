@@ -19,11 +19,6 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Spe
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
 import kotlinx.android.synthetic.main.fragment_analog.*
 import kotlinx.android.synthetic.main.fragment_analog.view.*
-import kotlinx.android.synthetic.main.fragment_analog.view.car_view
-import kotlinx.android.synthetic.main.fragment_analog.view.cycle_view
-import kotlinx.android.synthetic.main.fragment_analog.view.digi_type_txt
-import kotlinx.android.synthetic.main.fragment_analog.view.popup_units
-import kotlinx.android.synthetic.main.fragment_analog.view.train_view
 
 class AnalogFragment() : Fragment() {
 
@@ -75,7 +70,7 @@ class AnalogFragment() : Fragment() {
             showPopup(mView)
         }
 
-        view.speedometer_view.progress = 0
+        Callback.setDefaultSpeedo(true)
 
         return view
     }
@@ -91,10 +86,6 @@ class AnalogFragment() : Fragment() {
     }
 
     private fun defaultSettings(view: View) {
-
-        mView.speedometer_view.max = 240
-        mView.speedometer_view.progress = 0
-        mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
 
         val speedObserver = Observer<Location> {
             getSpeed(it)
@@ -127,8 +118,21 @@ class AnalogFragment() : Fragment() {
             }
         }
 
+        val defaultObserver = Observer<Boolean> {
+            if (it) {
+                mView.speedometer_view.max = 240
+                mView.speedometer_view.progress = 0
+                mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
+            }
+        }
+
         Callback.getLocationData().observe(viewLifecycleOwner, speedObserver)
         Callback.getMeterValue1().observe(viewLifecycleOwner, meterObserver)
+        Callback.getDefaultSpeedoValues().observe(viewLifecycleOwner, defaultObserver)
+
+        mView.speedometer_view.max = 240
+        mView.speedometer_view.progress = 0
+        mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
 
     }
 
@@ -139,15 +143,18 @@ class AnalogFragment() : Fragment() {
 
         when (unitMain) {
             "km" -> {
-                mView.speedometer_view.progress = AppUtils.roundTwoDecimal((it.speed * 3600 ) / 1000.toDouble()).toInt()
+                mView.speedometer_view.progress =
+                    AppUtils.roundTwoDecimal((it.speed * 3600) / 1000.toDouble()).toInt()
             }
 
             "mph" -> {
-                mView.speedometer_view.progress = AppUtils.roundTwoDecimal(it.speed * 2.2369).toInt()
+                mView.speedometer_view.progress =
+                    AppUtils.roundTwoDecimal(it.speed * 2.2369).toInt()
             }
 
             "knot" -> {
-                mView.speedometer_view.progress = AppUtils.roundTwoDecimal(it.speed * 1.94384).toInt()
+                mView.speedometer_view.progress =
+                    AppUtils.roundTwoDecimal(it.speed * 1.94384).toInt()
             }
         }
     }
@@ -161,15 +168,36 @@ class AnalogFragment() : Fragment() {
             when (it.title.toString()) {
                 "KM/H" -> {
                     unitMain = "km"
-                    Callback.setMeterValue1(Speedo(vehicle, unitMain, resources.getString(R.string.km_h_c), ""))
+                    Callback.setMeterValue1(
+                        Speedo(
+                            vehicle,
+                            unitMain,
+                            resources.getString(R.string.km_h_c),
+                            ""
+                        )
+                    )
                 }
                 "MPH" -> {
                     unitMain = "mph"
-                    Callback.setMeterValue1(Speedo(vehicle, unitMain, resources.getString(R.string.mph_c), ""))
+                    Callback.setMeterValue1(
+                        Speedo(
+                            vehicle,
+                            unitMain,
+                            resources.getString(R.string.mph_c),
+                            ""
+                        )
+                    )
                 }
                 "KNOT" -> {
                     unitMain = "knot"
-                    Callback.setMeterValue1(Speedo(vehicle, unitMain, resources.getString(R.string.knot_c), ""))
+                    Callback.setMeterValue1(
+                        Speedo(
+                            vehicle,
+                            unitMain,
+                            resources.getString(R.string.knot_c),
+                            ""
+                        )
+                    )
                 }
             }
             return@setOnMenuItemClickListener true
