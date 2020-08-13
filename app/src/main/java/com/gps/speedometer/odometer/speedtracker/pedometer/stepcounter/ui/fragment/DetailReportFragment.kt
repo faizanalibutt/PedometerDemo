@@ -9,6 +9,10 @@ import android.view.ViewGroup
 import android.widget.RadioGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieComposition
+import com.airbnb.lottie.LottieDrawable
+import com.airbnb.lottie.OnCompositionLoadedListener
 import com.dev.bytes.adsmanager.ADUnitPlacements
 import com.dev.bytes.adsmanager.loadNativeAd
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
@@ -31,6 +35,7 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Util
 import kotlinx.android.synthetic.main.fragment_report.*
 import kotlinx.android.synthetic.main.fragment_report.view.*
 import kotlin.math.pow
+
 
 @SuppressLint("SetTextI18n")
 class DetailReportFragment() : Fragment() {
@@ -377,13 +382,8 @@ class DetailReportFragment() : Fragment() {
         )
 
         if (listCurrentDayInterval.size == 0) {
-            view.text_total.visibility = View.VISIBLE
-            view.text_average.visibility = View.VISIBLE
-            view.total_value.visibility = View.VISIBLE
-            view.average_value.visibility = View.VISIBLE
-            view.chipGroup.visibility = View.VISIBLE
-            chart!!.setNoDataText("No Data Found")
-            chart!!.setBackgroundColor(ContextCompat.getColor(view.context, R.color.white))
+            view.emptyData.visibility = View.VISIBLE
+            view.graphView.visibility = View.GONE
             return
         }
 
@@ -625,19 +625,9 @@ class DetailReportFragment() : Fragment() {
             getFormatDateTime(Util.getRandom(-6), "date")
         )
 
-//        if (listCurrentDayInterval.size < 7) {
-//            database.saveInterval(Distance(0, 0,
-//                0.toDouble(), 0.toDouble(), "", 0))
-//        }
-
         if (listCurrentWeekInterval.size == 0) {
-            view.text_total.visibility = View.VISIBLE
-            view.text_average.visibility = View.VISIBLE
-            view.total_value.visibility = View.VISIBLE
-            view.average_value.visibility = View.VISIBLE
-            view.chipGroup.visibility = View.VISIBLE
-            chart!!.setNoDataText("No Data Found")
-            chart!!.setBackgroundColor(ContextCompat.getColor(view.context, R.color.white))
+            view.emptyData.visibility = View.VISIBLE
+            view.graphView.visibility = View.GONE
             return
         }
 

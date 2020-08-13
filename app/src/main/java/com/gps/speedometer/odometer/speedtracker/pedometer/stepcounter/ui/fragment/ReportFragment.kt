@@ -148,13 +148,8 @@ class ReportFragment : Fragment() {
         listCurrentWeekInterval = database.getLastEntries(7)
 
         if (listCurrentWeekInterval.size == 0) {
-            view.text_total.visibility = View.VISIBLE
-            view.text_average.visibility = View.VISIBLE
-            view.total_value.visibility = View.VISIBLE
-            view.average_value.visibility = View.VISIBLE
-            view.chipGroup.visibility = View.VISIBLE
-            chart!!.setNoDataText("No Data Found")
-            chart!!.setBackgroundColor(ContextCompat.getColor(view.context, R.color.white))
+            view.emptyData.visibility = View.VISIBLE
+            view.graphView.visibility = View.GONE
             return
         }
 

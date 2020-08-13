@@ -122,7 +122,7 @@
     <string name="rate_us_title">Rate us</string>
     <string name="dialog_title">Do you want to Exit?</string>
     <string name="avg_speed_graph">Avg Speed</string>
-    <string name="no_data_found">No Data Found</string>
+    <string name="no_data_found">No Data Found!</string>
     <string name="text_stop">STOP</string>
     <string name="text_start_now">START</string>
     <string name="title_activity_maps">Map</string>
