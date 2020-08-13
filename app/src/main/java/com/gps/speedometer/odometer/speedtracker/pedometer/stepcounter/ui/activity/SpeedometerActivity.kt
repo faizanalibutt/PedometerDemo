@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.dev.bytes.adsmanager.*
 import com.dev.bytes.adsmanager.billing.purchaseRemoveAds
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.tabs.TabLayout
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.Database
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
@@ -34,9 +35,12 @@ import kotlinx.android.synthetic.main.activity_speedometer.nav_back
 import kotlinx.android.synthetic.main.activity_speedometer.tabView
 import kotlinx.android.synthetic.main.activity_speedometer.viewPager
 import java.util.*
+import kotlin.math.max
 
 class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
+    private var maxSpeedInDB: Double = 0.0
+    private var distanceInDB: Double = 0.0
     private var isStartStopShown: Boolean = false
     private var speed: Double = 0.0
     private var handler: Handler? = null
@@ -203,7 +207,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             val db = Database.getInstance(this)
             endTime = System.currentTimeMillis()
             val date = TimeUtils.getFormatDateTime(endTime, "date")
-            val distanceObj = Distance(startTime, endTime, maxSpeed, distance, date, totalTime)
+            val distanceObj = Distance(startTime, endTime, maxSpeedInDB, distanceInDB, date, totalTime)
             db.saveInterval(distanceObj)
             Callback.getMeterValue1().removeObservers(this)
             Callback.getLocationData().removeObservers(this)
@@ -215,6 +219,8 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             lStart = null
             lEnd = null
             distance = 0.0
+            distanceInDB = 0.0
+            maxSpeedInDB = 0.0
             maxSpeed = 0.0
             avgSpeed = 0.0
             showStartStopInter()
@@ -269,6 +275,9 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             }
         }
 
+        val speedDB = (it.speed * 3600) / 1000.toDouble()
+        maxSpeedInDB = max(speedDB, maxSpeedInDB)
+
         if (speed > maxSpeed) {
             maxSpeed = speed
         }
@@ -277,9 +286,18 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
         if (lStart == null) {
             lStart = mCurrentLocation
+            lStart?.latitude = mCurrentLocation!!.latitude
+            lStart?.longitude = mCurrentLocation!!.longitude
             lEnd = mCurrentLocation
+            lEnd?.latitude = mCurrentLocation!!.latitude
+            lEnd?.longitude = mCurrentLocation!!.longitude
         } else {
+            lStart = lEnd
+            lStart?.latitude = lEnd!!.latitude
+            lStart?.longitude = lEnd!!.longitude
             lEnd = mCurrentLocation
+            lEnd?.latitude = mCurrentLocation!!.latitude
+            lEnd?.longitude = mCurrentLocation!!.longitude
         }
 
         updateUi()
@@ -290,23 +308,25 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
         if (lStart != null && lEnd != null) {
 
+            distanceInDB += ( lStart!!.distanceTo(lEnd).toDouble() / 1000.0 )
+
             when (unitType) {
 
                 "km" -> {
-                    distance = lStart!!.distanceTo(lEnd).toDouble() / 1000
-                    avgSpeed = maxSpeed / 2
+                    distance += ( lStart!!.distanceTo(lEnd).toDouble() / 1000.0 )
+                    avgSpeed = (speed + maxSpeed) / 2
                     speed_value.text = "${AppUtils.roundTwoDecimal(avgSpeed)} km"
                     distance_value.text = "${AppUtils.roundTwoDecimal(distance)} km"
                 }
                 "mph" -> {
-                    distance = lStart!!.distanceTo(lEnd).toDouble() / 1609.34
-                    avgSpeed = maxSpeed / 2
+                    distance += ( lStart!!.distanceTo(lEnd).toDouble() / 1609.34 )
+                    avgSpeed = (speed + maxSpeed) / 2
                     speed_value.text = "${AppUtils.roundTwoDecimal(avgSpeed)} mph"
                     distance_value.text = "${AppUtils.roundTwoDecimal(distance)} mph"
                 }
                 "knot" -> {
-                    distance = lStart!!.distanceTo(lEnd).toDouble() / 1852
-                    avgSpeed = maxSpeed / 2
+                    distance += ( lStart!!.distanceTo(lEnd).toDouble() / 1852 )
+                    avgSpeed = (speed + maxSpeed) / 2
                     speed_value.text = "${AppUtils.roundTwoDecimal(avgSpeed)} knot"
                     distance_value.text = "${AppUtils.roundTwoDecimal(distance)} knot"
                 }
@@ -314,6 +334,13 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             }
 
         }
+        // tried solutions
+        /*val distanceResults = FloatArray(1)
+                    Location.distanceBetween(
+                        lStart!!.latitude, lStart!!.longitude,
+                        lEnd!!.latitude, lEnd!!.longitude, distanceResults
+                    )
+                    distance = ( distanceResults[0] / 1000.0 )*/
 
     }
 
