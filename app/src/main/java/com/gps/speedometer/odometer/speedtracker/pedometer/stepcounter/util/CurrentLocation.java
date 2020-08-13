@@ -112,6 +112,10 @@ public class CurrentLocation {
 
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        /*if (NetworkUtils.isOnline(context))
+            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        else
+            locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);*/
         locationRequest.setInterval(1000);
         locationRequest.setFastestInterval(500);
 
