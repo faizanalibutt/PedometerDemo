@@ -14,8 +14,8 @@
             android:layout_height="150dp"
             android:background="@drawable/background_app_bar"
             app:layout_constraintBottom_toTopOf="@+id/card_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.26" />
 
@@ -25,22 +25,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:layout_marginStart="@dimen/margin_small_size"
+            android:gravity="left"
+            android:layout_marginLeft="@dimen/margin_small_size"
             android:layout_marginTop="@dimen/margin_smaller_size"
             android:text="@string/main_bar_title"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@+id/premium_services"
-            app:layout_constraintStart_toEndOf="@+id/nav_menu"
+            app:layout_constraintRight_toLeftOf="@+id/premium_services"
+            app:layout_constraintLeft_toRightOf="@+id/nav_menu"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/nav_menu"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginStart="@dimen/margin_small_size"
+            android:layout_marginLeft="@dimen/margin_small_size"
             android:contentDescription="@string/app_name"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView"
             app:srcCompat="@drawable/menu" />
 
@@ -48,10 +49,10 @@
             android:id="@+id/premium_services"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="@dimen/margin_small_size"
+            android:layout_marginRight="@dimen/margin_small_size"
             android:contentDescription="@string/app_name"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView"
             app:srcCompat="@drawable/group_1" />
 
@@ -60,14 +61,14 @@
             android:layout_width="0dp"
             android:layout_height="290dp"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginLeft="@dimen/dp_12"
             android:layout_marginTop="75dp"
-            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_marginRight="@dimen/dp_12"
             app:cardCornerRadius="16dp"
             app:cardElevation="@dimen/dp_2"
             app:cardUseCompatPadding="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -84,8 +85,8 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:onClick="openSpeedo"
                     app:layout_constraintBottom_toBottomOf="@+id/ver_line"
-                    app:layout_constraintEnd_toStartOf="@+id/ver_line"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/ver_line"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.SpeedoRippleEffect
@@ -93,8 +94,8 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="@+id/speedo_view"
-                    app:layout_constraintEnd_toEndOf="@+id/speedo_view"
-                    app:layout_constraintStart_toStartOf="@+id/speedo_view"
+                    app:layout_constraintRight_toRightOf="@+id/speedo_view"
+                    app:layout_constraintLeft_toLeftOf="@+id/speedo_view"
                     app:layout_constraintTop_toTopOf="@+id/speedo_view" />
 
                 <com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.SpeedoRippleEffect
@@ -102,8 +103,8 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="@+id/speedo_view"
-                    app:layout_constraintEnd_toEndOf="@+id/speedo_view"
-                    app:layout_constraintStart_toStartOf="@+id/speedo_view"
+                    app:layout_constraintRight_toRightOf="@+id/speedo_view"
+                    app:layout_constraintLeft_toLeftOf="@+id/speedo_view"
                     app:layout_constraintTop_toTopOf="@+id/speedo_view" />
 
                 <ImageView
@@ -112,8 +113,8 @@
                     android:layout_height="@dimen/dp_54"
                     android:layout_marginTop="@dimen/dp_12"
                     android:contentDescription="@string/app_name"
-                    app:layout_constraintEnd_toEndOf="@+id/speedo_view"
-                    app:layout_constraintStart_toStartOf="@+id/speedo_view"
+                    app:layout_constraintRight_toRightOf="@+id/speedo_view"
+                    app:layout_constraintLeft_toLeftOf="@+id/speedo_view"
                     app:layout_constraintTop_toTopOf="@+id/speedo_view"
                     app:layout_constraintBottom_toTopOf="@+id/textView31"
                     app:srcCompat="@drawable/group_236" />
@@ -124,8 +125,8 @@
                     app:layout_constrainedWidth="false"
                     app:layout_constrainedHeight="false"
                     android:contentDescription="@string/app_name"
-                    app:layout_constraintEnd_toEndOf="@+id/speedo_img"
-                    app:layout_constraintStart_toStartOf="@+id/speedo_img"
+                    app:layout_constraintRight_toRightOf="@+id/speedo_img"
+                    app:layout_constraintLeft_toLeftOf="@+id/speedo_img"
                     app:layout_constraintTop_toTopOf="@+id/speedo_img"
                     app:layout_constraintBottom_toBottomOf="@+id/speedo_img" />
 
@@ -138,8 +139,8 @@
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/text_speedo"
                     android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="@+id/speedo_img"
-                    app:layout_constraintStart_toStartOf="@+id/speedo_img"
+                    app:layout_constraintRight_toRightOf="@+id/speedo_img"
+                    app:layout_constraintLeft_toLeftOf="@+id/speedo_img"
                     app:layout_constraintTop_toBottomOf="@+id/speedo_img" />
 
                 <View
@@ -147,12 +148,12 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dp_28"
                     android:background="@drawable/background_step_button"
-                    android:paddingStart="@dimen/dp_8"
-                    android:paddingEnd="@dimen/dp_8"
+                    android:paddingLeft="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_8"
                     android:text="@string/text_start"
                     app:layout_constraintBottom_toBottomOf="@+id/speedo_view"
-                    app:layout_constraintEnd_toEndOf="@+id/text_speedo"
-                    app:layout_constraintStart_toStartOf="@+id/text_speedo"
+                    app:layout_constraintRight_toRightOf="@+id/text_speedo"
+                    app:layout_constraintLeft_toLeftOf="@+id/text_speedo"
                     app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
                 <View
@@ -162,8 +163,8 @@
                     android:layout_marginTop="@dimen/dp_12"
                     android:background="#ebebeb"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.60" />
 
@@ -173,8 +174,8 @@
                     android:layout_height="0dp"
                     android:background="#ebebeb"
                     app:layout_constraintBottom_toTopOf="@+id/hori_line"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
@@ -185,8 +186,8 @@
                     android:background="@drawable/background_pedo_button"
                     android:onClick="openPedoMeter"
                     app:layout_constraintBottom_toBottomOf="@+id/ver_line"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ver_line"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/ver_line"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -195,8 +196,8 @@
                     android:layout_height="@dimen/dp_54"
                     android:layout_marginTop="@dimen/dp_12"
                     android:contentDescription="@string/app_name"
-                    app:layout_constraintEnd_toEndOf="@+id/pedo_view"
-                    app:layout_constraintStart_toStartOf="@+id/pedo_view"
+                    app:layout_constraintRight_toRightOf="@+id/pedo_view"
+                    app:layout_constraintLeft_toLeftOf="@+id/pedo_view"
                     app:layout_constraintTop_toTopOf="@+id/pedo_view"
                     app:srcCompat="@drawable/group_23" />
 
@@ -209,67 +210,67 @@
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/text_pedometer"
                     android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="@+id/face"
-                    app:layout_constraintStart_toStartOf="@+id/face"
+                    app:layout_constraintRight_toRightOf="@+id/face"
+                    app:layout_constraintLeft_toLeftOf="@+id/face"
                     app:layout_constraintTop_toBottomOf="@+id/face" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dp_28"
                     android:background="@drawable/background_step_button"
-                    android:paddingStart="@dimen/dp_8"
-                    android:paddingEnd="@dimen/dp_8"
+                    android:paddingLeft="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_8"
                     android:text="@string/text_start"
                     app:layout_constraintBottom_toBottomOf="@+id/pedo_view"
-                    app:layout_constraintEnd_toEndOf="@+id/text_step"
-                    app:layout_constraintStart_toStartOf="@+id/text_step"
+                    app:layout_constraintRight_toRightOf="@+id/text_step"
+                    app:layout_constraintLeft_toLeftOf="@+id/text_step"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
                 <TextView
                     android:id="@+id/text_step"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/dp_12"
-                    android:paddingEnd="@dimen/dp_12"
+                    android:paddingLeft="@dimen/dp_12"
+                    android:paddingRight="@dimen/dp_12"
                     android:text="@string/text_start"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_size_small"
                     app:layout_constraintBottom_toBottomOf="@+id/pedo_view"
-                    app:layout_constraintEnd_toEndOf="@+id/face"
-                    app:layout_constraintStart_toStartOf="@+id/face"
+                    app:layout_constraintRight_toRightOf="@+id/face"
+                    app:layout_constraintLeft_toLeftOf="@+id/face"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
                 <TextView
                     android:id="@+id/text_speedo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/dp_12"
-                    android:paddingEnd="@dimen/dp_12"
+                    android:paddingLeft="@dimen/dp_12"
+                    android:paddingRight="@dimen/dp_12"
                     android:text="@string/text_start"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_size_small"
                     app:layout_constraintBottom_toBottomOf="@+id/speedo_view"
-                    app:layout_constraintEnd_toEndOf="@+id/speedo_img"
-                    app:layout_constraintStart_toStartOf="@+id/speedo_img"
+                    app:layout_constraintRight_toRightOf="@+id/speedo_img"
+                    app:layout_constraintLeft_toLeftOf="@+id/speedo_img"
                     app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
                 <View
                     android:id="@+id/action_settings"
                     android:layout_width="@dimen/dp_50"
                     android:layout_height="@dimen/dp_50"
-                    android:layout_marginStart="@dimen/margin_standard_size"
+                    android:layout_marginLeft="@dimen/margin_standard_size"
                     android:layout_marginTop="@dimen/margin_smaller_size"
                     android:background="@drawable/background_settings"
-                    app:layout_constraintEnd_toStartOf="@+id/action_rate_us"
-                    app:layout_constraintStart_toStartOf="@+id/speedo_view"
+                    app:layout_constraintRight_toLeftOf="@+id/action_rate_us"
+                    app:layout_constraintLeft_toLeftOf="@+id/speedo_view"
                     app:layout_constraintTop_toBottomOf="@+id/hori_line" />
 
                 <ImageView
                     android:layout_width="@dimen/dp_24"
                     android:layout_height="@dimen/dp_24"
                     app:layout_constraintBottom_toBottomOf="@+id/action_settings"
-                    app:layout_constraintEnd_toEndOf="@+id/action_settings"
-                    app:layout_constraintStart_toStartOf="@+id/action_settings"
+                    app:layout_constraintRight_toRightOf="@+id/action_settings"
+                    app:layout_constraintLeft_toLeftOf="@+id/action_settings"
                     app:layout_constraintTop_toTopOf="@+id/action_settings"
                     app:srcCompat="@drawable/shape_565_copy_2" />
 
@@ -280,20 +281,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_smallest_size"
                     android:text="@string/text_settings"
-                    app:layout_constraintEnd_toEndOf="@+id/action_settings"
-                    app:layout_constraintStart_toStartOf="@+id/action_settings"
+                    app:layout_constraintRight_toRightOf="@+id/action_settings"
+                    app:layout_constraintLeft_toLeftOf="@+id/action_settings"
                     app:layout_constraintTop_toBottomOf="@+id/action_settings" />
 
                 <View
                     android:id="@+id/action_rate_us"
                     android:layout_width="@dimen/dp_50"
                     android:layout_height="@dimen/dp_50"
-                    android:layout_marginStart="@dimen/margin_small_size"
+                    android:layout_marginLeft="@dimen/margin_small_size"
                     android:layout_marginTop="@dimen/margin_smaller_size"
                     android:background="@drawable/background_rate_us"
                     app:layout_constraintBottom_toBottomOf="@+id/action_settings"
-                    app:layout_constraintEnd_toStartOf="@+id/action_share"
-                    app:layout_constraintStart_toEndOf="@+id/action_settings"
+                    app:layout_constraintRight_toLeftOf="@+id/action_share"
+                    app:layout_constraintLeft_toRightOf="@+id/action_settings"
                     app:layout_constraintTop_toBottomOf="@+id/hori_line" />
 
                 <ImageView
@@ -301,8 +302,8 @@
                     android:layout_height="@dimen/dp_24"
                     android:contentDescription="@string/app_name"
                     app:layout_constraintBottom_toBottomOf="@+id/action_rate_us"
-                    app:layout_constraintEnd_toEndOf="@+id/action_rate_us"
-                    app:layout_constraintStart_toStartOf="@+id/action_rate_us"
+                    app:layout_constraintRight_toRightOf="@+id/action_rate_us"
+                    app:layout_constraintLeft_toLeftOf="@+id/action_rate_us"
                     app:layout_constraintTop_toTopOf="@+id/action_rate_us"
                     app:srcCompat="@drawable/shape_798_copy_2" />
 
@@ -313,20 +314,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_smallest_size"
                     android:text="@string/text_rate_us"
-                    app:layout_constraintEnd_toEndOf="@+id/action_rate_us"
-                    app:layout_constraintStart_toStartOf="@+id/action_rate_us"
+                    app:layout_constraintRight_toRightOf="@+id/action_rate_us"
+                    app:layout_constraintLeft_toLeftOf="@+id/action_rate_us"
                     app:layout_constraintTop_toBottomOf="@+id/action_rate_us" />
 
                 <View
                     android:id="@+id/action_share"
                     android:layout_width="@dimen/dp_50"
                     android:layout_height="@dimen/dp_50"
-                    android:layout_marginStart="@dimen/margin_small_size"
+                    android:layout_marginLeft="@dimen/margin_small_size"
                     android:layout_marginTop="@dimen/margin_smaller_size"
                     android:background="@drawable/background_share"
                     app:layout_constraintBottom_toBottomOf="@+id/action_settings"
-                    app:layout_constraintEnd_toStartOf="@+id/action_pro"
-                    app:layout_constraintStart_toEndOf="@+id/action_rate_us"
+                    app:layout_constraintRight_toLeftOf="@+id/action_pro"
+                    app:layout_constraintLeft_toRightOf="@+id/action_rate_us"
                     app:layout_constraintTop_toBottomOf="@+id/hori_line" />
 
                 <ImageView
@@ -334,8 +335,8 @@
                     android:layout_height="@dimen/dp_24"
                     android:contentDescription="@string/app_name"
                     app:layout_constraintBottom_toBottomOf="@+id/action_share"
-                    app:layout_constraintEnd_toEndOf="@+id/action_share"
-                    app:layout_constraintStart_toStartOf="@+id/action_share"
+                    app:layout_constraintRight_toRightOf="@+id/action_share"
+                    app:layout_constraintLeft_toLeftOf="@+id/action_share"
                     app:layout_constraintTop_toTopOf="@+id/action_share"
                     app:srcCompat="@drawable/shape_797_copy" />
 
@@ -346,8 +347,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_smallest_size"
                     android:text="@string/text_share"
-                    app:layout_constraintEnd_toEndOf="@+id/action_share"
-                    app:layout_constraintStart_toStartOf="@+id/action_share"
+                    app:layout_constraintRight_toRightOf="@+id/action_share"
+                    app:layout_constraintLeft_toLeftOf="@+id/action_share"
                     app:layout_constraintTop_toBottomOf="@+id/action_share" />
 
                 <androidx.constraintlayout.widget.Group
@@ -360,13 +361,13 @@
                     android:id="@+id/action_pro"
                     android:layout_width="@dimen/dp_50"
                     android:layout_height="@dimen/dp_50"
-                    android:layout_marginStart="@dimen/margin_small_size"
+                    android:layout_marginLeft="@dimen/margin_small_size"
                     android:layout_marginTop="@dimen/margin_smaller_size"
-                    android:layout_marginEnd="@dimen/margin_standard_size"
+                    android:layout_marginRight="@dimen/margin_standard_size"
                     android:background="@drawable/background_pro"
                     app:layout_constraintBottom_toBottomOf="@+id/action_settings"
-                    app:layout_constraintEnd_toEndOf="@+id/pedo_view"
-                    app:layout_constraintStart_toEndOf="@+id/action_share"
+                    app:layout_constraintRight_toRightOf="@+id/pedo_view"
+                    app:layout_constraintLeft_toRightOf="@+id/action_share"
                     app:layout_constraintTop_toBottomOf="@+id/hori_line" />
 
                 <ImageView
@@ -375,8 +376,8 @@
                     android:layout_height="@dimen/dp_24"
                     android:contentDescription="@string/app_name"
                     app:layout_constraintBottom_toBottomOf="@+id/action_pro"
-                    app:layout_constraintEnd_toEndOf="@+id/action_pro"
-                    app:layout_constraintStart_toStartOf="@+id/action_pro"
+                    app:layout_constraintRight_toRightOf="@+id/action_pro"
+                    app:layout_constraintLeft_toLeftOf="@+id/action_pro"
                     app:layout_constraintTop_toTopOf="@+id/action_pro"
                     app:srcCompat="@drawable/crown_1_copy_6" />
 
@@ -387,8 +388,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_smallest_size"
                     android:text="@string/text_pro"
-                    app:layout_constraintEnd_toEndOf="@+id/action_pro"
-                    app:layout_constraintStart_toStartOf="@+id/action_pro"
+                    app:layout_constraintRight_toRightOf="@+id/action_pro"
+                    app:layout_constraintLeft_toLeftOf="@+id/action_pro"
                     app:layout_constraintTop_toBottomOf="@+id/action_pro" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -399,17 +400,17 @@
             android:id="@+id/ad_container_main"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_smaller_size"
+            android:layout_marginLeft="@dimen/margin_smaller_size"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="@dimen/margin_smaller_size"
+            android:layout_marginRight="@dimen/margin_smaller_size"
             android:layout_marginBottom="@dimen/margin_smaller_size"
             android:visibility="visible"
             app:cardCornerRadius="8dp"
             app:cardElevation="@dimen/dp_2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:0.9"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

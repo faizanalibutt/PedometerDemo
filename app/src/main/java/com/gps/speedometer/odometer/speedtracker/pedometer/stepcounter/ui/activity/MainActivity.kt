@@ -167,8 +167,8 @@ class MainActivity :
     }
 
     override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START))
-            drawerLayout.closeDrawer(GravityCompat.START)
+        if (drawerLayout.isDrawerOpen(Gravity.LEFT))
+            drawerLayout.closeDrawer(Gravity.LEFT)
         else if (dialog == null || menuClicked) {
             menuClicked = false
             dialog = showRateExitDialogue(this@MainActivity, false)

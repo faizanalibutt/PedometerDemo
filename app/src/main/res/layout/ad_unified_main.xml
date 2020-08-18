@@ -12,8 +12,8 @@
         android:orientation="vertical"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/ad_call_to_action"
-        app:layout_constraintEnd_toStartOf="@+id/ad_headline"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/ad_headline"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/media_group">
 
         <ImageView
@@ -22,8 +22,8 @@
             android:layout_height="60dp"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:layout_centerInParent="true"
             android:visibility="visible" />
@@ -33,8 +33,8 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerInParent="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:visibility="visible" />
 
@@ -47,11 +47,12 @@
         android:layout_marginHorizontal="10dp"
         android:ellipsize="end"
         android:maxLines="1"
+        android:gravity="left"
         android:textColor="@android:color/black"
         android:textSize="@dimen/headline_mm"
         app:layout_constraintBottom_toTopOf="@+id/ad_body"
-        app:layout_constraintEnd_toStartOf="@+id/ad_attribution"
-        app:layout_constraintStart_toEndOf="@+id/icon_container"
+        app:layout_constraintRight_toLeftOf="@+id/ad_attribution"
+        app:layout_constraintLeft_toRightOf="@+id/icon_container"
         app:layout_constraintTop_toTopOf="@+id/icon_container"
         app:layout_constraintVertical_chainStyle="spread"
         app:layout_goneMarginBottom="10dp" />
@@ -59,23 +60,24 @@
     <TextView
         android:id="@+id/ad_attribution"
         style="@style/AppTheme.AdAttribution"
-        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
         android:text="@string/sponsored"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/icon_container" />
 
     <TextView
         android:id="@+id/ad_body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:ellipsize="end"
         android:maxLines="2"
+        android:gravity="left"
         android:textSize="@dimen/detail_text_size"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/icon_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/ad_headline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/ad_headline"
         app:layout_constraintTop_toBottomOf="@+id/ad_headline" />
 
     <LinearLayout
@@ -86,8 +88,8 @@
         android:orientation="vertical"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/icon_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.gms.ads.formats.MediaView
@@ -122,8 +124,8 @@
         app:layout_constrainedHeight="true"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <LinearLayout
         android:id="@+id/ad_choices_container"
