@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr">
 
     <LinearLayout
         android:id="@+id/icon_container"
@@ -10,8 +11,8 @@
         app:layout_constraintTop_toBottomOf="@+id/ad_media"
         android:minHeight="70dp"
         app:layout_constraintBottom_toTopOf="@+id/ad_body"
-        app:layout_constraintEnd_toStartOf="@+id/ad_headline"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/ad_headline"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/ad_icon"
@@ -27,26 +28,28 @@
         android:id="@+id/ad_headline"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:ellipsize="end"
         android:maxLines="2"
+        android:gravity="left"
         android:paddingVertical="5dp"
         android:text="this is headline \n abc"
         android:textColor="@android:color/black"
         app:layout_goneMarginBottom="10dp"
         android:textSize="@dimen/headline_splash"
         app:layout_constraintBottom_toBottomOf="@+id/icon_container"
-        app:layout_constraintEnd_toStartOf="@+id/ad_attribution"
-        app:layout_constraintStart_toEndOf="@+id/icon_container"
+        app:layout_constraintRight_toLeftOf="@+id/ad_attribution"
+        app:layout_constraintLeft_toRightOf="@+id/icon_container"
         app:layout_constraintTop_toTopOf="@+id/icon_container"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         style="@style/AppTheme.AdAttribution"
         android:id="@+id/ad_attribution"
-        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
         android:text="@string/sponsored"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/icon_container" />
 
     <TextView
@@ -56,12 +59,12 @@
         android:layout_margin="10dp"
         android:ellipsize="end"
         android:maxLines="3"
-
+        android:gravity="left"
         android:textSize="@dimen/detail_text_size"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/ad_call_to_action"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <com.google.android.gms.ads.formats.MediaView
         android:id="@+id/ad_media"
@@ -70,8 +73,8 @@
         android:layout_marginBottom="@dimen/margin_small_size"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/icon_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -90,7 +93,7 @@
         app:layout_constrainedHeight="true"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

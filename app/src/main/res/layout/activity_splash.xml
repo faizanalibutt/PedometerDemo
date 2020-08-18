@@ -13,11 +13,11 @@
         android:layout_height="0dp"
         android:visibility="gone"
         app:cardCornerRadius="@dimen/dp_10"
-        android:layout_marginStart="@dimen/margin_smaller_size"
-        android:layout_marginEnd="@dimen/margin_smaller_size"
+        android:layout_marginLeft="@dimen/margin_smaller_size"
+        android:layout_marginRight="@dimen/margin_smaller_size"
         app:layout_constraintBottom_toTopOf="@+id/guideline_start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:textColor="@android:color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/ad_container_splash"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start"
@@ -47,8 +47,8 @@
         android:contentDescription="@string/app_name"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
-        app:layout_constraintEnd_toEndOf="@+id/ad_container_splash"
-        app:layout_constraintStart_toStartOf="@+id/ad_container_splash"
+        app:layout_constraintRight_toRightOf="@+id/ad_container_splash"
+        app:layout_constraintLeft_toLeftOf="@+id/ad_container_splash"
         app:layout_constraintTop_toBottomOf="@+id/guideline_start"
         app:srcCompat="@drawable/ic_title_new_blue_01e2" />
 
@@ -57,13 +57,13 @@
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small_size"
+        android:layout_marginLeft="@dimen/margin_small_size"
         android:layout_marginTop="@dimen/margin_medium_size"
-        android:layout_marginEnd="@dimen/margin_small_size"
+        android:layout_marginRight="@dimen/margin_small_size"
         android:layout_marginBottom="@dimen/margin_medium_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/ad_container_splash"
-        app:layout_constraintStart_toStartOf="@+id/ad_container_splash"
+        app:layout_constraintRight_toRightOf="@+id/ad_container_splash"
+        app:layout_constraintLeft_toLeftOf="@+id/ad_container_splash"
         app:layout_constraintTop_toBottomOf="@+id/appIconsplash" />
 
     <include layout="@layout/layout_gdp_view" />
