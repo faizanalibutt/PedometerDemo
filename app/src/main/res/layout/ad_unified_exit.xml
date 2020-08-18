@@ -96,7 +96,7 @@
                         android:id="@+id/ad_headline"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_gravity="center|start"
+                        android:layout_gravity="center|left"
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:textColor="@color/black"
