@@ -11,12 +11,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.dev.bytes.adsmanager.*
-import com.dev.bytes.adsmanager.billing.purchaseRemoveAds
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.tabs.TabLayout
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.Database
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
-import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.callback.Callback
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Distance
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Speedo
@@ -30,11 +27,7 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Curr
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.TimeUtils
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
-import kotlinx.android.synthetic.main.activity_pedometer.*
 import kotlinx.android.synthetic.main.activity_speedometer.*
-import kotlinx.android.synthetic.main.activity_speedometer.nav_back
-import kotlinx.android.synthetic.main.activity_speedometer.tabView
-import kotlinx.android.synthetic.main.activity_speedometer.viewPager
 import java.util.*
 import kotlin.math.max
 
@@ -213,7 +206,8 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             val db = Database.getInstance(this)
             endTime = System.currentTimeMillis()
             val date = TimeUtils.getFormatDateTime(endTime, "date")
-            val distanceObj = Distance(startTime, endTime, avgSpeedInDB, distanceInDB, date, totalTime)
+            val distanceObj =
+                Distance(startTime, endTime, avgSpeedInDB, distanceInDB, date, totalTime)
             db.saveInterval(distanceObj)
             isStop = true
             totalTime = 0
@@ -300,6 +294,9 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             lEnd?.latitude = mCurrentLocation!!.latitude
             lEnd?.longitude = mCurrentLocation!!.longitude
         } else {
+            if (lStart?.latitude == lEnd?.latitude && lEnd?.latitude == mCurrentLocation?.latitude) {
+                return
+            }
             lStart = lEnd
             lStart?.latitude = lEnd!!.latitude
             lStart?.longitude = lEnd!!.longitude
@@ -316,24 +313,24 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
         if (lStart != null && lEnd != null) {
 
-            distanceInDB += ( lStart!!.distanceTo(lEnd).toDouble() / 1000.0 )
+            distanceInDB += (lStart!!.distanceTo(lEnd).toDouble() / 1000.0)
 
             when (unitType) {
 
                 "km" -> {
-                    distance += ( lStart!!.distanceTo(lEnd).toDouble() / 1000.0 )
+                    distance += (lStart!!.distanceTo(lEnd).toDouble() / 1000.0)
                     avgSpeed = (speed + maxSpeed) / 2
                     speed_value.text = "${AppUtils.roundTwoDecimal(avgSpeed)} km"
                     distance_value.text = "${AppUtils.roundTwoDecimal(distance)} km"
                 }
                 "mph" -> {
-                    distance += ( lStart!!.distanceTo(lEnd).toDouble() / 1609.34 )
+                    distance += (lStart!!.distanceTo(lEnd).toDouble() / 1609.34)
                     avgSpeed = (speed + maxSpeed) / 2
                     speed_value.text = "${AppUtils.roundTwoDecimal(avgSpeed)} mph"
                     distance_value.text = "${AppUtils.roundTwoDecimal(distance)} mph"
                 }
                 "knot" -> {
-                    distance += ( lStart!!.distanceTo(lEnd).toDouble() / 1852 )
+                    distance += (lStart!!.distanceTo(lEnd).toDouble() / 1852)
                     avgSpeed = (speed + maxSpeed) / 2
                     speed_value.text = "${AppUtils.roundTwoDecimal(avgSpeed)} knot"
                     distance_value.text = "${AppUtils.roundTwoDecimal(distance)} knot"

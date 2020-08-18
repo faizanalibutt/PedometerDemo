@@ -151,6 +151,9 @@ class ReportFragment : Fragment() {
             view.emptyData.visibility = View.VISIBLE
             view.graphView.visibility = View.GONE
             return
+        } else {
+            view.emptyData.visibility = View.GONE
+            view.graphView.visibility = View.VISIBLE
         }
 
         valueFormatter = TimeAxisValueFormatter(
