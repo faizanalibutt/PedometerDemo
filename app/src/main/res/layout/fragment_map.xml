@@ -12,8 +12,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_guideline"
         tools:context="com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity.SpeedometerActivity" />
 
@@ -21,11 +21,11 @@
         android:id="@+id/view2"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginStart="@dimen/margin_standard_size"
+        android:layout_marginLeft="@dimen/margin_standard_size"
         android:layout_marginBottom="@dimen/dp_10"
         android:background="@drawable/circular_shadow"
         app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <com.github.lzyzsd.circleprogress.ArcProgress
         android:id="@+id/digi_speed_txt"
@@ -40,8 +40,8 @@
         app:arc_text_color="@color/black_dark"
         app:arc_unfinished_color="@color/gray"
         app:layout_constraintBottom_toBottomOf="@+id/view2"
-        app:layout_constraintEnd_toEndOf="@+id/view2"
-        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintRight_toRightOf="@+id/view2"
+        app:layout_constraintLeft_toLeftOf="@+id/view2"
         app:layout_constraintTop_toTopOf="@+id/view2" />
 
     <TextView
@@ -57,8 +57,8 @@
         android:visibility="visible"
         app:layout_constraintVertical_bias="0.45"
         app:layout_constraintBottom_toBottomOf="@+id/view2"
-        app:layout_constraintEnd_toEndOf="@+id/view2"
-        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintRight_toRightOf="@+id/view2"
+        app:layout_constraintLeft_toLeftOf="@+id/view2"
         app:layout_constraintTop_toTopOf="@+id/view2" />
 
     <TextView
@@ -66,11 +66,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/km_h_c"
-        android:textAlignment="center"
+        android:gravity="center"
         android:textSize="9sp"
         app:layout_constraintBottom_toBottomOf="@+id/digi_speed_txt"
-        app:layout_constraintEnd_toEndOf="@+id/digi_type_txt_value"
-        app:layout_constraintStart_toStartOf="@+id/digi_type_txt_value" />
+        app:layout_constraintRight_toRightOf="@+id/digi_type_txt_value"
+        app:layout_constraintLeft_toLeftOf="@+id/digi_type_txt_value" />
 
     <TextView
         android:id="@+id/digi_type_txt_value"
@@ -78,12 +78,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="0.0"
-        android:textAlignment="center"
+        android:gravity="center"
         android:fontFamily="@font/roboto_medium"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/digi_type_txt"
-        app:layout_constraintEnd_toEndOf="@+id/btn_state"
-        app:layout_constraintStart_toStartOf="@+id/btn_state" />
+        app:layout_constraintRight_toRightOf="@+id/btn_state"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_state" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline"

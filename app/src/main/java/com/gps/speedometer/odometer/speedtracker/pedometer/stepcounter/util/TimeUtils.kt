@@ -26,12 +26,12 @@ object TimeUtils {
 
     fun getFormatDate(millis: Long): String {
 
-        return SimpleDateFormat("E", Locale.getDefault()).format(Date(millis))[0].toString()
+        return SimpleDateFormat("E", Locale.ENGLISH).format(Date(millis))[0].toString()
     }
 
     @JvmStatic
     fun getFormatStringDate(stringDate: String) : String {
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
         var date: Date? = null
         try {
             date = sdf.parse(stringDate)

@@ -23,8 +23,6 @@ INJECTED from C:\Users\zi\AndroidStudioProjects\PedoMeterDemo\progressviewslib\s
 		ADDED from C:\Users\zi\AndroidStudioProjects\PedoMeterDemo\progressviewslib\src\main\AndroidManifest.xml:2:11-69
 application
 ADDED from C:\Users\zi\AndroidStudioProjects\PedoMeterDemo\progressviewslib\src\main\AndroidManifest.xml:5:5-9:19
-	android:supportsRtl
-		ADDED from C:\Users\zi\AndroidStudioProjects\PedoMeterDemo\progressviewslib\src\main\AndroidManifest.xml:8:9-36
 	android:label
 		ADDED from C:\Users\zi\AndroidStudioProjects\PedoMeterDemo\progressviewslib\src\main\AndroidManifest.xml:7:9-41
 	android:allowBackup

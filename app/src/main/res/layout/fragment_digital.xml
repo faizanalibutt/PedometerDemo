@@ -12,7 +12,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="@dimen/dp_18"
         android:background="@drawable/background_popup_units"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vehicle_view" />
 
     <ImageView
@@ -21,9 +21,9 @@
         android:layout_height="10dp"
         android:contentDescription="@string/kmh"
         app:layout_constraintBottom_toBottomOf="@+id/popup_units"
-        app:layout_constraintEnd_toEndOf="@+id/popup_units"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/units_text"
+        app:layout_constraintLeft_toRightOf="@+id/units_text"
+        app:layout_constraintRight_toRightOf="@+id/popup_units"
         app:layout_constraintTop_toTopOf="@id/popup_units"
         app:srcCompat="@drawable/ic_shape_10_copy" />
 
@@ -34,20 +34,20 @@
         android:layout_height="wrap_content"
         android:text="@string/kmh"
         app:layout_constraintBottom_toBottomOf="@+id/popup_units"
-        app:layout_constraintEnd_toStartOf="@+id/img_1"
-        app:layout_constraintStart_toStartOf="@+id/popup_units"
+        app:layout_constraintLeft_toLeftOf="@+id/popup_units"
+        app:layout_constraintRight_toLeftOf="@+id/img_1"
         app:layout_constraintTop_toTopOf="@id/popup_units" />
 
     <View
         android:id="@+id/vehicle_view"
         android:layout_width="0dp"
         android:layout_height="42dp"
-        android:layout_marginStart="@dimen/margin_xmedium_size"
+        android:layout_marginLeft="@dimen/margin_xmedium_size"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="@dimen/margin_xmedium_size"
+        android:layout_marginRight="@dimen/margin_xmedium_size"
         android:background="@drawable/background_vehicle_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_guideline" />
 
     <ImageView
@@ -58,8 +58,8 @@
         android:padding="5dp"
         android:tint="@color/text_color_chip_state"
         app:layout_constraintBottom_toBottomOf="@+id/vehicle_view"
-        app:layout_constraintEnd_toStartOf="@+id/v11"
-        app:layout_constraintStart_toStartOf="@+id/vehicle_view"
+        app:layout_constraintLeft_toLeftOf="@+id/vehicle_view"
+        app:layout_constraintRight_toLeftOf="@+id/v11"
         app:layout_constraintTop_toTopOf="@+id/vehicle_view"
         app:srcCompat="@drawable/ic_shape_1940_copy" />
 
@@ -70,8 +70,8 @@
         android:contentDescription="@string/text_speedo"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/vehicle_view"
-        app:layout_constraintEnd_toStartOf="@+id/v12"
-        app:layout_constraintStart_toEndOf="@+id/v11"
+        app:layout_constraintLeft_toRightOf="@+id/v11"
+        app:layout_constraintRight_toLeftOf="@+id/v12"
         app:layout_constraintTop_toTopOf="@+id/vehicle_view"
         app:srcCompat="@drawable/ic_shape_1941_copy_2" />
 
@@ -82,8 +82,8 @@
         android:contentDescription="@string/text_speedo"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/vehicle_view"
-        app:layout_constraintEnd_toEndOf="@+id/vehicle_view"
-        app:layout_constraintStart_toEndOf="@+id/v12"
+        app:layout_constraintLeft_toRightOf="@+id/v12"
+        app:layout_constraintRight_toRightOf="@+id/vehicle_view"
         app:layout_constraintTop_toTopOf="@+id/vehicle_view"
         app:srcCompat="@drawable/ic_shape_1942_copy_2" />
 
@@ -93,8 +93,8 @@
         android:layout_height="16dp"
         android:background="#36000000"
         app:layout_constraintBottom_toBottomOf="@+id/car_view"
-        app:layout_constraintEnd_toStartOf="@+id/car_view"
-        app:layout_constraintStart_toEndOf="@+id/cycle_view"
+        app:layout_constraintLeft_toRightOf="@+id/cycle_view"
+        app:layout_constraintRight_toLeftOf="@+id/car_view"
         app:layout_constraintTop_toTopOf="@+id/car_view" />
 
     <View
@@ -103,8 +103,8 @@
         android:layout_height="16dp"
         android:background="@color/color_pedo_view_units_bar"
         app:layout_constraintBottom_toBottomOf="@+id/car_view"
-        app:layout_constraintEnd_toStartOf="@+id/train_view"
-        app:layout_constraintStart_toEndOf="@+id/car_view"
+        app:layout_constraintLeft_toRightOf="@+id/car_view"
+        app:layout_constraintRight_toLeftOf="@+id/train_view"
         app:layout_constraintTop_toTopOf="@+id/car_view" />
 
     <View
@@ -113,8 +113,8 @@
         android:layout_height="0dp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vehicle_view" />
 
     <TextView
@@ -122,46 +122,46 @@
         style="@style/TextAppearance.Primary.Bigger"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintWidth_percent=".6"
-        android:gravity="center|end"
-        android:paddingEnd="@dimen/dp_5"
-        android:paddingStart="@dimen/dp_5"
+        android:gravity="center|right"
         android:maxLines="1"
+        android:paddingLeft="@dimen/dp_5"
+        android:paddingRight="@dimen/dp_5"
         android:text="00"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeMinTextSize="40sp"
         android:textColor="@color/colorPrimary"
         android:visibility="visible"
+        app:autoSizeMaxTextSize="100sp"
+        app:autoSizeMinTextSize="40sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="@+id/speedometer_digi_view"
-        app:layout_constraintEnd_toStartOf="@+id/digi_type_txt"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@+id/speedometer_digi_view"
-        app:layout_constraintTop_toTopOf="@+id/speedometer_digi_view" />
+        app:layout_constraintLeft_toLeftOf="@+id/speedometer_digi_view"
+        app:layout_constraintRight_toLeftOf="@+id/digi_type_txt"
+        app:layout_constraintTop_toTopOf="@+id/speedometer_digi_view"
+        app:layout_constraintWidth_percent=".6" />
 
 
     <TextView
         android:id="@+id/digi_type_txt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        app:autoSizeTextType="uniform"
+        android:gravity="center_vertical|left"
         android:lines="1"
-        app:layout_constraintWidth_percent=".3"
         android:text="@string/km_h_c"
-        app:layout_constraintVertical_bias=".56"
         android:textSize="40sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="@+id/speedometer_digi_view"
-        app:layout_constraintEnd_toEndOf="@+id/speedometer_digi_view"
-        app:layout_constraintStart_toEndOf="@+id/digi_speed_txt"
-        app:layout_constraintTop_toTopOf="@+id/speedometer_digi_view" />
+        app:layout_constraintLeft_toRightOf="@+id/digi_speed_txt"
+        app:layout_constraintRight_toRightOf="@+id/speedometer_digi_view"
+        app:layout_constraintTop_toTopOf="@+id/speedometer_digi_view"
+        app:layout_constraintVertical_bias=".56"
+        app:layout_constraintWidth_percent=".3" />
 
-   <!-- <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.65" />-->
+    <!-- <androidx.constraintlayout.widget.Guideline
+         android:id="@+id/guideline7"
+         android:layout_width="wrap_content"
+         android:layout_height="0dp"
+         android:orientation="vertical"
+         app:layout_constraintGuide_percent="0.65" />-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline"

@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@drawable/background_pedo_app_bar"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -31,9 +31,9 @@
         android:id="@+id/nav_back"
         android:layout_width="@dimen/dp_32"
         android:layout_height="@dimen/dp_32"
-        android:padding="@dimen/dp_8"
         android:layout_marginLeft="@dimen/margin_smaller_size"
         android:contentDescription="@string/app_name"
+        android:padding="@dimen/dp_8"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView"
@@ -63,8 +63,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/dp_20"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp_20">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/settings_browse"
@@ -72,8 +72,8 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/dp_20"
                 app:layout_constraintBottom_toTopOf="@+id/v1"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -88,8 +88,8 @@
                     android:textColor="@color/settings_heading_color"
                     android:textSize="@dimen/font_size_primary"
                     app:layout_constraintBottom_toTopOf="@+id/bv2"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
@@ -97,8 +97,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_18"
                     app:layout_constraintBottom_toTopOf="@+id/clearData"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/browse_text" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -107,8 +107,8 @@
                     android:layout_height="@dimen/dp_50"
                     android:visibility="gone"
                     app:layout_constraintBottom_toTopOf="@+id/bv4"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/bv2">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -116,9 +116,9 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintHorizontal_weight="5"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
@@ -129,8 +129,8 @@
                             android:text="Clear All Data"
                             android:textSize="@dimen/font_size_primary"
                             app:layout_constraintBottom_toTopOf="@+id/b2"
-                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
@@ -140,8 +140,8 @@
                             android:text="Delete all sent &amp; received data"
                             android:textSize="@dimen/font_size_primary_normal"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="@+id/b1"
                             app:layout_constraintLeft_toLeftOf="@+id/b1"
+                            app:layout_constraintRight_toRightOf="@+id/b1"
                             app:layout_constraintTop_toBottomOf="@+id/b1" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -154,16 +154,16 @@
                     android:layout_height="@dimen/dp_18"
                     android:visibility="gone"
                     app:layout_constraintBottom_toTopOf="@+id/auto_steps"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clearData" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/auto_steps"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/bv4">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -171,9 +171,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/auto_count_switch"
-                        app:layout_constraintHorizontal_weight="4"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/auto_count_switch"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
@@ -187,47 +186,37 @@
                             android:textColor="@color/settings_title_color"
                             android:textSize="@dimen/font_size_primary"
                             app:layout_constraintBottom_toTopOf="@+id/b8"
-                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/b8"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:gravity="left"
                             android:layout_marginLeft="@dimen/dp_18"
                             android:layout_marginBottom="@dimen/dp_16"
+                            android:gravity="left"
                             android:text="Turn On count Automatically steps"
                             android:textSize="@dimen/font_size_primary_normal"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/b7" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/auto_count_switch1"
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/auto_count_switch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingLeft="@dimen/dp_18"
-                        android:paddingRight="@dimen/dp_18"
-                        android:visibility="gone"
+                        android:layout_marginRight="5dp"
+                        android:layoutDirection="ltr"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/bc3"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.30" />
-
-                    <CheckBox
-                        android:id="@+id/auto_count_switch"
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/bc3"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.30" />
 
@@ -239,8 +228,8 @@
                     android:layout_height="0dp"
                     android:background="@color/colorSelection"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/auto_steps" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -251,8 +240,8 @@
                 android:layout_height="1dp"
                 android:background="@color/colorSelection"
                 app:layout_constraintBottom_toTopOf="@+id/settings_share"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settings_browse" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -260,8 +249,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@+id/v2"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/v1">
 
                 <View
@@ -269,8 +258,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_20"
                     app:layout_constraintBottom_toTopOf="@+id/share_text"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -285,8 +274,8 @@
                     android:textColor="@color/settings_heading_color"
                     android:textSize="@dimen/font_size_primary"
                     app:layout_constraintBottom_toTopOf="@+id/sv2"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/sv1" />
 
                 <View
@@ -294,8 +283,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_8"
                     app:layout_constraintBottom_toTopOf="@+id/change_language"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/share_text" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -303,8 +292,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:visibility="gone"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/sv2">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -312,9 +301,9 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintHorizontal_weight="5"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
@@ -327,8 +316,8 @@
                             android:textColor="@color/settings_title_color"
                             android:textSize="@dimen/font_size_primary"
                             app:layout_constraintBottom_toTopOf="@+id/user_name"
-                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
@@ -339,8 +328,8 @@
                             android:text="Choose your Language"
                             android:textSize="@dimen/font_size_primary_normal"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="@+id/s2"
                             app:layout_constraintLeft_toLeftOf="@+id/s2"
+                            app:layout_constraintRight_toRightOf="@+id/s2"
                             app:layout_constraintTop_toBottomOf="@+id/s2" />
 
                         <ImageView
@@ -367,16 +356,16 @@
                 android:background="@color/colorSelection"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/settings_other"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settings_share" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/settings_other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/v2">
 
                 <View
@@ -384,16 +373,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_20"
                     app:layout_constraintBottom_toTopOf="@+id/privacy_policy"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/privacy_policy"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_50"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ov2">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -401,9 +390,9 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintHorizontal_weight="5"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
@@ -411,13 +400,13 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_18"
-                            android:text="Privacy Policy"
                             android:gravity="left"
+                            android:text="Privacy Policy"
                             android:textColor="@color/settings_title_color"
                             android:textSize="@dimen/font_size_primary"
                             app:layout_constraintBottom_toTopOf="@+id/o3"
-                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
@@ -428,8 +417,8 @@
                             android:text="Read our Privacy Policy &amp; Terms and Conditions"
                             android:textSize="@dimen/font_size_primary_normal"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="@+id/o2"
                             app:layout_constraintLeft_toLeftOf="@+id/o2"
+                            app:layout_constraintRight_toRightOf="@+id/o2"
                             app:layout_constraintTop_toBottomOf="@+id/o2" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -440,16 +429,16 @@
                     android:id="@+id/ov3"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_20"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/privacy_policy" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/rate_us"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_50"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ov3">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -457,9 +446,9 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintHorizontal_weight="5"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
@@ -467,25 +456,25 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_18"
-                            android:text="Rate Us"
                             android:gravity="left"
+                            android:text="Rate Us"
                             android:textColor="@color/settings_title_color"
                             android:textSize="@dimen/font_size_primary"
                             app:layout_constraintBottom_toTopOf="@+id/r3"
-                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/r3"
                             android:layout_width="0dp"
-                            android:gravity="left"
                             android:layout_height="wrap_content"
+                            android:gravity="left"
                             android:text="Your feedback is valuable for us."
                             android:textSize="@dimen/font_size_primary_normal"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="@+id/r2"
                             app:layout_constraintLeft_toLeftOf="@+id/r2"
+                            app:layout_constraintRight_toRightOf="@+id/r2"
                             app:layout_constraintTop_toBottomOf="@+id/r2" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -503,8 +492,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_20"
                     app:layout_constraintBottom_toTopOf="@+id/premium"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rate_us" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -512,8 +501,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_50"
                     android:visibility="gone"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ov4">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -521,9 +510,9 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintHorizontal_weight="5"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
@@ -532,13 +521,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_18"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="GET PRO NOW"
                             android:gravity="left"
+                            android:text="GET PRO NOW"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/font_size_primary"
                             app:layout_constraintBottom_toTopOf="@+id/p3"
-                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
@@ -549,8 +538,8 @@
                             android:text="Become premium to remove ads"
                             android:textSize="@dimen/font_size_primary_normal"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="@+id/p2"
                             app:layout_constraintLeft_toLeftOf="@+id/p2"
+                            app:layout_constraintRight_toRightOf="@+id/p2"
                             app:layout_constraintTop_toBottomOf="@+id/p2" />
 
                         <ImageView
@@ -573,16 +562,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_20"
                     app:layout_constraintBottom_toTopOf="@+id/share"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/premium" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/share"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_50"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ov5">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -590,9 +579,9 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintHorizontal_weight="5"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
@@ -600,13 +589,13 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_18"
-                            android:text="Share with Friends"
                             android:gravity="left"
+                            android:text="Share with Friends"
                             android:textColor="@color/settings_title_color"
                             android:textSize="@dimen/font_size_primary"
                             app:layout_constraintBottom_toTopOf="@+id/s3"
-                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
@@ -617,8 +606,8 @@
                             android:text="Share this app with your friends &amp; family."
                             android:textSize="@dimen/font_size_primary_normal"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="@+id/s21"
                             app:layout_constraintLeft_toLeftOf="@+id/s21"
+                            app:layout_constraintRight_toRightOf="@+id/s21"
                             app:layout_constraintTop_toBottomOf="@+id/s21" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -639,8 +628,8 @@
         android:layout_marginVertical="5dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settings_scroll" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

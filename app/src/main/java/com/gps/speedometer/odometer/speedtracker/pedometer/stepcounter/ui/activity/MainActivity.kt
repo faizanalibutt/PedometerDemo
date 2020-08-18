@@ -9,6 +9,7 @@ import android.os.Handler
 import android.view.*
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.view.GravityCompat
+import androidx.core.view.ViewCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.dev.bytes.adsmanager.ADUnitPlacements
 import com.dev.bytes.adsmanager.TinyDB.Companion.getInstance
@@ -49,6 +50,7 @@ class MainActivity :
         AppUtils.animateProButton(this, premium_services)
 
         navView.setNavigationItemSelectedListener(this)
+        ViewCompat.setLayoutDirection( navView , ViewCompat.LAYOUT_DIRECTION_LTR )
         nav_menu.setOnClickListener(this)
         action_settings.setOnClickListener(this)
         action_rate_us.setOnClickListener(this)
