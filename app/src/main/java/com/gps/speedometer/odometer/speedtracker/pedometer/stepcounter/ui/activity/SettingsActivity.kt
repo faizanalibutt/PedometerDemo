@@ -18,6 +18,8 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.SensorListener
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.LocaleManagerX
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Utility
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : Activity(), View.OnClickListener {
@@ -64,6 +66,34 @@ class SettingsActivity : Activity(), View.OnClickListener {
         } else
             AppUtils.animateProButton(this, premium_services)
 
+        setLanguageName()
+    }
+
+    private fun setLanguageName() {
+        language_name.text = when (App.localeManager?.language) {
+            "en" -> "English"
+            "ar" -> "العربية"
+            "bn" -> "বাংলা"
+            "zh" -> "汉语"
+            "de" -> "Deutsch"
+            "hi" -> "हिंदी"
+            "in" -> "Indonesia"
+            "it" -> "Italiano"
+            "ms" -> "Melayu"
+            "nl" -> "Nederlands"
+            "ru" -> "русский"
+            "ko" -> "한국어"
+            "es" -> "Español"
+            "tr" -> "Türkçe"
+            "uk" -> "Українська"
+            "pt" -> "Portuguese"
+            "th" -> "ไทย"
+            "ja" -> "日本語"
+            "vi" -> "Vietnam"
+            else -> {
+                App.localeManager?.language
+            }
+        }
     }
 
     private fun isStepSensorAvailable(check: Boolean): Boolean {
@@ -76,7 +106,7 @@ class SettingsActivity : Activity(), View.OnClickListener {
                     .setMessage(R.string.no_sensor_explain)
                     .setOnDismissListener { it.dismiss() }
                     .setPositiveButton(
-                        android.R.string.ok
+                        R.string.okay
                     ) { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
                     .create()
                     .show()
@@ -92,6 +122,7 @@ class SettingsActivity : Activity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.change_language -> {
+                Utility.showLanguageDialog(this@SettingsActivity)
             }
             R.id.privacy_policy -> {
                 val url = getString(R.string.privacy_policy_link_text)

@@ -3,16 +3,20 @@ package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
+import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import com.anjlab.android.iab.v3.BillingProcessor
-import com.dev.bytes.adsmanager.ADUnitPlacements
 import com.dev.bytes.adsmanager.InterAdPair
 import com.dev.bytes.adsmanager.billing.initBilling
 import com.dev.bytes.adsmanager.billing.productKey
-import com.dev.bytes.adsmanager.loadInterstitialAd
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.BuildConfig
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity.MainActivity
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.LocaleManagerX
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.RemoteConfigUtils
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Utility
 import timber.log.Timber
+
 
 class App : Application() {
 
@@ -29,11 +33,25 @@ class App : Application() {
             Timber.plant(Timber.DebugTree())
 
         RemoteConfigUtils.createConfigSettings().fetchAndActivate()
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        localeManager = LocaleManagerX(base)
+        super.attachBaseContext(base)
+        Utility.bypassHiddenApiRestrictions()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        localeManager!!.setLocale(this)
+        Log.d("TAG", "onConfigurationChanged: " + newConfig.locale.getLanguage())
     }
 
     companion object {
 
         var bp: BillingProcessor? = null
+        var localeManager: LocaleManagerX? = null
 
         fun Context.initBP() {
             // TODO: 7/24/2020 in app purchase key put here ""DONE""
@@ -58,5 +76,6 @@ class App : Application() {
             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             context.startActivity(mainIntent)
         }
+
     }
 }
