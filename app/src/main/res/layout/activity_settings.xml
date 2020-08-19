@@ -206,27 +206,17 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/auto_count_switch1"
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/auto_count_switch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="@dimen/dp_18"
-                        android:paddingEnd="@dimen/dp_18"
-                        android:visibility="gone"
+                        android:layout_marginStart="7dp"
+                        android:layoutDirection="ltr"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/bc3"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.30" />
-
-                    <CheckBox
-                        android:id="@+id/auto_count_switch"
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/bc3"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.30" />
 
