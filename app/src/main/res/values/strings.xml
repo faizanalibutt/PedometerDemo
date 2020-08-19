@@ -95,7 +95,6 @@
     <string name="text_rate_us">Rate Us</string>
     <string name="text_share">Share App</string>
     <string name="text_pro">Get PRO</string>
-    <string name="text_pedometer">Pedometer</string>
     <string name="text_start">START NOW</string>
     <string name="text_speedo">Speedometer</string>
     <string name="text_menu_pro">GET PRO NOW</string>
@@ -115,7 +114,6 @@
     <string name="rate_us_desc">Please rate 5 stars to support us.\nThank you.</string>
     <string name="app_link">https://play.google.com/store/apps/details?id=com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter</string>
     <string name="butn_exit">Exit</string>
-    <string name="text_rate">Rate Us</string>
     <string name="txt_feedback">Feedback</string>
     <string name="text_thanks">No Thanks</string>
     <string name="butn_cancel">Cancel</string>
@@ -132,7 +130,34 @@
     <string name="great_app">GPS Speedometer &amp; Pedometer</string>
     <string name="share_desc">Use one of the best Speedometer &amp; Step Counter app.</string>
     <string name="share_with">Share with Friends</string>
-    <string name="privacy_policy_link_text">https://www.freeprivacypolicy.com/privacy/view/50c5621471755f1548917ebbe5e90160</string>
+    <string name="privacy_policy_link_text" translatable="false">https://www.freeprivacypolicy.com/privacy/view/50c5621471755f1548917ebbe5e90160</string>
     <string name="remove_ads">Remove Ads</string>
+    <string name="text_pedometer">Pedometer</string>
+    <string name="text_auto_steps">Automatically steps</string>
+    <string name="text_auto_steps_desc">Turn On count Automatically steps</string>
+    <string name="text_settings_general">General Settings</string>
+    <string name="text_privacy">Privacy Policy</string>
+    <string name="text_privacy_desc"><![CDATA[Read our Privacy Policy & Terms and Conditions]]></string>
+    <string name="text_rate">Rate Us</string>
+    <string name="text_feedback">Your feedback is valuable for us.</string>
+    <string name="text_pro_now">GET PRO NOW</string>
+    <string name="text_premium_desc">Become premium to remove ads</string>
+    <string name="text_shares">Share with Friends</string>
+    <string name="text_share_desc"><![CDATA[Share this app with your friends & family.]]></string>
+    <string name="text_lan_option">Language option</string>
+    <string name="text_lan_desc">Choose your Language</string>
+    <string name="text_analog">ANALOG</string>
+    <string name="text_digital">DIGITAL</string>
+    <string name="text_tab_map">MAP</string>
+    <string name="text_warning">Warning</string>
+    <string name="text_location_permission">Please provide location permission...</string>
+    <string name="text_timo">Time</string>
+    <string name="text_share_feedback">Share Cloud, Your valuable feedback.</string>
+    <string name="text_today">TODAY</string>
+    <string name="text_report">REPORT</string>
+    <string name="text_recognition_permission">Please provide Activity Recognition Permission to start counting steps...</string>
+    <string name="text_last_week">LAST WEEk</string>
+    <string name="text_enable_gps">Please enable Gps to get current location.</string>
+    <string name="text_network_permission">Please Check Internet Connection</string>
 
 </resources>

@@ -18,19 +18,11 @@ android {
 
 
             resValue "string", "splash_native_am", "ca-app-pub-8620219021552434/2581892812"//
-            //resValue "string", "splash_native_fb", "302217394302437_302220450968798"
-            //resValue "string", "mm_list_native_am", "ca-app-pub-3940256099942544/2247696110"
-            //resValue "string", "mm_list_native_fb", "PLACEMENT_ID"
             resValue "string", "mm_native_am", "ca-app-pub-8620219021552434/9801073136"//
             resValue "string", "mm_native_fb", "302217394302437_302220877635422"//
-            //resValue "string", "media_native_am", "ca-app-pub-3940256099942544/2247696110"//
             resValue "string", "splash_inter_am", "ca-app-pub-8620219021552434/4477320614"//
-            //resValue "stirng", "splash_inter_fb", "302217394302437_302219480968895"//
-            //resValue "string", "media_inter_fb", "PLACEMENT_ID"//
             resValue "string", "mm_inter_am", "ca-app-pub-8620219021552434/4664845267"//
             resValue "string", "mm_inter_fb", "302217394302437_302220100968833"//
-            //resValue "string", "adjust_inter_fb", "PLACEMENT_ID"//
-            //resValue "string", "adjust_inter_am", "ca-app-pub-1883205376891397/5507156246"//
             resValue "string", "banner_am", "ca-app-pub-8620219021552434/6296942391"
             resValue "string", "banner_fb", "302217394302437_302221714302005"//
             resValue "string", "exit_native_am", "ca-app-pub-8620219021552434/7467280187"//
@@ -47,19 +39,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             resValue "string", "splash_native_am", "ca-app-pub-3940256099942544/2247696110"
-            //resValue "string", "splash_native_fb", "302217394302437_302220450968798"
-            //resValue "string", "mm_list_native_am", "ca-app-pub-3940256099942544/2247696110"
-            //resValue "string", "mm_list_native_fb", "CAROUSEL_IMG_SQUARE_APP_INSTALL#833164463840176_868091710347451"
             resValue "string", "mm_native_am", "ca-app-pub-3940256099942544/2247696110"
             resValue "string", "mm_native_fb", "IMG_16_9_LINK#302217394302437_302220877635422"
-            //resValue "string", "media_native_am", "ca-app-pub-3940256099942544/2247696110"
             resValue "string", "splash_inter_am", "ca-app-pub-3940256099942544/1033173712"
-            //resValue "stirng", "splash_inter_fb", "302217394302437_302219480968895"
-            //resValue "string", "media_inter_fb", "PLAYABLE#833164463840176_833165110506778"
             resValue "string", "mm_inter_am", "ca-app-pub-3940256099942544/1033173712"
             resValue "string", "mm_inter_fb", "CAROUSEL_IMG_SQUARE_APP_INSTALL#302217394302437_302220100968833"
-            //resValue "string", "adjust_inter_fb", "CAROUSEL_IMG_SQUARE_APP_INSTALL#833164463840176_863995884090367"
-            //resValue "string", "adjust_inter_am", "ca-app-pub-3940256099942544/1033173712"
             resValue "string", "banner_am", "ca-app-pub-3940256099942544/6300978111"
             resValue "string", "banner_fb", "IMG_16_9_APP_INSTALL#302217394302437_302221714302005"
             resValue "string", "exit_native_am", "ca-app-pub-3940256099942544/2247696110"//
@@ -87,7 +71,7 @@ dependencies {
     api "org.jetbrains.anko:anko-commons:$anko_version"
     api "org.jetbrains.anko:anko-design:$anko_version"
 
-    api 'androidx.appcompat:appcompat:1.1.0'
+    api 'androidx.appcompat:appcompat:1.2.0'
     api 'androidx.constraintlayout:constraintlayout:1.1.3'
     api 'com.google.firebase:firebase-config:19.2.0'
     api 'com.google.firebase:firebase-ads:19.3.0'

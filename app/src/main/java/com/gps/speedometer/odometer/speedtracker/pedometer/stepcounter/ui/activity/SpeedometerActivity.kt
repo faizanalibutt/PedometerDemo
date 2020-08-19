@@ -66,9 +66,9 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
         mViewModel = ViewModelProviders.of(this).get(SpeedViewModel::class.java)
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(AnalogFragment(this@SpeedometerActivity), "ANALOG")
-        adapter.addFragment(DigitalFragment(this@SpeedometerActivity), "DIGITAL")
-        adapter.addFragment(MapFragment(this@SpeedometerActivity), "MAP")
+        adapter.addFragment(AnalogFragment(this@SpeedometerActivity), getString(R.string.text_analog))
+        adapter.addFragment(DigitalFragment(this@SpeedometerActivity), getString(R.string.text_digital))
+        adapter.addFragment(MapFragment(this@SpeedometerActivity), getString(R.string.text_tab_map))
         viewPager.offscreenPageLimit = 2
         viewPager.adapter = adapter
         tabView.setupWithViewPager(viewPager)
@@ -157,9 +157,9 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             Callback.setMeterValue1(Speedo("car", "km", "KM/H", ""))
 
             val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-            val rationale = "Please provide location permission..."
+            val rationale = getString(R.string.text_location_permission)
             val options = Permissions.Options().setRationaleDialogTitle("Info")
-                .setSettingsDialogTitle("Warning")
+                .setSettingsDialogTitle(getString(R.string.text_warning))
 
             Permissions.check(
                 this,
@@ -367,7 +367,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
             } else if (resultCode == android.app.Activity.RESULT_CANCELED) {
                 Toast.makeText(
-                    this, "Please enable Gps to get current location.", Toast.LENGTH_SHORT
+                    this, getString(R.string.text_enable_gps), Toast.LENGTH_SHORT
                 ).show()
                 val btnText = getString(R.string.text_start_now)
                 start_btn_txt.text = btnText

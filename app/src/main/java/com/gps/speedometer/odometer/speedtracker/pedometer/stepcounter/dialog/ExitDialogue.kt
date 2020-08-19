@@ -106,7 +106,7 @@ class ExitDialogue(val activity: Activity, private val isMenu: Boolean) :
                     mRootView.positive_text.setOnClickListener {
                         composeEmail(
                             arrayOf("appswingstudio@gmail.com"),
-                            "Share Cloud, Your valuable feedback."
+                            context.getString(R.string.text_share_feedback)
                         )
                         dismiss()
                     }
@@ -140,7 +140,7 @@ class ExitDialogue(val activity: Activity, private val isMenu: Boolean) :
                     mRootView.negative_text.setOnClickListener {
                         composeEmail(
                             arrayOf("appswingstudio@gmail.com"),
-                            "Share Cloud, Your valuable feedback."
+                            mRootView.context.getString(R.string.text_share_feedback)
                         )
                         dismiss()
                     }

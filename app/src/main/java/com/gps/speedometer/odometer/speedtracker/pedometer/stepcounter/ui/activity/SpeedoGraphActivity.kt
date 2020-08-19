@@ -22,8 +22,8 @@ class SpeedoGraphActivity : Activity() {
         setContentView(R.layout.activity_speedo_graph)
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(DetailReportFragment("today"), "TODAY")
-        adapter.addFragment(DetailReportFragment("week"), "LAST WEEk")
+        adapter.addFragment(DetailReportFragment("today"), getString(R.string.text_today))
+        adapter.addFragment(DetailReportFragment("week"), getString(R.string.text_last_week))
         viewPager.adapter = adapter
         viewPager.disableScroll(true)
         viewPager.invalidate()

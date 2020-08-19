@@ -32,8 +32,8 @@ class PedometerActivity : Activity() {
         setContentView(R.layout.activity_pedometer)
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(PedoMeterFragmentNew(), "TODAY")
-        adapter.addFragment(ReportFragment(), "REPORT")
+        adapter.addFragment(PedoMeterFragmentNew(), getString(R.string.text_today))
+        adapter.addFragment(ReportFragment(), getString(R.string.text_report))
         viewPager.adapter = adapter
         tabView.setupWithViewPager(viewPager)
 
@@ -62,9 +62,9 @@ class PedometerActivity : Activity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val permissions = arrayOf(Manifest.permission.ACTIVITY_RECOGNITION)
             val rationale =
-                "Please provide Activity Recognition Permission to start counting steps..."
+                getString(R.string.text_recognition_permission)
             val options = Permissions.Options().setRationaleDialogTitle("Info")
-                .setSettingsDialogTitle("Warning")
+                .setSettingsDialogTitle(getString(R.string.text_warning))
 
             Permissions.check(
                 this,

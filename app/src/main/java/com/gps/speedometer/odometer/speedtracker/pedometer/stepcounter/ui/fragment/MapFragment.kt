@@ -243,7 +243,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
         if (!NetworkUtils.isOnline(mView.context))
             Snackbar
                 .make(
-                    mView.speedometer_map_view, "Please Check Internet Connection",
+                    mView.speedometer_map_view, getString(R.string.text_network_permission),
                     Snackbar.LENGTH_LONG
                 )/*.setAction("Turn On Wifi") {
                     Toast.makeText(mView.context, "Snackbar clicked", Toast.LENGTH_LONG).show()
@@ -254,9 +254,9 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
         mMap = googleMap
         googleMap?.uiSettings?.isScrollGesturesEnabled = false
         val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-        val rationale = "Please provide location permission..."
+        val rationale = getString(R.string.text_location_permission)
         val options = Permissions.Options().setRationaleDialogTitle("Info")
-            .setSettingsDialogTitle("Warning")
+            .setSettingsDialogTitle(getString(R.string.text_warning))
 
         if (mContext != null) {
             Permissions.check(

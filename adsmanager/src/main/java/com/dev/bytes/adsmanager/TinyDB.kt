@@ -430,4 +430,8 @@ class TinyDB constructor(private val appContext: Context) {
             throw NullPointerException()
         }
     }
+
+    fun getLangInt(key: String?): Int {
+        return preferences.getInt(key, -1)
+    }
 }
