@@ -73,6 +73,8 @@ class MainActivity :
                 }
         }
 
+        setMarqee()
+
     }
 
     val xPivot : Float
@@ -98,6 +100,17 @@ class MainActivity :
         speedo_view_effect2.setOnClickListener {
             openSpeedo(it)
         }
+    }
+
+    private fun setMarqee() {
+        textView31.isSelected = true
+        textView3.isSelected = true
+        text_speedo.isSelected = true
+        text_step.isSelected = true
+        settings.isSelected = true
+        rate_us.isSelected = true
+        share.isSelected = true
+        premium.isSelected = true
     }
 
     private fun showRemoveAdsDialogue() {

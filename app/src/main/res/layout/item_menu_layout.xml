@@ -13,10 +13,11 @@
         app:srcCompat="@drawable/crown_1_copy_6" />
 
     <TextView
-        style="@style/TextAppearance.Secondary"
+        style="@style/TextAppearance.Secondary.SingleLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_medium_size"
+        android:layout_marginEnd="@dimen/dp_5"
         android:layout_marginTop="@dimen/dp_20"
         android:textColor="@color/colorPrimary"
         android:text="@string/text_menu_pro" />

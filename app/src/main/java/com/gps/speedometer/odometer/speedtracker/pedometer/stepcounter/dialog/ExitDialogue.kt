@@ -27,6 +27,7 @@ class ExitDialogue(val activity: Activity, private val isMenu: Boolean) :
 
             setView(mRootView)
 
+            mRootView.negative_text.isSelected = true
             if (!isMenu && NetworkUtils.isOnline(activity)) {
                 mRootView.exit_views.visibility = View.VISIBLE
                 mRootView.rate_views.visibility = View.GONE

@@ -8,7 +8,6 @@
 	<string name="about">À propos</string>
 	<string name="account">Compte</string>
 	<string name="goal_summary">Objectif actuel:%, d étapes</string>
-	<string name="step_size_summary">Taille actuelle de l&#39;étape:% 1 $ .2f% 2 $ s</string>
 	<string name="sign_in">Connectez-vous avec votre compte Google pour utiliser les fonctionnalités Réalisations et Classements</string>
 	<string name="signed_in">Connecté en tant que% s</string>
 	<string name="export_summary">Enregistrez vos données dans un fichier .csv</string>
@@ -20,7 +19,7 @@
 	<string name="set_step_size">Définir la taille du pas</string>
 	<string name="sign_out">Déconnexion</string>
 	<string name="file_cant_read">Erreur:% s ne peut pas être lu</string>
-	<string name="error_file">Erreur d&#39;accès au fichier:% s</string>
+	<string name="error_file">Erreur d\'accès au fichier:% s</string>
 	<string name="error_external_storage_not_available">Erreur: stockage externe non disponible</string>
 	<string name="data_saved">Données enregistrées dans% s</string>
 	<string name="entries_imported">% d entrées importées</string>
@@ -30,7 +29,7 @@
 	<string name="please_sign_in_with_your_google_account">Veuillez vous connecter avec votre compte Google+ pour utiliser cette fonctionnalité.</string>
 	<string name="text_steps">Pas</string>
 	<string name="text_color">Couleur du texte:</string>
-	<string name="background_color">Couleur de l&#39;arrière plan:</string>
+	<string name="background_color">Couleur de l\'arrière plan:</string>
 	<string name="settings">Paramètres</string>
 	<string name="achievements">Réalisations</string>
 	<string name="leaderboard">Classement</string>
@@ -46,9 +45,9 @@
 	<string name="average_last_7_days">Moyenne des 7 derniers jours</string>
 	<string name="total_this_month">Total ce mois-ci</string>
 	<string name="average_this_month">Moyenne ce mois-ci</string>
-	<string name="file_already_exists">Le fichier existe déjà. Voulez-vous vraiment l&#39;écraser?</string>
+	<string name="file_already_exists">Le fichier existe déjà. Voulez-vous vraiment l\'écraser?</string>
 	<string name="about_text_links">Cette application a été créée par Thomas Hoffmann ( <a href="https://www.j4velin.de">www.j4velin.de</a> ) et utilise <a href="https://github.com/blackfizz/EazeGraph">EazeGraph</a> de Paul Cech et <a href="https://github.com/attenzione/android-ColorPickerPreference">ColorPickerPreference</a> de Sergey Margaritov. \ N \ nLe podomètre est open source! Obtenez le code et la liste complète des contributeurs de <a href="https://github.com/j4velin/Pedometer">GitHub</a> . \ N \ n</string>
-	<string name="about_app_version">Version de l&#39;application:% s</string>
+	<string name="about_app_version">Version de l\'application:% s</string>
 	<string name="since">Depuis% s</string>
 	<string name="start">Début</string>
 	<string name="stop">Arrêtez</string>
@@ -57,7 +56,7 @@
 	<string name="split_count">Compte fractionné</string>
 	<string name="no_sensor">Capteur introuvable</string>
 	<string name="no_sensor_explain">Cette application nécessite un capteur de pas matériel dédié - que votre appareil ne possède pas. Cette fonctionnalité ne fonctionnera pas sur votre appareil.</string>
-	<string name="permission_external_storage">Aucune autorisation d&#39;accès au stockage externe</string>
+	<string name="permission_external_storage">Aucune autorisation d\'accès au stockage externe</string>
 	<string name="notification_settings">Paramètres de notification</string>
 	<string name="text_miles">Mile</string>
 	<string name="app_name_speed">Compteur de vitesse</string>
@@ -90,10 +89,10 @@
 	<string name="main_bar_title">Indicateur de vitesse GPS</string>
 	<string name="text_settings">Paramètres</string>
 	<string name="text_rate_us">Évaluez nous</string>
-	<string name="text_share">Partager l&#39;application</string>
+	<string name="text_share">Partager l\'application</string>
 	<string name="text_pro">Devenir pro</string>
-	<string name="text_start">COMMENCEZ MAINTENANT</string>
-	<string name="text_speedo">Compteur de vitesse</string>
+	<string name="text_start">DÉBUT</string>
+	<string name="text_speedo">Machmètre</string>
 	<string name="text_menu_pro">DEVENEZ PRO MAINTENANT</string>
 	<string name="text_menu_about">À propos</string>
 	<string name="text_menu_share">Partager avec des amis</string>
@@ -111,7 +110,7 @@
 	<string name="rate_us_desc">Veuillez noter 5 étoiles pour nous soutenir. \ NMerci.</string>
 	<string name="app_link">https://play.google.com/store/apps/details?id=com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter</string>
 	<string name="butn_exit">Sortie</string>
-	<string name="txt_feedback">Retour d&#39;information</string>
+	<string name="txt_feedback">Retour d\'information</string>
 	<string name="text_thanks">Non merci</string>
 	<string name="butn_cancel">Annuler</string>
 	<string name="rate_us_title">Évaluez nous</string>
@@ -125,13 +124,13 @@
 	<string name="digital_meter">Compteur numérique</string>
 	<string name="text_map">Carte</string>
 	<string name="great_app">Compteur de vitesse GPS et podomètre</string>
-	<string name="share_desc">Utilisez l&#39;une des meilleures applications de compteur de vitesse et de compteur de pas.</string>
+	<string name="share_desc">Utilisez l\'une des meilleures applications de compteur de vitesse et de compteur de pas.</string>
 	<string name="share_with">Partager avec des amis</string>
 	<string name="privacy_policy_link_text" translatable="false">https://www.freeprivacypolicy.com/privacy/view/50c5621471755f1548917ebbe5e90160</string>
 	<string name="remove_ads">Supprimez la pub</string>
 	<string name="text_pedometer">Pédomètre</string>
 	<string name="text_auto_steps">Étapes automatiquement</string>
-	<string name="text_auto_steps_desc">Activer le nombre d&#39;étapes automatiquement</string>
+	<string name="text_auto_steps_desc">Activer le nombre d\'étapes automatiquement</string>
 	<string name="text_settings_general">réglages généraux</string>
 	<string name="text_privacy">Politique de confidentialité</string>
 	<string name="text_privacy_desc">Lisez notre politique de confidentialité et nos conditions générales</string>
@@ -150,16 +149,16 @@
 	<string name="text_location_permission">Veuillez fournir une autorisation de localisation ...</string>
 	<string name="text_timo">Temps</string>
 	<string name="text_share_feedback">Partagez Cloud, vos précieux commentaires.</string>
-	<string name="text_today">AUJOURD&#39;HUI</string>
+	<string name="text_today">AUJOURD\'HUI</string>
 	<string name="text_report">RAPPORT</string>
-	<string name="text_recognition_permission">Veuillez fournir l&#39;autorisation de reconnaissance d&#39;activité pour commencer à compter les étapes ...</string>
+	<string name="text_recognition_permission">Veuillez fournir l\'autorisation de reconnaissance d\'activité pour commencer à compter les étapes ...</string>
 	<string name="text_last_week">La semaine dernière</string>
 	<string name="text_enable_gps">Veuillez activer Gps pour obtenir la position actuelle.</string>
 	<string name="text_network_permission">Veuillez vérifier la connexion Internet</string>
 	<string name="choose_language">Langues</string>
-	<string name="okay">D&#39;accord</string>
+	<string name="okay">D\'accord</string>
 	<string name="text_remove_ads_desc">Le compteur de vitesse GPS est pris en charge par les annonces, mais vous pouvez maintenant le supprimer!</string>
 	<string name="text_btn_remove_now">Supprimer maintenant</string>
-	<string name="text_loading_ad_please_wait">Chargement de l&#39;annonce, veuillez patienter</string>
+	<string name="text_loading_ad_please_wait">Chargement de l\'annonce, veuillez patienter</string>
 
 </resources>

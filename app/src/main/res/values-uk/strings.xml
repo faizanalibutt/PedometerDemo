@@ -158,7 +158,7 @@
 	<string name="text_network_permission">Перевірте підключення до Інтернету</string>
 	<string name="choose_language">Мови</string>
 	<string name="okay">гаразд</string>
-	<string name="text_remove_ads_desc">GPS Speedometer підтримується рекламою, але тепер ви можете видалити це!</string>
+	<string name="text_remove_ads_desc">GPS спідометр підтримується рекламою, але тепер ви можете видалити це!</string>
 	<string name="text_btn_remove_now">Видалити зараз</string>
 	<string name="text_loading_ad_please_wait">Завантаження реклами, зачекайте</string>
 

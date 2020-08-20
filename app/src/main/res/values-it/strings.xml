@@ -8,7 +8,6 @@
 	<string name="about">Di</string>
 	<string name="account">account</string>
 	<string name="goal_summary">Obiettivo attuale:%, d passi</string>
-	<string name="step_size_summary">Dimensione passaggio corrente:% 1 $ .2f% 2 $ s</string>
 	<string name="sign_in">Accedi con il tuo account Google per utilizzare le funzioni Obiettivi e Classifiche</string>
 	<string name="signed_in">Accesso eseguito come% s</string>
 	<string name="export_summary">Salva i tuoi dati in un file .csv</string>
@@ -20,7 +19,6 @@
 	<string name="set_step_size">Imposta la dimensione del passo</string>
 	<string name="sign_out">disconnessione</string>
 	<string name="file_cant_read">Errore:% s non può essere letto</string>
-	<string name="error_file">Errore durante l&#39;accesso al file:% s</string>
 	<string name="error_external_storage_not_available">Errore: memoria esterna non disponibile</string>
 	<string name="data_saved">Dati salvati in% s</string>
 	<string name="entries_imported">% d voci importate</string>
@@ -47,9 +45,6 @@
 	<string name="total_this_month">Totale questo mese</string>
 	<string name="average_this_month">Nella media questo mese</string>
 	<string name="file_already_exists">Il file esiste già. Sei sicuro di volerlo sovrascrivere?</string>
-	<string name="about_text_links">Questa app è stata creata da Thomas Hoffmann ( <a href="https://www.j4velin.de">www.j4velin.de</a> ) e utilizza <a href="https://github.com/blackfizz/EazeGraph">EazeGraph</a> di Paul Cech e <a href="https://github.com/attenzione/android-ColorPickerPreference">ColorPickerPreference</a> di Sergey Margaritov. \ N \ nPedometer è open source! Ottieni il codice e l&#39;elenco completo dei contributori da <a href="https://github.com/j4velin/Pedometer">GitHub</a> . \ N \ n</string>
-	<string name="about_app_version">Versione dell&#39;app:% s</string>
-	<string name="since">Poiché% s</string>
 	<string name="start">Inizio</string>
 	<string name="stop">Fermare</string>
 	<string name="close">vicino</string>
@@ -147,12 +142,12 @@
 	<string name="text_digital">DIGITALE</string>
 	<string name="text_tab_map">CARTA GEOGRAFICA</string>
 	<string name="text_warning">avvertimento</string>
-	<string name="text_location_permission">Fornisci l&#39;autorizzazione alla posizione ...</string>
+	<string name="text_location_permission">Caricamento dell\'annuncio, attendere prego</string>
 	<string name="text_timo">Tempo</string>
 	<string name="text_share_feedback">Condividi Cloud, il tuo prezioso feedback.</string>
 	<string name="text_today">OGGI</string>
 	<string name="text_report">RAPPORTO</string>
-	<string name="text_recognition_permission">Fornisci l&#39;autorizzazione al riconoscimento delle attività per avviare il conteggio dei passaggi ...</string>
+	<string name="text_recognition_permission">Fornisci l\'autorizzazione al riconoscimento delle attività per avviare il conteggio dei passaggi ...</string>
 	<string name="text_last_week">La settimana scorsa</string>
 	<string name="text_enable_gps">Abilita il GPS per ottenere la posizione corrente.</string>
 	<string name="text_network_permission">Verificare la connessione a Internet</string>
@@ -160,6 +155,6 @@
 	<string name="okay">ok</string>
 	<string name="text_remove_ads_desc">Il tachimetro GPS è supportato dagli annunci ma ora puoi rimuoverlo!</string>
 	<string name="text_btn_remove_now">Rimuovi adesso</string>
-	<string name="text_loading_ad_please_wait">Caricamento dell&#39;annuncio, attendere prego</string>
+	<string name="text_loading_ad_please_wait">Caricamento dell\'annuncio, attendere prego</string>
 
 </resources>

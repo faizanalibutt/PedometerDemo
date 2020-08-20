@@ -88,10 +88,10 @@
 	<string name="navigation_drawer_close">Navigationsschublade schließen</string>
 	<string name="action_settings">die Einstellungen</string>
 	<string name="main_bar_title">GPS-Tachometer</string>
-	<string name="text_settings">die Einstellungen</string>
-	<string name="text_rate_us">Bewerten Sie uns</string>
+	<string name="text_settings">Rahmen</string>
+	<string name="text_rate_us">Bewerten</string>
 	<string name="text_share">App teilen</string>
-	<string name="text_pro">Werde professoinell</string>
+	<string name="text_pro">Prämie</string>
 	<string name="text_start">JETZT ANFANGEN</string>
 	<string name="text_speedo">Tachometer</string>
 	<string name="text_menu_pro">JETZT PRO ERHALTEN</string>

@@ -7,8 +7,6 @@
 	<string name="steps">adımlar</string>
 	<string name="about">hakkında</string>
 	<string name="account">hesap</string>
-	<string name="goal_summary">Mevcut hedef:%, d adım</string>
-	<string name="step_size_summary">Mevcut adım boyutu:% 1 $ .2f% 2 $ s</string>
 	<string name="sign_in">Başarılar ve Skor Tabloları özelliklerini kullanmak için Google hesabınızla oturum açın</string>
 	<string name="signed_in">% S olarak oturum açıldı</string>
 	<string name="export_summary">Verilerinizi bir .csv dosyasına kaydedin</string>
@@ -47,13 +45,10 @@
 	<string name="total_this_month">Bu ayın toplamı</string>
 	<string name="average_this_month">Bu ayın ortalaması</string>
 	<string name="file_already_exists">Dosya zaten mevcut. Üzerine yazmak istediğinizden emin misiniz?</string>
-	<string name="about_text_links">Bu uygulama Thomas Hoffmann ( <a href="https://www.j4velin.de">www.j4velin.de</a> ) tarafından oluşturulmuştur ve Paul Cech tarafından <a href="https://github.com/blackfizz/EazeGraph">EazeGraph</a> ve Sergey Margaritov tarafından <a href="https://github.com/attenzione/android-ColorPickerPreference">ColorPickerPreference</a> kullanır. \ N \ nPedometre açık kaynaktır! Kodu ve katkıda bulunanların tam listesini <a href="https://github.com/j4velin/Pedometer">GitHub&#39;dan alın</a> . \ N \ n</string>
 	<string name="about_app_version">Uygulama sürümü:% s</string>
-	<string name="since">% S&#39;den beri</string>
 	<string name="start">Başlat</string>
 	<string name="stop">Dur</string>
 	<string name="close">kapat</string>
-	<string name="no_split_active">Etkin bölünmüş sayaç yok. Şu andan itibaren adımları saymak için Başlat&#39;ı tıklayın</string>
 	<string name="split_count">Bölünme sayısı</string>
 	<string name="no_sensor">Sensör bulunamadı</string>
 	<string name="no_sensor_explain">Bu uygulama, cihazınızda bulunmayan özel bir donanım adım sensörü gerektirir. Bu özellik cihazınızda çalışmayacak.</string>
@@ -94,7 +89,7 @@
 	<string name="text_pro">Profesyonel ol</string>
 	<string name="text_start">ŞİMDİ BAŞLA</string>
 	<string name="text_speedo">hız göstergesi</string>
-	<string name="text_menu_pro">PRO&#39;YU HEMEN EDİNİN</string>
+	<string name="text_menu_pro">PRO\'YU HEMEN EDİNİN</string>
 	<string name="text_menu_about">hakkında</string>
 	<string name="text_menu_share">Arkadaşlarınla paylaş</string>
 	<string name="text_resume">DEVAM ET</string>
@@ -137,7 +132,7 @@
 	<string name="text_privacy_desc">Gizlilik Politikamızı ve Hüküm ve Koşullarımızı okuyun</string>
 	<string name="text_rate">Bizi değerlendirin</string>
 	<string name="text_feedback">Görüşleriniz bizim için değerlidir.</string>
-	<string name="text_pro_now">PRO&#39;YU HEMEN EDİNİN</string>
+	<string name="text_pro_now">PRO\'YU HEMEN EDİNİN</string>
 	<string name="text_premium_desc">Reklamları kaldırmak için premium olun</string>
 	<string name="text_shares">Arkadaşlarınla paylaş</string>
 	<string name="text_share_desc">Bu uygulamayı arkadaşlarınız ve ailenizle paylaşın.</string>
@@ -154,7 +149,7 @@
 	<string name="text_report">BİLDİRİ</string>
 	<string name="text_recognition_permission">Adımları saymaya başlamak için lütfen Etkinlik Tanıma İzni sağlayın ...</string>
 	<string name="text_last_week">Geçen hafta</string>
-	<string name="text_enable_gps">Lütfen mevcut konumu almak için Gps&#39;yi etkinleştirin.</string>
+	<string name="text_enable_gps">Lütfen mevcut konumu almak için Gps\'yi etkinleştirin.</string>
 	<string name="text_network_permission">Lütfen İnternet Bağlantısını Kontrol Edin</string>
 	<string name="choose_language">Diller</string>
 	<string name="okay">tamam</string>
