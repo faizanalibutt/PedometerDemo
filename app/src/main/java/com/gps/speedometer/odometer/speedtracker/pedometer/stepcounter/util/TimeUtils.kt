@@ -2,6 +2,7 @@ package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util
 
 import android.content.Context
 import android.text.format.DateUtils
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,17 +22,17 @@ object TimeUtils {
         return if (type == "time")
             SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date(millis))
         else
-            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(millis))
+            SimpleDateFormat("yyyy-MM-dd", Locale(App.localeManager!!.language)).format(Date(millis))
     }
 
     fun getFormatDate(millis: Long): String {
 
-        return SimpleDateFormat("E", Locale.getDefault()).format(Date(millis))[0].toString()
+        return SimpleDateFormat("E", Locale.getDefault()).format(Date(millis)).toString()
     }
 
     @JvmStatic
     fun getFormatStringDate(stringDate: String) : String {
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale(App.localeManager!!.language))
         var date: Date? = null
         try {
             date = sdf.parse(stringDate)
@@ -39,7 +40,7 @@ object TimeUtils {
             Logger.log(parseExp.localizedMessage)
         }
         sdf.applyPattern("EEE")
-        return sdf.format(date!!)[0].toString()
+        return sdf.format(date!!).toString()
     }
 
     fun getFormatedTimeMH(millis: Long): String = String.format(

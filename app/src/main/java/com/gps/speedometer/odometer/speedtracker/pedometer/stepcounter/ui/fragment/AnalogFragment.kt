@@ -19,6 +19,13 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Spe
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
 import kotlinx.android.synthetic.main.fragment_analog.*
 import kotlinx.android.synthetic.main.fragment_analog.view.*
+import kotlinx.android.synthetic.main.fragment_analog.view.car_view
+import kotlinx.android.synthetic.main.fragment_analog.view.cycle_view
+import kotlinx.android.synthetic.main.fragment_analog.view.digi_type_txt
+import kotlinx.android.synthetic.main.fragment_analog.view.popup_units
+import kotlinx.android.synthetic.main.fragment_analog.view.train_view
+import kotlinx.android.synthetic.main.fragment_analog.view.units_text
+import kotlinx.android.synthetic.main.fragment_digital.view.*
 
 class AnalogFragment() : Fragment() {
 
@@ -97,7 +104,8 @@ class AnalogFragment() : Fragment() {
             unitMain = it.unit
             setValues(it.type, it.unit, view)
 
-            units_text.text = it.unit_text
+            view.units_text.isSelected = true
+            view.units_text.text = it.unit_text
 
             when (it.type) {
                 "cycle" -> {
@@ -166,7 +174,7 @@ class AnalogFragment() : Fragment() {
 
         popup.setOnMenuItemClickListener {
             when (it.title.toString()) {
-                "KM/H" -> {
+                resources.getString(R.string.km_h_c) -> {
                     unitMain = "km"
                     Callback.setMeterValue1(
                         Speedo(
@@ -177,7 +185,7 @@ class AnalogFragment() : Fragment() {
                         )
                     )
                 }
-                "MPH" -> {
+                resources.getString(R.string.mph_c) -> {
                     unitMain = "mph"
                     Callback.setMeterValue1(
                         Speedo(
@@ -188,7 +196,7 @@ class AnalogFragment() : Fragment() {
                         )
                     )
                 }
-                "KNOT" -> {
+                resources.getString(R.string.knot_c) -> {
                     unitMain = "knot"
                     Callback.setMeterValue1(
                         Speedo(
@@ -216,7 +224,7 @@ class AnalogFragment() : Fragment() {
                     "km" -> {
 
                         mView.speedometer_view.max = 240
-                        mView.digi_type_txt.text = "Km/h"
+                        mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
 
                         view.speedometer_view_img.setImageResource(
                             R.drawable.ic_car_kmph
@@ -225,7 +233,7 @@ class AnalogFragment() : Fragment() {
                     "mph" -> {
 
                         mView.speedometer_view.max = 160
-                        mView.digi_type_txt.text = "mph"
+                        mView.digi_type_txt.text = resources.getString(R.string.mph_c)
 
                         view.speedometer_view_img.setImageResource(
                             R.drawable.ic_car_mph_01
@@ -235,7 +243,7 @@ class AnalogFragment() : Fragment() {
                     "knot" -> {
 
                         mView.speedometer_view.max = 128
-                        mView.digi_type_txt.text = "knot"
+                        mView.digi_type_txt.text = resources.getString(R.string.knot_c)
 
                         view.speedometer_view_img.setImageResource(
                             R.drawable.ic_car_knot_01
@@ -252,7 +260,7 @@ class AnalogFragment() : Fragment() {
                     "km" -> {
 
                         mView.speedometer_view.max = 72
-                        mView.digi_type_txt.text = "Km/h"
+                        mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
 
                         view.speedometer_view_img.setImageResource(
                             R.drawable.ic_cycle_kmph
@@ -263,7 +271,7 @@ class AnalogFragment() : Fragment() {
                     "mph" -> {
 
                         mView.speedometer_view.max = 36
-                        mView.digi_type_txt.text = "mph"
+                        mView.digi_type_txt.text = resources.getString(R.string.mph_c)
 
                         view.speedometer_view_img.setImageResource(
                             R.drawable.ic_cycle_mph
@@ -273,7 +281,7 @@ class AnalogFragment() : Fragment() {
                     "knot" -> {
 
                         mView.speedometer_view.max = 27
-                        mView.digi_type_txt.text = "knot"
+                        mView.digi_type_txt.text = resources.getString(R.string.knot_c)
 
                         view.speedometer_view_img.setImageResource(
                             R.drawable.ic_cycle_knot
@@ -289,7 +297,7 @@ class AnalogFragment() : Fragment() {
                     "km" -> {
 
                         mView.speedometer_view.max = 360
-                        mView.digi_type_txt.text = "Km/h"
+                        mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
 
                         view.speedometer_view_img.setImageResource(
                             R.drawable.ic_train_kmh_01
@@ -299,7 +307,7 @@ class AnalogFragment() : Fragment() {
                     "mph" -> {
 
                         mView.speedometer_view.max = 220
-                        mView.digi_type_txt.text = "mph"
+                        mView.digi_type_txt.text = resources.getString(R.string.mph_c)
 
                         view.speedometer_view_img.setImageResource(
                             R.drawable.ic_train_mph_01
@@ -309,7 +317,7 @@ class AnalogFragment() : Fragment() {
                     "knot" -> {
 
                         mView.speedometer_view.max = 200
-                        mView.digi_type_txt.text = "knot"
+                        mView.digi_type_txt.text = resources.getString(R.string.knot_c)
 
                         view.speedometer_view_img.setImageResource(
                             R.drawable.ic_train_knot_01

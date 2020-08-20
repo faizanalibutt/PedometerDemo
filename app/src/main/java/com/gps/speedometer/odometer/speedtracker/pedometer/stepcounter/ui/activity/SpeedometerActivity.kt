@@ -155,7 +155,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
             speed_value.text = "0"
             distance_value.text = "0"
-            Callback.setMeterValue1(Speedo("car", "km", "KM/H", ""))
+            Callback.setMeterValue1(Speedo("car", "km", resources.getString(R.string.km_h_c), ""))
 
             val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
             val rationale = getString(R.string.text_location_permission)
@@ -225,7 +225,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             avgSpeed = 0.0
             showStartStopInter()
             Callback.setDefaultSpeedo(true)
-            Callback.setMeterValue1(Speedo("car", "km", "KM/H", ""))
+            Callback.setMeterValue1(Speedo("car", "km", resources.getString(R.string.km_h_c), ""))
         }
 
     }

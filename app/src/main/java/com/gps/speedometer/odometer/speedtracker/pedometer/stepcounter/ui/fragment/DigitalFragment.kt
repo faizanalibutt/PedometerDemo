@@ -18,7 +18,6 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.callback.Callback
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Speedo
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
-import kotlinx.android.synthetic.main.fragment_analog.view.*
 import kotlinx.android.synthetic.main.fragment_digital.*
 import kotlinx.android.synthetic.main.fragment_digital.units_text
 import kotlinx.android.synthetic.main.fragment_digital.view.*
@@ -117,6 +116,7 @@ class DigitalFragment() : Fragment() {
         Callback.getLocationData().observe(viewLifecycleOwner, speedObserver)
         Callback.getMeterValue1().observe(viewLifecycleOwner, meterObserver)
         Callback.getDefaultSpeedoValues().observe(viewLifecycleOwner, defaultObserver)
+        view.units_text.isSelected = true
 
     }
 
@@ -176,15 +176,15 @@ class DigitalFragment() : Fragment() {
 
         popup.setOnMenuItemClickListener {
             when (it.title.toString()) {
-                "KM/H" -> {
+                resources.getString(R.string.km_h_c) -> {
                     unitMain = "km"
                     Callback.setMeterValue1(Speedo(vehicle, unitMain, resources.getString(R.string.km_h_c), ""))
                 }
-                "MPH" -> {
+                resources.getString(R.string.mph_c) -> {
                     unitMain = "mph"
                     Callback.setMeterValue1(Speedo(vehicle, unitMain, resources.getString(R.string.mph_c), ""))
                 }
-                "KNOT" -> {
+                resources.getString(R.string.knot_c) -> {
                     unitMain = "knot"
                     Callback.setMeterValue1(Speedo(vehicle, unitMain, resources.getString(R.string.knot_c), ""))
                 }

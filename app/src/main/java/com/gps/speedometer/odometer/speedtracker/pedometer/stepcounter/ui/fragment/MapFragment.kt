@@ -118,6 +118,7 @@ class MapFragment() : Fragment(), OnMapReadyCallback {
 
         Callback.getLocationData().observe(viewLifecycleOwner, speedObserver)
         Callback.getDefaultSpeedoValues().observe(viewLifecycleOwner, defaultObserver)
+        view.digi_type_txt.isSelected = true
 
     }
 

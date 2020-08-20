@@ -68,10 +68,10 @@
         android:layout_height="wrap_content"
         android:text="@string/km_h_c"
         android:textAlignment="center"
-        android:textSize="9sp"
+        android:textSize="8sp"
         app:layout_constraintBottom_toBottomOf="@+id/digi_speed_txt"
-        app:layout_constraintEnd_toEndOf="@+id/digi_type_txt_value"
-        app:layout_constraintStart_toStartOf="@+id/digi_type_txt_value" />
+        app:layout_constraintEnd_toEndOf="@+id/digi_speed_txt"
+        app:layout_constraintStart_toStartOf="@+id/digi_speed_txt" />
 
     <TextView
         android:id="@+id/digi_type_txt_value"

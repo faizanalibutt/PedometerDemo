@@ -87,6 +87,7 @@
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:contentDescription="@string/kmh"
+        android:layout_marginEnd="@dimen/dp_8"
         app:layout_constraintBottom_toBottomOf="@+id/popup_units"
         app:layout_constraintEnd_toEndOf="@+id/popup_units"
         app:layout_constraintHorizontal_bias="0.5"
@@ -96,10 +97,11 @@
 
     <TextView
         android:id="@+id/units_text"
-        style="@style/TextAppearance.Primary"
-        android:layout_width="wrap_content"
+        style="@style/TextAppearance.Primary.SingleLine.Maq"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/kmh"
+        android:text="@string/km_h_c"
+        android:paddingHorizontal="@dimen/dp_5"
         app:layout_constraintBottom_toBottomOf="@+id/popup_units"
         app:layout_constraintEnd_toStartOf="@+id/img_1"
         app:layout_constraintStart_toStartOf="@+id/popup_units"
