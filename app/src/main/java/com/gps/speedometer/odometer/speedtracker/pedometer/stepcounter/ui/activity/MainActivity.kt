@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.*
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.view.GravityCompat
@@ -82,14 +83,17 @@ class MainActivity :
 
     private fun updateMenuItem() {
         val menuView = navView.menu
-        val menuViewItem: MenuItem = menuView.getItem(1)
-        menuViewItem.actionView.findViewById<AppCompatTextView>(R.id.select_languague)
+        val menuViewItemLan: MenuItem = menuView.getItem(1)
+        val menuViewItemPro: MenuItem = menuView.getItem(0)
+        menuViewItemLan.actionView.findViewById<AppCompatTextView>(R.id.select_languague)
             .text = Utility.setLanguageLocale()
+        menuViewItemPro.actionView.findViewById<TextView>(R.id.menu_pro_text).isSelected =
+            true
     }
 
-    val xPivot : Float
+    val xPivot: Float
         get() = speedo_view?.pivotX ?: 0f
-    val yPivot : Float
+    val yPivot: Float
         get() = (speedo_img?.pivotY ?: 0f) + resources.getDimension(R.dimen.dp_12)
 
     private fun setSpeedoRippleEffect() {
