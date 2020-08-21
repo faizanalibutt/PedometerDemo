@@ -77,7 +77,7 @@
 	<string name="distance">РАССТОЯНИЕ</string>
 	<string name="how_fast">Как быстро?</string>
 	<string name="km_h_c">КМ / Ч</string>
-	<string name="mph_c">MPH</string>
+	<string name="mph_c">миль / ч</string>
 	<string name="knot_c">МОРСКОЙ УЗЕЛ</string>
 	<string name="stop_tracing">ОСТАНОВИТЬ ОТСЛЕЖИВАНИЕ</string>
 	<string name="privacy_policy_desc">Продолжая, вы соглашаетесь \ nс Политикой конфиденциальности</string>

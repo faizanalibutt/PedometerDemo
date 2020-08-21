@@ -78,7 +78,7 @@
 	<string name="how_fast">Nhanh như thế nào?</string>
 	<string name="km_h_c" translatable="false">KM / H</string>
 	<string name="mph_c" translatable="false">MPH</string>
-	<string name="knot_c" translatable="false">KNOT</string>
+	<string name="knot_c" translatable="false">thắt nút</string>
 	<string name="stop_tracing">DỪNG TRACING</string>
 	<string name="privacy_policy_desc">Bằng cách tiếp tục, bạn đồng ý với Chính sách quyền riêng tư</string>
 	<string name="text_privacy_policy">&quot;Chính sách bảo mật</string>

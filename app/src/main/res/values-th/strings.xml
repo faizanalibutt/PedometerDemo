@@ -78,7 +78,7 @@
 	<string name="how_fast">เร็วแค่ไหน?</string>
 	<string name="km_h_c">KM / H</string>
 	<string name="mph_c">ไมล์ต่อชั่วโมง</string>
-	<string name="knot_c">KNOT</string>
+	<string name="knot_c">ปม</string>
 	<string name="stop_tracing">หยุดการติดตาม</string>
 	<string name="privacy_policy_desc">ในการดำเนินการต่อแสดงว่าคุณยอมรับ \ n กับนโยบายความเป็นส่วนตัว</string>
 	<string name="text_privacy_policy">&quot;นโยบายความเป็นส่วนตัว</string>
@@ -97,7 +97,7 @@
 	<string name="text_menu_pro">รับโปรทันที</string>
 	<string name="text_menu_about">เกี่ยวกับ</string>
 	<string name="text_menu_share">แบ่งปันกับเพื่อน ๆ</string>
-	<string name="text_resume">RESUME</string>
+	<string name="text_resume">ดำเนินการต่อ</string>
 	<string name="text_kcal">กิโลแคลอรี</string>
 	<string name="text_time">รายงานการประชุม</string>
 	<string name="text_average">เฉลี่ย</string>

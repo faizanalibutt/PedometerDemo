@@ -189,6 +189,8 @@
                         android:button="@android:color/transparent"
                         android:fontFamily="@font/roboto_medium"
                         android:gravity="center"
+                        android:paddingStart="@dimen/dp_5"
+                        android:paddingEnd="@dimen/dp_5"
                         android:text="@string/avg_speed_graph"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/colorPrimary"

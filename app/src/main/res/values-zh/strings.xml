@@ -77,7 +77,7 @@
 	<string name="distance">距离</string>
 	<string name="how_fast">多快？</string>
 	<string name="km_h_c">KM /小时</string>
-	<string name="mph_c">MPH</string>
+	<string name="mph_c">英里每小时</string>
 	<string name="knot_c">结</string>
 	<string name="stop_tracing">停止追踪</string>
 	<string name="privacy_policy_desc">继续进行，即表示您同意\ n隐私政策</string>

@@ -186,6 +186,8 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
 
         }
 
+        step_btn_txt.setSelected(true);
+
         return v;
     }
 

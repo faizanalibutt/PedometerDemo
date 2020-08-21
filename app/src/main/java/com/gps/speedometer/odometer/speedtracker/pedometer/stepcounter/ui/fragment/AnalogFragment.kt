@@ -18,6 +18,8 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.callback.
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Speedo
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
 import kotlinx.android.synthetic.main.fragment_analog.*
+import kotlinx.android.synthetic.main.fragment_analog.digi_type_txt
+import kotlinx.android.synthetic.main.fragment_analog.units_text
 import kotlinx.android.synthetic.main.fragment_analog.view.*
 import kotlinx.android.synthetic.main.fragment_analog.view.car_view
 import kotlinx.android.synthetic.main.fragment_analog.view.cycle_view
@@ -25,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_analog.view.digi_type_txt
 import kotlinx.android.synthetic.main.fragment_analog.view.popup_units
 import kotlinx.android.synthetic.main.fragment_analog.view.train_view
 import kotlinx.android.synthetic.main.fragment_analog.view.units_text
+import kotlinx.android.synthetic.main.fragment_digital.*
 import kotlinx.android.synthetic.main.fragment_digital.view.*
 
 class AnalogFragment() : Fragment() {
@@ -131,6 +134,7 @@ class AnalogFragment() : Fragment() {
                 mView.speedometer_view.max = 240
                 mView.speedometer_view.progress = 0
                 mView.digi_type_txt.text = resources.getString(R.string.km_h_c)
+                mView.units_text.text = view.resources.getString(R.string.km_h_c)
             }
         }
 

@@ -76,7 +76,7 @@
 	<string name="avg_speed">KECEPATAN AVG</string>
 	<string name="distance">JARAK</string>
 	<string name="how_fast">Seberapa cepat?</string>
-	<string name="km_h_c">KM / H</string>
+	<string name="km_h_c">KM / jam</string>
 	<string name="mph_c">MPH</string>
 	<string name="knot_c">SIMPUL</string>
 	<string name="stop_tracing">HENTIKAN PELACAKAN</string>

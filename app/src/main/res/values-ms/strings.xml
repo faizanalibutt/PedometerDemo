@@ -76,9 +76,9 @@
 	<string name="avg_speed">KECEPATAN AVG</string>
 	<string name="distance">JARAK</string>
 	<string name="how_fast">Berapa cepat?</string>
-	<string name="km_h_c" translatable="false">KM / H</string>
-	<string name="mph_c" translatable="false">MPH</string>
-	<string name="knot_c" translatable="false">SIMPUL</string>
+	<string name="km_h_c">KM / j</string>
+	<string name="mph_c">MPH</string>
+	<string name="knot_c">SIMPUL</string>
 	<string name="stop_tracing">HENTIKAN TRACING</string>
 	<string name="privacy_policy_desc">Dengan meneruskan, anda bersetuju \ nuntuk Dasar Privasi</string>
 	<string name="text_privacy_policy">&quot;Dasar Privasi</string>

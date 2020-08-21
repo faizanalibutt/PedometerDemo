@@ -110,6 +110,8 @@ class DigitalFragment() : Fragment() {
         val defaultObserver = Observer<Boolean> {
             if (it) {
                 view.digi_speed_txt.text = "00"
+                digi_type_txt.text = view.resources.getString(R.string.km_h_c)
+                units_text.text = view.resources.getString(R.string.km_h_c)
             }
         }
 

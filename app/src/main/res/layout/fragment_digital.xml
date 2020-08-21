@@ -45,14 +45,15 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:lines="1"
+        android:paddingVertical="@dimen/dp_5"
         android:text="@string/km_h_c"
         android:textSize="40sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="@+id/speedometer_digi_view"
         app:layout_constraintEnd_toEndOf="@+id/speedometer_digi_view"
         app:layout_constraintStart_toEndOf="@+id/digi_speed_txt"
-        app:layout_constraintTop_toTopOf="@+id/speedometer_digi_view"
-        app:layout_constraintVertical_bias=".56"
+        app:layout_constraintTop_toBottomOf="@+id/popup_units"
+        app:layout_constraintVertical_bias=".4"
         app:layout_constraintWidth_percent=".3" />
 
     <View

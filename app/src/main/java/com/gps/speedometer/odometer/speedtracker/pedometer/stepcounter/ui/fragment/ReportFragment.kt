@@ -32,12 +32,15 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppU
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Graph
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.TimeUtils.getDuration
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Util
+import kotlinx.android.synthetic.main.fragment_report.view.*
 import kotlinx.android.synthetic.main.fragment_report.view.average_value
 import kotlinx.android.synthetic.main.fragment_report.view.total_value
 import kotlinx.android.synthetic.main.fragment_report_pedo.*
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.*
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.bargraph1
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.chipGroup
+import kotlinx.android.synthetic.main.fragment_report_pedo.view.emptyData
+import kotlinx.android.synthetic.main.fragment_report_pedo.view.graphView
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.text_average
 import kotlinx.android.synthetic.main.fragment_report_pedo.view.text_total
 import kotlin.math.abs

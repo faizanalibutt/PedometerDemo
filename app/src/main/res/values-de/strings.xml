@@ -76,7 +76,7 @@
 	<string name="avg_speed">AVG-GESCHWINDIGKEIT</string>
 	<string name="distance">ENTFERNUNG</string>
 	<string name="how_fast">Wie schnell?</string>
-	<string name="km_h_c" translatable="false">KM / H.</string>
+	<string name="km_h_c" translatable="false">KM / H</string>
 	<string name="mph_c" translatable="false">MPH</string>
 	<string name="knot_c" translatable="false">KNOTEN</string>
 	<string name="stop_tracing">STOPPEN SIE DIE VERFOLGUNG</string>

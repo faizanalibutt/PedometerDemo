@@ -76,9 +76,9 @@
 	<string name="avg_speed">AVG SPEED</string>
 	<string name="distance">ВИСТАВКА</string>
 	<string name="how_fast">Як швидко?</string>
-	<string name="km_h_c" translatable="false">КМ / год</string>
-	<string name="mph_c" translatable="false">MPH</string>
-	<string name="knot_c" translatable="false">КНОТ</string>
+	<string name="km_h_c">км / год</string>
+	<string name="mph_c">миль / год</string>
+	<string name="knot_c">вузол</string>
 	<string name="stop_tracing">ЗАСТОСУЙТЕ ТРАКІНГ</string>
 	<string name="privacy_policy_desc">Продовжуючи згоду \ nполітику конфіденційності</string>
 	<string name="text_privacy_policy">&quot;Політика конфіденційності</string>
