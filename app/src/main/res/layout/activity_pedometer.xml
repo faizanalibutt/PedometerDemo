@@ -19,14 +19,16 @@
 
     <TextView
         android:id="@+id/textView"
-        style="@style/TextAppearance.Primary.Big.Dialog"
-        android:layout_width="wrap_content"
+        style="@style/TextAppearance.Primary.Big.Dialog.SingleLine"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_smaller_size"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/text_pedometer"
+        android:paddingHorizontal="@dimen/dp_1"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/appBar"
+        app:layout_constraintEnd_toStartOf="@+id/premium_services"
         app:layout_constraintStart_toEndOf="@+id/nav_back"
         app:layout_constraintTop_toTopOf="parent" />
 

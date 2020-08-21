@@ -70,30 +70,7 @@ class SettingsActivity : Activity(), View.OnClickListener {
     }
 
     private fun setLanguageName() {
-        language_name.text = when (App.localeManager?.language) {
-            "en" -> "English"
-            "ar" -> "العربية"
-            "bn" -> "বাংলা"
-            "zh" -> "汉语"
-            "de" -> "Deutsch"
-            "hi" -> "हिंदी"
-            "in" -> "Indonesia"
-            "it" -> "Italiano"
-            "ms" -> "Melayu"
-            "nl" -> "Nederlands"
-            "ru" -> "русский"
-            "ko" -> "한국어"
-            "es" -> "Español"
-            "tr" -> "Türkçe"
-            "uk" -> "Українська"
-            "pt" -> "Portuguese"
-            "th" -> "ไทย"
-            "ja" -> "日本語"
-            "vi" -> "Vietnam"
-            else -> {
-                App.localeManager?.language
-            }
-        }
+        language_name.text = Utility.setLanguageLocale()
     }
 
     private fun isStepSensorAvailable(check: Boolean): Boolean {

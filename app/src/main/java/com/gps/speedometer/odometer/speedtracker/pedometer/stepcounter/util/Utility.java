@@ -54,10 +54,86 @@ public class Utility {
             "vi"
     };
 
-    static String[] language = {"English", "العربية", "বাংলা", "汉语", "français", "Deutsch", "हिंदी", "Indonesia",
+    static String[] language = {"English", "العربية", "বাংলা", "汉语", "Français", "Deutsch", "हिंदी", "Indonesia",
             "Italiano", "Melayu", "Nederlands", "русский", "한국어", "Español", "Türkçe", "Українська",
             "Portuguese", "ไทย", "日本語", "Vietnam"
     };
+
+    public static CharSequence setLanguageLocale() {
+
+        String defaultLan = "English >";
+        String selectedLan;
+
+        if (App.Companion.getLocaleManager() == null)
+            return defaultLan;
+
+        switch (App.Companion.getLocaleManager().getLanguage()) {
+            case "ar":
+                selectedLan = "العربية >";
+                break;
+            case "bn":
+                selectedLan = "বাংলা >";
+                break;
+            case "zh":
+                selectedLan = "汉语 >";
+                break;
+            case "fr":
+                selectedLan = "Français";
+                break;
+            case "de":
+                selectedLan = "Deutsch >";
+                break;
+            case "hi":
+                selectedLan = "हिंदी >";
+                break;
+            case "in":
+                selectedLan = "Indonesia >";
+                break;
+            case "it":
+                selectedLan = "Italiano >";
+                break;
+            case "ms":
+                selectedLan = "Melayu >";
+                break;
+            case "nl":
+                selectedLan = "Nederlands >";
+                break;
+            case "ru":
+                selectedLan = "русский >";
+                break;
+            case "ko":
+                selectedLan = "한국어 >";
+                break;
+            case "es":
+                selectedLan = "Español >";
+                break;
+            case "tr":
+                selectedLan = "Türkçe >";
+                break;
+            case "uk":
+                selectedLan = "Українська >";
+                break;
+            case "pt":
+                selectedLan = "Portuguese >";
+                break;
+            case "th":
+                selectedLan = "ไทย >";
+                break;
+            case "ja":
+                selectedLan = "日本語 >";
+                break;
+            case "vi":
+                selectedLan = "Vietnam >";
+                break;
+            case "en":
+            default:
+                selectedLan = "English >";
+                break;
+        }
+
+        return App.Companion.getLocaleManager() != null ?
+                selectedLan : defaultLan;
+    }
 
     public static void showLanguageDialog(Activity activity) {
 
@@ -69,7 +145,7 @@ public class Utility {
         if (checkedItem == -1) {
             String[] language_code = Utility.language_code;
             for (int i = 0; i < language_code.length; i++) {
-                if(language_code[i].equals(Locale.getDefault().getLanguage())){
+                if (language_code[i].equals(Locale.getDefault().getLanguage())) {
                     checkedItem = i;
                 }
             }
@@ -87,7 +163,7 @@ public class Utility {
                 changeLanguage(which, "bn", activity);
             } else if ("汉语".equals(checkedItem1)) {
                 changeLanguage(which, "zh", activity);
-            } else if ("français".equals(checkedItem1)) {
+            } else if ("Français".equals(checkedItem1)) {
                 changeLanguage(which, "fr", activity);
             } else if ("Deutsch".equals(checkedItem1)) {
                 changeLanguage(which, "de", activity);
@@ -140,9 +216,10 @@ public class Utility {
         TinyDB.getInstance(activity).putInt("dl_language", which);
 
 
-        setNewLocale(ar,false, activity);
+        setNewLocale(ar, false, activity);
 
     }
+
     private static void setNewLocale(String language, boolean restartProcess, Activity activity) {
         if (App.Companion.getLocaleManager() != null)
             App.Companion.getLocaleManager().setNewLocale(activity, language);
@@ -186,10 +263,10 @@ public class Utility {
             Method getRuntime = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "getRuntime",
                     null);
             Method setHiddenApiExemptions = (Method) getDeclaredMethod.invoke(vmRuntimeClass,
-                    "setHiddenApiExemptions", new Class[]{ String[].class });
+                    "setHiddenApiExemptions", new Class[]{String[].class});
             Object sVmRuntime = getRuntime.invoke(null);
 
-            setHiddenApiExemptions.invoke(sVmRuntime, new Object[]{ new String[]{ "L" } });
+            setHiddenApiExemptions.invoke(sVmRuntime, new Object[]{new String[]{"L"}});
         } catch (Throwable e) {
             Log.e("TAG", "Reflect bootstrap failed:", e);
         }

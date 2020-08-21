@@ -3,19 +3,15 @@ package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activ
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.*
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.dev.bytes.adsmanager.ADUnitPlacements
-import com.dev.bytes.adsmanager.TinyDB
 import com.dev.bytes.adsmanager.TinyDB.Companion.getInstance
 import com.dev.bytes.adsmanager.billing.purchaseRemoveAds
 import com.dev.bytes.adsmanager.loadNativeAd
@@ -25,13 +21,7 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.dialog.RemoveAdsDialog.Companion.show
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Utility
-import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.android.synthetic.main.content_main.premium
-import kotlinx.android.synthetic.main.content_main.premium_services
-import kotlinx.android.synthetic.main.content_main.rate_us
-import kotlinx.android.synthetic.main.content_main.share
-import java.util.*
 
 
 class MainActivity :
@@ -92,34 +82,9 @@ class MainActivity :
 
     private fun updateMenuItem() {
         val menuView = navView.menu
-
         val menuViewItem: MenuItem = menuView.getItem(1)
-        menuViewItem.actionView.findViewById<AppCompatTextView>(R.id.select_languague).text =
-            when (App.localeManager?.language) {
-                "en" -> "English >"
-                "ar" -> "العربية >"
-                "bn" -> "বাংলা >"
-                "zh" -> "汉语 >"
-                "de" -> "Deutsch >"
-                "hi" -> "हिंदी >"
-                "in" -> "Indonesia >"
-                "it" -> "Italiano >"
-                "ms" -> "Melayu >"
-                "nl" -> "Nederlands >"
-                "ru" -> "русский >"
-                "ko" -> "한국어 >"
-                "es" -> "Español >"
-                "tr" -> "Türkçe >"
-                "uk" -> "Українська >"
-                "pt" -> "Portuguese >"
-                "th" -> "ไทย >"
-                "ja" -> "日本語 >"
-                "vi" -> "Vietnam >"
-                else -> {
-                    App.localeManager?.language + " >"
-                }
-            }
-
+        menuViewItem.actionView.findViewById<AppCompatTextView>(R.id.select_languague)
+            .text = Utility.setLanguageLocale()
     }
 
     val xPivot : Float
@@ -156,6 +121,7 @@ class MainActivity :
         rate_us.isSelected = true
         share.isSelected = true
         premium.isSelected = true
+        textView.isSelected = true
     }
 
     private fun showRemoveAdsDialogue() {

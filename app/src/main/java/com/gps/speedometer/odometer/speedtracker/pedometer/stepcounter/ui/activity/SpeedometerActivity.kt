@@ -73,6 +73,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
         viewPager.adapter = adapter
         tabView.setupWithViewPager(viewPager)
         text4.isSelected = true
+        actionBarText.isSelected = true
 
         ad_container_speedo.loadBannerAd(BannerPlacements.BANNER_AD)
         loadInterstitialAd(

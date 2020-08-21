@@ -77,7 +77,7 @@ class PedometerActivity : Activity() {
                     }
                 })
         }
-
+        textView.isSelected = true
     }
 
     fun showStartStopInter() {

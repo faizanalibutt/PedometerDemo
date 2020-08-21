@@ -28,6 +28,7 @@ class SpeedoGraphActivity : Activity() {
         viewPager.disableScroll(true)
         viewPager.invalidate()
         tabView.setupWithViewPager(viewPager)
+        textView.isSelected = true
 
         nav_back.setOnClickListener {
             //startActivity(Intent(this, SpeedometerActivity::class.java))

@@ -69,6 +69,7 @@ class DetailReportFragment() : Fragment() {
         )
         mView = view
         val database = Database.getInstance(view.context)
+        view.speed_graph.isSelected = true
 
         when (reportType) {
 

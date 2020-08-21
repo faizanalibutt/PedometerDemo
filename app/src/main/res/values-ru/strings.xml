@@ -61,8 +61,8 @@
 	<string name="notification_settings">Настройки уведомлений</string>
 	<string name="text_miles">мили</string>
 	<string name="app_name_speed">Спидометр</string>
-	<string name="analog">ANALOG</string>
-	<string name="digital">DIGITAL</string>
+	<string name="analog">аналоговый</string>
+	<string name="digital">цифровой</string>
 	<string name="map">КАРТА</string>
 	<string name="duration">ПРОДОЛЖИТЕЛЬНОСТЬ</string>
 	<string name="_00_00_00">00:00:00</string>

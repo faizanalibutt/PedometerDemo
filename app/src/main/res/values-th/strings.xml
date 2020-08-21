@@ -38,7 +38,7 @@
 	<string name="goal_reached_notification">บรรลุเป้าหมายแล้ว! % s ก้าวและการนับ</string>
 	<string name="notification_text">อีก% s ขั้นตอนที่จะไป</string>
 	<string name="total">รวม</string>
-	<string name="notification_title">Pedometer กำลังนับ</string>
+	<string name="notification_title">เครื่องนับก้าว กำลังนับ</string>
 	<string name="your_progress_will_be_shown_here_soon">ความคืบหน้าของคุณจะแสดงที่นี่เร็ว ๆ นี้</string>
 	<string name="average">เฉลี่ย</string>
 	<string name="record">บันทึก</string>
@@ -129,7 +129,7 @@
 	<string name="share_with">แบ่งปันกับเพื่อน ๆ</string>
 	<string name="privacy_policy_link_text" translatable="false">https://www.freeprivacypolicy.com/privacy/view/50c5621471755f1548917ebbe5e90160</string>
 	<string name="remove_ads">ลบโฆษณา</string>
-	<string name="text_pedometer">pedometer</string>
+	<string name="text_pedometer">เครื่องนับก้าว</string>
 	<string name="text_auto_steps">ขั้นตอนโดยอัตโนมัติ</string>
 	<string name="text_auto_steps_desc">เปิดการนับก้าวโดยอัตโนมัติ</string>
 	<string name="text_settings_general">การตั้งค่าทั่วไป</string>
