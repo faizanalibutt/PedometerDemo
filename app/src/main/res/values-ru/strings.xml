@@ -143,8 +143,8 @@
 	<string name="text_share_desc">Поделитесь этим приложением со своими друзьями и семьей.</string>
 	<string name="text_lan_option">Вариант языка</string>
 	<string name="text_lan_desc">Выберите ваш язык</string>
-	<string name="text_analog">ANALOG</string>
-	<string name="text_digital">DIGITAL</string>
+	<string name="text_analog">аналоговый</string>
+	<string name="text_digital">цифровой</string>
 	<string name="text_tab_map">КАРТА</string>
 	<string name="text_warning">Предупреждение</string>
 	<string name="text_location_permission">Пожалуйста, предоставьте разрешение на местоположение ...</string>

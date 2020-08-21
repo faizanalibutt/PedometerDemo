@@ -143,8 +143,8 @@
 	<string name="text_share_desc">Deel deze app met je vrienden en familie.</string>
 	<string name="text_lan_option">Taal optie</string>
 	<string name="text_lan_desc">Kies je taal</string>
-	<string name="text_analog">ANALOOG</string>
-	<string name="text_digital">DIGITAAL</string>
+	<string name="text_analog">ANALOGE</string>
+	<string name="text_digital">DIGITAL</string>
 	<string name="text_tab_map">KAART</string>
 	<string name="text_warning">Waarschuwing</string>
 	<string name="text_location_permission">Geef locatietoestemming op ...</string>

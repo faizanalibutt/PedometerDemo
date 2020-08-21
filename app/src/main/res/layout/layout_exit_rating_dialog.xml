@@ -141,13 +141,14 @@
 
     <TextView
         android:id="@+id/positive_text"
-        style="@style/TextAppearance.Primary"
+        style="@style/TextAppearance.Primary.SingleLine.Maq"
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_40"
         android:layout_marginEnd="@dimen/dp_24"
         android:text="@string/butn_exit"
         android:background="@drawable/background_positive_button"
         android:gravity="center"
+        android:paddingHorizontal="@dimen/dp_5"
         app:layout_constraintBottom_toBottomOf="@+id/negative_text"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
