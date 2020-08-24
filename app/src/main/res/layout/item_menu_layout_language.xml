@@ -14,12 +14,15 @@
         app:srcCompat="@drawable/ic_language" />
 
     <TextView
+        android:id="@+id/nav_language_text"
         style="@style/TextAppearance.Secondary.SingleLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_medium_size"
         android:layout_marginEnd="@dimen/dp_5"
         android:layout_marginTop="@dimen/dp_15"
+        android:paddingStart="0dp"
+        android:paddingEnd="5dp"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/choose_language"
         android:textColor="@color/black_menu" />
@@ -38,6 +41,8 @@
             android:textColor="@color/colorPrimary"
             android:layout_centerVertical="true"
             android:textSize="10sp"
+            android:paddingStart="5dp"
+            android:paddingEnd="1dp"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </RelativeLayout>

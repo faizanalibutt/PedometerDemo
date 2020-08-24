@@ -85,10 +85,12 @@ class MainActivity :
         val menuView = navView.menu
         val menuViewItemLan: MenuItem = menuView.getItem(1)
         val menuViewItemPro: MenuItem = menuView.getItem(0)
-        menuViewItemLan.actionView.findViewById<AppCompatTextView>(R.id.select_languague)
-            .text = Utility.setLanguageLocale()
-        menuViewItemPro.actionView.findViewById<TextView>(R.id.menu_pro_text).isSelected =
-            true
+        val selectLan = menuViewItemLan.actionView.findViewById<AppCompatTextView>(R.id.select_languague)
+        selectLan.text = Utility.setLanguageLocale()
+        selectLan.isSelected = true
+        menuViewItemLan.actionView.findViewById<AppCompatTextView>(R.id.nav_language_text)
+            .isSelected = true
+        menuViewItemPro.actionView.findViewById<TextView>(R.id.menu_pro_text).isSelected = true
     }
 
     val xPivot: Float
