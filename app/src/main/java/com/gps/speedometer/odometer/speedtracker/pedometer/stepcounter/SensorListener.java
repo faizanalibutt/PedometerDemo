@@ -16,6 +16,7 @@
 
 package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -188,6 +189,7 @@ public class SensorListener extends Service implements SensorEventListener {
         }
     }
 
+    @SuppressLint("StringFormatInvalid")
     public static Notification getNotification(final Context context) {
         if (BuildConfig.DEBUG) Logger.log("getNotification");
         SharedPreferences prefs = context.getSharedPreferences("pedometer", Context.MODE_PRIVATE);
@@ -231,6 +233,7 @@ public class SensorListener extends Service implements SensorEventListener {
     }
 
     private void reRegisterSensor() {
+
         if (BuildConfig.DEBUG) Logger.log("re-register sensor listener");
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
         try {
@@ -249,5 +252,6 @@ public class SensorListener extends Service implements SensorEventListener {
         // enable batching with delay of max 5 min
         sm.registerListener(this, sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER),
                 SensorManager.SENSOR_DELAY_NORMAL, (int) (5 * MICROSECONDS_IN_ONE_MINUTE));
+
     }
 }

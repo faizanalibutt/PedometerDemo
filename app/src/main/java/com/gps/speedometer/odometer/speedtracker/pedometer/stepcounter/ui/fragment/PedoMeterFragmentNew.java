@@ -55,6 +55,7 @@ import com.natasa.progressviews.utils.ProgressStartPoint;
 import org.eazegraph.lib.models.PieModel;
 
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -241,20 +242,27 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
             SensorManager sm = (SensorManager) requireContext().getSystemService(Context.SENSOR_SERVICE);
             Sensor sensor = sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
             if (sensor == null) {
-                new AlertDialog.Builder(getActivity()).setTitle(R.string.no_sensor)
-                        .setMessage(R.string.no_sensor_explain)
-                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(final DialogInterface dialogInterface) {
-                                requireActivity().finish();
-                            }
-                        }).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(final DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                }).create().show();
-            } else
+                sensor = sm.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+                if (sensor == null) {
+                    sensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                } else {
+                    // dialog
+                    new AlertDialog.Builder(getActivity()).setTitle(R.string.no_sensor)
+                            .setMessage(R.string.no_sensor_explain)
+                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(final DialogInterface dialogInterface) {
+                                    requireActivity().finish();
+                                }
+                            }).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(final DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    }).create().show();
+                }
+            }
+            if (sensor != null)
                 sm.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI, 0);
         } else {
             try {
@@ -271,15 +279,24 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         SensorManager sm = (SensorManager) requireContext().getSystemService(Context.SENSOR_SERVICE);
         Sensor sensor = sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         if (sensor == null) {
-            new AlertDialog.Builder(getActivity()).setTitle(R.string.no_sensor)
-                    .setMessage(R.string.no_sensor_explain)
-                    .setOnDismissListener(
-                            dialogInterface ->
-                                    requireActivity().finish()
-                    ).setPositiveButton(
-                            android.R.string.ok,
-                    (dialogInterface, i) -> dialogInterface.dismiss()
-            ).create().show();
+            /*sensor = sm.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+            if (sensor == null) {*/
+                sensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                if (sensor == null)
+                    new AlertDialog.Builder(getActivity()).setTitle(R.string.no_sensor)
+                            .setMessage(R.string.no_sensor_explain)
+                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(final DialogInterface dialogInterface) {
+                                    requireActivity().finish();
+                                }
+                            }).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(final DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    }).create().show();
+            //}
         }
     }
 
@@ -323,6 +340,17 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
 
     @Override
     public void onSensorChanged(final SensorEvent event) {
+
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+            goToAccelerometer(event);
+        else if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR)
+            goToStepDetector(event);
+        else
+            goToStepCounter(event);
+
+    }
+
+    private void goToStepCounter(SensorEvent event) {
         if (BuildConfig.DEBUG) Logger.log(
                 "UI - sensorChanged | todayOffset: " + todayOffset + " since boot: " +
                         event.values[0]);
@@ -340,6 +368,178 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         }
         since_boot = (int) event.values[0];
         updatePie();
+    }
+
+    private void goToStepDetector(SensorEvent event) {
+
+    }
+
+    private float[] gravity = new float[3];
+    private float[] linear_acceleration = new float[3];
+    private float last_sign;
+    private float last_acceleration_diff;
+    float accelerometerThreshold = 0.75f;
+    private float[] last_extrema = new float[2];
+    private long last_step_time;
+    private int valid_steps = 0;
+    int validStepsThreshold = 0;
+    private float last_acceleration_value;
+    private int mLastStepDeltasIndex = 0;
+    private float[] mLastStepAccelerationDeltas = {-1, -1, -1, -1, -1, -1};
+    private long[] mLastStepDeltas = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+    private int mLastStepAccelerationDeltasIndex = 0;
+    // #Accel
+    private void goToAccelerometer(SensorEvent event) {
+        if (event.values.length != 3) {
+            Logger.log("Invalid sensor values.");
+        }
+
+        // the following part will add some basic low/high-pass filter
+        // to ignore earth acceleration
+        final float alpha = 0.8f;
+
+        // Isolate the force of gravity with the low-pass filter.
+        gravity[0] = alpha * gravity[0] + (1 - alpha) * event.values[0];
+        gravity[1] = alpha * gravity[1] + (1 - alpha) * event.values[1];
+        gravity[2] = alpha * gravity[2] + (1 - alpha) * event.values[2];
+
+        // Remove the gravity contribution with the high-pass filter.
+        linear_acceleration[0] = event.values[0] - gravity[0];
+        linear_acceleration[1] = event.values[1] - gravity[1];
+        linear_acceleration[2] = event.values[2] - gravity[2];
+        float acceleration = linear_acceleration[0] + linear_acceleration[1] + linear_acceleration[2];
+        float current_sign = Math.signum(acceleration);
+
+        if (current_sign == last_sign) {
+            // the maximum is not reached yet, keep on waiting
+            return;
+        }
+
+        if (!isSignificantValue(acceleration)) {
+            // not significant (acceleration delta is too small)
+            return;
+        }
+
+        float acceleration_diff = Math.abs(last_extrema[current_sign < 0 ? 1 : 0] /* the opposite */ - acceleration);
+        if (!isAlmostAsLargeAsPreviousOne(acceleration_diff)) {
+            if (BuildConfig.DEBUG) Logger.log("Not as large as previous");
+            last_acceleration_diff = acceleration_diff;
+            return;
+        }
+
+        if (!wasPreviousLargeEnough(acceleration_diff)) {
+            if (BuildConfig.DEBUG) Logger.log("Previous not large enough");
+            last_acceleration_diff = acceleration_diff;
+            return;
+        }
+
+        long current_step_time = System.currentTimeMillis();
+
+        if (last_step_time > 0) {
+            long step_time_delta = current_step_time - last_step_time;
+
+            // Ignore steps with more than 180bpm and less than 20bpm
+            if (step_time_delta < 60 * 1000 / 180) {
+                if (BuildConfig.DEBUG) Logger.log("Too fast.");
+                return;
+            } else if (step_time_delta > 60 * 1000 / 20) {
+                if (BuildConfig.DEBUG) Logger.log("Too slow.");
+                last_step_time = current_step_time;
+                valid_steps = 0;
+                return;
+            }
+
+            // check if this occurrence is regular with regard to the step frequency data
+            if (!isRegularlyOverTime(step_time_delta)) {
+                last_step_time = current_step_time;
+                if (BuildConfig.DEBUG) Logger.log("Not regularly over time.");
+                return;
+            }
+            last_step_time = current_step_time;
+
+            // check if this occurrence is regular with regard to the acceleration data
+            if (!isRegularlyOverAcceleration(acceleration_diff)) {
+                last_acceleration_value = acceleration;
+                last_acceleration_diff = acceleration_diff;
+                if (BuildConfig.DEBUG)
+                    Logger.log("Not regularly over acceleration" + Arrays.toString(mLastStepAccelerationDeltas));
+                valid_steps = 0;
+                return;
+            }
+            last_acceleration_value = acceleration;
+            last_acceleration_diff = acceleration_diff;
+            // okay, finally this has to be a step
+            valid_steps++;
+            if (BuildConfig.DEBUG)
+                Logger.log("Detected step. Valid steps = " + valid_steps);
+            // count it only if we got more than validStepsThreshold steps
+            if (valid_steps == validStepsThreshold) {
+                if (todayOffset == Integer.MIN_VALUE) {
+                    todayOffset = -valid_steps;
+                    Database db = Database.getInstance(getActivity());
+                    db.insertNewDay(Util.getToday(), valid_steps);
+                    db.close();
+                }
+                since_boot = valid_steps;
+                updatePie();
+            } else if (valid_steps > validStepsThreshold) {
+                if (todayOffset == Integer.MIN_VALUE) {
+                    todayOffset = -valid_steps;
+                    Database db = Database.getInstance(getActivity());
+                    db.insertNewDay(Util.getToday(), valid_steps);
+                    db.close();
+                }
+                since_boot = valid_steps;
+                updatePie();
+            }
+        }
+
+        last_step_time = current_step_time;
+        last_acceleration_value = acceleration;
+        last_acceleration_diff = acceleration_diff;
+        last_sign = current_sign;
+        last_extrema[current_sign < 0 ? 0 : 1] = acceleration;
+
+    }
+
+    private boolean isSignificantValue(float val) {
+        return Math.abs(val) > accelerometerThreshold;
+    }
+
+    private boolean isAlmostAsLargeAsPreviousOne(float diff) {
+        return diff > last_acceleration_diff * 0.5;
+    }
+
+    private boolean wasPreviousLargeEnough(float diff) {
+        return last_acceleration_diff > diff / 3;
+    }
+
+    private boolean isRegularlyOverTime(long delta) {
+        mLastStepDeltas[mLastStepDeltasIndex] = delta;
+        mLastStepDeltasIndex = (mLastStepDeltasIndex + 1) % mLastStepDeltas.length;
+
+        int numIrregularValues = 0;
+        for (long mLastStepDelta : mLastStepDeltas) {
+            if (Math.abs(mLastStepDelta - delta) > 200) {
+                numIrregularValues++;
+                break;
+            }
+        }
+
+        return numIrregularValues < 1;//mLastStepDeltas.length*0.2;
+    }
+
+    private boolean isRegularlyOverAcceleration(float diff) {
+        mLastStepAccelerationDeltas[mLastStepAccelerationDeltasIndex] = diff;
+        mLastStepAccelerationDeltasIndex = (mLastStepAccelerationDeltasIndex + 1) % mLastStepAccelerationDeltas.length;
+        int numIrregularAccelerationValues = 0;
+        for (float mLastStepAccelerationDelta : mLastStepAccelerationDeltas) {
+            if (Math.abs(mLastStepAccelerationDelta - last_acceleration_diff) > 0.5) {
+                numIrregularAccelerationValues++;
+                break;
+            }
+        }
+        return numIrregularAccelerationValues < mLastStepAccelerationDeltas.length * 0.2;
     }
 
     /**
