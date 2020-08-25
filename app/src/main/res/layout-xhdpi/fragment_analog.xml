@@ -141,7 +141,7 @@
         app:arc_suffix_text_size="0sp"
         app:arc_text_color="@color/black_dark"
         app:arc_text_size="34sp"
-        android:layout_margin="40dp"
+        android:layout_margin="55dp"
         app:arc_unfinished_color="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
         app:layout_constraintDimensionRatio="V, 1:1"

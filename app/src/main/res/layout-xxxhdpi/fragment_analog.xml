@@ -22,12 +22,12 @@
         android:layout_height="28dp"
         android:contentDescription="@string/text_speedo"
         android:padding="5dp"
-        android:tint="@color/text_color_chip_state"
         app:layout_constraintBottom_toBottomOf="@+id/vehicle_view"
         app:layout_constraintEnd_toStartOf="@+id/v11"
         app:layout_constraintStart_toStartOf="@+id/vehicle_view"
         app:layout_constraintTop_toTopOf="@+id/vehicle_view"
-        app:srcCompat="@drawable/ic_shape_1940_copy" />
+        app:srcCompat="@drawable/ic_shape_1940_copy"
+        app:tint="@color/text_color_chip_state" />
 
     <ImageView
         android:id="@+id/car_view"
