@@ -19,6 +19,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -37,6 +38,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.dev.bytes.adsmanager.ADUnitPlacements;
 import com.dev.bytes.adsmanager.NativeAdsManagerKt;
@@ -188,6 +190,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         }
 
         step_btn_txt.setSelected(true);
+        timeValue.setSelected(true);
 
         return v;
     }
@@ -212,6 +215,20 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         ).getString("pedo_state", null);
         if (pedoState != null && pedoState.equals("stop")) {
             setUpListener(true);
+            if (SensorListener.SENSOR_ACCEL) {
+                todayOffset = Database.getInstance(mView.getContext()).getSteps(Util.getToday());
+
+                SharedPreferences prefs =
+                        mView.getContext().getSharedPreferences("pedometer", Context.MODE_PRIVATE);
+
+                goal = prefs.getInt("goal", Fragment_Settings.DEFAULT_GOAL);
+                since_boot = Database.getInstance(mView.getContext()).getCurrentSteps();
+                int pauseDifference = since_boot - prefs.getInt("pauseCount", since_boot);
+
+                since_boot -= pauseDifference;
+                updatePie();
+            }
+            registerReceivers();
         }
     }
 
@@ -226,6 +243,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
             Database db = Database.getInstance(getActivity());
             db.saveCurrentSteps(since_boot);
             db.close();
+            unregisterReceivers();
         }
     }
 
@@ -241,11 +259,11 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         if (option) {
             SensorManager sm = (SensorManager) requireContext().getSystemService(Context.SENSOR_SERVICE);
             Sensor sensor = sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            /*if (sensor == null) {
+                sensor = sm.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);*/
             if (sensor == null) {
-                sensor = sm.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-                if (sensor == null) {
-                    sensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-                } else {
+                sensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                if (sensor == null)
                     // dialog
                     new AlertDialog.Builder(getActivity()).setTitle(R.string.no_sensor)
                             .setMessage(R.string.no_sensor_explain)
@@ -260,8 +278,9 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
                             dialogInterface.dismiss();
                         }
                     }).create().show();
-                }
+
             }
+            //}
             if (sensor != null)
                 sm.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI, 0);
         } else {
@@ -281,21 +300,21 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         if (sensor == null) {
             /*sensor = sm.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
             if (sensor == null) {*/
-                sensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-                if (sensor == null)
-                    new AlertDialog.Builder(getActivity()).setTitle(R.string.no_sensor)
-                            .setMessage(R.string.no_sensor_explain)
-                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(final DialogInterface dialogInterface) {
-                                    requireActivity().finish();
-                                }
-                            }).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(final DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    }).create().show();
+            sensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            if (sensor == null)
+                new AlertDialog.Builder(getActivity()).setTitle(R.string.no_sensor)
+                        .setMessage(R.string.no_sensor_explain)
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(final DialogInterface dialogInterface) {
+                                requireActivity().finish();
+                            }
+                        }).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).create().show();
             //}
         }
     }
@@ -341,11 +360,10 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
     @Override
     public void onSensorChanged(final SensorEvent event) {
 
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             goToAccelerometer(event);
-        else if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR)
-            goToStepDetector(event);
-        else
+        } /*else if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR)
+            goToStepCounter(event);*/ else
             goToStepCounter(event);
 
     }
@@ -388,6 +406,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
     private float[] mLastStepAccelerationDeltas = {-1, -1, -1, -1, -1, -1};
     private long[] mLastStepDeltas = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
     private int mLastStepAccelerationDeltasIndex = 0;
+
     // #Accel
     private void goToAccelerometer(SensorEvent event) {
         if (event.values.length != 3) {
@@ -420,7 +439,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
             return;
         }
 
-        float acceleration_diff = Math.abs(last_extrema[current_sign < 0 ? 1 : 0] /* the opposite */ - acceleration);
+        float acceleration_diff = Math.abs(last_extrema[current_sign < 0 ? 1 : 0]  /*the opposite*/ - acceleration);
         if (!isAlmostAsLargeAsPreviousOne(acceleration_diff)) {
             if (BuildConfig.DEBUG) Logger.log("Not as large as previous");
             last_acceleration_diff = acceleration_diff;
@@ -473,7 +492,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
                 Logger.log("valid steps == threshold");
                 if (todayOffset == Integer.MIN_VALUE) {
                     Logger.log("came to set new day");
-                    todayOffset = -valid_steps;
+                    todayOffset = 0;
                     Database db = Database.getInstance(getActivity());
                     db.insertNewDay(Util.getToday(), valid_steps);
                     db.close();
@@ -581,6 +600,39 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         // TODO: 7/15/2020 increase step count to 150
         timeValue.setText(TimeUtils.INSTANCE.getDurationSpeedo(BuildConfig.DEBUG ?
                 (steps_today / 10) * 60000 : (steps_today / 150) * 60000));
+    }
+
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver();
+
+    public class BroadcastReceiver extends android.content.BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent == null) {
+                Logger.log("Received intent which is null.");
+                return;
+            }
+            switch (intent.getAction()) {
+                case SensorListener.BROADCAST_ACTION_STEPS_DETECTED:
+                    //todayOffset = 0;
+                    since_boot = 0;
+                    since_boot = intent.getIntExtra(SensorListener.EXTENDED_DATA_TOTAL_STEPS, 0);
+                    updatePie();
+                    break;
+                default:
+            }
+        }
+    }
+
+    private void registerReceivers() {
+        // subscribe to onStepsSaved and onStepsDetected broadcasts and onSpeedChanged
+        IntentFilter filterRefreshUpdate = new IntentFilter();
+        filterRefreshUpdate.addAction(SensorListener.BROADCAST_ACTION_STEPS_DETECTED);
+        LocalBroadcastManager.getInstance(mView.getContext()).registerReceiver(broadcastReceiver, filterRefreshUpdate);
+    }
+
+    private void unregisterReceivers() {
+        LocalBroadcastManager.getInstance(mView.getContext()).unregisterReceiver(broadcastReceiver);
     }
 
 }

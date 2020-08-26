@@ -34,7 +34,10 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.IBinder;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -59,6 +62,13 @@ public class SensorListener extends Service implements SensorEventListener {
     private final static long MICROSECONDS_IN_ONE_MINUTE = 60000000;
     private final static long SAVE_OFFSET_TIME = AlarmManager.INTERVAL_HOUR;
     private final static int SAVE_OFFSET_STEPS = 500;
+    public static final String BROADCAST_ACTION_STEPS_DETECTED =
+            "com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.STEPS_DETECTED";
+    public static final String EXTENDED_DATA_NEW_STEPS =
+            "com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.NEW_STEPS";
+    public static final String EXTENDED_DATA_TOTAL_STEPS =
+            "com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.TOTAL_STEPS";
+    public static boolean SENSOR_ACCEL = false;
 
     private static int steps;
     private static int lastSaveSteps;
@@ -75,13 +85,19 @@ public class SensorListener extends Service implements SensorEventListener {
 
     @Override
     public void onSensorChanged(final SensorEvent event) {
-        if (event.values[0] > Integer.MAX_VALUE) {
-            if (BuildConfig.DEBUG)
-                Logger.log("probably not a real value: " + event.values[0]);
-        } else {
-            steps = (int) event.values[0];
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            goToAccelerometer(event);
             updateIfNecessary();
-            showNotification(); // update notification
+            //showNotification(); // update notification
+        } else {
+            if (event.values[0] > Integer.MAX_VALUE) {
+                if (BuildConfig.DEBUG)
+                    Logger.log("probably not a real value: " + event.values[0]);
+            } else {
+                steps = (int) event.values[0];
+                updateIfNecessary();
+                showNotification(); // update notification
+            }
         }
     }
 
@@ -120,8 +136,7 @@ public class SensorListener extends Service implements SensorEventListener {
 
     private void showNotification() {
         if (Build.VERSION.SDK_INT >= 26) {
-            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
-                    .notify(NOTIFICATION_ID, getNotification(this));
+            startForeground(NOTIFICATION_ID, getNotification(this));
         } else if (getSharedPreferences("pedometer", Context.MODE_PRIVATE)
                 .getBoolean("notification", true)) {
             ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
@@ -136,7 +151,7 @@ public class SensorListener extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(final Intent intent, int flags, int startId) {
-        /*reRegisterSensor();
+        reRegisterSensor();
         registerBroadcastReceiver();
         if (!updateIfNecessary()) {
             showNotification();
@@ -155,7 +170,7 @@ public class SensorListener extends Service implements SensorEventListener {
             API23Wrapper.setAlarmWhileIdle(am, AlarmManager.RTC, nextUpdate, pi);
         } else {
             am.set(AlarmManager.RTC, nextUpdate, pi);
-        }*/
+        }
 
         return START_STICKY;
     }
@@ -191,7 +206,7 @@ public class SensorListener extends Service implements SensorEventListener {
 
     @SuppressLint("StringFormatInvalid")
     public static Notification getNotification(final Context context) {
-        if (BuildConfig.DEBUG) Logger.log("getNotification");
+        //if (BuildConfig.DEBUG) Logger.log("getNotification");
         SharedPreferences prefs = context.getSharedPreferences("pedometer", Context.MODE_PRIVATE);
         int goal = prefs.getInt("goal", 10000);
         Database db = Database.getInstance(context);
@@ -203,15 +218,28 @@ public class SensorListener extends Service implements SensorEventListener {
                 Build.VERSION.SDK_INT >= 26 ? API26Wrapper.getNotificationBuilder(context) :
                         new Notification.Builder(context);
         if (steps > 0) {
-            if (today_offset == Integer.MIN_VALUE) today_offset = -steps;
-            NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
-            notificationBuilder.setProgress(goal, today_offset + steps, false).setContentText(
-                    today_offset + steps >= goal ?
-                            context.getString(R.string.goal_reached_notification,
-                                    format.format((today_offset + steps))) :
-                            context.getString(R.string.notification_text,
-                                    format.format((goal - today_offset - steps)))).setContentTitle(
-                    format.format(today_offset + steps) + " " + context.getString(R.string.steps));
+            if (SENSOR_ACCEL) {
+                if (today_offset == Integer.MIN_VALUE) today_offset = 0;
+                NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+                notificationBuilder.setProgress(goal, today_offset + steps, false).setContentText(
+                        today_offset + steps >= goal ?
+                                context.getString(R.string.goal_reached_notification,
+                                        format.format((today_offset + steps))) :
+                                context.getString(R.string.notification_text,
+                                        format.format((goal - today_offset - steps)))).setContentTitle(
+                        format.format(today_offset + steps) + " " + context.getString(R.string.steps));
+            } else {
+                if (today_offset == Integer.MIN_VALUE) today_offset = -steps;
+                NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+                notificationBuilder.setProgress(goal, today_offset + steps, false).setContentText(
+                        today_offset + steps >= goal ?
+                                context.getString(R.string.goal_reached_notification,
+                                        format.format((today_offset + steps))) :
+                                context.getString(R.string.notification_text,
+                                        format.format((goal - today_offset - steps)))).setContentTitle(
+                        format.format(today_offset + steps) + " " + context.getString(R.string.steps));
+            }
+
         } else { // still no step value?
             notificationBuilder.setContentText(
                     context.getString(R.string.your_progress_will_be_shown_here_soon))
@@ -235,6 +263,7 @@ public class SensorListener extends Service implements SensorEventListener {
     private void reRegisterSensor() {
 
         if (BuildConfig.DEBUG) Logger.log("re-register sensor listener");
+
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
         try {
             sm.unregisterListener(this);
@@ -245,13 +274,179 @@ public class SensorListener extends Service implements SensorEventListener {
 
         if (BuildConfig.DEBUG) {
             Logger.log("step sensors: " + sm.getSensorList(Sensor.TYPE_STEP_COUNTER).size());
-            if (sm.getSensorList(Sensor.TYPE_STEP_COUNTER).size() < 1) return; // emulator
-            Logger.log("default: " + sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER).getName());
+            if (sm.getSensorList(Sensor.TYPE_STEP_COUNTER).size() < 1) {
+                if (sm.getSensorList(Sensor.TYPE_ACCELEROMETER).size() < 1)
+                    return; // emulator
+            }
+            //Logger.log("default: " + sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER).getName());
         }
 
         // enable batching with delay of max 5 min
-        sm.registerListener(this, sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER),
+        Sensor sensor = sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if (sensor == null) {
+            SENSOR_ACCEL = true;
+            sensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        }
+        sm.registerListener(this, sensor,
                 SensorManager.SENSOR_DELAY_NORMAL, (int) (5 * MICROSECONDS_IN_ONE_MINUTE));
 
+    }
+
+    private float[] gravity = new float[3];
+    private float[] linear_acceleration = new float[3];
+    private float last_sign;
+    private float last_acceleration_diff;
+    float accelerometerThreshold = 0.75f;
+    private float[] last_extrema = new float[2];
+    private long last_step_time;
+    private int valid_steps = 0;
+    int validStepsThreshold = 0;
+    private float last_acceleration_value;
+    private int mLastStepDeltasIndex = 0;
+    private float[] mLastStepAccelerationDeltas = {-1, -1, -1, -1, -1, -1};
+    private long[] mLastStepDeltas = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+    private int mLastStepAccelerationDeltasIndex = 0;
+    // #Accel
+    private void goToAccelerometer(SensorEvent event) {
+        if (event.values.length != 3) {
+            Logger.log("Invalid sensor values.");
+        }
+
+        SENSOR_ACCEL = true;
+        // the following part will add some basic low/high-pass filter
+        // to ignore earth acceleration
+        final float alpha = 0.8f;
+
+        // Isolate the force of gravity with the low-pass filter.
+        gravity[0] = alpha * gravity[0] + (1 - alpha) * event.values[0];
+        gravity[1] = alpha * gravity[1] + (1 - alpha) * event.values[1];
+        gravity[2] = alpha * gravity[2] + (1 - alpha) * event.values[2];
+
+        // Remove the gravity contribution with the high-pass filter.
+        linear_acceleration[0] = event.values[0] - gravity[0];
+        linear_acceleration[1] = event.values[1] - gravity[1];
+        linear_acceleration[2] = event.values[2] - gravity[2];
+        float acceleration = linear_acceleration[0] + linear_acceleration[1] + linear_acceleration[2];
+        float current_sign = Math.signum(acceleration);
+
+        if (current_sign == last_sign) {
+            // the maximum is not reached yet, keep on waiting
+            return;
+        }
+
+        if (!isSignificantValue(acceleration)) {
+            // not significant (acceleration delta is too small)
+            return;
+        }
+
+        float acceleration_diff = Math.abs(last_extrema[current_sign < 0 ? 1 : 0] /* the opposite */ - acceleration);
+        if (!isAlmostAsLargeAsPreviousOne(acceleration_diff)) {
+            if (BuildConfig.DEBUG) Logger.log("Not as large as previous");
+            last_acceleration_diff = acceleration_diff;
+            return;
+        }
+
+        if (!wasPreviousLargeEnough(acceleration_diff)) {
+            if (BuildConfig.DEBUG) Logger.log("Previous not large enough");
+            last_acceleration_diff = acceleration_diff;
+            return;
+        }
+
+        long current_step_time = System.currentTimeMillis();
+
+        if (last_step_time > 0) {
+            long step_time_delta = current_step_time - last_step_time;
+
+            // Ignore steps with more than 180bpm and less than 20bpm
+            if (step_time_delta < 60 * 1000 / 180) {
+                if (BuildConfig.DEBUG) Logger.log("Too fast.");
+                return;
+            } else if (step_time_delta > 60 * 1000 / 20) {
+                if (BuildConfig.DEBUG) Logger.log("Too slow.");
+                last_step_time = current_step_time;
+                valid_steps = 0;
+                return;
+            }
+
+            // check if this occurrence is regular with regard to the step frequency data
+            if (!isRegularlyOverTime(step_time_delta)) {
+                last_step_time = current_step_time;
+                if (BuildConfig.DEBUG) Logger.log("Not regularly over time.");
+                return;
+            }
+            last_step_time = current_step_time;
+
+            // check if this occurrence is regular with regard to the acceleration data
+            if (!isRegularlyOverAcceleration(acceleration_diff)) {
+                last_acceleration_value = acceleration;
+                last_acceleration_diff = acceleration_diff;
+                if (BuildConfig.DEBUG)
+                    Logger.log("Not regularly over acceleration" + Arrays.toString(mLastStepAccelerationDeltas));
+                valid_steps = 0;
+                return;
+            }
+            last_acceleration_value = acceleration;
+            last_acceleration_diff = acceleration_diff;
+            // okay, finally this has to be a step
+            valid_steps++;
+            if (BuildConfig.DEBUG)
+                Logger.log("Detected step. Valid steps = " + valid_steps);
+            // count it only if we got more than validStepsThreshold steps
+            if (valid_steps > validStepsThreshold) {
+                steps++;
+                Intent localIntent = new Intent(BROADCAST_ACTION_STEPS_DETECTED)
+                        // Add new step count
+                        .putExtra(EXTENDED_DATA_TOTAL_STEPS, steps);
+                // Broadcasts the Intent to receivers in this app.
+                LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
+            }
+        }
+
+        last_step_time = current_step_time;
+        last_acceleration_value = acceleration;
+        last_acceleration_diff = acceleration_diff;
+        last_sign = current_sign;
+        last_extrema[current_sign < 0 ? 0 : 1] = acceleration;
+
+    }
+
+    private boolean isSignificantValue(float val) {
+        return Math.abs(val) > accelerometerThreshold;
+    }
+
+    private boolean isAlmostAsLargeAsPreviousOne(float diff) {
+        return diff > last_acceleration_diff * 0.5;
+    }
+
+    private boolean wasPreviousLargeEnough(float diff) {
+        return last_acceleration_diff > diff / 3;
+    }
+
+    private boolean isRegularlyOverTime(long delta) {
+        mLastStepDeltas[mLastStepDeltasIndex] = delta;
+        mLastStepDeltasIndex = (mLastStepDeltasIndex + 1) % mLastStepDeltas.length;
+
+        int numIrregularValues = 0;
+        for (long mLastStepDelta : mLastStepDeltas) {
+            if (Math.abs(mLastStepDelta - delta) > 200) {
+                numIrregularValues++;
+                break;
+            }
+        }
+
+        return numIrregularValues < 1;//mLastStepDeltas.length*0.2;
+    }
+
+    private boolean isRegularlyOverAcceleration(float diff) {
+        mLastStepAccelerationDeltas[mLastStepAccelerationDeltasIndex] = diff;
+        mLastStepAccelerationDeltasIndex = (mLastStepAccelerationDeltasIndex + 1) % mLastStepAccelerationDeltas.length;
+        int numIrregularAccelerationValues = 0;
+        for (float mLastStepAccelerationDelta : mLastStepAccelerationDeltas) {
+            if (Math.abs(mLastStepAccelerationDelta - last_acceleration_diff) > 0.5) {
+                numIrregularAccelerationValues++;
+                break;
+            }
+        }
+        return numIrregularAccelerationValues < mLastStepAccelerationDeltas.length * 0.2;
     }
 }

@@ -161,10 +161,13 @@ object TimeUtils {
             string.append(hours)
 
         } else {
-            string.append("00")
+            if (hours == 60L)
+                string.append("01")
+            else
+                string.append("00")
         }
 
-        string.append(":")
+        string.append("hr ")
 
         if (minutes > 0L) {
             if (minutes < 10)
@@ -178,10 +181,10 @@ object TimeUtils {
                 string.append("00")
         }
 
-        if (hours > 0)
+        /*if (hours > 0)
             string.append(" hr")
-        else
-            string.append(" min")
+        else*/
+        string.append("min")
 
         return string.toString()
     }
