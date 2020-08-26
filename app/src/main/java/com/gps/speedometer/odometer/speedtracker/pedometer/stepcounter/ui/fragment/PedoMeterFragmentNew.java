@@ -469,27 +469,25 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
             last_acceleration_value = acceleration;
             last_acceleration_diff = acceleration_diff;
             // okay, finally this has to be a step
+            if (valid_steps == validStepsThreshold) {
+                Logger.log("valid steps == threshold");
+                if (todayOffset == Integer.MIN_VALUE) {
+                    Logger.log("came to set new day");
+                    todayOffset = -valid_steps;
+                    Database db = Database.getInstance(getActivity());
+                    db.insertNewDay(Util.getToday(), valid_steps);
+                    db.close();
+                    since_boot = 0;
+                }
+                //since_boot = valid_steps;
+                //updatePie();
+            }
             valid_steps++;
             if (BuildConfig.DEBUG)
                 Logger.log("Detected step. Valid steps = " + valid_steps);
             // count it only if we got more than validStepsThreshold steps
-            if (valid_steps == validStepsThreshold) {
-                if (todayOffset == Integer.MIN_VALUE) {
-                    todayOffset = -valid_steps;
-                    Database db = Database.getInstance(getActivity());
-                    db.insertNewDay(Util.getToday(), valid_steps);
-                    db.close();
-                }
-                since_boot = valid_steps;
-                updatePie();
-            } else if (valid_steps > validStepsThreshold) {
-                if (todayOffset == Integer.MIN_VALUE) {
-                    todayOffset = -valid_steps;
-                    Database db = Database.getInstance(getActivity());
-                    db.insertNewDay(Util.getToday(), valid_steps);
-                    db.close();
-                }
-                since_boot = valid_steps;
+            if (valid_steps > validStepsThreshold) {
+                since_boot++;
                 updatePie();
             }
         }

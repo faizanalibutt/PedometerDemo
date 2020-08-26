@@ -136,7 +136,7 @@ public class SensorListener extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(final Intent intent, int flags, int startId) {
-        reRegisterSensor();
+        /*reRegisterSensor();
         registerBroadcastReceiver();
         if (!updateIfNecessary()) {
             showNotification();
@@ -155,7 +155,7 @@ public class SensorListener extends Service implements SensorEventListener {
             API23Wrapper.setAlarmWhileIdle(am, AlarmManager.RTC, nextUpdate, pi);
         } else {
             am.set(AlarmManager.RTC, nextUpdate, pi);
-        }
+        }*/
 
         return START_STICKY;
     }
