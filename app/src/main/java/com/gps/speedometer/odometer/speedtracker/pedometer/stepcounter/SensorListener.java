@@ -36,18 +36,17 @@ import android.os.IBinder;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import java.text.NumberFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Locale;
-
-import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R;
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity.PedometerActivity;
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.API23Wrapper;
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.API26Wrapper;
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Logger;
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Util;
-import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.widget.WidgetUpdateService;
+
+import java.text.NumberFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.FormatFlagsConversionMismatchException;
+import java.util.Locale;
 
 /**
  * Background service which keeps the step-sensor listener alive to always get
@@ -127,7 +126,6 @@ public class SensorListener extends Service implements SensorEventListener {
             lastSaveSteps = steps;
             lastSaveTime = System.currentTimeMillis();
             showNotification(); // update notification
-            WidgetUpdateService.enqueueUpdate(this);
             return true;
         } else {
             return false;
@@ -218,26 +216,30 @@ public class SensorListener extends Service implements SensorEventListener {
                 Build.VERSION.SDK_INT >= 26 ? API26Wrapper.getNotificationBuilder(context) :
                         new Notification.Builder(context);
         if (steps > 0) {
-            if (SENSOR_ACCEL) {
-                if (today_offset == Integer.MIN_VALUE) today_offset = 0;
-                NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
-                notificationBuilder.setProgress(goal, today_offset + steps, false).setContentText(
-                        today_offset + steps >= goal ?
-                                context.getString(R.string.goal_reached_notification,
-                                        format.format((today_offset + steps))) :
-                                context.getString(R.string.notification_text,
-                                        format.format((goal - today_offset - steps)))).setContentTitle(
-                        format.format(today_offset + steps) + " " + context.getString(R.string.steps));
-            } else {
-                if (today_offset == Integer.MIN_VALUE) today_offset = -steps;
-                NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
-                notificationBuilder.setProgress(goal, today_offset + steps, false).setContentText(
-                        today_offset + steps >= goal ?
-                                context.getString(R.string.goal_reached_notification,
-                                        format.format((today_offset + steps))) :
-                                context.getString(R.string.notification_text,
-                                        format.format((goal - today_offset - steps)))).setContentTitle(
-                        format.format(today_offset + steps) + " " + context.getString(R.string.steps));
+            try {
+                if (SENSOR_ACCEL) {
+                    if (today_offset == Integer.MIN_VALUE) today_offset = 0;
+                    NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+                    notificationBuilder.setProgress(goal, today_offset + steps, false).setContentText(
+                            today_offset + steps >= goal ?
+                                    context.getString(R.string.goal_reached_notification,
+                                            format.format((today_offset + steps))) :
+                                    context.getString(R.string.notification_text,
+                                            format.format((goal - today_offset - steps)))).setContentTitle(
+                            format.format(today_offset + steps) + " " + context.getString(R.string.steps));
+                } else {
+                    if (today_offset == Integer.MIN_VALUE) today_offset = -steps;
+                    NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+                    notificationBuilder.setProgress(goal, today_offset + steps, false).setContentText(
+                            today_offset + steps >= goal ?
+                                    context.getString(R.string.goal_reached_notification,
+                                            format.format((today_offset + steps))) :
+                                    context.getString(R.string.notification_text,
+                                            format.format((goal - today_offset - steps)))).setContentTitle(
+                            format.format(today_offset + steps) + " " + context.getString(R.string.steps));
+                }
+            } catch (NumberFormatException | FormatFlagsConversionMismatchException | IllegalStateException e) {
+                e.printStackTrace();
             }
 
         } else { // still no step value?

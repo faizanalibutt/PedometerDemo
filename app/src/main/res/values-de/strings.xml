@@ -10,7 +10,7 @@
 	<string name="goal_summary">Aktuelles Ziel:%, d Schritte</string>
 	<string name="step_size_summary">Aktuelle Schrittweite:% 1 $ .2f% 2 $ s</string>
 	<string name="sign_in">Melden Sie sich mit Ihrem Google-Konto an, um die Funktionen &quot;Erfolge&quot; und &quot;Bestenlisten&quot; zu nutzen</string>
-	<string name="signed_in">Angemeldet als% s</string>
+	<string name="signed_in">Angemeldet als%s</string>
 	<string name="export_summary">Speichern Sie Ihre Daten in einer CSV-Datei</string>
 	<string name="export_title">Exportieren / Sichern</string>
 	<string name="import_summary">Importiert zuvor gespeicherte Daten</string>
@@ -19,10 +19,10 @@
 	<string name="set_goal">Ziel setzen</string>
 	<string name="set_step_size">Schrittgröße einstellen</string>
 	<string name="sign_out">Ausloggen</string>
-	<string name="file_cant_read">Fehler:% s kann nicht gelesen werden</string>
-	<string name="error_file">Fehler beim Zugriff auf die Datei:% s</string>
+	<string name="file_cant_read">Fehler:%s kann nicht gelesen werden</string>
+	<string name="error_file">Fehler beim Zugriff auf die Datei:%s</string>
 	<string name="error_external_storage_not_available">Fehler: Externer Speicher nicht verfügbar</string>
-	<string name="data_saved">Daten in% s gespeichert</string>
+	<string name="data_saved">Daten in%s gespeichert</string>
 	<string name="entries_imported">% d Einträge importiert</string>
 	<string name="entries_ignored">% d Einträge wurden ignoriert, da sie keine gültigen Daten enthielten</string>
 	<string name="entries_overwritten">% d Einträge wurden mit importierten Daten überschrieben</string>
@@ -35,8 +35,8 @@
 	<string name="achievements">Erfolge</string>
 	<string name="leaderboard">Bestenliste</string>
 	<string name="faq">FAQ</string>
-	<string name="goal_reached_notification">Ziel erreicht! % s Schritte und Zählen</string>
-	<string name="notification_text">% s Schritte zu gehen</string>
+	<string name="goal_reached_notification">Ziel erreicht! %s Schritte und Zählen</string>
+	<string name="notification_text">%s Schritte zu gehen</string>
 	<string name="total">Gesamt</string>
 	<string name="notification_title">Schrittzähler zählt</string>
 	<string name="your_progress_will_be_shown_here_soon">Ihr Fortschritt wird hier bald angezeigt</string>
@@ -48,8 +48,8 @@
 	<string name="average_this_month">Durchschnitt in diesem Monat</string>
 	<string name="file_already_exists">Die Datei existiert bereits. Sind Sie sicher, dass Sie es überschreiben möchten?</string>
 	<string name="about_text_links">Diese App wurde von Thomas Hoffmann ( <a href="https://www.j4velin.de">www.j4velin.de</a> ) erstellt und verwendet <a href="https://github.com/blackfizz/EazeGraph">EazeGraph</a> von Paul Cech und <a href="https://github.com/attenzione/android-ColorPickerPreference">ColorPickerPreference</a> von Sergey Margaritov. \ N \ nPedometer ist Open Source! Holen Sie sich den Code und die vollständige Liste der Mitwirkenden von <a href="https://github.com/j4velin/Pedometer">GitHub</a> . \ N \ n</string>
-	<string name="about_app_version">App-Version:% s</string>
-	<string name="since">Da% s</string>
+	<string name="about_app_version">App-Version:%s</string>
+	<string name="since">Da%s</string>
 	<string name="start">Anfang</string>
 	<string name="stop">Halt</string>
 	<string name="close">schließen</string>

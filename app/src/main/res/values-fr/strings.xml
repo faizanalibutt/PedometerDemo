@@ -9,7 +9,7 @@
 	<string name="account">Compte</string>
 	<string name="goal_summary">Objectif actuel:%, d étapes</string>
 	<string name="sign_in">Connectez-vous avec votre compte Google pour utiliser les fonctionnalités Réalisations et Classements</string>
-	<string name="signed_in">Connecté en tant que% s</string>
+	<string name="signed_in">Connecté en tant que%s</string>
 	<string name="export_summary">Enregistrez vos données dans un fichier .csv</string>
 	<string name="export_title">Exporter / sauvegarder</string>
 	<string name="import_summary">Importe des données précédemment enregistrées</string>
@@ -18,10 +18,10 @@
 	<string name="set_goal">Fixer un objectif</string>
 	<string name="set_step_size">Définir la taille du pas</string>
 	<string name="sign_out">Déconnexion</string>
-	<string name="file_cant_read">Erreur:% s ne peut pas être lu</string>
-	<string name="error_file">Erreur d\'accès au fichier:% s</string>
+	<string name="file_cant_read">Erreur:%s ne peut pas être lu</string>
+	<string name="error_file">Erreur d\'accès au fichier:%s</string>
 	<string name="error_external_storage_not_available">Erreur: stockage externe non disponible</string>
-	<string name="data_saved">Données enregistrées dans% s</string>
+	<string name="data_saved">Données enregistrées dans%s</string>
 	<string name="entries_imported">% d entrées importées</string>
 	<string name="entries_ignored">% d entrées ont été ignorées car elles ne contenaient pas de données valides</string>
 	<string name="entries_overwritten">% d entrées ont été écrasées par les données importées</string>
@@ -34,8 +34,8 @@
 	<string name="achievements">Réalisations</string>
 	<string name="leaderboard">Classement</string>
 	<string name="faq">FAQ</string>
-	<string name="goal_reached_notification">Objectif atteint! % s pas et comptage</string>
-	<string name="notification_text">% s pas à parcourir</string>
+	<string name="goal_reached_notification">Objectif atteint! %s pas et comptage</string>
+	<string name="notification_text">%s pas à parcourir</string>
 	<string name="total">Total</string>
 	<string name="notification_title">Le podomètre compte</string>
 	<string name="your_progress_will_be_shown_here_soon">Votre progression sera affichée ici bientôt</string>
@@ -47,8 +47,8 @@
 	<string name="average_this_month">Moyenne ce mois-ci</string>
 	<string name="file_already_exists">Le fichier existe déjà. Voulez-vous vraiment l\'écraser?</string>
 	<string name="about_text_links">Cette application a été créée par Thomas Hoffmann ( <a href="https://www.j4velin.de">www.j4velin.de</a> ) et utilise <a href="https://github.com/blackfizz/EazeGraph">EazeGraph</a> de Paul Cech et <a href="https://github.com/attenzione/android-ColorPickerPreference">ColorPickerPreference</a> de Sergey Margaritov. \ N \ nLe podomètre est open source! Obtenez le code et la liste complète des contributeurs de <a href="https://github.com/j4velin/Pedometer">GitHub</a> . \ N \ n</string>
-	<string name="about_app_version">Version de l\'application:% s</string>
-	<string name="since">Depuis% s</string>
+	<string name="about_app_version">Version de l\'application:%s</string>
+	<string name="since">Depuis%s</string>
 	<string name="start">Début</string>
 	<string name="stop">Arrêtez</string>
 	<string name="close">proche</string>

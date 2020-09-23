@@ -10,7 +10,7 @@
 	<string name="goal_summary">Huidig doel:%, d stappen</string>
 	<string name="step_size_summary">Huidige stapgrootte:% 1 $ .2f% 2 $ s</string>
 	<string name="sign_in">Log in met uw Google-account om de functies voor Prestaties en Leaderboards te gebruiken</string>
-	<string name="signed_in">Aangemeld als% s</string>
+	<string name="signed_in">Aangemeld als%s</string>
 	<string name="export_summary">Sla uw gegevens op in een .csv-bestand</string>
 	<string name="export_title">Exporteren / back-up maken</string>
 	<string name="import_summary">Importeert eerder opgeslagen gegevens</string>
@@ -19,10 +19,10 @@
 	<string name="set_goal">Doel stellen</string>
 	<string name="set_step_size">Stapgrootte instellen</string>
 	<string name="sign_out">Afmelden</string>
-	<string name="file_cant_read">Fout:% s kan niet worden gelezen</string>
-	<string name="error_file">Fout bij het openen van het bestand:% s</string>
+	<string name="file_cant_read">Fout:%s kan niet worden gelezen</string>
+	<string name="error_file">Fout bij het openen van het bestand:%s</string>
 	<string name="error_external_storage_not_available">Fout: externe opslag is niet beschikbaar</string>
-	<string name="data_saved">Gegevens opgeslagen in% s</string>
+	<string name="data_saved">Gegevens opgeslagen in%s</string>
 	<string name="entries_imported">% d ingangen geïmporteerd</string>
 	<string name="entries_ignored">% d inzendingen werden genegeerd omdat ze geen geldige gegevens bevatten</string>
 	<string name="entries_overwritten">% d vermeldingen zijn overschreven met geïmporteerde gegevens</string>
@@ -35,8 +35,8 @@
 	<string name="achievements">Prestaties</string>
 	<string name="leaderboard">Scorebord</string>
 	<string name="faq">FAQ</string>
-	<string name="goal_reached_notification">Doel bereikt! % s stappen en tellen</string>
-	<string name="notification_text">% s stappen te gaan</string>
+	<string name="goal_reached_notification">Doel bereikt! %s stappen en tellen</string>
+	<string name="notification_text">%s stappen te gaan</string>
 	<string name="total">Totaal</string>
 	<string name="notification_title">Stappenteller telt</string>
 	<string name="your_progress_will_be_shown_here_soon">Je voortgang wordt hier binnenkort weergegeven</string>
@@ -48,8 +48,8 @@
 	<string name="average_this_month">Gemiddeld deze maand</string>
 	<string name="file_already_exists">Bestand bestaat al. Weet u zeker dat u het wilt overschrijven?</string>
 	<string name="about_text_links">Deze app is gemaakt door Thomas Hoffmann ( <a href="https://www.j4velin.de">www.j4velin.de</a> ) en gebruikt <a href="https://github.com/blackfizz/EazeGraph">EazeGraph</a> door Paul Cech en <a href="https://github.com/attenzione/android-ColorPickerPreference">ColorPickerPreference</a> door Sergey Margaritov. \ N \ nPedometer is open source! Haal de code en de volledige lijst met bijdragers op van <a href="https://github.com/j4velin/Pedometer">GitHub</a> . \ N \ n</string>
-	<string name="about_app_version">App-versie:% s</string>
-	<string name="since">Sinds% s</string>
+	<string name="about_app_version">App-versie:%s</string>
+	<string name="since">Sinds%s</string>
 	<string name="start">Begin</string>
 	<string name="stop">Hou op</string>
 	<string name="close">dichtbij</string>

@@ -10,7 +10,7 @@
 	<string name="goal_summary">Поточна мета:%, d кроків</string>
 	<string name="step_size_summary">Поточний розмір кроку:% 1 $ .2f% 2 $ s</string>
 	<string name="sign_in">Увійдіть за допомогою свого облікового запису Google, щоб використовувати функції Досягнення та таблиці лідерів</string>
-	<string name="signed_in">Увійшли як% s</string>
+	<string name="signed_in">Увійшли як%s</string>
 	<string name="export_summary">Збережіть свої дані у файлі .csv</string>
 	<string name="export_title">Експорт / резервне копіювання</string>
 	<string name="import_summary">Імпортує раніше збережені дані</string>
@@ -19,10 +19,10 @@
 	<string name="set_goal">Поставте мету</string>
 	<string name="set_step_size">Встановити розмір кроку</string>
 	<string name="sign_out">Вийти з аккаунта</string>
-	<string name="file_cant_read">Помилка:% s не можна прочитати</string>
-	<string name="error_file">Помилка доступу до файлу:% s</string>
+	<string name="file_cant_read">Помилка:%s не можна прочитати</string>
+	<string name="error_file">Помилка доступу до файлу:%s</string>
 	<string name="error_external_storage_not_available">Помилка: зовнішнє сховище недоступне</string>
-	<string name="data_saved">Дані збережені в% s</string>
+	<string name="data_saved">Дані збережені в%s</string>
 	<string name="entries_imported">% d імпортованих записів</string>
 	<string name="entries_ignored">% d записів було проігноровано, оскільки вони не містили дійсних даних</string>
 	<string name="entries_overwritten">% d записів було перезаписано імпортованими даними</string>
@@ -35,8 +35,8 @@
 	<string name="achievements">Досягнення</string>
 	<string name="leaderboard">Таблиця лідерів</string>
 	<string name="faq">FAQ</string>
-	<string name="goal_reached_notification">Мета досягнута! % s кроків та підрахунку</string>
-	<string name="notification_text">кроки% s</string>
+	<string name="goal_reached_notification">Мета досягнута! %s кроків та підрахунку</string>
+	<string name="notification_text">кроки %s</string>
 	<string name="total">Всього</string>
 	<string name="notification_title">Крокомір підраховує</string>
 	<string name="your_progress_will_be_shown_here_soon">Ваш прогрес буде показаний тут незабаром</string>
@@ -48,8 +48,8 @@
 	<string name="average_this_month">Середній цей місяць</string>
 	<string name="file_already_exists">Файл вже існує. Ви впевнені, що хочете перезаписати його?</string>
 	<string name="about_text_links">Цей додаток створено Томасом Гофманом ( <a href="https://www.j4velin.de">www.j4velin.de</a> ) і використовує <a href="https://github.com/blackfizz/EazeGraph">EazeGraph</a> від Пола Чеха та <a href="https://github.com/attenzione/android-ColorPickerPreference">ColorPickerPreference</a> Сергія Маргаритова. \ N \ nПедометр є відкритим кодом! Отримайте код та повний список учасників від <a href="https://github.com/j4velin/Pedometer">GitHub</a> . \ N \ n</string>
-	<string name="about_app_version">Версія програми:% s</string>
-	<string name="since">З% s</string>
+	<string name="about_app_version">Версія програми:%s</string>
+	<string name="since">З%s</string>
 	<string name="start">Старт</string>
 	<string name="stop">Стій</string>
 	<string name="close">закрити</string>

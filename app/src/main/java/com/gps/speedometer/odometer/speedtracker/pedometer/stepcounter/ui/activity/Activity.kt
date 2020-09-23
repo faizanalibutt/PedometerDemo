@@ -19,9 +19,11 @@ open class Activity : AppCompatActivity() {
     private val TAG = "BaseActivity"
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate")
-        Utility.resetActivityTitle(this)
+        try {
+            super.onCreate(savedInstanceState)
+            Log.d(TAG, "onCreate")
+            Utility.resetActivityTitle(this)
+        } catch (exp: ConcurrentModificationException) {}
     }
 
     override fun applyOverrideConfiguration(overrideConfiguration: Configuration?) {

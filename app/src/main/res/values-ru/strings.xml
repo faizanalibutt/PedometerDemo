@@ -10,7 +10,7 @@
 	<string name="goal_summary">Текущая цель:%, d шагов</string>
 	<string name="step_size_summary">Текущий размер шага:% 1 $ .2f% 2 $ s</string>
 	<string name="sign_in">Войдите в свою учетную запись Google, чтобы использовать функции достижений и лидеров.</string>
-	<string name="signed_in">Вы вошли как% s</string>
+	<string name="signed_in">Вы вошли как%s</string>
 	<string name="export_summary">Сохраните свои данные в файле .csv</string>
 	<string name="export_title">Экспорт / Резервное копирование</string>
 	<string name="import_summary">Импортирует ранее сохраненные данные</string>
@@ -19,10 +19,10 @@
 	<string name="set_goal">Поставить цель</string>
 	<string name="set_step_size">Установить размер шага</string>
 	<string name="sign_out">выход</string>
-	<string name="file_cant_read">Ошибка:% s не читается</string>
-	<string name="error_file">Ошибка доступа к файлу:% s</string>
+	<string name="file_cant_read">Ошибка:%s не читается</string>
+	<string name="error_file">Ошибка доступа к файлу:%s</string>
 	<string name="error_external_storage_not_available">Ошибка: внешнее хранилище недоступно</string>
-	<string name="data_saved">Данные сохранены в% s</string>
+	<string name="data_saved">Данные сохранены в%s</string>
 	<string name="entries_imported">% d записей импортировано</string>
 	<string name="entries_ignored">% d записей были проигнорированы, так как они не содержали действительных данных</string>
 	<string name="entries_overwritten">% d записей были перезаписаны импортированными данными</string>
@@ -35,8 +35,8 @@
 	<string name="achievements">достижения</string>
 	<string name="leaderboard">Leaderboard</string>
 	<string name="faq">Вопросы-Ответы</string>
-	<string name="goal_reached_notification">Цель достигнута! % s шагов и счет</string>
-	<string name="notification_text">% s шагов до конца</string>
+	<string name="goal_reached_notification">Цель достигнута! %s шагов и счет</string>
+	<string name="notification_text">%s шагов до конца</string>
 	<string name="total">Общее количество</string>
 	<string name="notification_title">Шагомер считает</string>
 	<string name="your_progress_will_be_shown_here_soon">Ваш прогресс скоро будет отображаться здесь</string>
@@ -48,8 +48,8 @@
 	<string name="average_this_month">Среднее значение в этом месяце</string>
 	<string name="file_already_exists">Файл уже существует. Вы уверены, что хотите его перезаписать?</string>
 	<string name="about_text_links">Это приложение было создано Томасом Хоффманном ( <a href="https://www.j4velin.de">www.j4velin.de</a> ) и использует <a href="https://github.com/blackfizz/EazeGraph">EazeGraph</a> Пола Чеха и <a href="https://github.com/attenzione/android-ColorPickerPreference">ColorPickerPreference</a> Сергея Маргаритова. \ N \ nPedometer имеет открытый исходный код! Получите код и полный список участников с <a href="https://github.com/j4velin/Pedometer">GitHub</a> . \ N \ n</string>
-	<string name="about_app_version">Версия приложения:% s</string>
-	<string name="since">Поскольку% s</string>
+	<string name="about_app_version">Версия приложения:%s</string>
+	<string name="since">Поскольку%s</string>
 	<string name="start">Начало</string>
 	<string name="stop">Стоп</string>
 	<string name="close">близко</string>

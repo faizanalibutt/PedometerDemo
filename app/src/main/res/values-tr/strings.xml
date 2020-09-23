@@ -8,7 +8,7 @@
 	<string name="about">hakkında</string>
 	<string name="account">hesap</string>
 	<string name="sign_in">Başarılar ve Skor Tabloları özelliklerini kullanmak için Google hesabınızla oturum açın</string>
-	<string name="signed_in">% S olarak oturum açıldı</string>
+	<string name="signed_in">%s olarak oturum açıldı</string>
 	<string name="export_summary">Verilerinizi bir .csv dosyasına kaydedin</string>
 	<string name="export_title">İhracat / Yedekleme</string>
 	<string name="import_summary">Önceden kaydedilmiş verileri içe aktarır</string>
@@ -17,10 +17,10 @@
 	<string name="set_goal">Hedef belirleme</string>
 	<string name="set_step_size">Adım boyutunu ayarla</string>
 	<string name="sign_out">oturumu Kapat</string>
-	<string name="file_cant_read">Hata:% s okunamıyor</string>
-	<string name="error_file">Dosyaya erişim hatası:% s</string>
+	<string name="file_cant_read">Hata:%s okunamıyor</string>
+	<string name="error_file">Dosyaya erişim hatası:%s</string>
 	<string name="error_external_storage_not_available">Hata: Harici depolama kullanılamıyor</string>
-	<string name="data_saved">Veriler% s içinde kaydedildi</string>
+	<string name="data_saved">Veriler%s içinde kaydedildi</string>
 	<string name="entries_imported">% d giriş içe aktarıldı</string>
 	<string name="entries_ignored">% d giriş geçerli veri içermediğinden göz ardı edildi</string>
 	<string name="entries_overwritten">% d girişin üzerine içe aktarılan veriler yazıldı</string>
@@ -33,8 +33,8 @@
 	<string name="achievements">Başarılar</string>
 	<string name="leaderboard">Liderler Sıralaması</string>
 	<string name="faq">SSS</string>
-	<string name="goal_reached_notification">Hedefe ulaşıldı! % s adım ve sayma</string>
-	<string name="notification_text">% s adım kaldı</string>
+	<string name="goal_reached_notification">Hedefe ulaşıldı! %s adım ve sayma</string>
+	<string name="notification_text">%s adım kaldı</string>
 	<string name="total">Toplam</string>
 	<string name="notification_title">Adımsayar sayıyor</string>
 	<string name="your_progress_will_be_shown_here_soon">İlerlemeniz yakında burada gösterilecek</string>
@@ -45,7 +45,7 @@
 	<string name="total_this_month">Bu ayın toplamı</string>
 	<string name="average_this_month">Bu ayın ortalaması</string>
 	<string name="file_already_exists">Dosya zaten mevcut. Üzerine yazmak istediğinizden emin misiniz?</string>
-	<string name="about_app_version">Uygulama sürümü:% s</string>
+	<string name="about_app_version">Uygulama sürümü:%s</string>
 	<string name="start">Başlat</string>
 	<string name="stop">Dur</string>
 	<string name="close">kapat</string>

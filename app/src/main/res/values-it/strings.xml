@@ -9,7 +9,7 @@
 	<string name="account">account</string>
 	<string name="goal_summary">Obiettivo attuale:%, d passi</string>
 	<string name="sign_in">Accedi con il tuo account Google per utilizzare le funzioni Obiettivi e Classifiche</string>
-	<string name="signed_in">Accesso eseguito come% s</string>
+	<string name="signed_in">Accesso eseguito come%s</string>
 	<string name="export_summary">Salva i tuoi dati in un file .csv</string>
 	<string name="export_title">Export / Backup</string>
 	<string name="import_summary">Importa i dati salvati in precedenza</string>
@@ -18,9 +18,9 @@
 	<string name="set_goal">Obiettivo prefissato</string>
 	<string name="set_step_size">Imposta la dimensione del passo</string>
 	<string name="sign_out">disconnessione</string>
-	<string name="file_cant_read">Errore:% s non può essere letto</string>
+	<string name="file_cant_read">Errore:%s non può essere letto</string>
 	<string name="error_external_storage_not_available">Errore: memoria esterna non disponibile</string>
-	<string name="data_saved">Dati salvati in% s</string>
+	<string name="data_saved">Dati salvati in%s</string>
 	<string name="entries_imported">% d voci importate</string>
 	<string name="entries_ignored">% d voci sono state ignorate perché non contenevano dati validi</string>
 	<string name="entries_overwritten">% d voci sono state sovrascritte con dati importati</string>
@@ -33,8 +33,8 @@
 	<string name="achievements">realizzazioni</string>
 	<string name="leaderboard">Classifica</string>
 	<string name="faq">FAQ</string>
-	<string name="goal_reached_notification">Obiettivo raggiunto! % s passi e conteggio</string>
-	<string name="notification_text">% s passaggi da completare</string>
+	<string name="goal_reached_notification">Obiettivo raggiunto! %s passi e conteggio</string>
+	<string name="notification_text">%s passaggi da completare</string>
 	<string name="total">Totale</string>
 	<string name="notification_title">Il contapassi conta</string>
 	<string name="your_progress_will_be_shown_here_soon">I tuoi progressi saranno mostrati qui presto</string>

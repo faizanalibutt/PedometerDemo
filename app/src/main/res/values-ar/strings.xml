@@ -35,8 +35,8 @@
 	<string name="achievements">إنجازات</string>
 	<string name="leaderboard">ليدربورد</string>
 	<string name="faq">التعليمات</string>
-	<string name="goal_reached_notification">تم الوصول للهدف! ٪ s خطوات والعد</string>
-	<string name="notification_text">٪ s خطوة للمتابعة</string>
+	<string name="goal_reached_notification">تم الوصول للهدف! s٪ خطوات والعد</string>
+	<string name="notification_text">٪s خطوة للمتابعة</string>
 	<string name="total">مجموع</string>
 	<string name="notification_title">عداد الخطى يحسب</string>
 	<string name="your_progress_will_be_shown_here_soon">سيظهر تقدمك هنا قريبًا</string>

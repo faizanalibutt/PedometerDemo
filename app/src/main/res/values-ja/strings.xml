@@ -35,8 +35,8 @@
 	<string name="achievements">実績</string>
 	<string name="leaderboard">リーダーボード</string>
 	<string name="faq">よくある質問</string>
-	<string name="goal_reached_notification">目標達成！ ％sステップとカウント</string>
-	<string name="notification_text">あと％sステップ</string>
+	<string name="goal_reached_notification">目標達成！ ％s ステップとカウント</string>
+	<string name="notification_text">あと ％s ステップ</string>
 	<string name="total">合計</string>
 	<string name="notification_title">歩数計がカウントしています</string>
 	<string name="your_progress_will_be_shown_here_soon">あなたの進捗状況はまもなくここに表示されます</string>

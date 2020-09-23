@@ -10,7 +10,7 @@
 	<string name="goal_summary">เป้าหมายปัจจุบัน:%, d ขั้นตอน</string>
 	<string name="step_size_summary">ขนาดขั้นตอนปัจจุบัน:% 1 $ .2f% 2 $ s</string>
 	<string name="sign_in">ลงชื่อเข้าใช้ด้วยบัญชี Google ของคุณเพื่อใช้คุณสมบัติความสำเร็จและลีดเดอร์บอร์ด</string>
-	<string name="signed_in">ลงชื่อเข้าใช้ด้วย% s</string>
+	<string name="signed_in">ลงชื่อเข้าใช้ด้วย%s</string>
 	<string name="export_summary">บันทึกข้อมูลของคุณเป็นไฟล์. csv</string>
 	<string name="export_title">ส่งออก / การสำรองข้อมูล</string>
 	<string name="import_summary">นำเข้าข้อมูลที่บันทึกไว้ก่อนหน้านี้</string>
@@ -19,10 +19,10 @@
 	<string name="set_goal">ตั้งเป้าหมาย</string>
 	<string name="set_step_size">กำหนดขนาดขั้นตอน</string>
 	<string name="sign_out">ออกจากระบบ</string>
-	<string name="file_cant_read">ข้อผิดพลาด: ไม่สามารถอ่าน% s</string>
-	<string name="error_file">เกิดข้อผิดพลาดในการเข้าถึงไฟล์:% s</string>
+	<string name="file_cant_read">ข้อผิดพลาด: ไม่สามารถอ่าน%s</string>
+	<string name="error_file">เกิดข้อผิดพลาดในการเข้าถึงไฟล์:%s</string>
 	<string name="error_external_storage_not_available">ข้อผิดพลาด: ไม่มีที่เก็บข้อมูลภายนอก</string>
-	<string name="data_saved">บันทึกข้อมูลใน% s</string>
+	<string name="data_saved">บันทึกข้อมูลใน%s</string>
 	<string name="entries_imported">นำเข้า% d รายการ</string>
 	<string name="entries_ignored">% d รายการถูกละเว้นเนื่องจากไม่มีข้อมูลที่ถูกต้อง</string>
 	<string name="entries_overwritten">% d รายการถูกเขียนทับด้วยข้อมูลที่นำเข้า</string>
@@ -35,8 +35,8 @@
 	<string name="achievements">ผู้ชนะ</string>
 	<string name="leaderboard">ลีดเดอร์บอร์ด</string>
 	<string name="faq">คำถามที่พบบ่อย</string>
-	<string name="goal_reached_notification">บรรลุเป้าหมายแล้ว! % s ก้าวและการนับ</string>
-	<string name="notification_text">อีก% s ขั้นตอนที่จะไป</string>
+	<string name="goal_reached_notification">บรรลุเป้าหมายแล้ว! %s ก้าวและการนับ</string>
+	<string name="notification_text">อีก %s ขั้นตอนที่จะไป</string>
 	<string name="total">รวม</string>
 	<string name="notification_title">เครื่องนับก้าว กำลังนับ</string>
 	<string name="your_progress_will_be_shown_here_soon">ความคืบหน้าของคุณจะแสดงที่นี่เร็ว ๆ นี้</string>
@@ -48,8 +48,8 @@
 	<string name="average_this_month">ค่าเฉลี่ยในเดือนนี้</string>
 	<string name="file_already_exists">มีไฟล์อยู่แล้ว แน่ใจไหมว่าต้องการเขียนทับ</string>
 	<string name="about_text_links">แอพนี้สร้างโดย Thomas Hoffmann ( <a href="https://www.j4velin.de">www.j4velin.de</a> ) และใช้ <a href="https://github.com/blackfizz/EazeGraph">EazeGraph</a> โดย Paul Cech และ <a href="https://github.com/attenzione/android-ColorPickerPreference">ColorPickerPreference</a> โดย Sergey Margaritov \ n \ nPedometer เป็นโอเพ่นซอร์ส! รับรหัสและรายชื่อผู้ร่วมให้ข้อมูลทั้งหมดจาก <a href="https://github.com/j4velin/Pedometer">GitHub</a> \ n \ n</string>
-	<string name="about_app_version">เวอร์ชันของแอป:% s</string>
-	<string name="since">ตั้งแต่% s</string>
+	<string name="about_app_version">เวอร์ชันของแอป:%s</string>
+	<string name="since">ตั้งแต่%s</string>
 	<string name="start">เริ่มต้น</string>
 	<string name="stop">หยุด</string>
 	<string name="close">ปิด</string>

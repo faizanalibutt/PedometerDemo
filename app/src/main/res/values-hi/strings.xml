@@ -10,7 +10,7 @@
 	<string name="goal_summary">वर्तमान लक्ष्य:%, डी चरण</string>
 	<string name="step_size_summary">वर्तमान चरण का आकार:% 1 $ .2f% 2 $ s</string>
 	<string name="sign_in">उपलब्धियां और लीडरबोर्ड सुविधाओं का उपयोग करने के लिए अपने Google खाते से साइन इन करें</string>
-	<string name="signed_in">% S के रूप में हस्ताक्षरित है</string>
+	<string name="signed_in">%s के रूप में हस्ताक्षरित है</string>
 	<string name="export_summary">अपने डेटा को .csv फ़ाइल में सहेजें</string>
 	<string name="export_title">निर्यात / बैकअप</string>
 	<string name="import_summary">पहले से सहेजे गए डेटा को आयात करता है</string>
@@ -19,10 +19,10 @@
 	<string name="set_goal">लक्ष्य सेट करें</string>
 	<string name="set_step_size">स्टेप साइज सेट करें</string>
 	<string name="sign_out">प्रस्थान करें</string>
-	<string name="file_cant_read">त्रुटि:% s को पढ़ा नहीं जा सकता है</string>
-	<string name="error_file">फ़ाइल तक पहुँचने में त्रुटि:% s</string>
+	<string name="file_cant_read">त्रुटि:%s को पढ़ा नहीं जा सकता है</string>
+	<string name="error_file">फ़ाइल तक पहुँचने में त्रुटि:%s</string>
 	<string name="error_external_storage_not_available">त्रुटि: बाहरी संग्रहण उपलब्ध नहीं है</string>
-	<string name="data_saved">% S में डेटा सहेजा गया</string>
+	<string name="data_saved">%s में डेटा सहेजा गया</string>
 	<string name="entries_imported">% d प्रविष्टियां आयात की गईं</string>
 	<string name="entries_ignored">% d प्रविष्टियों को अनदेखा कर दिया गया क्योंकि उनमें वैध डेटा नहीं था</string>
 	<string name="entries_overwritten">आयातित डेटा के साथ% d प्रविष्टियों को अधिलेखित कर दिया गया था</string>
@@ -35,8 +35,8 @@
 	<string name="achievements">उपलब्धियां</string>
 	<string name="leaderboard">लीडरबोर्ड</string>
 	<string name="faq">सामान्य प्रश्न</string>
-	<string name="goal_reached_notification">लक्ष्य प्राप्त हुआ! % s चरण और गिनती</string>
-	<string name="notification_text">जाने के लिए% s चरण</string>
+	<string name="goal_reached_notification">लक्ष्य प्राप्त हुआ! %s चरण और गिनती</string>
+	<string name="notification_text">जाने के लिए %s चरण</string>
 	<string name="total">संपूर्ण</string>
 	<string name="notification_title">पेडोमीटर की गिनती हो रही है</string>
 	<string name="your_progress_will_be_shown_here_soon">आपकी प्रगति जल्द ही यहां दिखाई जाएगी</string>
@@ -48,8 +48,8 @@
 	<string name="average_this_month">इस महीने औसत</string>
 	<string name="file_already_exists">फ़ाइल पहले से ही मौजूद है। क्या आप वाकई इसे अधिलेखित करना चाहते हैं?</string>
 	<string name="about_text_links">इस एप्लिकेशन को थॉमस हॉफमैन ( <a href="https://www.j4velin.de">www.j4velin.de</a> ) द्वारा बनाया गया था और <a href="https://github.com/blackfizz/EazeGraph">सर्गेई मार्गरिटोव</a> द्वारा पॉल Cech और <a href="https://github.com/attenzione/android-ColorPickerPreference">ColorPickerPreference</a> द्वारा <a href="https://github.com/blackfizz/EazeGraph">EazeGraph</a> का उपयोग करता है। \ n \ nPedometer खुला स्रोत है! कोड और <a href="https://github.com/j4velin/Pedometer">GitHub</a> से योगदानकर्ताओं की पूरी सूची प्राप्त करें। \ n \ n</string>
-	<string name="about_app_version">ऐप संस्करण:% s</string>
-	<string name="since">चूंकि% s</string>
+	<string name="about_app_version">ऐप संस्करण:%s</string>
+	<string name="since">चूंकि%s</string>
 	<string name="start">शुरू</string>
 	<string name="stop">रुकें</string>
 	<string name="close">बंद करे</string>

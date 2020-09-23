@@ -10,7 +10,7 @@
 	<string name="goal_summary">Meta atual:%, d passos</string>
 	<string name="step_size_summary">Tamanho atual da etapa:% 1 $ .2f% 2 $ s</string>
 	<string name="sign_in">Faça login com sua conta do Google para usar os recursos de Conquistas e Placares</string>
-	<string name="signed_in">Conectado como% s</string>
+	<string name="signed_in">Conectado como%s</string>
 	<string name="export_summary">Salve seus dados em um arquivo .csv</string>
 	<string name="export_title">Exportar / Backup</string>
 	<string name="import_summary">Importa dados salvos anteriormente</string>
@@ -19,10 +19,10 @@
 	<string name="set_goal">Definir objetivo</string>
 	<string name="set_step_size">Definir o tamanho do passo</string>
 	<string name="sign_out">Sair</string>
-	<string name="file_cant_read">Erro:% s não pode ser lido</string>
-	<string name="error_file">Erro ao acessar o arquivo:% s</string>
+	<string name="file_cant_read">Erro:%s não pode ser lido</string>
+	<string name="error_file">Erro ao acessar o arquivo:%s</string>
 	<string name="error_external_storage_not_available">Erro: armazenamento externo não disponível</string>
-	<string name="data_saved">Dados salvos em% s</string>
+	<string name="data_saved">Dados salvos em%s</string>
 	<string name="entries_imported">% d entradas importadas</string>
 	<string name="entries_ignored">% d entradas foram ignoradas porque não continham dados válidos</string>
 	<string name="entries_overwritten">% d entradas foram substituídas por dados importados</string>
@@ -35,8 +35,8 @@
 	<string name="achievements">Conquistas</string>
 	<string name="leaderboard">Entre os melhores</string>
 	<string name="faq">Perguntas frequentes</string>
-	<string name="goal_reached_notification">Meta atingida! % s passos e contando</string>
-	<string name="notification_text">% s passos para ir</string>
+	<string name="goal_reached_notification">Meta atingida! %s passos e contando</string>
+	<string name="notification_text">%s passos para ir</string>
 	<string name="total">Total</string>
 	<string name="notification_title">Pedômetro está contando</string>
 	<string name="your_progress_will_be_shown_here_soon">Seu progresso será mostrado aqui em breve</string>
@@ -48,8 +48,8 @@
 	<string name="average_this_month">Média este mês</string>
 	<string name="file_already_exists">O arquivo já existe. Tem certeza de que deseja sobrescrever?</string>
 	<string name="about_text_links">Este aplicativo foi criado por Thomas Hoffmann ( <a href="https://www.j4velin.de">www.j4velin.de</a> ) e usa <a href="https://github.com/blackfizz/EazeGraph">EazeGraph</a> de Paul Cech e <a href="https://github.com/attenzione/android-ColorPickerPreference">ColorPickerPreference</a> de Sergey Margaritov. \ N \ nPedometer é um código aberto! Obtenha o código e a lista completa de colaboradores do <a href="https://github.com/j4velin/Pedometer">GitHub</a> . \ N \ n</string>
-	<string name="about_app_version">Versão do aplicativo:% s</string>
-	<string name="since">Desde% s</string>
+	<string name="about_app_version">Versão do aplicativo:%s</string>
+	<string name="since">Desde%s</string>
 	<string name="start">Começar</string>
 	<string name="stop">Pare</string>
 	<string name="close">perto</string>

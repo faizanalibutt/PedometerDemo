@@ -10,7 +10,7 @@
 	<string name="goal_summary">Sasaran saat ini:%, d langkah</string>
 	<string name="step_size_summary">Ukuran langkah saat ini:% 1 $ .2f% 2 $ s</string>
 	<string name="sign_in">Masuk dengan akun Google Anda untuk menggunakan fitur Pencapaian dan Papan Peringkat</string>
-	<string name="signed_in">Masuk sebagai% s</string>
+	<string name="signed_in">Masuk sebagai%s</string>
 	<string name="export_summary">Simpan data Anda dalam file .csv</string>
 	<string name="export_title">Ekspor / Cadangan</string>
 	<string name="import_summary">Mengimpor data yang disimpan sebelumnya</string>
@@ -19,10 +19,10 @@
 	<string name="set_goal">Tetapkan tujuan</string>
 	<string name="set_step_size">Tetapkan ukuran langkah</string>
 	<string name="sign_out">Keluar</string>
-	<string name="file_cant_read">Kesalahan:% s tidak dapat dibaca</string>
-	<string name="error_file">Kesalahan mengakses file:% s</string>
+	<string name="file_cant_read">Kesalahan:%s tidak dapat dibaca</string>
+	<string name="error_file">Kesalahan mengakses file:%s</string>
 	<string name="error_external_storage_not_available">Kesalahan: Penyimpanan eksternal tidak tersedia</string>
-	<string name="data_saved">Data disimpan dalam% s</string>
+	<string name="data_saved">Data disimpan dalam%s</string>
 	<string name="entries_imported">% d entri diimpor</string>
 	<string name="entries_ignored">% d entri diabaikan karena tidak berisi data yang valid</string>
 	<string name="entries_overwritten">% d entri ditimpa dengan data yang diimpor</string>
@@ -35,8 +35,8 @@
 	<string name="achievements">Prestasi</string>
 	<string name="leaderboard">Papan peringkat</string>
 	<string name="faq">FAQ</string>
-	<string name="goal_reached_notification">Tujuan tercapai! % s langkah dan menghitung</string>
-	<string name="notification_text">% s langkah lagi</string>
+	<string name="goal_reached_notification">Tujuan tercapai! %s langkah dan menghitung</string>
+	<string name="notification_text">%s langkah lagi</string>
 	<string name="total">Total</string>
 	<string name="notification_title">Pedometer sedang menghitung</string>
 	<string name="your_progress_will_be_shown_here_soon">Kemajuan Anda akan segera ditampilkan di sini</string>
@@ -48,8 +48,8 @@
 	<string name="average_this_month">Rata-rata bulan ini</string>
 	<string name="file_already_exists">File sudah ada. Anda yakin ingin menimpanya?</string>
 	<string name="about_text_links">Aplikasi ini dibuat oleh Thomas Hoffmann ( <a href="https://www.j4velin.de">www.j4velin.de</a> ) dan menggunakan <a href="https://github.com/blackfizz/EazeGraph">EazeGraph</a> oleh Paul Cech dan <a href="https://github.com/attenzione/android-ColorPickerPreference">ColorPickerPreference</a> oleh Sergey Margaritov. \ N \ nPedometer adalah open source! Dapatkan kode dan daftar lengkap kontributor dari <a href="https://github.com/j4velin/Pedometer">GitHub</a> . \ N \ n</string>
-	<string name="about_app_version">Versi aplikasi:% s</string>
-	<string name="since">Sejak% s</string>
+	<string name="about_app_version">Versi aplikasi:%s</string>
+	<string name="since">Sejak%s</string>
 	<string name="start">Mulailah</string>
 	<string name="stop">Berhenti</string>
 	<string name="close">Menutup</string>

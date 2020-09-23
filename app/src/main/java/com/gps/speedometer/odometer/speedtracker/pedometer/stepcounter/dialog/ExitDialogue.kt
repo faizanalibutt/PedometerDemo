@@ -15,6 +15,7 @@ import com.dev.bytes.adsmanager.loadNativeAd
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.NetworkUtils
+import kotlinx.android.synthetic.main.layout_exit_rating_dialog.*
 import kotlinx.android.synthetic.main.layout_exit_rating_dialog.view.*
 
 class ExitDialogue(val activity: Activity, private val isMenu: Boolean) :
@@ -29,10 +30,14 @@ class ExitDialogue(val activity: Activity, private val isMenu: Boolean) :
 
             mRootView.negative_text.isSelected = true
             mRootView.positive_text.isSelected = true
-            if (!isMenu && NetworkUtils.isOnline(activity)) {
+            if (!isMenu) {
                 mRootView.exit_views.visibility = View.VISIBLE
                 mRootView.rate_views.visibility = View.GONE
-                activity.loadNativeAd(mRootView.ad_container_exit, R.layout.ad_unified_exit, ADUnitPlacements.EXIT_NATIVE_AD, true)
+                if (NetworkUtils.isOnline(activity))
+                    activity.loadNativeAd(
+                        mRootView.ad_container_exit, R.layout.ad_unified_exit,
+                        ADUnitPlacements.EXIT_NATIVE_AD, true
+                    )
             } else {
                 mRootView.rate_views.visibility = View.VISIBLE
                 mRootView.exit_views.visibility = View.GONE
@@ -42,8 +47,7 @@ class ExitDialogue(val activity: Activity, private val isMenu: Boolean) :
             if (isMenu) {
                 mRootView.positive_text.text = activity.getString(R.string.txt_feedback)
                 mRootView.negative_text.text = activity.getString(R.string.text_thanks)
-            }
-            else {
+            } else {
                 mRootView.positive_text.text = activity.getString(R.string.butn_exit)
                 mRootView.negative_text.text = activity.getString(R.string.butn_cancel)
             }
@@ -56,13 +60,35 @@ class ExitDialogue(val activity: Activity, private val isMenu: Boolean) :
                     val builderTab = CustomTabsIntent.Builder()
                     val customTabsIntent = builderTab.build()
                     customTabsIntent.launchUrl(context, Uri.parse(url))
+                    dismiss()
                 }
             }
             /*setPositiveButton(title) { _, _ -> }*/
 
             mRootView.negative_text.setOnClickListener {
                 // see about it.
-                dismiss()
+                if (isMenu && isShowing) {
+                    dismiss()
+                } else {
+                    if (!AppUtils.getDefaultPreferences(activity)
+                            .getBoolean("hide_rating", false)) {
+                        val url = activity.getString(R.string.app_link)
+                        val customTabsIntent =
+                            CustomTabsIntent.Builder().build()
+                        customTabsIntent.launchUrl(
+                            activity as Context,
+                            Uri.parse(url)
+                        )
+                        mRootView.rating_bar_value.visibility = View.GONE
+                        mRootView.dialog_desc.visibility = View.GONE
+                        mRootView.exit_desc.visibility = View.VISIBLE
+                        mRootView.negative_text.text = activity.getString(R.string.butn_cancel)
+                        dismiss()
+                    } else
+                        dismiss()
+                    AppUtils.getDefaultPreferences(activity as AppCompatActivity).edit()
+                        .putBoolean("hide_rating", true).apply()
+                }
             }
 
             //setNegativeButton("Cancel", null)
@@ -76,6 +102,7 @@ class ExitDialogue(val activity: Activity, private val isMenu: Boolean) :
                 mRootView.rating_bar_value.visibility = View.GONE
                 mRootView.dialog_desc.visibility = View.GONE
                 mRootView.exit_desc.visibility = View.VISIBLE
+                mRootView.negative_text.text = activity.getString(R.string.butn_cancel)
             }
 
             mRootView.rating_bar_value.onRatingBarChangeListener =
@@ -151,16 +178,24 @@ class ExitDialogue(val activity: Activity, private val isMenu: Boolean) :
                 mRootView.negative_text.text = activity.getString(R.string.text_rate)
                 if (isShowing) {
                     mRootView.negative_text.setOnClickListener {
+                        if (!AppUtils.getDefaultPreferences(activity)
+                                .getBoolean("hide_rating", false)) {
+                            val url = activity.getString(R.string.app_link)
+                            val customTabsIntent =
+                                CustomTabsIntent.Builder().build()
+                            customTabsIntent.launchUrl(
+                                activity as Context,
+                                Uri.parse(url)
+                            )
+                            mRootView.rating_bar_value.visibility = View.GONE
+                            mRootView.dialog_desc.visibility = View.GONE
+                            mRootView.exit_desc.visibility = View.VISIBLE
+                            mRootView.negative_text.text = activity.getString(R.string.butn_cancel)
+                            dismiss()
+                        } else
+                            dismiss()
                         AppUtils.getDefaultPreferences(activity as AppCompatActivity).edit()
                             .putBoolean("hide_rating", true).apply()
-                        val url = activity.getString(R.string.app_link)
-                        val customTabsIntent =
-                            CustomTabsIntent.Builder().build()
-                        customTabsIntent.launchUrl(
-                            activity as Context,
-                            Uri.parse(url)
-                        )
-                        dismiss()
                     }
                 }
             }

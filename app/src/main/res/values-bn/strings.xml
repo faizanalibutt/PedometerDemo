@@ -10,7 +10,7 @@
 	<string name="goal_summary">বর্তমান লক্ষ্য:%, d পদক্ষেপ</string>
 	<string name="step_size_summary">বর্তমান পদক্ষেপের আকার:% 1 $ .2f% 2 $ s</string>
 	<string name="sign_in">অর্জন এবং লিডারবোর্ড বৈশিষ্ট্যগুলি ব্যবহার করতে আপনার Google অ্যাকাউন্টে সাইন ইন করুন</string>
-	<string name="signed_in">% S হিসাবে সাইন ইন করেছেন</string>
+	<string name="signed_in">%s হিসাবে সাইন ইন করেছেন</string>
 	<string name="export_summary">.Csv ফাইলে আপনার ডেটা সংরক্ষণ করুন</string>
 	<string name="export_title">রপ্তানি / ব্যাকআপ</string>
 	<string name="import_summary">পূর্বে সংরক্ষিত ডেটা আমদানি করে</string>
@@ -19,10 +19,10 @@
 	<string name="set_goal">লক্ষ স্থির কর</string>
 	<string name="set_step_size">পদক্ষেপের আকার সেট করুন</string>
 	<string name="sign_out">সাইন আউট</string>
-	<string name="file_cant_read">ত্রুটি:% s পড়া যায় না</string>
-	<string name="error_file">ফাইলটি অ্যাক্সেস করার সময় ত্রুটি:% s</string>
+	<string name="file_cant_read">ত্রুটি:%s পড়া যায় না</string>
+	<string name="error_file">ফাইলটি অ্যাক্সেস করার সময় ত্রুটি:%s</string>
 	<string name="error_external_storage_not_available">ত্রুটি: বাহ্যিক সঞ্চয়স্থান উপলভ্য নয়</string>
-	<string name="data_saved">% S এ ডেটা সংরক্ষণ করা হয়েছে</string>
+	<string name="data_saved">%s এ ডেটা সংরক্ষণ করা হয়েছে</string>
 	<string name="entries_imported">% d এন্ট্রি আমদানি করা হয়েছে</string>
 	<string name="entries_ignored">% d এন্ট্রিগুলিকে বৈধ ডেটা না থাকায় তারা এড়িয়ে চলেছে</string>
 	<string name="entries_overwritten">% d এন্ট্রি আমদানি করা ডেটা দিয়ে ওভাররাইট করা হয়েছিল</string>
@@ -35,8 +35,8 @@
 	<string name="achievements">কৃতিত্ব</string>
 	<string name="leaderboard">লিডারবোর্ড</string>
 	<string name="faq">প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী</string>
-	<string name="goal_reached_notification">লক্ষ্য পৌঁছেছে! % s পদক্ষেপ এবং গণনা</string>
-	<string name="notification_text">% s পদক্ষেপ যেতে হবে</string>
+	<string name="goal_reached_notification">লক্ষ্য পৌঁছেছে! %s পদক্ষেপ এবং গণনা</string>
+	<string name="notification_text">%s পদক্ষেপ যেতে হবে</string>
 	<string name="total">মোট</string>
 	<string name="notification_title">পেডোমিটার গণনা করছে</string>
 	<string name="your_progress_will_be_shown_here_soon">আপনার অগ্রগতি শীঘ্রই এখানে প্রদর্শিত হবে</string>
@@ -48,8 +48,8 @@
 	<string name="average_this_month">এই মাসে গড়</string>
 	<string name="file_already_exists">ফাইল ইতিমধ্যে বিদ্যমান. আপনি কি এটিকে মুছে ফেলার বিষয়ে নিশ্চিত?</string>
 	<string name="about_text_links">এই অ্যাপ্লিকেশানটি টমাস হফম্যান (দ্বারা তৈরি করা হয়েছে <a href="https://www.j4velin.de">www.j4velin.de</a> ) এবং ব্যবহারসমূহ <a href="https://github.com/blackfizz/EazeGraph">EazeGraph</a> পল Cech দ্বারা <a href="https://github.com/attenzione/android-ColorPickerPreference">ColorPickerPreference</a> সার্জি Margaritov দ্বারা। \ N \ n nPedometer ওপেন সোর্স! কোড এবং <a href="https://github.com/j4velin/Pedometer">গিটহাব</a> থেকে অবদানকারীদের সম্পূর্ণ তালিকা পান \ \ n \ n</string>
-	<string name="about_app_version">অ্যাপ্লিকেশন সংস্করণ:% s</string>
-	<string name="since">% S থেকে</string>
+	<string name="about_app_version">অ্যাপ্লিকেশন সংস্করণ:%s</string>
+	<string name="since">%s থেকে</string>
 	<string name="start">শুরু</string>
 	<string name="stop">স্টপ</string>
 	<string name="close">ঘনিষ্ঠ</string>

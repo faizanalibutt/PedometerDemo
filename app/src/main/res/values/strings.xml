@@ -148,7 +148,7 @@
     <string name="text_warning">Warning</string>
     <string name="text_location_permission">Please provide location permission...</string>
     <string name="text_timo">Time</string>
-    <string name="text_share_feedback">Share Cloud, Your valuable feedback.</string>
+    <string name="text_share_feedback">GPS Speedometer &amp; Pedometer, Your valuable feedback.</string>
     <string name="text_today">TODAY</string>
     <string name="text_report">REPORT</string>
     <string name="text_recognition_permission">Please provide Activity Recognition Permission to start counting steps...</string>

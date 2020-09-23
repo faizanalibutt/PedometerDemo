@@ -173,49 +173,51 @@ class AnalogFragment() : Fragment() {
 
     private fun showPopup(view: View) {
 
-        val popup = PopupMenu(mContext!!, view.popup_units)
-        popup.menuInflater.inflate(R.menu.units_popup_menu, popup.menu)
+        mContext?.let {
+            val popup = PopupMenu(it, view.popup_units)
+            popup.menuInflater.inflate(R.menu.units_popup_menu, popup.menu)
 
-        popup.setOnMenuItemClickListener {
-            when (it.title.toString()) {
-                resources.getString(R.string.km_h_c) -> {
-                    unitMain = "km"
-                    Callback.setMeterValue1(
-                        Speedo(
-                            vehicle,
-                            unitMain,
-                            resources.getString(R.string.km_h_c),
-                            ""
+            popup.setOnMenuItemClickListener {
+                when (it.title.toString()) {
+                    resources.getString(R.string.km_h_c) -> {
+                        unitMain = "km"
+                        Callback.setMeterValue1(
+                            Speedo(
+                                vehicle,
+                                unitMain,
+                                resources.getString(R.string.km_h_c),
+                                ""
+                            )
                         )
-                    )
-                }
-                resources.getString(R.string.mph_c) -> {
-                    unitMain = "mph"
-                    Callback.setMeterValue1(
-                        Speedo(
-                            vehicle,
-                            unitMain,
-                            resources.getString(R.string.mph_c),
-                            ""
+                    }
+                    resources.getString(R.string.mph_c) -> {
+                        unitMain = "mph"
+                        Callback.setMeterValue1(
+                            Speedo(
+                                vehicle,
+                                unitMain,
+                                resources.getString(R.string.mph_c),
+                                ""
+                            )
                         )
-                    )
-                }
-                resources.getString(R.string.knot_c) -> {
-                    unitMain = "knot"
-                    Callback.setMeterValue1(
-                        Speedo(
-                            vehicle,
-                            unitMain,
-                            resources.getString(R.string.knot_c),
-                            ""
+                    }
+                    resources.getString(R.string.knot_c) -> {
+                        unitMain = "knot"
+                        Callback.setMeterValue1(
+                            Speedo(
+                                vehicle,
+                                unitMain,
+                                resources.getString(R.string.knot_c),
+                                ""
+                            )
                         )
-                    )
+                    }
                 }
+                return@setOnMenuItemClickListener true
             }
-            return@setOnMenuItemClickListener true
-        }
 
-        popup.show()
+            popup.show()
+        }
     }
 
     private fun setValues(type: String, unit: String, view: View) {

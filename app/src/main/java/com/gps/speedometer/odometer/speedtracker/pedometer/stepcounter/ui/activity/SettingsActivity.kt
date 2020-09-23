@@ -75,25 +75,29 @@ class SettingsActivity : Activity(), View.OnClickListener {
 
     private fun isStepSensorAvailable(check: Boolean): Boolean {
         val sm = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        val sensor =
+        var sensor =
             sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-        return if (sensor == null) {
-            if (check) {
-                AlertDialog.Builder(this).setTitle(R.string.no_sensor)
-                    .setMessage(R.string.no_sensor_explain)
-                    .setOnDismissListener { it.dismiss() }
-                    .setPositiveButton(
-                        R.string.okay
-                    ) { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
-                    .create()
-                    .show()
-                if (auto_count_switch.isChecked)
-                    auto_count_switch.isChecked = false
-                auto_count_switch.isEnabled = false
+        if (sensor == null) {
+            sensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+            if (sensor == null) {
+                if (check) {
+                    AlertDialog.Builder(this).setTitle(R.string.no_sensor)
+                        .setMessage(R.string.no_sensor_explain)
+                        .setOnDismissListener { it.dismiss() }
+                        .setPositiveButton(
+                            R.string.okay
+                        ) { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
+                        .create()
+                        .show()
+                    if (auto_count_switch.isChecked)
+                        auto_count_switch.isChecked = false
+                    auto_count_switch.isEnabled = false
+                }
+                return false
             }
-            false
-        } else
-            true
+            return true
+        }
+        return true
     }
 
     override fun onClick(v: View?) {
