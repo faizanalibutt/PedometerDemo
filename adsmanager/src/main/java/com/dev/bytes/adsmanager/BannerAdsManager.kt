@@ -76,7 +76,7 @@ fun ViewGroup.loadBannerAdFB(ADUnit: BannerADUnit) {
     }?.also { adView ->
         addView(adView)
 
-        adView.setAdListener(object : FBAdListener() {
+        val adListener = object : FBAdListener() {
 
             override fun onError(p0: Ad?, p1: AdError?) {
                 Timber.e("onError fb Banner ${p1?.errorMessage} ${p1?.errorCode}")
@@ -88,9 +88,9 @@ fun ViewGroup.loadBannerAdFB(ADUnit: BannerADUnit) {
                 this@loadBannerAdFB.visibility = View.VISIBLE
             }
 
-        })
+        }
 
-        adView.loadAd()
+        adView.loadAd(adView.buildLoadAdConfig().withAdListener(adListener).build())
     }
 }
 

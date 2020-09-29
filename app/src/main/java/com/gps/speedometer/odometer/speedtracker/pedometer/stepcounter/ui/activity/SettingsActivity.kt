@@ -1,5 +1,6 @@
 package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity
 
+import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
@@ -7,6 +8,7 @@ import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
@@ -18,9 +20,11 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.SensorListener
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
-import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.LocaleManagerX
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Utility
+import com.nabinbhandari.android.permissions.PermissionHandler
+import com.nabinbhandari.android.permissions.Permissions
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.util.*
 
 class SettingsActivity : Activity(), View.OnClickListener {
 
@@ -38,15 +42,66 @@ class SettingsActivity : Activity(), View.OnClickListener {
             ).getString("pedo_state", null) == "stop"
 
         auto_count_switch.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isStepSensorAvailable(true)) {
-                if (isChecked) {
-                    AppUtils.getDefaultPreferences(this).edit().putString("pedo_state", "stop")
-                        .apply()
-                    startService(Intent(this, SensorListener::class.java))
-                } else {
-                    AppUtils.getDefaultPreferences(this).edit().putString("pedo_state", "resume")
-                        .apply()
-                    stopService(Intent(this, SensorListener::class.java))
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                val permissions = arrayOf(Manifest.permission.ACTIVITY_RECOGNITION)
+                val rationale =
+                    getString(R.string.text_recognition_permission)
+                val options = Permissions.Options().setRationaleDialogTitle("Info")
+                    .setSettingsDialogTitle(getString(R.string.text_warning))
+
+                Permissions.check(this, permissions, rationale, options,
+                    object : PermissionHandler() {
+                        override fun onGranted() {
+                            if (isStepSensorAvailable(true)) {
+                                if (isChecked) {
+                                    AppUtils.getDefaultPreferences(this@SettingsActivity
+                                    ).edit().putString("pedo_state", "stop").apply()
+                                    startService(
+                                        Intent(this@SettingsActivity,
+                                            SensorListener::class.java
+                                        )
+                                    )
+                                } else {
+                                    AppUtils.getDefaultPreferences(this@SettingsActivity
+                                    ).edit().putString("pedo_state", "resume").apply()
+                                    stopService(
+                                        Intent(
+                                            this@SettingsActivity,
+                                            SensorListener::class.java
+                                        )
+                                    )
+                                }
+                            }
+                        }
+
+                        override fun onDenied(
+                            context: Context?,
+                            deniedPermissions: ArrayList<String>?
+                        ) {
+                            auto_count_switch.isChecked = false
+                        }
+                    })
+            } else {
+                if (isStepSensorAvailable(true)) {
+                    if (isChecked) {
+                        AppUtils.getDefaultPreferences(this@SettingsActivity
+                        ).edit().putString("pedo_state", "stop").apply()
+                        startService(
+                            Intent(this@SettingsActivity,
+                                SensorListener::class.java
+                            )
+                        )
+                    } else {
+                        AppUtils.getDefaultPreferences(this@SettingsActivity
+                        ).edit().putString("pedo_state", "resume").apply()
+                        stopService(
+                            Intent(
+                                this@SettingsActivity,
+                                SensorListener::class.java
+                            )
+                        )
+                    }
                 }
             }
         }

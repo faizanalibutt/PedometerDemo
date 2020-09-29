@@ -99,26 +99,28 @@ fun Context.newFBInterstitial(
     onLoaded: ((InterAdPair) -> Unit)?, onClosed: (() -> Unit)?
 ): InterstitialAdFB? {
     val interstitialAd = ADUnit.adUnitIDFB?.let { id -> InterstitialAdFB(this, getString(id)) }
-    interstitialAd?.loadAd()
+    interstitialAd?.run {
+        loadAd(
+            buildLoadAdConfig()?.withAdListener(object : FBInterAdListener() {
 
-    interstitialAd?.setAdListener(object : FBInterAdListener() {
+                override fun onInterstitialDismissed(p0: Ad?) {
+                    onClosed?.invoke()
+                    if (reloadOnClosed)
+                        loadInterstitialAd(ADUnit, reloadOnClosed, onLoaded, onClosed)
+                }
 
-        override fun onInterstitialDismissed(p0: Ad?) {
-            onClosed?.invoke()
-            if (reloadOnClosed)
-                loadInterstitialAd(ADUnit, reloadOnClosed, onLoaded, onClosed)
-        }
+                override fun onError(p0: Ad?, p1: AdError?) {
+                    Timber.e("onFailed Inter FB ${p1?.errorMessage} ${p1?.errorCode}")
+                    if (ADUnit.priority == AdsPriority.FACEBOOK_ADMOB)
+                        newAMInterstitialAd(ADUnit, reloadOnClosed, onLoaded, onClosed)
+                }
 
-        override fun onError(p0: Ad?, p1: AdError?) {
-            Timber.e("onFailed Inter FB ${p1?.errorMessage} ${p1?.errorCode}")
-            if (ADUnit.priority == AdsPriority.FACEBOOK_ADMOB)
-                newAMInterstitialAd(ADUnit, reloadOnClosed, onLoaded, onClosed)
-        }
+                override fun onAdLoaded(p0: Ad?): Unit =
+                    onLoaded?.invoke(InterAdPair(interFB = interstitialAd)) ?: Unit
 
-        override fun onAdLoaded(p0: Ad?) {
-            onLoaded?.invoke(InterAdPair(interFB = interstitialAd))
-        }
-    })
+            })?.build()
+        )
+    }
     return interstitialAd
 }
 

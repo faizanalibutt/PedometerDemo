@@ -1,6 +1,7 @@
 package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -19,6 +20,7 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppU
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
 import kotlinx.android.synthetic.main.activity_pedometer.*
+import java.util.ArrayList
 
 class PedometerActivity : Activity() {
 
@@ -74,6 +76,14 @@ class PedometerActivity : Activity() {
                 object : PermissionHandler() {
                     override fun onGranted() {
                         pedoMeterWorking = true
+                    }
+
+                    override fun onDenied(
+                        context: Context?,
+                        deniedPermissions: ArrayList<String>?
+                    ) {
+                        super.onDenied(context, deniedPermissions)
+                        finish()
                     }
                 })
         }

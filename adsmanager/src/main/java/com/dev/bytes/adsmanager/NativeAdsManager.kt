@@ -219,37 +219,38 @@ private fun Context.loadNativeFB(
     return if (!checkIfPremium()) {
 
         val facebookNativeAd = ADUnit.adUnitIDFB?.let { NativeAd(this, getString(it)) }
-        facebookNativeAd?.setAdListener(object : FBNativeAdListener() {
-
-            override fun onAdLoaded(p0: Ad?) {
-                if (facebookNativeAd != p0) return
-                inflateNativeAdFB(adLayout)?.let { adLayout ->
-                    frameLayout?.post {
-                        frameLayout.removeAllViews()
-                        facebookNativeAd.populateNativeAdLayoutFB(adLayout)
-                        frameLayout.addView(adLayout)
-                        frameLayout.visibility = View.VISIBLE
-                        logEvent("ad_impr_native_FB")
-                    }
-                }
-                FBSuccessCallBack?.invoke(facebookNativeAd)
-            }
-
-            override fun onError(p0: Ad?, p1: AdError?) {
-                super.onError(p0, p1)
-                if (ADUnit.priority == AdsPriority.FACEBOOK_ADMOB) {
-                    loadNativeAM(frameLayout, adLayout, ADUnit, AMCallback, onError = onError)
-                    Timber.e("onError native FB ${p1?.errorCode} ${p1?.errorMessage}")
-                } else {
-                    onError?.invoke()
-                    frameLayout?.visibility = View.GONE
-                    frameLayout?.removeAllViews()
-                }
-            }
-        })
 
         // Request an ad
-        facebookNativeAd?.loadAd()
+        facebookNativeAd?.loadAd(
+            facebookNativeAd.buildLoadAdConfig().withAdListener(object : FBNativeAdListener() {
+
+                override fun onAdLoaded(p0: Ad?) {
+                    if (facebookNativeAd != p0) return
+                    inflateNativeAdFB(adLayout)?.let { adLayout ->
+                        frameLayout?.post {
+                            frameLayout.removeAllViews()
+                            facebookNativeAd.populateNativeAdLayoutFB(adLayout)
+                            frameLayout.addView(adLayout)
+                            frameLayout.visibility = View.VISIBLE
+                            logEvent("ad_impr_native_FB")
+                        }
+                    }
+                    FBSuccessCallBack?.invoke(facebookNativeAd)
+                }
+
+                override fun onError(p0: Ad?, p1: AdError?) {
+                    super.onError(p0, p1)
+                    if (ADUnit.priority == AdsPriority.FACEBOOK_ADMOB) {
+                        loadNativeAM(frameLayout, adLayout, ADUnit, AMCallback, onError = onError)
+                        Timber.e("onError native FB ${p1?.errorCode} ${p1?.errorMessage}")
+                    } else {
+                        onError?.invoke()
+                        frameLayout?.visibility = View.GONE
+                        frameLayout?.removeAllViews()
+                    }
+                }
+            }).build()
+        )
         facebookNativeAd
     } else null
 
@@ -307,7 +308,7 @@ fun Context.inflateShimmerView(adLayout: Int): ShimmerFrameLayout? =
                             is ImageView -> view.setImageDrawable(null)
                         }
                     }
-                    is AdIconView, is FBMediaView, is MediaView -> view.setBackgroundColor(Color.GRAY)
+                    is FBMediaView, is MediaView -> view.setBackgroundColor(Color.GRAY)
                     is ConstraintLayout -> view.setBackgroundColor(Color.TRANSPARENT)
                 }
             }
