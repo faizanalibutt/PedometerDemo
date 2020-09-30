@@ -36,7 +36,7 @@
 	<string name="faq">FAQ</string>
 	<string name="goal_reached_notification">Objectif atteint! %s pas et comptage</string>
 	<string name="notification_text">%s pas à parcourir</string>
-	<string name="total">Total</string>
+	<string name="total">totale</string>
 	<string name="notification_title">Le podomètre compte</string>
 	<string name="your_progress_will_be_shown_here_soon">Votre progression sera affichée ici bientôt</string>
 	<string name="average">Moyenne</string>

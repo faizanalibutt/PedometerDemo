@@ -61,10 +61,14 @@ class SplashActivity : AppCompatActivity() {
         spanString!!.setSpan(appColor, 6, appname.text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         appname.text = spanString
 
-        val text = SpannableString(getString(R.string.privacy_policy_desc))
-        text.setSpan(UnderlineSpan(), 27, privacytext.length(), 0)
-        text.setSpan(appColor, 27, privacytext.length(), 0)
-        privacytext.text = text
+        try {
+            val text = SpannableString(getString(R.string.privacy_policy_desc))
+            text.setSpan(UnderlineSpan(), 27, privacytext.length(), 0)
+            text.setSpan(appColor, 27, privacytext.length(), 0)
+            privacytext.text = text
+        } catch (exp: Exception) {
+            privacytext.text = getString(R.string.privacy_policy_desc)
+        }
 
         privacytext.setOnClickListener {
             val url =

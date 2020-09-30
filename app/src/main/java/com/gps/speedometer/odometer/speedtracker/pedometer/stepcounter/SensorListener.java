@@ -195,6 +195,7 @@ public class SensorListener extends Service implements SensorEventListener {
         super.onDestroy();
         if (BuildConfig.DEBUG) Logger.log("SensorListener onDestroy");
         try {
+            unregisterReceiver(shutdownReceiver);
             SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
             sm.unregisterListener(this);
         } catch (Exception e) {
@@ -258,9 +259,11 @@ public class SensorListener extends Service implements SensorEventListener {
 
     private void registerBroadcastReceiver() {
         if (BuildConfig.DEBUG) Logger.log("register broadcastreceiver");
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_SHUTDOWN);
-        registerReceiver(shutdownReceiver, filter);
+        try {
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(Intent.ACTION_SHUTDOWN);
+            registerReceiver(shutdownReceiver, filter);
+        } catch (Exception exp) {}
     }
 
     private void reRegisterSensor() {
