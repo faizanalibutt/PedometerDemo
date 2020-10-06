@@ -14,8 +14,8 @@ android {
         applicationId "com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 4
+        versionName "1.0.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -137,5 +137,11 @@ dependencies {
 
     // lottie animation lib
     implementation "com.airbnb.android:lottie:3.4.1"
+
+    // fcm manger
+    implementation project(path: ':fcm')
+
+    // fcm analytics
+    api 'com.google.firebase:firebase-analytics:17.5.0'
 
 }

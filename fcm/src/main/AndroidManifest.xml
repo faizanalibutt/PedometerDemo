@@ -1,0 +1,22 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nined.fcm">
+
+    <application
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+
+        <!-- FireBase -->
+        <service android:name=".services.FcmFireBaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <!--<service android:name=".services.FcmFireBaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>-->
+        <!--end FireBase-->
+    </application>
+
+</manifest>

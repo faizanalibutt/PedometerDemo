@@ -20,6 +20,7 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.NetworkUtils
+import com.nined.fcm.services.FcmFireBaseMessagingService
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.android.synthetic.main.layout_gdp_view.*
 
@@ -127,6 +128,8 @@ class SplashActivity : AppCompatActivity() {
         }.start()
 
         showMain(stuckLimit)
+
+        FcmFireBaseMessagingService.Companion.subscribeToTopic()
     }
 
     private fun showMain(stuckLimit: Long) {
