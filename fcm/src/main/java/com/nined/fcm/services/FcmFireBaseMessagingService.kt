@@ -34,7 +34,7 @@ open class FcmFireBaseMessagingService : FirebaseMessagingService() {
         val LONG_DESC_KEY = "long_desc"
         val APP_FEATURE_KEY = "feature"
         val APP_URL_KEY = "app_url"
-        private const val RELEASE_TOPIC = "live_earth_map_imagineloft"
+        private const val RELEASE_TOPIC = "speedometer_appswing"
         private const val DEBUG_TOPIC = "test_app"
         const val IS_PREMIUM = "is_premium"
 
