@@ -16,6 +16,7 @@ import com.dev.bytes.adsmanager.BannerPlacements
 import com.dev.bytes.adsmanager.TinyDB
 import com.dev.bytes.adsmanager.billing.purchaseRemoveAds
 import com.dev.bytes.adsmanager.loadBannerAd
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.PictureInPictureActivity
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.SensorListener
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
@@ -175,7 +176,8 @@ class SettingsActivity : Activity(), View.OnClickListener {
             R.id.share -> {
                 shareIntent()
             }
-            R.id.premium_services -> App.bp?.purchaseRemoveAds(this)
+            R.id.premium_services -> /*startActivity(Intent(this, PictureInPictureActivity::class.java))*/
+                App.bp?.purchaseRemoveAds(this)
         }
     }
 

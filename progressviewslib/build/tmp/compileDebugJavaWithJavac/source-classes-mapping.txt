@@ -1,0 +1,27 @@
+com/natasa/progressviews/ProgressView.java
+ com.natasa.progressviews.ProgressView
+ com.natasa.progressviews.ProgressView$ProgressViewTextData
+com/natasa/progressviews/utils/OnProgressViewListener.java
+ com.natasa.progressviews.utils.OnProgressViewListener
+com/natasa/progressviews/utils/ProgressShape.java
+ com.natasa.progressviews.utils.ProgressShape
+com/natasa/progressviews/utils/ProgressViewFactory.java
+ com.natasa.progressviews.utils.ProgressViewFactory
+com/natasa/progressviews/CircleProgressBar.java
+ com.natasa.progressviews.CircleProgressBar
+com/natasa/progressviews/ArcProgressBar.java
+ com.natasa.progressviews.ArcProgressBar
+com/natasa/progressviews/LineProgressBar.java
+ com.natasa.progressviews.LineProgressBar
+com/natasa/progressviews/utils/ShapeType.java
+ com.natasa.progressviews.utils.ShapeType
+com/natasa/progressviews/utils/ProgressStartPoint.java
+ com.natasa.progressviews.utils.ProgressStartPoint
+com/natasa/progressviews/BuildConfig.java
+ com.natasa.progressviews.BuildConfig
+com/natasa/progressviews/CircleSegmentBar.java
+ com.natasa.progressviews.CircleSegmentBar
+com/natasa/progressviews/utils/ProgressLineOrientation.java
+ com.natasa.progressviews.utils.ProgressLineOrientation
+com/natasa/progressviews/ColorsHelper.java
+ com.natasa.progressviews.ColorsHelper
