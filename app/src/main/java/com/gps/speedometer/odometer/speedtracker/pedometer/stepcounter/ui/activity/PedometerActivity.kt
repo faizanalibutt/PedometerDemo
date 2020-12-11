@@ -1,11 +1,25 @@
 package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity
 
 import android.Manifest
+import android.app.ActivityManager
+import android.app.AlertDialog
+import android.app.PictureInPictureParams
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.Point
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Rational
+import android.view.ContextThemeWrapper
+import android.view.Display
 import android.view.View
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import com.dev.bytes.adsmanager.ADUnitPlacements
 import com.dev.bytes.adsmanager.InterAdPair
 import com.dev.bytes.adsmanager.TinyDB
@@ -17,10 +31,11 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.ViewPa
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.PedoMeterFragmentNew
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.ReportFragment
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.BackgroundPlayService
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
 import kotlinx.android.synthetic.main.activity_pedometer.*
-import java.util.ArrayList
+import java.util.*
 
 class PedometerActivity : Activity() {
 
@@ -28,6 +43,8 @@ class PedometerActivity : Activity() {
     var startStopInterstitialAd: InterAdPair? = null
     var backInterstitialAd: InterAdPair? = null
     private var isStartStopShown: Boolean = false
+    private var isOverlay = false
+    private var ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1010
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,8 +123,111 @@ class PedometerActivity : Activity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if ((App.bp?.handleActivityResult(requestCode, resultCode, intent))  != true)
-        super.onActivityResult(requestCode, resultCode, data)
+        if ((App.bp?.handleActivityResult(requestCode, resultCode, data)) != true)
+            super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && !Settings.canDrawOverlays(this)
+            ) {
+                Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show()
+                isOverlay = false
+            } else {
+                startService(Intent(this, BackgroundPlayService::class.java))
+                isOverlay = true
+                mOpenPermDialog?.dismiss()
+            }
+        }
+    }
+
+
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        /*if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+            if (!isInPictureInPictureMode) {
+                val d: Display = windowManager.defaultDisplay
+                val p = Point()
+                d.getSize(p)
+                val width: Int = p.x
+                val height: Int = p.y
+
+                val ratio = Rational(width, height)
+                val pip_Builder: PictureInPictureParams.Builder = PictureInPictureParams.Builder()
+                pip_Builder.setAspectRatio(ratio).build()
+                enterPictureInPictureMode(pip_Builder.build())
+            }
+        } else {*/
+            if (!isOverlay && !checkServiceRunning(BackgroundPlayService::class.java)) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1
+                    && Settings.canDrawOverlays(this)
+                ) {
+                    startService(Intent(this, BackgroundPlayService::class.java))
+                    isOverlay = true
+                } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && !Settings.canDrawOverlays(
+                        this
+                    )
+                )
+                    showOpenPermDialog()
+                else {
+                    startService(Intent(this, BackgroundPlayService::class.java))
+                    isOverlay = true
+                }
+            }
+        //}
+    }
+
+    var mOpenPermDialog: AlertDialog? = null
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun showOpenPermDialog() {
+        val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Dialog))
+        builder.setTitle(R.string.dialog_title)
+        builder.setMessage(R.string.share_desc)
+        builder.setCancelable(false)
+        builder.setPositiveButton(R.string.butn_start,
+            DialogInterface.OnClickListener { dialogInterface, i ->
+                val intent = Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:$packageName")
+                )
+                startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE)
+                isOverlay = false
+            })
+        builder.setNegativeButton(R.string.butn_cancel, null)
+        if (mOpenPermDialog == null)
+            mOpenPermDialog = builder.create()
+        if (mOpenPermDialog != null && mOpenPermDialog?.isShowing == false)
+            mOpenPermDialog?.show()
+    }
+
+    override fun onPictureInPictureModeChanged(
+        isInPictureInPictureMode: Boolean,
+        newConfig: Configuration?
+    ) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+        if (isInPictureInPictureMode) {
+            tabView.visibility = View.GONE
+            app_bar_group.visibility = View.GONE
+        } else {
+            tabView.visibility = View.VISIBLE
+            app_bar_group.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        isOverlay = false
+        mOpenPermDialog = null
+    }
+
+    fun checkServiceRunning(serviceClass: Class<*>): Boolean {
+        val manager: ActivityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        for (service in manager.getRunningServices(Int.MAX_VALUE)) {
+            if (serviceClass.name == service.service.className) {
+                return true
+            }
+        }
+        return false
     }
 
 }

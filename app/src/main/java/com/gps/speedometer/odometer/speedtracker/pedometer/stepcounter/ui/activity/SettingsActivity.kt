@@ -176,8 +176,7 @@ class SettingsActivity : Activity(), View.OnClickListener {
             R.id.share -> {
                 shareIntent()
             }
-            R.id.premium_services -> /*startActivity(Intent(this, PictureInPictureActivity::class.java))*/
-                App.bp?.purchaseRemoveAds(this)
+            R.id.premium_services -> App.bp?.purchaseRemoveAds(this)
         }
     }
 

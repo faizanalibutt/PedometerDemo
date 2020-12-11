@@ -18,6 +18,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission
         android:name="android.permission.WAKE_LOCK"
         android:maxSdkVersion="26" />
@@ -34,6 +35,9 @@
         <activity
             android:name=".PictureInPictureActivity"
             android:supportsPictureInPicture="true"
+            android:resizeableActivity="true"
+            android:autoRemoveFromRecents="true"
+            android:launchMode="singleTask"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -53,12 +57,18 @@
         <activity
             android:name=".ui.activity.SpeedometerActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar.Status"></activity>
+            android:theme="@style/AppTheme.NoActionBar.Status" />
+
         <activity
             android:name=".ui.activity.PedometerActivity"
             android:launchMode="singleTask"
+            android:supportsPictureInPicture="true"
+            android:resizeableActivity="true"
+            android:autoRemoveFromRecents="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar.Status"></activity>
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
+            android:theme="@style/AppTheme.NoActionBar.Status" />
+
         <activity
             android:name=".ui.activity.SettingsActivity"
             android:screenOrientation="portrait" />
@@ -75,10 +85,10 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Custom"></activity>
+            android:theme="@style/Custom" />
         <activity
             android:name=".ui.activity.SpeedoGraphActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.MainSpeedometerActivity"
             android:screenOrientation="portrait"
@@ -96,6 +106,7 @@
         </receiver>
 
         <service android:name=".SensorListener" />
+        <service android:name=".util.BackgroundPlayService" />
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@ import com.dev.bytes.adsmanager.TinyDB.Companion.getInstance
 import com.dev.bytes.adsmanager.billing.purchaseRemoveAds
 import com.dev.bytes.adsmanager.loadNativeAd
 import com.google.android.material.navigation.NavigationView
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.PictureInPictureActivity
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.dialog.RemoveAdsDialog.Companion.show
@@ -195,7 +196,8 @@ class MainActivity :
             }
             R.id.action_share -> shareIntent()
             R.id.action_pro -> App.bp?.purchaseRemoveAds(this)
-            R.id.premium_services -> App.bp?.purchaseRemoveAds(this)
+            R.id.premium_services -> /*App.bp?.purchaseRemoveAds(this)*/
+                startActivity(Intent(this, PictureInPictureActivity::class.java))
         }
     }
 

@@ -585,7 +585,7 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
         }
 //        pg.update();
 
-        stepsView.setText(""+steps_today);
+        stepsView.setText("" + steps_today);
         SharedPreferences prefs =
                 mView.getContext().getSharedPreferences("pedometer", Context.MODE_PRIVATE);
         float stepsize = prefs.getFloat("stepsize_value", Fragment_Settings.DEFAULT_STEP_SIZE);
@@ -633,6 +633,19 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
 
     private void unregisterReceivers() {
         LocalBroadcastManager.getInstance(mView.getContext()).unregisterReceiver(broadcastReceiver);
+    }
+
+
+    @Override
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode);
+        if (isInPictureInPictureMode) {
+            mView.findViewById(R.id.pip_mode).setVisibility(View.VISIBLE);
+            mView.findViewById(R.id.app_mode).setVisibility(View.GONE);
+        } else {
+            mView.findViewById(R.id.pip_mode).setVisibility(View.GONE);
+            mView.findViewById(R.id.app_mode).setVisibility(View.VISIBLE);
+        }
     }
 
 }
