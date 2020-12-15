@@ -597,6 +597,12 @@ public class PedoMeterFragmentNew extends Fragment implements SensorEventListene
             distance_today /= 5280;
         }
         miles.setText("" + AppUtils.INSTANCE.roundTwoDecimal(distance_today));
+        AppUtils.INSTANCE.getDefaultPreferences(mView.getContext())
+                .registerOnSharedPreferenceChangeListener(
+                        (sharedPreferences, key) -> {
+                            ((TextView)mView.findViewById(R.id.pip_steps)).setText(String.valueOf(sharedPreferences.getInt("pedo_service_value", 0)));
+        });
+        ((TextView)mView.findViewById(R.id.pip_steps)).setText(String.format("%s", steps_today));
         // TODO: 7/15/2020 increase step count to 150
         timeValue.setText(TimeUtils.INSTANCE.getDurationSpeedo(BuildConfig.DEBUG ?
                 (steps_today / 10) * 60000 : (steps_today / 150) * 60000));

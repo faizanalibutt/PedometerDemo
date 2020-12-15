@@ -316,7 +316,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/pip_mode"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="150dp"
             android:visibility="gone"
             android:layout_marginVertical="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -330,6 +330,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:text="0"
+                app:layout_constraintVertical_chainStyle="packed"
                 android:textColor="@android:color/black"
                 android:textSize="40sp"
                 app:layout_constraintBottom_toTopOf="@+id/pip_unit"

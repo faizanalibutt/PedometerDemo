@@ -3,6 +3,7 @@ package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util;
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.IBinder;
@@ -13,11 +14,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.SensorListener;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity.PedometerActivity;
 
 import java.util.ArrayList;
 
@@ -113,6 +117,20 @@ public class BackgroundPlayService extends Service {
         });
 
         mFloatingView.findViewById(R.id.close_pedo_service).setOnClickListener(v -> stopSelf());
+        mFloatingView.findViewById(R.id.open_peod_activity).setOnClickListener(v -> {
+            startActivity(new Intent(this, PedometerActivity.class));
+            stopSelf();
+        });
+
+        TextView pipSteps = mFloatingView.findViewById(R.id.pip_steps);
+        AppUtils.INSTANCE.getDefaultPreferences(this)
+                .registerOnSharedPreferenceChangeListener(
+                        (sharedPreferences, key) ->
+                                pipSteps.setText(String.valueOf(sharedPreferences.getInt("pedo_service_value", 0))));
+
+        pipSteps.setText(String.valueOf(AppUtils.INSTANCE
+                .getDefaultPreferences(BackgroundPlayService.this)
+                .getInt("pedo_service_value", 0)));
 
     }
 

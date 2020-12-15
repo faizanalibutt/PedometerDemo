@@ -160,5 +160,7 @@
     <string name="text_remove_ads_desc">GPS Speedometer is supported by Ads but now you can remove this!</string>
     <string name="text_btn_remove_now">Remove Now</string>
     <string name="text_loading_ad_please_wait">Loading Ad, please wait</string>
+    <string name="dialog_title_overlay">Overlay Permission Request</string>
+    <string name="dialog_desc_overlay">Please provide this permission to further enjoy latest features.</string>
 
 </resources>

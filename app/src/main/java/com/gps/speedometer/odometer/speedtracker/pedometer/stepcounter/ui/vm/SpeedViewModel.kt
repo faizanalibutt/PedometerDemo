@@ -6,4 +6,5 @@ import androidx.lifecycle.ViewModel
 class SpeedViewModel : ViewModel() {
 
     var startStopBtnState = MutableLiveData<String>()
+    var updateStepsValue = MutableLiveData<Int>()
 }

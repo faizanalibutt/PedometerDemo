@@ -19,7 +19,6 @@ package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -34,11 +33,14 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.IBinder;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity.PedometerActivity;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.vm.SpeedViewModel;
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.API23Wrapper;
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.API26Wrapper;
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils;
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Logger;
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.Util;
 
@@ -72,6 +74,7 @@ public class SensorListener extends Service implements SensorEventListener {
     private static int steps;
     private static int lastSaveSteps;
     private static long lastSaveTime;
+    private SpeedViewModel pedoValue;
 
     private final BroadcastReceiver shutdownReceiver = new ShutdownRecevier();
 
@@ -205,7 +208,7 @@ public class SensorListener extends Service implements SensorEventListener {
     }
 
     @SuppressLint("StringFormatInvalid")
-    public static Notification getNotification(final Context context) {
+    public Notification getNotification(final Context context) {
         //if (BuildConfig.DEBUG) Logger.log("getNotification");
         SharedPreferences prefs = context.getSharedPreferences("pedometer", Context.MODE_PRIVATE);
         int goal = prefs.getInt("goal", 10000);
@@ -229,6 +232,8 @@ public class SensorListener extends Service implements SensorEventListener {
                                     context.getString(R.string.notification_text,
                                             format.format((goal - today_offset - steps)))).setContentTitle(
                             format.format(today_offset + steps) + " " + context.getString(R.string.steps));
+                    AppUtils.INSTANCE.getDefaultPreferences(SensorListener.this).edit()
+                            .putInt("pedo_service_value", today_offset + steps).apply();
                 } else {
                     if (today_offset == Integer.MIN_VALUE) today_offset = -steps;
                     NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
@@ -239,6 +244,8 @@ public class SensorListener extends Service implements SensorEventListener {
                                     context.getString(R.string.notification_text,
                                             format.format((goal - today_offset - steps)))).setContentTitle(
                             format.format(today_offset + steps) + " " + context.getString(R.string.steps));
+                    AppUtils.INSTANCE.getDefaultPreferences(SensorListener.this).edit()
+                            .putInt("pedo_service_value", today_offset + steps).apply();
                 }
             } catch (NumberFormatException | FormatFlagsConversionMismatchException | IllegalStateException e) {
                 e.printStackTrace();
@@ -263,7 +270,8 @@ public class SensorListener extends Service implements SensorEventListener {
             IntentFilter filter = new IntentFilter();
             filter.addAction(Intent.ACTION_SHUTDOWN);
             registerReceiver(shutdownReceiver, filter);
-        } catch (Exception exp) {}
+        } catch (Exception exp) {
+        }
     }
 
     private void reRegisterSensor() {
@@ -312,6 +320,7 @@ public class SensorListener extends Service implements SensorEventListener {
     private float[] mLastStepAccelerationDeltas = {-1, -1, -1, -1, -1, -1};
     private long[] mLastStepDeltas = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
     private int mLastStepAccelerationDeltasIndex = 0;
+
     // #Accel
     private void goToAccelerometer(SensorEvent event) {
         if (event.values.length != 3) {

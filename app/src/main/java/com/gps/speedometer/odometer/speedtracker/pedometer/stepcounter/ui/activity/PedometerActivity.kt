@@ -143,7 +143,7 @@ class PedometerActivity : Activity() {
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
-        /*if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
             if (!isInPictureInPictureMode) {
                 val d: Display = windowManager.defaultDisplay
                 val p = Point()
@@ -156,8 +156,8 @@ class PedometerActivity : Activity() {
                 pip_Builder.setAspectRatio(ratio).build()
                 enterPictureInPictureMode(pip_Builder.build())
             }
-        } else {*/
-            if (!isOverlay && !checkServiceRunning(BackgroundPlayService::class.java)) {
+        } else {
+            if (!checkServiceRunning(BackgroundPlayService::class.java)) {
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1
                     && Settings.canDrawOverlays(this)
                 ) {
@@ -173,7 +173,7 @@ class PedometerActivity : Activity() {
                     isOverlay = true
                 }
             }
-        //}
+        }
     }
 
     var mOpenPermDialog: AlertDialog? = null
@@ -181,9 +181,8 @@ class PedometerActivity : Activity() {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun showOpenPermDialog() {
         val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Dialog))
-        builder.setTitle(R.string.dialog_title)
-        builder.setMessage(R.string.share_desc)
-        builder.setCancelable(false)
+        builder.setTitle(R.string.dialog_title_overlay)
+        builder.setMessage(R.string.dialog_desc_overlay)
         builder.setPositiveButton(R.string.butn_start,
             DialogInterface.OnClickListener { dialogInterface, i ->
                 val intent = Intent(
