@@ -56,7 +56,12 @@
 
         <activity
             android:name=".ui.activity.SpeedometerActivity"
+            android:launchMode="singleTask"
+            android:supportsPictureInPicture="true"
+            android:resizeableActivity="true"
+            android:autoRemoveFromRecents="true"
             android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
             android:theme="@style/AppTheme.NoActionBar.Status" />
 
         <activity

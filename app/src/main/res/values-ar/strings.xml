@@ -87,14 +87,14 @@
 	<string name="navigation_drawer_open">افتح درج التنقل</string>
 	<string name="navigation_drawer_close">أغلق درج التنقل</string>
 	<string name="action_settings">الإعدادات</string>
-	<string name="main_bar_title">عداد السرعة GPS</string>
+	<string name="main_bar_title"> نظام تحديد المواقع عداد السرعة</string>
 	<string name="text_settings">الإعدادات</string>
 	<string name="text_rate_us">قيمنا</string>
 	<string name="text_share">شارك التطبيق</string>
 	<string name="text_pro">الممتازة</string>
 	<string name="text_start">ابدأ الآن</string>
 	<string name="text_speedo">عداد السرعة</string>
-	<string name="text_menu_pro">احصل على PRO الآن</string>
+	<string name="text_menu_pro">احصل على المحترفين الآن</string>
 	<string name="text_menu_about">حول</string>
 	<string name="text_menu_share">شارك مع الاصدقاء</string>
 	<string name="text_resume">استئنف</string>
@@ -137,7 +137,7 @@
 	<string name="text_privacy_desc">اقرأ سياسة الخصوصية والبنود والشروط الخاصة بنا</string>
 	<string name="text_rate">قيمنا</string>
 	<string name="text_feedback">ملاحظاتك قيمة بالنسبة لنا.</string>
-	<string name="text_pro_now">احصل على PRO الآن</string>
+	<string name="text_pro_now">احصل على المحترفين الآن</string>
 	<string name="text_premium_desc">كن متميزا لإزالة الإعلانات</string>
 	<string name="text_shares">شارك مع الاصدقاء</string>
 	<string name="text_share_desc">شارك هذا التطبيق مع أصدقائك وعائلتك.</string>

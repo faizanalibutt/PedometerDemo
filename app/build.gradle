@@ -7,13 +7,13 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 4
         versionName "1.0.3"
 
@@ -56,7 +56,7 @@ dependencies {
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -65,10 +65,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // Room Components
-    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
-    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
-    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
-    androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+    //implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    //kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    //implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+    //androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifecycleVersion"
@@ -91,9 +91,9 @@ dependencies {
     implementation 'im.dacer:AndroidCharts:1.0.4'
 
     // play services library
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.google.android.gms:play-services-identity:17.0.0'
+    //implementation 'com.google.android.gms:play-services-identity:17.0.0'
 
     // card view library
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -112,7 +112,7 @@ dependencies {
     implementation 'com.nabinbhandari.android:permissions:3.8'
 
     // privacy
-    implementation "androidx.browser:browser:1.2.0"
+    implementation "androidx.browser:browser:1.3.0"
 
     // card view
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -142,6 +142,6 @@ dependencies {
     implementation project(path: ':fcm')
 
     // fcm analytics
-    api 'com.google.firebase:firebase-analytics:17.5.0'
+    api 'com.google.firebase:firebase-analytics:18.0.0'
 
 }

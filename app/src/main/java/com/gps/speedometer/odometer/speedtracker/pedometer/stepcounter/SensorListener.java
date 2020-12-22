@@ -50,6 +50,8 @@ import java.util.Date;
 import java.util.FormatFlagsConversionMismatchException;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 /**
  * Background service which keeps the step-sensor listener alive to always get
  * the number of steps since boot.
@@ -234,6 +236,7 @@ public class SensorListener extends Service implements SensorEventListener {
                             format.format(today_offset + steps) + " " + context.getString(R.string.steps));
                     AppUtils.INSTANCE.getDefaultPreferences(SensorListener.this).edit()
                             .putInt("pedo_service_value", today_offset + steps).apply();
+                    Timber.e("sensor is acdel");
                 } else {
                     if (today_offset == Integer.MIN_VALUE) today_offset = -steps;
                     NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
@@ -246,6 +249,7 @@ public class SensorListener extends Service implements SensorEventListener {
                             format.format(today_offset + steps) + " " + context.getString(R.string.steps));
                     AppUtils.INSTANCE.getDefaultPreferences(SensorListener.this).edit()
                             .putInt("pedo_service_value", today_offset + steps).apply();
+                    Timber.e("sensor is step");
                 }
             } catch (NumberFormatException | FormatFlagsConversionMismatchException | IllegalStateException e) {
                 e.printStackTrace();

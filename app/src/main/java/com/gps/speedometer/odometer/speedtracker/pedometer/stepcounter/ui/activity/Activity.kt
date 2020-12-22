@@ -39,8 +39,7 @@ open class Activity : AppCompatActivity() {
 
     protected open fun showRateExitDialogue(activity: Activity?, isMenu: Boolean): AlertDialog? {
         val rateUsDialog = ExitDialogue(
-            activity as AppCompatActivity,
-            isMenu
+            activity as AppCompatActivity, isMenu
         )
         rateUsDialog.window?.setBackgroundDrawable(getDrawable(R.drawable.background_rate_exit_dialog))
         return rateUsDialog

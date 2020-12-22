@@ -162,5 +162,7 @@
     <string name="text_loading_ad_please_wait">Loading Ad, please wait</string>
     <string name="dialog_title_overlay">Overlay Permission Request</string>
     <string name="dialog_desc_overlay">Please provide this permission to further enjoy latest features.</string>
+    <string name="mesg_locationDisabledSelfHotspot">Enable location service to see scan results.</string>
+    <string name="butn_locationSettings">Location</string>
 
 </resources>

@@ -44,11 +44,13 @@ class PedometerActivity : Activity() {
     var backInterstitialAd: InterAdPair? = null
     private var isStartStopShown: Boolean = false
     private var isOverlay = false
-    private var ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1010
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pedometer)
+
+        stopService(Intent(this, BackgroundPlayService::class.java))
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(PedoMeterFragmentNew(), getString(R.string.text_today))
@@ -133,7 +135,7 @@ class PedometerActivity : Activity() {
                 Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show()
                 isOverlay = false
             } else {
-                startService(Intent(this, BackgroundPlayService::class.java))
+                startService(Intent(this, BackgroundPlayService::class.java).setAction("pedo"))
                 isOverlay = true
                 mOpenPermDialog?.dismiss()
             }
@@ -161,7 +163,7 @@ class PedometerActivity : Activity() {
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1
                     && Settings.canDrawOverlays(this)
                 ) {
-                    startService(Intent(this, BackgroundPlayService::class.java))
+                    startService(Intent(this, BackgroundPlayService::class.java).setAction("pedo"))
                     isOverlay = true
                 } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && !Settings.canDrawOverlays(
                         this
@@ -169,7 +171,7 @@ class PedometerActivity : Activity() {
                 )
                     showOpenPermDialog()
                 else {
-                    startService(Intent(this, BackgroundPlayService::class.java))
+                    startService(Intent(this, BackgroundPlayService::class.java).setAction("pedo"))
                     isOverlay = true
                 }
             }
@@ -191,6 +193,7 @@ class PedometerActivity : Activity() {
                 )
                 startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE)
                 isOverlay = false
+                mOpenPermDialog?.dismiss()
             })
         builder.setNegativeButton(R.string.butn_cancel, null)
         if (mOpenPermDialog == null)
@@ -227,6 +230,12 @@ class PedometerActivity : Activity() {
             }
         }
         return false
+    }
+
+    companion object {
+        var ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1010
+        @JvmField
+        var LOCATION_SERVICE_RESULT: Int = 2
     }
 
 }

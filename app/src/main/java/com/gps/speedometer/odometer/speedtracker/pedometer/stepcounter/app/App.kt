@@ -32,7 +32,7 @@ class App : Application() {
         if (BuildConfig.DEBUG)
             Timber.plant(Timber.DebugTree())
 
-        RemoteConfigUtils.createConfigSettings().fetchAndActivate()
+        RemoteConfigUtils.createConfigSettings()?.fetchAndActivate()
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
 

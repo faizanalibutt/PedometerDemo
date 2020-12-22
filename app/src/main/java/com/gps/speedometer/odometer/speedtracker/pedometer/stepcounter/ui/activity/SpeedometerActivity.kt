@@ -2,15 +2,30 @@ package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activ
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ActivityManager
+import android.app.AlertDialog
+import android.app.PictureInPictureParams
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.Point
 import android.location.Location
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.provider.Settings
+import android.util.Rational
+import android.view.ContextThemeWrapper
+import android.view.Display
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.dev.bytes.adsmanager.*
+import com.github.anastr.speedviewlib.SpeedView
 import com.google.android.material.tabs.TabLayout
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.Database
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
@@ -18,16 +33,23 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.callback.
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Distance
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Speedo
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.ViewPagerAdapter
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity.PedometerActivity.Companion.ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.AnalogFragment
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.DigitalFragment
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.MapFragment
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.vm.SpeedViewModel
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.BackgroundPlayService
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.CurrentLocation
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.TimeUtils
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
+import kotlinx.android.synthetic.main.activity_pedometer.*
 import kotlinx.android.synthetic.main.activity_speedometer.*
+import kotlinx.android.synthetic.main.activity_speedometer.nav_back
+import kotlinx.android.synthetic.main.activity_speedometer.tabView
+import kotlinx.android.synthetic.main.activity_speedometer.viewPager
+import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 import kotlin.math.max
 
@@ -63,7 +85,9 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_speedometer)
 
-        mViewModel = ViewModelProviders.of(this).get(SpeedViewModel::class.java)
+        stopService(Intent(this, BackgroundPlayService::class.java))
+
+        mViewModel = ViewModelProviders.of(this).get(SpeedViewModel::class.java)//ViewModelProvider(this).get(SpeedViewModel::class.java)
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(AnalogFragment(this@SpeedometerActivity), getString(R.string.text_analog))
@@ -157,6 +181,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             speed_value.text = "0"
             distance_value.text = "0"
             Callback.setMeterValue1(Speedo("car", "km", resources.getString(R.string.km_h_c), ""))
+            AppUtils.getDefaultPreferences(this).edit().putBoolean("speedo_overlay", true).apply()
 
             val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
             val rationale = getString(R.string.text_location_permission)
@@ -197,6 +222,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             speed_value.text = "0"
             distance_value.text = "0"
             time_values.text = "00:00"
+            AppUtils.getDefaultPreferences(this).edit().putBoolean("speedo_overlay", false).apply()
 
             start_btn.background = ContextCompat.getDrawable(
                 this,
@@ -324,24 +350,113 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
                     avgSpeed = (speed + maxSpeed) / 2
                     speed_value.text = "${AppUtils.roundTwoDecimal(avgSpeed)} km"
                     distance_value.text = "${AppUtils.roundTwoDecimal(distance)} km"
+                    pip_unit.text = "km"
+                    pip_speed.text = "${speed.toInt()}"
                 }
                 "mph" -> {
                     distance += (lStart!!.distanceTo(lEnd).toDouble() / 1609.34)
                     avgSpeed = (speed + maxSpeed) / 2
                     speed_value.text = "${AppUtils.roundTwoDecimal(avgSpeed)} mph"
                     distance_value.text = "${AppUtils.roundTwoDecimal(distance)} mph"
+                    pip_unit.text = "mph"
+                    pip_speed.text = "${speed.toInt()}"
                 }
                 "knot" -> {
                     distance += (lStart!!.distanceTo(lEnd).toDouble() / 1852)
                     avgSpeed = (speed + maxSpeed) / 2
                     speed_value.text = "${AppUtils.roundTwoDecimal(avgSpeed)} knot"
                     distance_value.text = "${AppUtils.roundTwoDecimal(distance)} knot"
+                    pip_unit.text = "knot"
+                    pip_speed.text = "${speed.toInt()}"
                 }
 
             }
 
         }
 
+    }
+
+    override fun onPictureInPictureModeChanged(
+        isInPictureInPictureMode: Boolean,
+        newConfig: Configuration?
+    ) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+        if (isInPictureInPictureMode) {
+            speedo_view_container.visibility = View.GONE
+            pip_mode.visibility = View.VISIBLE
+        } else {
+            speedo_view_container.visibility = View.VISIBLE
+            pip_mode.visibility = View.GONE
+        }
+    }
+
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+            if (!isInPictureInPictureMode) {
+                val d: Display = windowManager.defaultDisplay
+                val p = Point()
+                d.getSize(p)
+                val width: Int = p.x
+                val height: Int = p.y
+
+                val ratio = Rational(width, height)
+                val pip_Builder: PictureInPictureParams.Builder = PictureInPictureParams.Builder()
+                pip_Builder.setAspectRatio(ratio).build()
+                enterPictureInPictureMode(pip_Builder.build())
+            }
+        } else {
+            if (!checkServiceRunning(BackgroundPlayService::class.java)) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1
+                    && Settings.canDrawOverlays(this)
+                ) {
+                    startService(Intent(this, BackgroundPlayService::class.java).setAction("speedo"))
+                    isOverlay = true
+                } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && !Settings.canDrawOverlays(
+                        this
+                    )
+                )
+                    showOpenPermDialog()
+                else {
+                    startService(Intent(this, BackgroundPlayService::class.java).setAction("speedo"))
+                    isOverlay = true
+                }
+            }
+        }
+    }
+
+    var mOpenPermDialog: AlertDialog? = null
+    private var isOverlay = false
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun showOpenPermDialog() {
+        val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Dialog))
+        builder.setTitle(R.string.dialog_title_overlay)
+        builder.setMessage(R.string.dialog_desc_overlay)
+        builder.setPositiveButton(R.string.butn_start,
+            DialogInterface.OnClickListener { dialogInterface, i ->
+                val intent = Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:$packageName")
+                )
+                startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE)
+                isOverlay = false
+            })
+        builder.setNegativeButton(R.string.butn_cancel, null)
+        if (mOpenPermDialog == null)
+            mOpenPermDialog = builder.create()
+        if (mOpenPermDialog != null && mOpenPermDialog?.isShowing == false)
+            mOpenPermDialog?.show()
+    }
+
+    fun checkServiceRunning(serviceClass: Class<*>): Boolean {
+        val manager: ActivityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        for (service in manager.getRunningServices(Int.MAX_VALUE)) {
+            if (serviceClass.name == service.service.className) {
+                return true
+            }
+        }
+        return false
     }
 
     override fun onDestroy() {
