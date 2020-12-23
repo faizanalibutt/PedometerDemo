@@ -7,6 +7,7 @@ import android.app.AlertDialog
 import android.app.PictureInPictureParams
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Point
 import android.location.Location
@@ -29,6 +30,7 @@ import com.github.anastr.speedviewlib.SpeedView
 import com.google.android.material.tabs.TabLayout
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.Database
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.app.App
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.callback.Callback
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Distance
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Speedo
@@ -80,6 +82,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
     var unitType = "km"
 
     var mViewModel: SpeedViewModel? = null
+    var speedObj: Speedo? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,11 +90,18 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
         stopService(Intent(this, BackgroundPlayService::class.java))
 
-        mViewModel = ViewModelProviders.of(this).get(SpeedViewModel::class.java)//ViewModelProvider(this).get(SpeedViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this)
+            .get(SpeedViewModel::class.java)//ViewModelProvider(this).get(SpeedViewModel::class.java)
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(AnalogFragment(this@SpeedometerActivity), getString(R.string.text_analog))
-        adapter.addFragment(DigitalFragment(this@SpeedometerActivity), getString(R.string.text_digital))
+        adapter.addFragment(
+            AnalogFragment(this@SpeedometerActivity),
+            getString(R.string.text_analog)
+        )
+        adapter.addFragment(
+            DigitalFragment(this@SpeedometerActivity),
+            getString(R.string.text_digital)
+        )
         adapter.addFragment(MapFragment(this@SpeedometerActivity), getString(R.string.text_tab_map))
         viewPager.offscreenPageLimit = 2
         viewPager.adapter = adapter
@@ -168,6 +178,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
         Callback.getMeterValue1().observe(this, androidx.lifecycle.Observer {
             unitType = it.unit
+            speedObj = it
         })
 
     }
@@ -180,7 +191,9 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
             speed_value.text = "0"
             distance_value.text = "0"
-            Callback.setMeterValue1(Speedo("car", "km", resources.getString(R.string.km_h_c), ""))
+            speedObj?.let {
+                Callback.setMeterValue1(it)
+            }
             AppUtils.getDefaultPreferences(this).edit().putBoolean("speedo_overlay", true).apply()
 
             val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -229,7 +242,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
                 R.drawable.background_start_btn
             )
 
-            handler?.removeCallbacks(updateTimerThread)
+            updateTimerThread?.let { handler?.removeCallbacks(it) }
             currentLocation?.removeFusedLocationClient()
             val db = Database.getInstance(this)
             endTime = System.currentTimeMillis()
@@ -252,7 +265,10 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             avgSpeed = 0.0
             showStartStopInter()
             Callback.setDefaultSpeedo(true)
-            Callback.setMeterValue1(Speedo("car", "km", resources.getString(R.string.km_h_c), ""))
+            //Callback.setMeterValue1(Speedo("car", "km", resources.getString(R.string.km_h_c), ""))
+            speedObj?.let {
+                Callback.setMeterValue1(it)
+            }
         }
 
     }
@@ -350,7 +366,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
                     avgSpeed = (speed + maxSpeed) / 2
                     speed_value.text = "${AppUtils.roundTwoDecimal(avgSpeed)} km"
                     distance_value.text = "${AppUtils.roundTwoDecimal(distance)} km"
-                    pip_unit.text = "km"
+                    pip_unit.text = "kmh"
                     pip_speed.text = "${speed.toInt()}"
                 }
                 "mph" -> {
@@ -392,37 +408,55 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
-            if (!isInPictureInPictureMode) {
-                val d: Display = windowManager.defaultDisplay
-                val p = Point()
-                d.getSize(p)
-                val width: Int = p.x
-                val height: Int = p.y
+        if (AppUtils.getDefaultPreferences(this)
+                .getBoolean("app_widget", true)
+        )
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+                if (!isInPictureInPictureMode
+                    && packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)) {
+                    val d: Display = windowManager.defaultDisplay
+                    val p = Point()
+                    d.getSize(p)
+                    val width: Int = p.x
+                    val height: Int = p.y
 
-                val ratio = Rational(width, height)
-                val pip_Builder: PictureInPictureParams.Builder = PictureInPictureParams.Builder()
-                pip_Builder.setAspectRatio(ratio).build()
-                enterPictureInPictureMode(pip_Builder.build())
-            }
-        } else {
-            if (!checkServiceRunning(BackgroundPlayService::class.java)) {
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1
-                    && Settings.canDrawOverlays(this)
-                ) {
-                    startService(Intent(this, BackgroundPlayService::class.java).setAction("speedo"))
-                    isOverlay = true
-                } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && !Settings.canDrawOverlays(
-                        this
+                    val ratio = Rational(width, height)
+                    val pip_Builder: PictureInPictureParams.Builder =
+                        PictureInPictureParams.Builder()
+                    pip_Builder.setAspectRatio(ratio).build()
+                    enterPictureInPictureMode(pip_Builder.build())
+                } else
+                    Toast.makeText(this,
+                        "Please enable picture in picture mode from settings",
+                        Toast.LENGTH_SHORT).show()
+            } else {
+                if (!checkServiceRunning(BackgroundPlayService::class.java)) {
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1
+                        && Settings.canDrawOverlays(this)
+                    ) {
+                        startService(
+                            Intent(
+                                this,
+                                BackgroundPlayService::class.java
+                            ).setAction("speedo")
+                        )
+                        isOverlay = true
+                    } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && !Settings.canDrawOverlays(
+                            this
+                        )
                     )
-                )
-                    showOpenPermDialog()
-                else {
-                    startService(Intent(this, BackgroundPlayService::class.java).setAction("speedo"))
-                    isOverlay = true
+                        showOpenPermDialog()
+                    else {
+                        startService(
+                            Intent(
+                                this,
+                                BackgroundPlayService::class.java
+                            ).setAction("speedo")
+                        )
+                        isOverlay = true
+                    }
                 }
             }
-        }
     }
 
     var mOpenPermDialog: AlertDialog? = null
@@ -441,6 +475,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
                 )
                 startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE)
                 isOverlay = false
+                mOpenPermDialog?.dismiss()
             })
         builder.setNegativeButton(R.string.butn_cancel, null)
         if (mOpenPermDialog == null)
@@ -477,6 +512,10 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        if ((App.bp?.handleActivityResult(requestCode, resultCode, data)) != true)
+            super.onActivityResult(requestCode, resultCode, data)
+
         if (requestCode == CurrentLocation.REQUEST_LOCATION) {
             if (resultCode == android.app.Activity.RESULT_OK) {
 
@@ -495,7 +534,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
                     R.drawable.background_start_btn
                 )
 
-                handler?.removeCallbacks(updateTimerThread)
+                updateTimerThread?.let { handler?.removeCallbacks(it) }
                 currentLocation?.removeFusedLocationClient()
                 Callback.getMeterValue1().removeObservers(this)
                 Callback.getLocationData().removeObservers(this)
@@ -509,6 +548,17 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
                 distance = 0.0
                 maxSpeed = 0.0
                 avgSpeed = 0.0
+            }
+        } else if (requestCode == ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && !Settings.canDrawOverlays(this)
+            ) {
+                Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show()
+                isOverlay = false
+            } else {
+                startService(Intent(this, BackgroundPlayService::class.java).setAction("pedo"))
+                isOverlay = true
+                mOpenPermDialog?.dismiss()
             }
         }
     }

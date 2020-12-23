@@ -164,5 +164,7 @@
     <string name="dialog_desc_overlay">Please provide this permission to further enjoy latest features.</string>
     <string name="mesg_locationDisabledSelfHotspot">Enable location service to see scan results.</string>
     <string name="butn_locationSettings">Location</string>
+    <string name="text_widget">add widget</string>
+    <string name="text_widget_desc">Allow widget to be shown</string>
 
 </resources>

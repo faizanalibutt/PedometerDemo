@@ -158,7 +158,7 @@ public class BackgroundPlayService extends LifecycleService implements CurrentLo
                     PixelFormat.TRANSLUCENT);
 
             //Specify the view position
-            params.gravity = Gravity.BOTTOM | Gravity.END;       //Initially view will be added to top-left corner
+            params.gravity = Gravity.TOP | Gravity.START;       //Initially view will be added to top-left corner
             params.x = 0;
             params.y = 100;
 

@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.net.Uri
@@ -56,15 +57,18 @@ class SettingsActivity : Activity(), View.OnClickListener {
                         override fun onGranted() {
                             if (isStepSensorAvailable(true)) {
                                 if (isChecked) {
-                                    AppUtils.getDefaultPreferences(this@SettingsActivity
+                                    AppUtils.getDefaultPreferences(
+                                        this@SettingsActivity
                                     ).edit().putString("pedo_state", "stop").apply()
                                     startService(
-                                        Intent(this@SettingsActivity,
+                                        Intent(
+                                            this@SettingsActivity,
                                             SensorListener::class.java
                                         )
                                     )
                                 } else {
-                                    AppUtils.getDefaultPreferences(this@SettingsActivity
+                                    AppUtils.getDefaultPreferences(
+                                        this@SettingsActivity
                                     ).edit().putString("pedo_state", "resume").apply()
                                     stopService(
                                         Intent(
@@ -86,15 +90,18 @@ class SettingsActivity : Activity(), View.OnClickListener {
             } else {
                 if (isStepSensorAvailable(true)) {
                     if (isChecked) {
-                        AppUtils.getDefaultPreferences(this@SettingsActivity
+                        AppUtils.getDefaultPreferences(
+                            this@SettingsActivity
                         ).edit().putString("pedo_state", "stop").apply()
                         startService(
-                            Intent(this@SettingsActivity,
+                            Intent(
+                                this@SettingsActivity,
                                 SensorListener::class.java
                             )
                         )
                     } else {
-                        AppUtils.getDefaultPreferences(this@SettingsActivity
+                        AppUtils.getDefaultPreferences(
+                            this@SettingsActivity
                         ).edit().putString("pedo_state", "resume").apply()
                         stopService(
                             Intent(
@@ -105,6 +112,22 @@ class SettingsActivity : Activity(), View.OnClickListener {
                     }
                 }
             }
+
+        }
+
+        app_widget_switch.isChecked =
+            AppUtils.getDefaultPreferences(this@SettingsActivity)
+                .getBoolean("app_widget", false)
+
+        app_widget_switch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked)
+                AppUtils.getDefaultPreferences(
+                    this@SettingsActivity
+                ).edit().putBoolean("app_widget", true).apply()
+            else
+                AppUtils.getDefaultPreferences(
+                    this@SettingsActivity
+                ).edit().putBoolean("app_widget", false).apply()
         }
 
         change_language.setOnClickListener(this)
@@ -198,7 +221,7 @@ class SettingsActivity : Activity(), View.OnClickListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (!(App.bp!!.handleActivityResult(requestCode, resultCode, intent)))
+        if (!(App.bp!!.handleActivityResult(requestCode, resultCode, data)))
             super.onActivityResult(requestCode, resultCode, data)
     }
 }

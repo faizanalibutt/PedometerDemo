@@ -7,6 +7,7 @@ import android.app.PictureInPictureParams
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Point
 import android.net.Uri
@@ -145,37 +146,55 @@ class PedometerActivity : Activity() {
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
-            if (!isInPictureInPictureMode) {
-                val d: Display = windowManager.defaultDisplay
-                val p = Point()
-                d.getSize(p)
-                val width: Int = p.x
-                val height: Int = p.y
+        if (AppUtils.getDefaultPreferences(this)
+                .getBoolean("app_widget", true)
+        )
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+                if (!isInPictureInPictureMode
+                    && packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)) {
+                    val d: Display = windowManager.defaultDisplay
+                    val p = Point()
+                    d.getSize(p)
+                    val width: Int = p.x
+                    val height: Int = p.y
 
-                val ratio = Rational(width, height)
-                val pip_Builder: PictureInPictureParams.Builder = PictureInPictureParams.Builder()
-                pip_Builder.setAspectRatio(ratio).build()
-                enterPictureInPictureMode(pip_Builder.build())
-            }
-        } else {
-            if (!checkServiceRunning(BackgroundPlayService::class.java)) {
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1
-                    && Settings.canDrawOverlays(this)
-                ) {
-                    startService(Intent(this, BackgroundPlayService::class.java).setAction("pedo"))
-                    isOverlay = true
-                } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && !Settings.canDrawOverlays(
-                        this
+                    val ratio = Rational(width, height)
+                    val pip_Builder: PictureInPictureParams.Builder =
+                        PictureInPictureParams.Builder()
+                    pip_Builder.setAspectRatio(ratio).build()
+                    enterPictureInPictureMode(pip_Builder.build())
+                } else
+                    Toast.makeText(this,
+                        "Please enable picture in picture mode from settings",
+                        Toast.LENGTH_SHORT).show()
+            } else {
+                if (!checkServiceRunning(BackgroundPlayService::class.java)) {
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1
+                        && Settings.canDrawOverlays(this)
+                    ) {
+                        startService(
+                            Intent(
+                                this,
+                                BackgroundPlayService::class.java
+                            ).setAction("pedo")
+                        )
+                        isOverlay = true
+                    } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && !Settings.canDrawOverlays(
+                            this
+                        )
                     )
-                )
-                    showOpenPermDialog()
-                else {
-                    startService(Intent(this, BackgroundPlayService::class.java).setAction("pedo"))
-                    isOverlay = true
+                        showOpenPermDialog()
+                    else {
+                        startService(
+                            Intent(
+                                this,
+                                BackgroundPlayService::class.java
+                            ).setAction("pedo")
+                        )
+                        isOverlay = true
+                    }
                 }
             }
-        }
     }
 
     var mOpenPermDialog: AlertDialog? = null
@@ -234,6 +253,7 @@ class PedometerActivity : Activity() {
 
     companion object {
         var ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 1010
+
         @JvmField
         var LOCATION_SERVICE_RESULT: Int = 2
     }

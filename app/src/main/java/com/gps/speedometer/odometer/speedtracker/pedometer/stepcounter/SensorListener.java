@@ -306,7 +306,7 @@ public class SensorListener extends Service implements SensorEventListener {
             sensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         }
         sm.registerListener(this, sensor,
-                SensorManager.SENSOR_DELAY_NORMAL, (int) (5 * MICROSECONDS_IN_ONE_MINUTE));
+                SensorManager.SENSOR_DELAY_NORMAL, 0);
 
     }
 

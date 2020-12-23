@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity.SettingsActivity">
 
     <View
         android:id="@+id/appBar"
@@ -58,8 +59,7 @@
         android:fillViewport="true"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@+id/ad_container_settings"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
-        tools:context="com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity.SettingsActivity">
+        app:layout_constraintTop_toBottomOf="@+id/appBar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -220,15 +220,68 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
-                    android:id="@+id/bv5"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/app_widget"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:background="@color/colorSelection"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="80dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/auto_steps" />
+                    app:layout_constraintTop_toBottomOf="@+id/auto_steps">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/bc4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/app_widget_switch"
+                        app:layout_constraintHorizontal_weight="4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/b9"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_18"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:gravity="start|bottom"
+                            android:text="@string/text_widget"
+                            android:textColor="@color/settings_title_color"
+                            android:textSize="@dimen/font_size_primary"
+                            app:layout_constraintBottom_toTopOf="@+id/b10"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/b10"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="@dimen/dp_18"
+                            android:layout_marginBottom="@dimen/dp_16"
+                            android:text="@string/text_widget_desc"
+                            android:textSize="@dimen/font_size_primary_normal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/b9" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/app_widget_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/bc4"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.30" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -47,7 +47,7 @@ class SpeedoGraphActivity : Activity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (!(App.bp!!.handleActivityResult(requestCode, resultCode, intent)))
+        if (!(App.bp!!.handleActivityResult(requestCode, resultCode, data)))
             super.onActivityResult(requestCode, resultCode, data)
     }
 }
