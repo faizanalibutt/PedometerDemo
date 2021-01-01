@@ -2,13 +2,18 @@ package com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
+import android.os.Build
 import android.os.Handler
+import android.provider.Settings
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.activity.Activity
+import timber.log.Timber
 import kotlin.math.roundToInt
 
 object AppUtils {
@@ -55,6 +60,19 @@ object AppUtils {
                 hanlder.postDelayed(this, 1000)
             }
         }, 500)
+    }
+
+    fun getBuildVersion() = Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1
+
+    fun Activity.openSettings() {
+        kotlin.runCatching {
+            val intent = Intent("android.settings.PICTURE_IN_PICTURE_SETTINGS")
+            val uri = Uri.fromParts("package", packageName, null)
+            intent.data = uri
+            startActivityForResult(intent, 101)
+        }.onFailure {
+            Timber.e("couldn't find pip_settings to go.")
+        }
     }
 
 }

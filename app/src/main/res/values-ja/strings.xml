@@ -161,5 +161,9 @@
 	<string name="text_remove_ads_desc">GPSスピードメーターは広告でサポートされていますが、これを削除できます！</string>
 	<string name="text_btn_remove_now">今すぐ削除</string>
 	<string name="text_loading_ad_please_wait">広告を読み込んでいます。お待ちください</string>
+    <string name="dialog_title_overlay">オーバーレイ許可リクエスト</string>
+    <string name="dialog_desc_overlay">最新の機能をさらに楽しむには、この許可を与えてください。</string>
+    <string name="text_widget">スピードメーター/歩数計ウィジェットを追加する</string>
+    <string name="text_widget_desc">ウィジェットをバックグラウンドで表示できるようにする</string>
 
 </resources>

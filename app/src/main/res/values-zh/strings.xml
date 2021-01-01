@@ -161,5 +161,9 @@
 	<string name="text_remove_ads_desc">GPS支持GPS车速表，但是现在您可以删除它！</string>
 	<string name="text_btn_remove_now">立即移除</string>
 	<string name="text_loading_ad_please_wait">正在加载广告，请稍候</string>
+    <string name="dialog_title_overlay">疊加權限請求</string>
+    <string name="dialog_desc_overlay">請提供此許可以進一步享受最新功能。</string>
+    <string name="text_widget">添加車速表/計步器小部件</string>
+    <string name="text_widget_desc">允許小部件在後台顯示</string>
 
 </resources>

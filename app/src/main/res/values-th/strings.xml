@@ -161,5 +161,9 @@
 	<string name="text_remove_ads_desc">โฆษณารองรับ GPS Speedometer แต่ตอนนี้คุณสามารถลบสิ่งนี้ได้แล้ว!</string>
 	<string name="text_btn_remove_now">ลบเดี๋ยวนี้</string>
 	<string name="text_loading_ad_please_wait">กำลังโหลดโฆษณาโปรดรอสักครู่</string>
+    <string name="dialog_title_overlay">คำขออนุญาตซ้อนทับ</string>
+    <string name="dialog_desc_overlay">โปรดให้สิทธิ์นี้เพื่อเพลิดเพลินกับคุณสมบัติล่าสุดเพิ่มเติม</string>
+    <string name="text_widget">เพิ่มวิดเจ็ต เครื่องวัดความเร็ว / เครื่องนับก้าว</string>
+	<string name="text_widget_desc">อนุญาตให้แสดงวิดเจ็ตในพื้นหลัง</string>
 
 </resources>

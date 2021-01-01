@@ -161,5 +161,9 @@
 	<string name="text_remove_ads_desc">Speedometer GPS disokong oleh Iklan tetapi sekarang anda boleh membuangnya!</string>
 	<string name="text_btn_remove_now">Keluarkan Sekarang</string>
 	<string name="text_loading_ad_please_wait">Memuatkan Iklan, sila tunggu</string>
+    <string name="dialog_title_overlay">Permintaan Kebenaran Overlay</string>
+    <string name="dialog_desc_overlay">Berikan kebenaran ini untuk menikmati lebih banyak ciri terkini.</string>
+    <string name="text_widget">Tambahkan widget Speedometer / Pedometer</string>
+    <string name="text_widget_desc">Benarkan widget ditunjukkan di latar belakang</string>
 
 </resources>

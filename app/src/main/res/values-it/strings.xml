@@ -156,5 +156,9 @@
 	<string name="text_remove_ads_desc">Il tachimetro GPS è supportato dagli annunci ma ora puoi rimuoverlo!</string>
 	<string name="text_btn_remove_now">Rimuovi adesso</string>
 	<string name="text_loading_ad_please_wait">Caricamento dell\'annuncio, attendere prego</string>
+    <string name="dialog_title_overlay">Richiesta di autorizzazione overlay</string>
+    <string name="dialog_desc_overlay">Fornisci questa autorizzazione per usufruire ulteriormente delle funzionalità più recenti.</string>
+    <string name="text_widget">Aggiungi widget tachimetro / contapassi</string>
+    <string name="text_widget_desc">Consenti la visualizzazione del widget in background</string>
 
 </resources>

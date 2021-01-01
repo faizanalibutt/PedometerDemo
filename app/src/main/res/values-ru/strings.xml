@@ -161,5 +161,9 @@
 	<string name="text_remove_ads_desc">GPS-спидометр поддерживается рекламой, но теперь вы можете удалить это!</string>
 	<string name="text_btn_remove_now">Удалить сейчас</string>
 	<string name="text_loading_ad_please_wait">Загрузка объявления, подождите</string>
+    <string name="dialog_title_overlay">Запрос разрешения наложения</string>
+    <string name="dialog_desc_overlay">Пожалуйста, предоставьте это разрешение, чтобы и дальше пользоваться последними функциями.</string>
+    <string name="text_widget">Добавить виджет спидометра / шагомера</string>
+    <string name="text_widget_desc">Разрешить отображение виджета в фоновом режиме</string>
 
 </resources>

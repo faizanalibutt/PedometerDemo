@@ -161,5 +161,9 @@
 	<string name="text_remove_ads_desc">GPS Speedometer didukung oleh Iklan tetapi sekarang Anda dapat menghapus ini!</string>
 	<string name="text_btn_remove_now">Hapus Sekarang</string>
 	<string name="text_loading_ad_please_wait">Memuat Iklan, harap tunggu</string>
+    <string name="dialog_title_overlay">Permintaan Izin Overlay</string>
+    <string name="dialog_desc_overlay">Berikan izin ini untuk lebih menikmati fitur terbaru.</string>
+    <string name="text_widget">Tambahkan widget Speedometer / Alat pengukur langkah</string>
+    <string name="text_widget_desc">Izinkan widget untuk ditampilkan di latar belakang</string>
 
 </resources>

@@ -156,5 +156,9 @@
 	<string name="text_remove_ads_desc">GPS Hız Göstergesi Reklamlar tarafından desteklenmektedir, ancak şimdi bunu kaldırabilirsiniz!</string>
 	<string name="text_btn_remove_now">Şimdi Kaldır</string>
 	<string name="text_loading_ad_please_wait">Reklam yükleniyor, lütfen bekleyin</string>
+    <string name="dialog_title_overlay">Yer Paylaşımlı İzin İsteği</string>
+    <string name="dialog_desc_overlay">En son özelliklerden daha fazla yararlanmak için lütfen bu izni verin.</string>
+    <string name="text_widget">Hız Ölçer / Adımsayar widget\'ı ekle</string>
+    <string name="text_widget_desc">Widget\'ın arka planda gösterilmesine izin ver</string>
 
 </resources>

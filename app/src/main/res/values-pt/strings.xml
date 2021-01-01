@@ -161,5 +161,9 @@
 	<string name="text_remove_ads_desc">O velocímetro GPS é compatível com anúncios, mas agora você pode removê-lo!</string>
 	<string name="text_btn_remove_now">Remova agora</string>
 	<string name="text_loading_ad_please_wait">Carregando anúncio, por favor aguarde</string>
+    <string name="dialog_title_overlay">Pedido de permissão de sobreposição</string>
+    <string name="dialog_desc_overlay">Forneça essa permissão para aproveitar ainda mais os recursos mais recentes.</string>
+    <string name="text_widget">Adicionar widget de velocímetro / pedômetro</string>
+    <string name="text_widget_desc">Permitir que o widget seja mostrado em segundo plano</string>
 
 </resources>

@@ -161,5 +161,9 @@
 	<string name="text_remove_ads_desc">يتم دعم GPS نظام تحديد المواقععداد السرعة بواسطة الإعلانات ولكن الآن يمكنك إزالة هذا!</string>
 	<string name="text_btn_remove_now">إزالة الآن</string>
 	<string name="text_loading_ad_please_wait">تحميل الإعلان ، يرجى الانتظار</string>
+    <string name="dialog_title_overlay">طلب إذن التراكب</string>
+    <string name="dialog_desc_overlay">يرجى تقديم هذا الإذن لمزيد من الاستمتاع بأحدث الميزات.</string>
+    <string name="text_widget">إضافة عداد السرعة / القطعة عداد الخطى</string>
+    <string name="text_widget_desc">السماح للأداة بالظهور في الخلفية</string>
 
 </resources>

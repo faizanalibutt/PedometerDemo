@@ -23,10 +23,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.dev.bytes.adsmanager.*
-import com.github.anastr.speedviewlib.SpeedView
 import com.google.android.material.tabs.TabLayout
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.Database
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.R
@@ -41,6 +39,7 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragme
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.MapFragment
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.vm.SpeedViewModel
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils.getDefaultPreferences
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.BackgroundPlayService
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.CurrentLocation
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.TimeUtils
@@ -88,7 +87,8 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_speedometer)
 
-        stopService(Intent(this, BackgroundPlayService::class.java))
+        if (!AppUtils.getBuildVersion())
+            stopService(Intent(this, BackgroundPlayService::class.java))
 
         mViewModel = ViewModelProviders.of(this)
             .get(SpeedViewModel::class.java)//ViewModelProvider(this).get(SpeedViewModel::class.java)
@@ -176,11 +176,12 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
         })
         actionBarText.text = getString(R.string.analog_meter)
 
-        Callback.getMeterValue1().observe(this, androidx.lifecycle.Observer {
-            unitType = it.unit
-            speedObj = it
+        Callback.getMeterValue1().observe(this, {
+            it.apply {
+                unitType = it.unit
+                speedObj = it
+            }
         })
-
     }
 
     fun startStopBtn(v: View) {
@@ -194,7 +195,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             speedObj?.let {
                 Callback.setMeterValue1(it)
             }
-            AppUtils.getDefaultPreferences(this).edit().putBoolean("speedo_overlay", true).apply()
+            getDefaultPreferences(this).edit().putBoolean("speedo_overlay", true).apply()
 
             val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
             val rationale = getString(R.string.text_location_permission)
@@ -235,7 +236,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             speed_value.text = "0"
             distance_value.text = "0"
             time_values.text = "00:00"
-            AppUtils.getDefaultPreferences(this).edit().putBoolean("speedo_overlay", false).apply()
+            getDefaultPreferences(this).edit().putBoolean("speedo_overlay", false).apply()
 
             start_btn.background = ContextCompat.getDrawable(
                 this,
@@ -408,8 +409,9 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
-        if (AppUtils.getDefaultPreferences(this)
-                .getBoolean("app_widget", true)
+        if (getDefaultPreferences(this)
+                .getBoolean("app_widget", true) && getDefaultPreferences(this)
+                .getBoolean("speedo_overlay", false)
         )
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
                 if (!isInPictureInPictureMode
@@ -426,9 +428,11 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
                     pip_Builder.setAspectRatio(ratio).build()
                     enterPictureInPictureMode(pip_Builder.build())
                 } else
-                    Toast.makeText(this,
+                    Toast.makeText(
+                        this,
                         "Please enable picture in picture mode from settings",
-                        Toast.LENGTH_SHORT).show()
+                        Toast.LENGTH_SHORT
+                    ).show()
             } else {
                 if (!checkServiceRunning(BackgroundPlayService::class.java)) {
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1
@@ -460,6 +464,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
     }
 
     var mOpenPermDialog: AlertDialog? = null
+    var mProcessDialog: AlertDialog? = null
     private var isOverlay = false
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -484,7 +489,7 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
             mOpenPermDialog?.show()
     }
 
-    fun checkServiceRunning(serviceClass: Class<*>): Boolean {
+    fun checkServiceRunning(serviceClass: Class<*> = BackgroundPlayService::class.java): Boolean {
         val manager: ActivityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
         for (service in manager.getRunningServices(Int.MAX_VALUE)) {
             if (serviceClass.name == service.service.className) {
@@ -500,14 +505,38 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
         handler?.removeCallbacks(updateTimerThread!!)
         AppUtils.unit = "km"
         AppUtils.type = "cycle"
+        mProcessDialog = null
+        mOpenPermDialog = null
+        if (checkServiceRunning())
+            stopService(Intent(this, BackgroundPlayService::class.java))
+        getDefaultPreferences(this).edit().putBoolean("speedo_overlay", false).apply()
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        backInterstitialAd?.apply {
-            if (this.isLoaded() && !isStartStopShown)
-                this.showAd(this@SpeedometerActivity)
-        }
+        //super.onBackPressed()
+        showProcessDialog()
+    }
+
+    private fun showProcessDialog() {
+        val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Dialog))
+        builder.setTitle(R.string.dialog_title_exit)
+        builder.setMessage(R.string.dialog_desc_exit)
+        builder.setPositiveButton(R.string.close,
+            DialogInterface.OnClickListener { dialogInterface, i ->
+                mProcessDialog?.dismiss()
+                finish()
+                backInterstitialAd?.apply {
+                    if (this.isLoaded() && !isStartStopShown)
+                        this.showAd(this@SpeedometerActivity)
+                }
+                if (!AppUtils.getBuildVersion())
+                    stopService(Intent(this, BackgroundPlayService::class.java))
+            })
+        builder.setNegativeButton(R.string.butn_cancel, null)
+        if (mProcessDialog == null)
+            mProcessDialog = builder.create()
+        if (mProcessDialog != null && mProcessDialog?.isShowing == false)
+            mProcessDialog?.show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -550,14 +579,18 @@ class SpeedometerActivity : Activity(), CurrentLocation.LocationResultListener {
                 avgSpeed = 0.0
             }
         } else if (requestCode == ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                && !Settings.canDrawOverlays(this)
-            ) {
-                Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show()
-                isOverlay = false
-            } else {
-                startService(Intent(this, BackgroundPlayService::class.java).setAction("pedo"))
-                isOverlay = true
+            if (resultCode == android.app.Activity.RESULT_OK) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    && !Settings.canDrawOverlays(this)
+                ) {
+                    Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show()
+                    isOverlay = false
+                } else {
+                    startService(Intent(this, BackgroundPlayService::class.java).setAction("pedo"))
+                    isOverlay = true
+                    mOpenPermDialog?.dismiss()
+                }
+            } else if (resultCode == android.app.Activity.RESULT_CANCELED) {
                 mOpenPermDialog?.dismiss()
             }
         }

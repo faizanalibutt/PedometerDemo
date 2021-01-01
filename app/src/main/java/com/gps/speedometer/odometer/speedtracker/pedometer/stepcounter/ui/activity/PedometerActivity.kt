@@ -20,7 +20,7 @@ import android.view.Display
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AppCompatActivity
 import com.dev.bytes.adsmanager.ADUnitPlacements
 import com.dev.bytes.adsmanager.InterAdPair
 import com.dev.bytes.adsmanager.TinyDB
@@ -32,10 +32,12 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.ViewPa
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.PedoMeterFragmentNew
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.ui.fragment.ReportFragment
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils
+import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.AppUtils.getDefaultPreferences
 import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.util.BackgroundPlayService
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
 import kotlinx.android.synthetic.main.activity_pedometer.*
+import timber.log.Timber
 import java.util.*
 
 class PedometerActivity : Activity() {
@@ -77,9 +79,12 @@ class PedometerActivity : Activity() {
             onLoaded = { startStopInterstitialAd = it },
             reloadOnClosed = true
         )
+
         loadInterstitialAd(
             ADUnitPlacements.PEDO_BACK_INTERSTITIAL,
-            onLoaded = { backInterstitialAd = it })
+            onLoaded = { backInterstitialAd = it },
+            onClosed = { finish() }
+        )
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val permissions = arrayOf(Manifest.permission.ACTIVITY_RECOGNITION)
@@ -118,11 +123,8 @@ class PedometerActivity : Activity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        backInterstitialAd?.apply {
-            if (this.isLoaded() && !isStartStopShown)
-                this.showAd(this@PedometerActivity)
-        }
+        //super.onBackPressed()
+        showProcessDialog()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -146,12 +148,18 @@ class PedometerActivity : Activity() {
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
-        if (AppUtils.getDefaultPreferences(this)
-                .getBoolean("app_widget", true)
+        openPictureDialog()
+    }
+
+    private fun openPictureDialog() {
+        if (getDefaultPreferences(this)
+                .getBoolean("app_widget", true) && getDefaultPreferences(this)
+                .getString("pedo_state", null) == "stop"
         )
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
                 if (!isInPictureInPictureMode
-                    && packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)) {
+                    && packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
+                ) {
                     val d: Display = windowManager.defaultDisplay
                     val p = Point()
                     d.getSize(p)
@@ -164,9 +172,11 @@ class PedometerActivity : Activity() {
                     pip_Builder.setAspectRatio(ratio).build()
                     enterPictureInPictureMode(pip_Builder.build())
                 } else
-                    Toast.makeText(this,
-                        "Please enable picture in picture mode from settings",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Your device does not support picture-in-picture mode.",
+                        Toast.LENGTH_SHORT
+                    ).show()
             } else {
                 if (!checkServiceRunning(BackgroundPlayService::class.java)) {
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1
@@ -221,6 +231,30 @@ class PedometerActivity : Activity() {
             mOpenPermDialog?.show()
     }
 
+    var mProcessDialog: AlertDialog? = null
+
+    private fun showProcessDialog() {
+        val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_DayNight_Dialog_Alert))
+        builder.setTitle(R.string.dialog_title_exit)
+        builder.setMessage(R.string.dialog_desc_exit)
+        builder.setPositiveButton(R.string.close,
+            DialogInterface.OnClickListener { dialogInterface, i ->
+                mProcessDialog?.dismiss()
+                finish()
+                backInterstitialAd?.apply {
+                    if (this.isLoaded() && !isStartStopShown)
+                        this.showAd(this@PedometerActivity)
+                }
+                if (!AppUtils.getBuildVersion())
+                    stopService(Intent(this, BackgroundPlayService::class.java))
+            })
+        builder.setNegativeButton(R.string.butn_cancel, null)
+        if (mProcessDialog == null)
+            mProcessDialog = builder.create()
+        if (mProcessDialog != null && mProcessDialog?.isShowing == false)
+            mProcessDialog?.show()
+    }
+
     override fun onPictureInPictureModeChanged(
         isInPictureInPictureMode: Boolean,
         newConfig: Configuration?
@@ -239,9 +273,22 @@ class PedometerActivity : Activity() {
         super.onDestroy()
         isOverlay = false
         mOpenPermDialog = null
+        mProcessDialog = null
+        if (checkServiceRunning())
+            stopService(Intent(this, BackgroundPlayService::class.java))
     }
 
-    fun checkServiceRunning(serviceClass: Class<*>): Boolean {
+    override fun onPause() {
+        super.onPause()
+        Timber.e("onPause Called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.e("onStop Called")
+    }
+
+    fun checkServiceRunning(serviceClass: Class<*> = BackgroundPlayService::class.java): Boolean {
         val manager: ActivityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
         for (service in manager.getRunningServices(Int.MAX_VALUE)) {
             if (serviceClass.name == service.service.className) {

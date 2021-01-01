@@ -161,5 +161,9 @@
 	<string name="text_remove_ads_desc">জিপিএস স্পিডোমিটার বিজ্ঞাপন দ্বারা সমর্থিত তবে এখন আপনি এটি মুছে ফেলতে পারেন!</string>
 	<string name="text_btn_remove_now">এখনই সরান</string>
 	<string name="text_loading_ad_please_wait">বিজ্ঞাপন লোড হচ্ছে, অপেক্ষা করুন</string>
+    <string name="dialog_title_overlay">ওভারলে অনুমতি অনুরোধ</string>
+    <string name="dialog_desc_overlay">দয়া করে সাম্প্রতিক বৈশিষ্ট্যগুলি উপভোগ করতে এই অনুমতিটি সরবরাহ করুন।</string>
+    <string name="text_widget">স্পিডোমিটার / পেডোমিটার উইজেট যুক্ত করুন</string>
+    <string name="text_widget_desc">উইজেটটিকে পটভূমিতে দেখানোর অনুমতি দিন</string>
 
 </resources>

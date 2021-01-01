@@ -117,7 +117,7 @@ class SettingsActivity : Activity(), View.OnClickListener {
 
         app_widget_switch.isChecked =
             AppUtils.getDefaultPreferences(this@SettingsActivity)
-                .getBoolean("app_widget", false)
+                .getBoolean("app_widget", true)
 
         app_widget_switch.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked)

@@ -8,15 +8,13 @@ import com.gps.speedometer.odometer.speedtracker.pedometer.stepcounter.model.Spe
 object Callback {
 
     @JvmField
-    var speedData = MutableLiveData<Location>()
+    val speedData = MutableLiveData<Location>()
 
     fun setLocationValue(location: Location) {
         speedData.postValue(location)
     }
 
-    fun getLocationData(): LiveData<Location> {
-        return speedData
-    }
+    fun getLocationData(): LiveData<Location> = speedData
 
     @JvmField
     var meterValue = MutableLiveData<Pair<String, String>>()

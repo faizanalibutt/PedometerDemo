@@ -161,5 +161,9 @@
 	<string name="text_remove_ads_desc">Der GPS-Tachometer wird von Ads unterstützt, aber jetzt können Sie ihn entfernen!</string>
 	<string name="text_btn_remove_now">Jetzt entfernen</string>
 	<string name="text_loading_ad_please_wait">Laden der Anzeige, bitte warten</string>
+    <string name="dialog_title_overlay">Überlagerungsberechtigungsanforderung</string>
+    <string name="dialog_desc_overlay">Bitte geben Sie diese Erlaubnis, um die neuesten Funktionen weiter nutzen zu können.</string>
+    <string name="text_widget">Tachometer / Schrittzähler-Widget hinzufügen</string>
+    <string name="text_widget_desc">Lassen Sie das Widget im Hintergrund anzeigen</string>
 
 </resources>

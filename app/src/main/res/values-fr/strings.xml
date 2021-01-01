@@ -160,5 +160,9 @@
 	<string name="text_remove_ads_desc">Le compteur de vitesse GPS est pris en charge par les annonces, mais vous pouvez maintenant le supprimer!</string>
 	<string name="text_btn_remove_now">Supprimer maintenant</string>
 	<string name="text_loading_ad_please_wait">Chargement de l\'annonce, veuillez patienter</string>
+    <string name="dialog_title_overlay">Demande d\'autorisation de superposition</string>
+    <string name="dialog_desc_overlay">Veuillez fournir cette autorisation pour profiter davantage des dernières fonctionnalités.</string>
+    <string name="text_widget">Ajouter un widget compteur de vitesse / podomètre</string>
+    <string name="text_widget_desc">Autoriser l\'affichage du widget en arrière-plan</string>
 
 </resources>

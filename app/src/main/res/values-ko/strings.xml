@@ -161,5 +161,9 @@
 	<string name="text_remove_ads_desc">GPS 속도계는 광고에서 지원되지만 이제 제거 할 수 있습니다!</string>
 	<string name="text_btn_remove_now">지금 제거</string>
 	<string name="text_loading_ad_please_wait">광고를로드하는 중입니다. 잠시 기다려주십시오.</string>
+    <string name="dialog_title_overlay">오버레이 권한 요청</string>
+    <string name="dialog_desc_overlay">최신 기능을 더 즐기려면이 권한을 제공하십시오.</string>
+    <string name="text_widget">속도계 / 만보계 위젯 추가</string>
+    <string name="text_widget_desc">위젯이 백그라운드에 표시되도록 허용</string>
 
 </resources>

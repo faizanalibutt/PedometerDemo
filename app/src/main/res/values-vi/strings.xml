@@ -161,5 +161,9 @@
 	<string name="text_remove_ads_desc">Máy đo tốc độ GPS được hỗ trợ bởi Quảng cáo nhưng bây giờ bạn có thể loại bỏ điều này!</string>
 	<string name="text_btn_remove_now">Xóa ngay</string>
 	<string name="text_loading_ad_please_wait">Đang tải quảng cáo, vui lòng đợi</string>
+    <string name="dialog_title_overlay">Yêu cầu quyền lớp phủ</string>
+    <string name="dialog_desc_overlay">Vui lòng cung cấp quyền này để tận hưởng thêm các tính năng mới nhất.</string>
+	<string name="text_widget">Thêm tiện ích Công tơ mét / Công tơ mét</string>
+	<string name="text_widget_desc">Cho phép tiện ích con hiển thị trong nền</string>
 
 </resources>

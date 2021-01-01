@@ -55,7 +55,7 @@ public class Utility {
     };
 
     static String[] language = {"English", "العربية", "বাংলা", "汉语", "Français", "Deutsch", "हिंदी", "Indonesia",
-            "Italiano", "Melayu", "Nederlands", "русский", "한국어", "Español", "Türkçe", "Українська",
+            "Italiano", "Malay", "Nederlands", "русский", "한국어", "Español", "Türkçe", "Українська",
             "Portuguese", "ไทย", "日本語", "Vietnam"
     };
 
@@ -93,7 +93,7 @@ public class Utility {
                 selectedLan = "Italiano >";
                 break;
             case "ms":
-                selectedLan = "Melayu >";
+                selectedLan = "Malay >";
                 break;
             case "nl":
                 selectedLan = "Nederlands >";
@@ -174,7 +174,7 @@ public class Utility {
                 TinyDB.getInstance(activity).putInt("dl_language", which);
             } */ else if ("Italiano".equals(checkedItem1)) {
                 changeLanguage(which, "it", activity);
-            } else if ("Melayu".equals(checkedItem1)) {
+            } else if ("Malay".equals(checkedItem1)) {
                 changeLanguage(which, "ms", activity);
             } else if ("Nederlands".equals(checkedItem1)) {
                 changeLanguage(which, "nl", activity);

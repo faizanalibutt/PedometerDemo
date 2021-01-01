@@ -161,5 +161,9 @@
 	<string name="text_remove_ads_desc">GPS-snelheidsmeter wordt ondersteund door advertenties, maar u kunt dit nu verwijderen!</string>
 	<string name="text_btn_remove_now">Nu verwijderen</string>
 	<string name="text_loading_ad_please_wait">Advertentie laden, even geduld</string>
+    <string name="dialog_title_overlay">Overlay-machtigingsverzoek</string>
+    <string name="dialog_desc_overlay">Geef deze toestemming om nog meer van de nieuwste functies te kunnen genieten.</string>
+    <string name="text_widget">Voeg snelheidsmeter / stappenteller-widget toe</string>
+    <string name="text_widget_desc">Toestaan ​​dat widget op de achtergrond wordt weergegeven</string>
 
 </resources>

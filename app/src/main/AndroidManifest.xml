@@ -56,22 +56,28 @@
 
         <activity
             android:name=".ui.activity.SpeedometerActivity"
-            android:launchMode="singleTask"
+            android:taskAffinity=".ui.activity.SpeedometerActivity"
             android:supportsPictureInPicture="true"
+            android:parentActivityName=".ui.activity.MainActivity"
+            android:launchMode="singleTask"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:resizeableActivity="true"
             android:autoRemoveFromRecents="true"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
+            android:excludeFromRecents="false"
+            android:allowTaskReparenting="false"
             android:theme="@style/AppTheme.NoActionBar.Status" />
 
         <activity
             android:name=".ui.activity.PedometerActivity"
-            android:launchMode="singleTask"
+            android:taskAffinity=".ui.activity.PedometerActivity"
             android:supportsPictureInPicture="true"
+            android:parentActivityName=".ui.activity.MainActivity"
+            android:launchMode="singleTask"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:resizeableActivity="true"
             android:autoRemoveFromRecents="true"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
+            android:excludeFromRecents="false"
+            android:allowTaskReparenting="false"
             android:theme="@style/AppTheme.NoActionBar.Status" />
 
         <activity
